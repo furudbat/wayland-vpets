@@ -9,14 +9,16 @@ wpets-all [OPTIONS]
 Options:
   -h, --help                  Show this help message
   -v, --version               Show version information
-  -c, --config                Specify config file (default: ~/.config/bongocat.conf)
+  -c, --config                Specify config file, "-" reads from stdin
+                              (default: $XDG_CONFIG_HOME/bongocat/bongocat.conf,
+                               ~/.config/bongocat/bongocat.conf, ./bongocat.conf)
   -w, --watch-config          Watch config file for changes and reload automatically
   -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)
-  -o, --output-name NAME      Specify output name (overwrite output_name from config)
+  -o, --output-name NAME      Specify output name (overwrite monitor from config)
   -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)
-      --random                Enable random animation_index, at start (overwrite random_index from config)
+      --random                Enable random animation_index, at start (overwrite random from config)
       --strict                Enable strict mode, only start up with a valid config and valid parameter
-      --nr NR                 Specify Nr. for PID file to avoid conflicting with ruinning instances
+      --nr NR                 Specify Nr. for PID file to avoid conflicting with running instances
       --ignore-running        Ignore current running instance
       --debug                 Override enable_debug setting
       --check-config          Strictly validate the configuration
@@ -32,9 +34,12 @@ Options:
 With `--watch-config`, saving the file reloads it, including atomic
 replacements and symlink changes; Uses the old config if the new config is invalid (in `--strict` mode).
 
-Reload on demand with signal: `USR2`
+* Reload on demand with signal `USR2`
+* Toggle the bar visibility with `USR1`
+
 ```bash
-kill -USR2 <bongocat_pid>
+kill -USR2 <bongocat_pid>   # reload config
+kill -USR1 <bongocat_pid>   # show/hide bar
 ```
 
 
@@ -100,14 +105,14 @@ enable_antialiasing=0
 animation_name=Agumon
 ```
 
-**Black Digimon sprite in dark-mode:**
+**Black Digimon sprite for 'dark-mode':**
 ```ini
 enable_antialiasing=0
 animation_name=dm20:Agumon
 invert_color=1
 ```
 
-**Random pet every session (great for variety):**
+**Get random pet every session/restart (great for variety):**
 ```ini
 random=1
 random_on_reload=1

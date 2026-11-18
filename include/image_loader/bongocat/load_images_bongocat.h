@@ -3,8 +3,13 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "core/bongocat.h"
 #include "graphics/sprite_sheet.h"
+#include "image_loader/load_base.h"
+#ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 #include "image_loader/load_images.h"
+#endif
+#ifdef FEATURE_USE_SVG_IMAGE_LOADER
 #include "image_loader/load_svgs.h"
+#endif
 
 namespace bongocat::animation {
 struct animation_thread_context_t;

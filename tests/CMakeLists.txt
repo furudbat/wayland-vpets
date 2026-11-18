@@ -1,3 +1,5 @@
+include(${CMAKE_SOURCE_DIR}/cmake/EmbeddedAssets.cmake)
+
 enable_testing()
 
 add_library(test_bongocat_all_loaders INTERFACE)
@@ -95,20 +97,36 @@ set(
   ${CMAKE_SOURCE_DIR}/src/graphics/bar.cpp
   ${CMAKE_SOURCE_DIR}/src/graphics/drawing_images.cpp
   ${CMAKE_SOURCE_DIR}/src/graphics/drawing_scale.cpp
-  ${CMAKE_SOURCE_DIR}/src/platform/input.cpp
-  ${CMAKE_SOURCE_DIR}/src/platform/update.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_callbacks.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_hyprland.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_setups.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_sway.cpp
 )
+set(INPUT_SOURCES ${CMAKE_SOURCE_DIR}/src/platform/input/input.cpp ${CMAKE_SOURCE_DIR}/src/platform/input/input_devices.cpp)
+set(UPDATE_SOURCES ${CMAKE_SOURCE_DIR}/src/platform/update/update.cpp)
+set(AUDIO_SOURCES ${CMAKE_SOURCE_DIR}/src/platform/audio/audio.cpp)
+
 add_library(test_bongocat_base INTERFACE)
 target_sources(test_bongocat_base INTERFACE ${BASE_TEST_SOURCES})
 target_include_directories(test_bongocat_base INTERFACE ${INCLUDE_DIR})
 target_link_libraries(test_bongocat_base INTERFACE bongocat_options bongocat_libs)
 target_compile_options(test_bongocat_base INTERFACE -ffunction-sections -fdata-sections)
 target_compile_definitions(test_bongocat_base INTERFACE TEST_BUILD)
+target_sources(test_bongocat_base INTERFACE ${INPUT_SOURCES})
+target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_INPUT_MODULE)
+target_sources(test_bongocat_base INTERFACE ${UPDATE_SOURCES})
+target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_UPDATE_MODULE)
+# @NOTE(module): enable more module here
+if(ENABLE_AUDIO_MODULE)
+  target_sources(test_bongocat_base INTERFACE ${AUDIO_SOURCES})
+  target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_AUDIO_MODULE)
+
+  # PipeWire (sink-monitor capture)
+  target_include_directories(test_bongocat_base SYSTEM INTERFACE ${PIPEWIRE_INCLUDE_DIRS})
+  target_compile_options(test_bongocat_base INTERFACE ${PIPEWIRE_CFLAGS_OTHER})
+  target_link_libraries(test_bongocat_base INTERFACE cavacore ${PIPEWIRE_LIBRARIES})
+endif()
 
 add_executable(
   bongocat_tests
@@ -120,8 +138,11 @@ add_executable(
   test_config_3.cpp
   test_fullscreen_state.cpp
   test_scale.cpp
+  test_audio_beat_detector.cpp
+  test_audio_peak_detector.cpp
 )
-target_include_directories(bongocat_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests ${CMAKE_SOURCE_DIR}/lib)
+target_include_directories(bongocat_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests)
+target_link_libraries(bongocat_tests PRIVATE doctest)
 target_link_libraries(
   bongocat_tests
   PRIVATE

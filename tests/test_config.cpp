@@ -1,10 +1,10 @@
 #include "config/config.h"
 #include "core/bongocat.h"
-#include "platform/input_context.h"
+#include "platform/input/input_context.h"
 #include "utils/error.h"
 #include "utils/system_error.h"
 
-#include <doctest/doctest.h>
+#include <doctest.h>
 #include <string>
 
 namespace bongocat {
@@ -75,7 +75,7 @@ TEST_CASE("comment stripping") {
 TEST_CASE("null filename") {
   using namespace bongocat;
   platform::input::input_context_t input;
-  auto res = config::load(BONGOCAT_NULLPTR, input, {});
+  auto res = config::load(BONGOCAT_NULLPTR, &input, {});
   CHECK(!bongocat::config::is_valid_config_result(res));
   CHECK(has_flag(res.result.fatal, config::config_parsing_fatal_t::ConfigFilenameEmpty));
 }
@@ -83,14 +83,14 @@ TEST_CASE("null filename") {
 TEST_CASE("config not found - strict") {
   using namespace bongocat;
   platform::input::input_context_t input;
-  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", input, {.strict = 1});
+  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", &input, {.strict = 1});
   CHECK(!bongocat::config::is_valid_config_result(res));
 }
 
 TEST_CASE("config not found - default fallback") {
   using namespace bongocat;
   platform::input::input_context_t input;
-  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", input, {});
+  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", &input, {});
   CHECK(bongocat::config::is_valid_config_result(res));
 
   CHECK(res.config.fps == 60);
@@ -512,7 +512,7 @@ TEST_CASE("strict mode") {
     load_config_overwrite_parameters_t params;
     params.strict = 1;
     platform::input::input_context_t input;
-    auto res = bongocat::config::load("/tmp/bongocat_no_such_file_xyzzy.conf", input, params);
+    auto res = bongocat::config::load("/tmp/bongocat_no_such_file_xyzzy.conf", &input, params);
     CHECK(!is_valid_config_result(res));
     CHECK(has_flag(res.result.fatal, config_parsing_fatal_t::ConfigNotFound));
   }
@@ -604,3 +604,46 @@ sleep_end=08:00
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidSleepTime));
   }
 }
+
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+TEST_CASE("audio config") {
+  using namespace bongocat;
+
+  SUBCASE("defaults") {
+    const auto cfg = config_load_ok("");
+    CHECK(cfg.enable_audio == false);
+    CHECK(!cfg.audio_sink);
+    CHECK(cfg.audio_happy_peak == doctest::Approx(0.6));
+  }
+  SUBCASE("enable audio and set values") {
+    const auto cfg = config_load_ok(R"(audio=1
+audio_sink=alsa_output.pci-0000_00_1f.3.analog-stereo
+audio_happy_peak=0.7
+)");
+    CHECK(cfg.enable_audio == true);
+    CHECK(cfg.audio_sink);
+    CHECK(strcmp(cfg.audio_sink.c_str(), "alsa_output.pci-0000_00_1f.3.analog-stereo") == 0);
+    CHECK(cfg.audio_happy_peak == doctest::Approx(0.7));
+  }
+  SUBCASE("audio_happy_peak=0 disables happy") {
+    const auto cfg = config_load_ok("audio_happy_peak=0\n");
+    CHECK(cfg.audio_happy_peak == doctest::Approx(0.0));
+  }
+  SUBCASE("audio_happy_peak clamped to 0..1") {
+    const auto high = config_load_ok("audio_happy_peak=2.5\n");
+    CHECK(high.audio_happy_peak == doctest::Approx(1.0));
+    const auto low = config_load_ok("audio_happy_peak=-1\n");
+    CHECK(low.audio_happy_peak == doctest::Approx(0.0));
+  }
+  SUBCASE("empty audio_sink uses default sink") {
+    const auto cfg = config_load_ok("audio_sink=\n");
+    CHECK(!cfg.audio_sink);
+  }
+  SUBCASE("audio_sink with whitespace rejected") {
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("audio_sink=foo bar\n", input);
+    CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidAudioSink));
+    CHECK(!res.config.audio_sink);
+  }
+}
+#endif

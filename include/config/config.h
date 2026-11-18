@@ -202,6 +202,7 @@ struct config_t {
   int32_t update_rate_ms{0};
   double cpu_threshold{0};
   double cpu_running_factor{0};
+  // int32_t update_fps{0};
 
   int32_t movement_radius{0};
   bool enable_movement_debug{0};
@@ -222,6 +223,11 @@ struct config_t {
 
   evolution_time_mode_t evolution{evolution_time_mode_t::NONE};
   double evolution_speed_factor{1.0};
+
+  bool enable_audio{false};
+  AllocatedString audio_sink{BONGOCAT_NULLPTR};  // PipeWire sink name (target.object)
+  double audio_happy_peak{0.0};                  // normalized 0..1; 0 = disabled
+  int32_t audio_fps{0};
 
   // Device matching by name (for hotplug/auto-detection)
   AllocatedString _keyboard_names[input::MAX_INPUT_DEVICES];
@@ -259,6 +265,8 @@ struct config_t {
 inline void cleanup(config_t& config) {
   release_allocated_string(config.output_name);
   config.output_name = BONGOCAT_NULLPTR;
+  release_allocated_string(config.audio_sink);
+  config.audio_sink = BONGOCAT_NULLPTR;
   config_free_keyboard_devices(config);
   config_free_keyboard_names(config);
   release_allocated_string(config.custom_sprite_sheet_filename);
@@ -360,6 +368,9 @@ enum class config_parsing_error_t : uint64_t {
   CustomSpriteSheetFilenameEmpty = (1uz << 35),
   FilenameRequiredForCustomSpriteSheet = (1uz << 36),
   CustomSpriteSheetRequiredIdleAnimation = (1uz << 37),  // sheet is useless without idle
+
+  // Audio
+  InvalidAudioSink = (1uz << 38),
 };
 
 // Strict mode WILL abort on these (not ignorable)
@@ -443,7 +454,7 @@ struct load_config_overwrite_parameters_t {
   bool check_config{false};
   bool default_devices{false};
 };
-BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t& input,
+BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t *input,
                                                const load_config_overwrite_parameters_t& overwrite_parameters);
 void reset(config_t& config);
 

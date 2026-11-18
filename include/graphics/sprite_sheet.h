@@ -216,6 +216,7 @@ struct custom_sprite_sheet_t {
   bool feature_evolving{false};
   bool feature_writing_toggle_frames{false};
   bool feature_writing_toggle_frames_random{false};
+  bool feature_dancing{false};
 };
 
 struct generic_sprite_sheet_t {

@@ -2,6 +2,7 @@
 Custom colored Digital Monster sprites
 Made by Fans <3
 
+- Aegiomon
 - Aegisdramon
 - Aero V-dramon
 - Agumon (2006)
@@ -11,6 +12,8 @@ Made by Fans <3
 - Agumon X
 - Agumon - Yuki no Kizuna
 - Airdramon
+- Ajatarmon
+- Akatorimon
 - Algomon (Adult)
 - Algomon (Baby II)
 - Algomon (Baby I)
@@ -21,41 +24,55 @@ Made by Fans <3
 - Alphamon
 - Alraumon
 - Ancient Beatmon
+- Ancient Garurumon
 - Ancient Megatheriumon
 - Ancient Mermaimon
 - Ancient Sphinxmon
-- Andiramon (Data)
-- Andiramon (Virus)
+- Andiramon (Deva)
+- Andiramon
 - Andromon
 - Angemon
 - Angewomon
 - Angewomon X
+- Ankylomon
 - Anomalocarimon
 - Anomalocarimon X
 - Apocalymon
 - Apollomon
+- Apollomon Whispered
+- Aquilamon
 - Archnemon
-- Arkadimon (Baby)
-- Arkadimon (Child)
+- Arkadimon Adult
+- Arkadimon Baby
+- Arkadimon Child
+- Arkadimon Perfect
+- Arkadimon Super Ultimate
+- Arkadimon Ultimate
 - Armadimon
 - Armagemon
+- Arma Lizamon
+- Arresterdramon
 - Astamon
 - Asuramon
+- Atamadekachimon
 - Atlur Kabuterimon (Blue)
 - Atlur Kabuterimon (Red)
-- AxeKnightmon
+- Avenge Kidmon
 - Baalmon
 - Baboongamon
 - Babydmon
+- Bacchusmon
 - Bagramon
 - Bakemon
 - Bakumon
 - Bancho Leomon
 - Bancho Lilimon
 - Bancho Mamemon
+- Bancho Stingmon
 - Barbamon
 - Barbamon X
 - Bearmon
+- Beel Starmon
 - Beel Starmon X
 - Beelzebumon Blast Mode
 - Beelzebumon
@@ -64,6 +81,8 @@ Made by Fans <3
 - Belphemon Rage Mode
 - Belphemon X
 - Beowolfmon
+- Betamon
+- Betamon X
 - Bibimon
 - Big Mamemon
 - Birdramon
@@ -81,6 +100,7 @@ Made by Fans <3
 - Black Tailmon
 - Black War Greymon
 - Black War Greymon X
+- Blade Kuwagamon
 - Blitz Greymon
 - Bloom Lordmon
 - Blossomon
@@ -94,21 +114,29 @@ Made by Fans <3
 - Bryweludramon
 - Bubbmon
 - Budmon
+- Bulkmon
 - Burgermon (Mama)
 - Burgermon (Papa)
+- Burpmon
 - Candmon
 - Cannonbeemon
+- Cannondramon
 - Caprimon
 - Catch Mamemon
 - Caturamon
 - Centalmon
 - Cerberumon X
+- Ceresmon Medium
+- Ceresmon
+- Cernumon
 - Chamblemon
 - Chaosdramon
 - Chaosdramon X
 - Chaos Dukemon Core
 - Chaos Dukemon
 - Chaosmon
+- Chaos Seadramon
+- Chaperomon
 - Cherubimon (Vice)
 - Cherubimon (Vice) X
 - Cherubimon (Virtue)
@@ -119,10 +147,13 @@ Made by Fans <3
 - Chicomon
 - Chimairamon
 - Chocomon
-- Cho Hakkaimon
+- Cho-Hakkaimon
 - Choromon
+- Chrysalimon
 - Clear Agumon
+- Climbmon
 - Clockmon
+- Cockatrimon
 - Cocomon
 - Coelamon
 - Commandramon
@@ -136,6 +167,7 @@ Made by Fans <3
 - Cthyllamon
 - Cupimon
 - Curimon
+- Cyberdramon (2010)
 - Cyberdramon
 - Cyberdramon X
 - Cyclomon
@@ -145,29 +177,37 @@ Made by Fans <3
 - Dark Knightmon
 - Darkness Bagramon
 - Dark Superstarmon
+- Dark Tyranomon
 - Dark Tyranomon X
 - Death Meramon
 - Deathmon (Black)
 - Deathmon
 - Death-X-DORUgamon
+- Deltamon
 - Delumon
 - Demon
+- Demon Super Ultimate
 - Demon X
+- Devidramon
 - Devimon
 - Diablomon
 - Diablomon X
 - Dianamon
+- Diatrymon
 - Diginorimon
 - Digitamamon
+- Dimetromon
 - Dinohumon
 - Dinorexmon
 - Dinotigermon
+- Divemon
 - Dobermon
 - Dodomon
 - Dogmon
 - Dokimon
 - Dokugumon
 - Dokunemon
+- Dorbickmon
 - Dorimon
 - DORUgamon
 - DORUgoramon
@@ -185,20 +225,35 @@ Made by Fans <3
 - Dynasmon X
 - Ebemon
 - Ebemon X
+- Ebi Burgamon
 - Ebidramon
 - Ekakimon
 - Elecmon
 - Elecmon (Violet)
+- Elizamon
 - Entmon
+- Eosmon (Adult)
+- Erlangmon
 - Etemon
 - Examon X
+- Exermon
+- Ex-Tyranomon
+- Falcomon
+- Fantomon
 - Filmon
 - Firamon
 - Flaremon
+- Fla Wizarmon
 - Floramon
+- Fluffymon
+- Flymon
+- Fros Velgrmon
+- Frozomon
 - Fufumon
 - Fugamon
 - Funbeemon
+- Gabumon (Black)
+- Gabumon
 - Gabumon X
 - Gaioumon
 - Galgomon
@@ -208,6 +263,7 @@ Made by Fans <3
 - Gankoomon X
 - Gaogamon
 - Gaomon
+- Gargomon
 - Garudamon
 - Garudamon X
 - Garurumon (Black)
@@ -215,34 +271,39 @@ Made by Fans <3
 - Gawappamon
 - Gazimon
 - Gazimon X
+- Gekkomon
 - Gekomon
 - Geo Greymon
 - Gerbemon
 - Geremon
 - Gesomon
+- Ghilliedhumon
 - Ghostmon
 - Gigadramon
 - Giga Seadramon
 - Gigimon
+- Ginkakumon
 - Ginryumon
 - Giromon
 - Gizamon
+- Goddramon
 - Goddramon X
 - Gogmamon
 - Gokimon
 - Gokumon
 - Gold Numemon
 - Gold V-dramon
+- Golemon
 - Gomamon
 - Gomamon X
 - Goromon
-- Gotsumon
+- Gottsumon
 - Grace Novamon
 - Grademon
 - Grand Dracumon
 - Grandis Kuwagamon
 - Grand Locomon
-- Grappleomon
+- Grappu Leomon
 - Great King Scumon
 - Greymon (2010)
 - Greymon (Blue)
@@ -257,15 +318,21 @@ Made by Fans <3
 - Guardromon
 - Guilmon
 - Guilmon X
+- Gumdramon
 - Gummymon
 - Gundramon
 - Gururumon
 - Gusokumon
+- Gyukimon
 - Hackmon
 - Hagurumon
 - Hangyomon
 - Hanumon
+- Hawkmon
+- Heavy Leomon
+- Heavy Metaldramon
 - Herakle Kabuterimon
+- Herakle Kabuterimon X
 - Herissmon
 - Hexeblaumon
 - Hi Andromon
@@ -275,28 +342,39 @@ Made by Fans <3
 - Holy Digitamamon
 - Holydramon
 - Holydramon X
+- Honeybeemon
 - Hookmon
+- Hopmon
 - Hououmon
 - Hououmon X
+- Huanglongmon
+- Huankunmon
+- Hydramon
 - Hyokomon
 - Hyougamon
 - Ice Devimon
 - Icemon
 - Igamon
 - Ikkakumon
+- Imperialdramon Dragon Mode
 - Imperialdramon Fighter Mode (Black)
 - Imperialdramon Fighter Mode
 - Imperialdramon Paladin Mode
 - Impmon
 - Impmon X
+- Infermon
 - Insekimon
 - Jazamon
 - Jazardmon
 - Jazarichmon
+- Jellymon
 - Jesmon GX
 - Jesmon
 - Jesmon X
+- Jewelbeemon
 - Junkmon
+- Junomon
+- Jupitermon
 - Justimon X
 - Jyagamon
 - Jyarimon
@@ -305,19 +383,22 @@ Made by Fans <3
 - Kaiser Greymon
 - Kaiser Leomon
 - Kakkinmon
-- Karatsuki Numemon
+- Kamemon
+- Karatuki Numemon
 - Kazuchimon
+- Keemon
 - Keramon
 - Keramon X
 - Ketomon
-- Kiimon
 - King Etemon
 - Kiwimon
 - Knightmon
+- Kodokugumon Baby
 - Koemon
 - Kokabuterimon
 - Kokuwamon
 - Kokuwamon X
+- Komondomon
 - Koromon
 - Kougamon
 - Kozenimon
@@ -326,13 +407,16 @@ Made by Fans <3
 - Kuwagamon
 - Kuwagamon X
 - Kuzuhamon
+- Kyaromon
 - Kyokyomon
 - Kyubimon
 - Kyubimon (Silver)
+- Kyukimon
 - Labramon
-- LadyDevimon
-- LadyDevimon X
+- Lady Devimon
+- Lady Devimon X
 - Lalamon
+- Lamiamon
 - Lavogaritamon
 - Lavorvomon
 - Leafmon
@@ -346,10 +430,13 @@ Made by Fans <3
 - Lilimon X
 - Lilithmon
 - Lilithmon X
+- Locomon
 - Lopmon
 - Lopmon X
-- LordKnightmon X
+- Lord Knightmon X
 - Lotusmon
+- Loudmon
+- Lovely Angemon
 - Lucemon Falldown Mode
 - Lucemon
 - Lucemon Satan Mode
@@ -358,9 +445,13 @@ Made by Fans <3
 - Lunamon
 - Lynxmon
 - Mach Gaogamon
+- Machmon
 - Mad Leomon
+- Magna Garurumon
+- Magna Kidmon
+- Magnamon
 - Magnamon X
-- Mambomon
+- Majiramon
 - Mamemon
 - Mamemon X
 - Mametyramon
@@ -369,10 +460,14 @@ Made by Fans <3
 - Mantaraymon X
 - Manticoremon
 - Marin Angemon
+- Marin Bullmon
 - Marin Chimairamon
 - Marin Devimon
+- Marsmon
 - Mastemon
+- Master Tyranomon
 - Mechanorimon
+- Medusamon
 - Megadramon
 - Megalo Growmon (Orange)
 - Megalo Growmon
@@ -391,18 +486,21 @@ Made by Fans <3
 - Meramon
 - Meramon X
 - Mermaimon
+- Mervamon
 - Metal Etemon
+- Metal Fantomon
 - Metal Garurumon (Black)
 - Metal Garurumon
 - Metal Garurumon X
+- Metal Greymon Alterous Mode
 - Metal Greymon
 - Metal Greymon (Virus)
 - Metal Greymon (Virus) X
 - Metal Greymon X
 - Metallicdramon
+- Metallife Kuwagamon
 - Metal Mamemon
 - Metal Mamemon X
-- Metal Phantomon
 - Metal Piranimon
 - Metal Seadramon
 - Metal Tyranomon
@@ -410,21 +508,31 @@ Made by Fans <3
 - Mikemon
 - Millenniumon
 - Mimicmon
+- Minervamon
 - Minervamon X
 - Minomon
+- Mirage Gaogamon
+- Mistymon
+- Mitamamon
 - Mochimon
+- Mojyamon
 - Mokumon
+- Monarch Lizamon
 - Monimon
 - Monochromon
 - Monochromon X
 - Monzaemon
 - Monzaemon X
+- Moon Millenniumon
 - Moonmon
 - Mori Shellmon
 - Morphomon
+- Mother D-Reaper
+- Mothmon
 - Muchomon
 - Mugendramon
 - Mushmon
+- Nanimon
 - Nanomon
 - Nefertimon X
 - Neo Devimon
@@ -434,28 +542,34 @@ Made by Fans <3
 - Numemon X
 - Nyaromon
 - Nyokimon
+- Oboromon
+- Octmon
 - Ofanimon Core
 - Ofanimon Falldown Mode
+- Ofanimon
+- Ofanimon X
 - Ogremon
 - Ogremon X
 - Ogudomon
 - Ogudomon X
 - Okuwamon
 - Okuwamon X
-- Omegamon Alter S
+- Oleamon
+- Omegamon Alter-S
 - Omegamon
 - Omegamon X
+- Omegamon Zwart Defeat
 - Omegamon Zwart
 - Omega Shoutmon X
 - Omekamon
-- Ophanimon
-- Ophanimon X
+- Orcamon
 - Ordinemon
 - Orochimon
 - Otamamon
 - Otamamon (Red)
 - Otamamon X
 - Ouryumon
+- Owlmon
 - Pafumon
 - Pagumon
 - Paildramon
@@ -466,13 +580,18 @@ Made by Fans <3
 - Panjyamon
 - Panjyamon X
 - Paomon
+- Parallelmon
 - Parasaurmon
+- Parrotmon
+- Patamon
+- Pegasmon
 - Pegasmon X
 - Penmon
+- Petaldramon
+- Petermon
 - Peti Meramon
 - Petit Mamon
 - Petitmon
-- Phantomon
 - Phascomon
 - Piccolomon
 - Pickmon
@@ -482,6 +601,7 @@ Made by Fans <3
 - Pinochimon
 - Pipimon
 - Piranimon
+- Pistmon
 - Pitchmon
 - Piyomon
 - Platinum Numemon
@@ -490,17 +610,24 @@ Made by Fans <3
 - Plesiomon X
 - Plotmon
 - Plotmon X
+- Plutomon
 - Pokomon
+- Pomumon
+- Ponchomon
 - Popomon
 - Porcupamon
 - Poromon
+- Poyomon
 - Prince Mamemon
 - Prince Mamemon X
 - Pteranomon X
+- Publimon
 - Pukamon
 - Pukumon
 - Pulsemon
 - Pumpmon
+- Punimon
+- Punkmon
 - Pupumon
 - Puroromon
 - Pururumon
@@ -510,19 +637,24 @@ Made by Fans <3
 - Puyomon
 - Pyocomon
 - Pyonmon
+- Pyramidimon
+- Quartzmon
 - Rafflesimon
 - Ragna Lordmon
 - Raguelmon
 - Raidenmon
 - Raihimon
 - Raiji Ludomon
-- Rapidmon (Armor)
+- Rapidmon Armor
 - Rapidmon
 - Rapidmon X
 - Raptordramon
+- Raremon
+- Rare Raremon
 - Rasenmon Fury Mode
 - Rasenmon
 - Rasielmon
+- Reaper
 - Rebellimon
 - Red V-dramon
 - Red Vegimon
@@ -539,7 +671,7 @@ Made by Fans <3
 - Rosemon
 - Rosemon X
 - Rukamon
-- Rust Tyrannomon
+- Rust Tyranomon
 - Ryudamon
 - Saberdramon
 - Saber Leomon
@@ -550,11 +682,14 @@ Made by Fans <3
 - Sand Yanmamon
 - Sangloupmon
 - Sangomon
-- SaviorHackmon
+- Santa Agumon
+- Savior Hackmon
 - Scorpiomon
 - Scumon
 - Seadramon
 - Seadramon X
+- Searchmon
+- Seiten Gokuwmon
 - Seraphimon
 - Shadramon
 - Shakomon
@@ -563,37 +698,57 @@ Made by Fans <3
 - Sheepmon
 - Shellmon
 - Shima Unimon
+- Shine Greymon Burst Mode
+- Shine Greymon
 - Shin Monzaemon
+- Shivamon
+- Shoemon
+- Shoeshoemon
 - Shootmon
+- Shoutmon X2 Plus M
+- Shoutmon X2
+- Shoutmon X3
+- Siesamon
 - Siesamon X
+- Silphymon
 - Sirenmon
+- Sistermon Blanc (Awakened)
 - Sistermon Blanc
+- Sistermon Noir
 - Skull Baluchimon
 - Skull Greymon
-- SkullKnightmon
+- Skull Knightmon
 - Skull Mammon
 - Skull Mammon X
+- Skull Seadramon
 - Sleipmon X
+- Snimon
 - Solarmon
-- Sorcerymon
+- Sorcerimon
 - Soulmon
 - Starmon
 - Stiffilmon
-- Submarinmon
+- Stingmon
+- Styracomon
 - Sunamon
 - Sunarizamon
 - Sunflowmon
 - Sunmon
 - Superstarmon
 - Susanoomon
+- Suzumon
+- Swanmon
 - Swimmon
 - Tailmon
 - Tailmon X
 - Tanemon
 - Tankmon
+- Taotiemon
+- Taowumon
 - Targetmon
 - Tekkamon
 - Tentomon
+- Terriermon Assistant
 - Terriermon
 - Terriermon X
 - Thunderballmon
@@ -605,26 +760,33 @@ Made by Fans <3
 - Tobucatmon
 - Togemon
 - Togemon X
+- Tokomon
 - Tokomon X
 - Tonosama Gekomon
 - Torikara Ballmon
 - Tortamon
-- ToyAgumon (Black)
-- ToyAgumon
+- Toy Agumon (Black)
+- Toy Agumon
 - Triceramon
 - Triceramon X
 - Troopmon
 - Tsubumon
-- Tsuchidarumon
 - Tsumemon
-- Tsunomon
+- Tuchidarumon
+- Tukaimon
+- Tunomon
 - Turuiemon
+- Tuskmon
+- Tuwarmon
 - Tylomon X
 - Tyranomon
 - Tyranomon X
+- Tyrant Kabuterimon
+- Ulforce V-dramon Future Mode
 - Ulforce V-dramon
 - Ulforce V-dramon X
 - Ultimate Brachimon
+- Unimon
 - Upamon
 - Vademon
 - Valdurmon
@@ -635,12 +797,17 @@ Made by Fans <3
 - Vegimon
 - Velgrmon
 - Venom Vamdemon
+- Venusmon
 - Vermillimon
+- Vikemon
 - V-mon
 - Volcanicdramon
-- Volto Bautamon
+- Voltobautamon
 - Vorvomon
+- Vulcanusmon
+- Vulturemon
 - Wanyamon
+- War Greymon G Erosion Mode
 - War Greymon
 - War Greymon X
 - Waru Monzaemon
@@ -648,26 +815,34 @@ Made by Fans <3
 - Waspmon
 - Were Garurumon (Black)
 - Were Garurumon
+- Were Garurumon Sagittarius Mode
 - Were Garurumon X
 - Whamon
+- Witchmon
 - Wizarmon
 - Wizarmon X
 - Woodmon
 - Wormmon
+- Xiangpengmon
 - Xiaomon
+- Xiquemon
 - XV-mon (Black)
 - XV-mon
-- Yaamon
 - Yanmamon
+- Yarmon
 - Yatagaramon (2006)
 - Yatagaramon
+- Yihumon
+- Yolkmon
 - Youkomon
 - Yuki Agumon
 - Yukidarumon
 - Yukimi Botamon
 - Yuramon
+- Zamielmon
 - Zassoumon
 - Zenimon
+- Zephagamon ACE
 - Zerimon
 - Zudomon
 - Zurumon

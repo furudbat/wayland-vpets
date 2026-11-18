@@ -6,8 +6,9 @@
 #include "config/config.h"
 #include "drawing.h"
 #include "graphics/animation_shared_memory.h"
-#include "platform/input_context.h"
-#include "platform/update_context.h"
+#include "platform/audio/audio_context.h"
+#include "platform/input/input_context.h"
+#include "platform/update/update_context.h"
 #include "utils/error.h"
 
 #include <cstdint>
@@ -24,6 +25,9 @@ enum class trigger_animation_cause_mask_t : uint64_t {
   Timeout = (1u << 5u),
   EvolutionUpdate = (1u << 6u),
   StartEvolution = (1u << 7u),
+  AudioUpdate = (1u << 8u),
+  AudioPeak = (1u << 9u),
+  AudioStop = (1u << 10u),
 };
 
 // =============================================================================
@@ -34,8 +38,9 @@ enum class trigger_animation_cause_mask_t : uint64_t {
 BONGOCAT_NODISCARD created_result_t<AllocatedMemory<animation_context_t>> create(const config::config_t& config);
 
 // Start animation thread - must be checked
-BONGOCAT_NODISCARD bongocat_error_t start(animation_context_t& ctx, platform::input::input_context_t& input,
-                                          platform::update::update_context_t& upd, const config::config_t& config,
+BONGOCAT_NODISCARD bongocat_error_t start(animation_context_t& ctx, platform::input::input_context_t *input,
+                                          platform::update::update_context_t *upd,
+                                          platform::audio::audio_context_t *audio, const config::config_t& config,
                                           platform::CondVariable& configs_reloaded_cond,
                                           atomic_uint64_t& config_generation);
 

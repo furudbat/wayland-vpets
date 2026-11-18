@@ -10,7 +10,7 @@ cat_y_offset=0                   # Vertical offset from default position
 cat_align=center                 # Horizontal alignment in the bar (left/center/right)
 
 # Size settings
-cat_height=80                    # Height of bongo cat (10-200)
+cat_height=80                    # Height of bongo cat (8-1024)
 
 # Visual settings
 mirror_x=0                       # Flip horizontally (mirror across Y axis)
@@ -20,16 +20,14 @@ mirror_y=0                       # Flip vertically (mirror across X axis)
 enable_antialiasing=1            # Use bilinear interpolation for smooth scaling (0=off, 1=on)
 
 # Overlay settings (requires restart)
-overlay_height=60                # Height of the entire overlay bar (20-300)
+overlay_height=60                # Height of the entire overlay bar (16-2560)
 overlay_opacity=150              # Background opacity (0-255)
 overlay_position=top             # Position on screen (top/bottom)
 
 # Animation settings
-idle_frame=0                     # Frame to show when idle (0-3)
-fps=60                           # Frame rate (1-120)
+idle_frame=0                     # Frame to show when idle (0-3, depends on sprite)
+fps=60                           # Frame rate (1-540)
 keypress_duration=100            # Animation duration (ms)
-test_animation_duration=200      # Test animation duration (ms)
-test_animation_interval=0        # Test animation every N seconds (0=off)
 
 # Input devices (add multiple lines for multiple keyboards)
 keyboard_device=/dev/input/event4
@@ -50,14 +48,15 @@ enable_debug=0                   # Show debug messages
 
 # FILES
 
-    ~/.config/bongocat.conf     Default configuration file
-    bongocat.conf               Fallback configuration file in the current directory.
+    $XDG_CONFIG_HOME/bongocat/bongocat.conf   Configuration file (searched first)
+    ~/.config/bongocat/bongocat.conf          Configuration file (if $XDG_CONFIG_HOME is unset or has none)
+    bongocat.conf                             Fallback configuration file in the current directory
 
 
 # SEE ALSO
 
-`bongocat(1)`, `bongocat-find-devices(1)`
+`bongocat(1)`, `bongocat-all(1)`, `bongocat-find-devices(1)`
 
 # AUTHOR
 
-Written by furudbat. Base config by Saatvik
+Written by furudbat. Base config by Saatvik.

@@ -1,10 +1,6 @@
 #ifndef BONGOCAT_LOAD_SPRITE_SHEET_STB_IMAGE_H
 #define BONGOCAT_LOAD_SPRITE_SHEET_STB_IMAGE_H
 
-// Private header (src/image_loader): include AFTER "stb_image.h".
-// stb_image always decodes the whole image into its own buffer, so the layout is applied with one memcpy per frame
-// row straight from that buffer (no extra intermediate copy like load_image()).
-
 #include "image_loader/load_images.h"
 
 #include <climits>
@@ -22,6 +18,7 @@ load_sprite_sheet_image_stb_image(const unsigned char *data, size_t size, sprite
   unsigned char *stbi_pixels =
       stbi_load_from_memory(data, static_cast<int>(size), &width, &height, &channels_in_file, RGBA_CHANNELS);
   if (stbi_pixels == BONGOCAT_NULLPTR) [[unlikely]] {
+    BONGOCAT_LOG_VERBOSE("stb_image: failed to load sprite sheet: %s", stbi_failure_reason() ? stbi_failure_reason() : "unknown");
     return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
   }
 

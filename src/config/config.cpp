@@ -19,8 +19,8 @@
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/custom/load_custom.h"
 #include "image_loader/custom/load_custom_features.h"
-#include "platform/input.h"
-#include "platform/input_context.h"
+#include "platform/input/input.h"
+#include "platform/input/input_context.h"
 #include "utils/error.h"
 
 #include <cassert>
@@ -121,6 +121,11 @@ static inline constexpr int32_t DEFAULT_ANIMATION_INDEX = 0;
 static inline constexpr layer_type_t DEFAULT_LAYER = layer_type_t::LAYER_TOP;
 static inline constexpr overlay_position_t DEFAULT_OVERLAY_POSITION = overlay_position_t::POSITION_TOP;
 static inline constexpr int32_t DEFAULT_HAPPY_KPM = 0;
+static inline constexpr bool DEFAULT_ENABLE_AUDIO = false;
+static inline constexpr double DEFAULT_AUDIO_HAPPY_PEAK = 0.6;
+static inline constexpr double MIN_AUDIO_HAPPY_PEAK = 0.0;
+static inline constexpr double MAX_AUDIO_HAPPY_PEAK = 1.0;
+static inline constexpr size_t MAX_AUDIO_SINK_NAME_LEN = 255;
 static inline constexpr platform::time_sec_t DEFAULT_IDLE_SLEEP_TIMEOUT_SEC = 0;
 static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
 static inline constexpr bool DEFAULT_ENABLE_ANTIALIASING = true;
@@ -150,6 +155,9 @@ static inline constexpr const char SLEEP_BEGIN_KEY[] CONFIG_STRING_SECTION = "sl
 static inline constexpr const char SLEEP_END_KEY[] CONFIG_STRING_SECTION = "sleep_end";
 static inline constexpr const char IDLE_SLEEP_TIMEOUT_KEY[] CONFIG_STRING_SECTION = "idle_sleep_timeout";
 static inline constexpr const char HAPPY_KPM_KEY[] CONFIG_STRING_SECTION = "happy_kpm";
+static inline constexpr const char ENABLE_AUDIO_KEY[] CONFIG_STRING_SECTION = "audio";
+static inline constexpr const char AUDIO_SINK_KEY[] CONFIG_STRING_SECTION = "audio_sink";
+static inline constexpr const char AUDIO_HAPPY_PEAK_KEY[] CONFIG_STRING_SECTION = "audio_happy_peak";
 static inline constexpr const char KEYPRESS_DURATION_KEY[] CONFIG_STRING_SECTION = "keypress_duration";
 static inline constexpr const char TEST_ANIMATION_DURATION_KEY[] CONFIG_STRING_SECTION = "test_animation_duration";
 static inline constexpr const char TEST_ANIMATION_INTERVAL_KEY[] CONFIG_STRING_SECTION = "test_animation_interval";
@@ -165,6 +173,8 @@ static inline constexpr const char OVERLAY_LAYER_KEY[] CONFIG_STRING_SECTION = "
 static inline constexpr const char CAT_ALIGN_KEY[] CONFIG_STRING_SECTION = "cat_align";
 static inline constexpr const char IDLE_ANIMATION_KEY[] CONFIG_STRING_SECTION = "idle_animation";
 static inline constexpr const char INPUT_FPS_KEY[] CONFIG_STRING_SECTION = "input_fps";
+static inline constexpr const char UPDATE_FPS_KEY[] CONFIG_STRING_SECTION = "update_fps";
+static inline constexpr const char AUDIO_FPS_KEY[] CONFIG_STRING_SECTION = "audio_fps";
 static inline constexpr const char MIRROR_X_KEY[] CONFIG_STRING_SECTION = "mirror_x";
 static inline constexpr const char MIRROR_Y_KEY[] CONFIG_STRING_SECTION = "mirror_y";
 static inline constexpr const char RANDOM_KEY[] CONFIG_STRING_SECTION = "random";
@@ -241,14 +251,18 @@ static inline constexpr const char CUSTOM_EVOLVING_ROW_KEY[] CONFIG_STRING_SECTI
 static inline constexpr const char CUSTOM_AFTER_EVOLVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_after_evolving_row";
 static inline constexpr const char CUSTOM_ROWS_KEY[] CONFIG_STRING_SECTION = "custom_rows";
 
+static inline constexpr const char ENABLE_AUDIO_KEY_ALT[] CONFIG_STRING_SECTION = "enable_audio";
+static inline constexpr const char ENABLE_RANDOM_KEY_ALT[] CONFIG_STRING_SECTION = "enable_random";
+static inline constexpr const char ENABLE_IDLE_ANIMATION_KEY_ALT[] CONFIG_STRING_SECTION = "enable_idle_animation";
+
 inline static constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR = "program_start";
 
 static inline constexpr size_t KEY_BUF = 256;
 static inline constexpr size_t VALUE_BUF = PATH_MAX + 256;                      // max value + comment
 static inline constexpr size_t LINE_BUF = KEY_BUF - 1 + VALUE_BUF - 1 + 1 + 1;  // key + '=' + value + '\0'
 
-constexpr char COMMENT_CHAR_1 = '#';
-constexpr char COMMENT_CHAR_2 = ';';
+static inline constexpr char COMMENT_CHAR_1 = '#';
+static inline constexpr char COMMENT_CHAR_2 = ';';
 
 /*
 inline static constexpr config_parsing_warning_t ignore_warnings_in_strict_mode[] = {
@@ -343,7 +357,7 @@ static config_parse_result_t config_validate_dimensions(config_t& config) {
   ret = config_add_parse_error(ret, config_clamp_int(config.cat_x_offset, MIN_OFFSET, MAX_OFFSET, CAT_X_OFFSET_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.cat_y_offset, MIN_OFFSET, MAX_OFFSET, CAT_Y_OFFSET_KEY));
   ret = config_add_parse_error(
-      ret, config_clamp_int(config.movement_radius, MIN_MOVEMENT_RADIUS, MAX_MOVEMENT_RADIUS, CAT_Y_OFFSET_KEY));
+      ret, config_clamp_int(config.movement_radius, MIN_MOVEMENT_RADIUS, MAX_MOVEMENT_RADIUS, MOVEMENT_RADIUS_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.padding_x, 0, MAX_OFFSET, PADDING_X_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.padding_y, 0, MAX_OFFSET, PADDING_Y_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.screen_width, 0, MAX_OFFSET, SCREEN_WIDTH_KEY));
@@ -362,6 +376,8 @@ static config_parse_result_t config_validate_timing(config_t& config) {
   ret = config_add_parse_error(
       ret, config_clamp_int(config.idle_sleep_timeout_sec, 0, MAX_SLEEP_TIMEOUT_SEC, IDLE_SLEEP_TIMEOUT_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY));
+  // ret = config_add_parse_error(ret, config_clamp_int(config.update_fps, 0, MAX_FPS, UPDATE_FPS_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.audio_fps, 0, MAX_FPS, AUDIO_FPS_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.movement_speed, 0, MAX_DURATION_MS, MOVEMENT_SPEED_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.hotplug_scan_interval_ms, MIN_HOTPLUG_SCAN_INTERVAL_MS,
                                                      MAX_HOTPLUG_SCAN_INTERVAL_MS, HOTPLUG_SCAN_INTERVAL_KEY));
@@ -372,6 +388,13 @@ static config_parse_result_t config_validate_timing(config_t& config) {
 static config_parse_result_t config_validate_kpm(config_t& config) {
   config_parse_result_t ret{};
   ret = config_add_parse_error(ret, config_clamp_int(config.happy_kpm, MIN_KPM, MAX_KPM, HAPPY_KPM_KEY));
+  return ret;
+}
+
+static config_parse_result_t config_validate_audio(config_t& config) {
+  config_parse_result_t ret{};
+  ret = config_add_parse_error(ret, config_clamp_double(config.audio_happy_peak, MIN_AUDIO_HAPPY_PEAK,
+                                                        MAX_AUDIO_HAPPY_PEAK, AUDIO_HAPPY_PEAK_KEY));
   return ret;
 }
 
@@ -975,7 +998,7 @@ static config_parse_result_t config_validate_enums(config_t& config) {
   // Validate overlay_position
   if (config.overlay_position != overlay_position_t::POSITION_TOP &&
       config.overlay_position != overlay_position_t::POSITION_BOTTOM) {
-    BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to top", OVERLAY_OPACITY_KEY, config.overlay_position);
+    BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to top", OVERLAY_POSITION_KEY, config.overlay_position);
     config.overlay_position = overlay_position_t::POSITION_TOP;
     ret = config_add_parse_error(ret, config_parsing_error_t::InvalidOverlayPosition);
   }
@@ -1054,6 +1077,7 @@ static config_parse_result_t config_validate(config_t& config) {
   ret = config_chain_parse_result(ret, config_validate_time(config));
   ret = config_chain_parse_result(ret, config_validate_kpm(config));
   ret = config_chain_parse_result(ret, config_validate_update(config));
+  ret = config_chain_parse_result(ret, config_validate_audio(config));
   ret = config_chain_parse_result(ret, config_validate_custom(config));
 
   return ret;
@@ -1255,13 +1279,15 @@ static config_parse_result_t config_parse_boolean_key(config_t& config, const ch
       return &config.enable_antialiasing;
     } else if (strcmp(key, ENABLE_DEBUG_KEY) == 0) {
       return &config.enable_debug;
+    } else if (strcmp(key, ENABLE_AUDIO_KEY) == 0 || strcmp(key, ENABLE_AUDIO_KEY_ALT) == 0) {
+      return &config.enable_audio;
     } else if (strcmp(key, INVERT_COLOR_KEY) == 0) {
       return &config.invert_color;
     } else if (strcmp(key, ENABLE_SCHEDULED_SLEEP_KEY) == 0) {
       return &config.enable_scheduled_sleep;
-    } else if (strcmp(key, IDLE_ANIMATION_KEY) == 0) {
+    } else if (strcmp(key, IDLE_ANIMATION_KEY) == 0 || strcmp(key, ENABLE_IDLE_ANIMATION_KEY_ALT) == 0) {
       return &config.idle_animation;
-    } else if (strcmp(key, RANDOM_KEY) == 0) {
+    } else if (strcmp(key, RANDOM_KEY) == 0 || strcmp(key, ENABLE_RANDOM_KEY_ALT) == 0) {
       return &config.randomize_index;
     } else if (strcmp(key, RANDOM_ON_RELOAD_KEY) == 0) {
       return &config.randomize_on_reload;
@@ -1411,6 +1437,9 @@ static config_parse_result_t config_parse_integer_key(config_t& config, const ch
   }
   if (strcmp(key, MOVEMENT_RADIUS_KEY) == 0) {
     return parse_int(config.movement_radius);
+  }
+  if (strcmp(key, AUDIO_FPS_KEY) == 0) {
+    return parse_int(config.audio_fps);
   }
   if (strcmp(key, MOVEMENT_SPEED_KEY) == 0) {
     return parse_int(config.movement_speed);
@@ -1586,6 +1615,8 @@ static config_parse_result_t config_parse_double_key(config_t& config, const cha
       return &config.cpu_threshold;
     } else if (strcmp(key, CPU_RUNNING_FACTOR_KEY) == 0) {
       return &config.cpu_running_factor;
+    } else if (strcmp(key, AUDIO_HAPPY_PEAK_KEY) == 0) {
+      return &config.audio_happy_peak;
     } else if (strcmp(key, MOVEMENT_WAIT_FACTOR_KEY) == 0) {
       return &config.movement_wait_factor;
     } else if (features::EnableEvolution && strcmp(key, EVOLUTION_SPEED_FACTOR_KEY) == 0) {
@@ -1717,6 +1748,26 @@ static config_parse_result_t is_valid_output_name(const char *name) {
   return {};
 }
 
+static config_parse_result_t is_valid_audio_sink(const char *name) {
+  if (name == BONGOCAT_NULLPTR || name[0] == '\0') {
+    return {};  // empty means "use default"
+  }
+
+  const size_t len = strnlen(name, MAX_AUDIO_SINK_NAME_LEN + 1);
+  if (len > MAX_AUDIO_SINK_NAME_LEN) {
+    return config_parse_result_t(config_parsing_error_t::InvalidAudioSink);
+  }
+
+  // PipeWire node names: printable ASCII, no whitespace (e.g. alsa_output.pci-0000_00_1f.3.analog-stereo)
+  for (size_t i = 0; i < len; ++i) {
+    const auto c = static_cast<unsigned char>(name[i]);
+    if (!isgraph(c)) {
+      return config_parse_result_t(config_parsing_error_t::InvalidAudioSink);
+    }
+  }
+  return {};
+}
+
 static config_parse_result_t config_parse_string(config_t& config, const char *key, const char *value,
                                                  const load_config_overwrite_parameters_t& overwrite_parameters) {
   using namespace assets;
@@ -1737,6 +1788,21 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
     } else {
       release_allocated_string(config.output_name);
       config.output_name = BONGOCAT_NULLPTR;
+    }
+  } else if (strcmp(key, AUDIO_SINK_KEY) == 0) {
+    release_allocated_string(config.audio_sink);
+    config.audio_sink = BONGOCAT_NULLPTR;
+    if (value != BONGOCAT_NULLPTR && value[0] != '\0') {
+      if (auto valid_result = is_valid_audio_sink(value); valid_result.errors != config_parsing_error_t::Success) {
+        BONGOCAT_LOG_WARNING("Invalid audio sink name, ignoring (using default sink)");
+        return valid_result;
+      }
+      config.audio_sink = duplicate_string(value);
+      if (!config.audio_sink) [[unlikely]] {
+        BONGOCAT_LOG_ERROR("Failed to allocate memory for audio sink");
+        return config_parse_result_t(
+            flag_add(config_parsing_error_t::InvalidAudioSink, config_parsing_error_t::StringMemoryError));
+      }
     }
   } else if (strcmp(key, CUSTOM_SPRITE_SHEET_FILENAME_KEY) == 0) {
     release_allocated_string(config.custom_sprite_sheet_filename);
@@ -2451,12 +2517,17 @@ void set_defaults(config_t& config) {
   cfg.sleep_end = {};
   cfg.idle_sleep_timeout_sec = DEFAULT_IDLE_SLEEP_TIMEOUT_SEC;
   cfg.happy_kpm = DEFAULT_HAPPY_KPM;
+  cfg.enable_audio = DEFAULT_ENABLE_AUDIO;
+  cfg.audio_sink = BONGOCAT_NULLPTR;
+  cfg.audio_happy_peak = DEFAULT_AUDIO_HAPPY_PEAK;
   cfg.cat_align = DEFAULT_CAT_ALIGN;
   cfg.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
   cfg.animation_dm_set = config_animation_dm_set_t::None;
   cfg.animation_custom_set = config_animation_custom_set_t::None;
   cfg.idle_animation = false;
   cfg.input_fps = 0;  // when 0 fallback to fps
+  cfg.audio_fps = 0;  // when 0 fallback to fps
+  // cfg.update_fps = 0; // when 0 fallback to fps, use update_rate_ms
   cfg.randomize_index = false;
   cfg.randomize_on_reload = false;
   cfg.movement_wait_factor = DEFAULT_MOVEMENT_WAIT_FACTOR;
@@ -2546,6 +2617,8 @@ static void config_log_summary(const config_t& config, [[maybe_unused]] const co
   BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align, to_string(config.cat_align));
   BONGOCAT_LOG_DEBUG("  Layer: %s", to_string(config.layer));
   BONGOCAT_LOG_DEBUG("  Output Screen: %s", config.output_name.c_str());
+  BONGOCAT_LOG_DEBUG("  Audio: %s (sink: %s, happy peak: %.2f)", config.enable_audio ? "enabled" : "disabled",
+                     config.audio_sink ? config.audio_sink.c_str() : "default", config.audio_happy_peak);
 
   config_log_result(config, errors);
 }
@@ -2567,7 +2640,7 @@ static void config_log_result([[maybe_unused]] const config_t& config,
   }
 }
 
-static loaded_config_result_t config_after_parsing(config_t& ret, platform::input::input_context_t& input,
+static loaded_config_result_t config_after_parsing(config_t& ret, platform::input::input_context_t *input,
                                                    config_parse_result_t& errors,
                                                    const load_config_overwrite_parameters_t& overwrite_parameters) {
   if (overwrite_parameters.debug >= 0) {
@@ -2598,6 +2671,14 @@ static loaded_config_result_t config_after_parsing(config_t& ret, platform::inpu
   if (ret.input_fps <= 0) {
     ret.input_fps = ret.fps;
   }
+  /*
+  if (ret.update_fps <= 0) {
+    ret.update_fps = ret.fps;
+  }
+  */
+  if (ret.audio_fps <= 0) {
+    ret.audio_fps = ret.fps;
+  }
   if (ret.animation_speed_ms <= 0) {
     ret.animation_speed_ms = 1000 / ret.fps;
   }
@@ -2623,18 +2704,22 @@ static loaded_config_result_t config_after_parsing(config_t& ret, platform::inpu
   // Validate and sanitize configuration
   errors = config_chain_parse_result(errors, config_validate(ret));
 
-  if (ret.num_keyboard_devices == 0) {
-    if (overwrite_parameters.default_devices) {
-      BONGOCAT_LOG_INFO("Search for keyboard devices (--default-devices)");
-      auto add_devices_result = config_add_default_keyboard_devices(input, ret);
-      errors = config_chain_parse_result(errors, add_devices_result.result);
-      BONGOCAT_LOG_INFO("Default devices loaded: %u", add_devices_result.keyboards);
-    } else {
-      BONGOCAT_LOG_INFO("No device loaded");
-    }
+  if (input) {
     if (ret.num_keyboard_devices == 0) {
-      errors = config_add_parse_info(errors, config_parsing_info_t::NoInputDevices);
+      if (overwrite_parameters.default_devices) {
+        BONGOCAT_LOG_INFO("Search for keyboard devices (--default-devices)");
+        auto add_devices_result = config_add_default_keyboard_devices(*input, ret);
+        errors = config_chain_parse_result(errors, add_devices_result.result);
+        BONGOCAT_LOG_INFO("Default devices loaded: %u", add_devices_result.keyboards);
+      } else {
+        BONGOCAT_LOG_INFO("No device loaded");
+      }
+      if (ret.num_keyboard_devices == 0) {
+        errors = config_add_parse_info(errors, config_parsing_info_t::NoInputDevices);
+      }
     }
+  } else if (!input && ret.num_keyboard_devices > 0) {
+    BONGOCAT_LOG_WARNING("No device loaded, input module disabled");
   }
 
   // Log configuration summary
@@ -2654,7 +2739,7 @@ static void unload_config_readonly_sections() {
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t& input,
+loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t *input,
                             const load_config_overwrite_parameters_t& overwrite_parameters) {
   BONGOCAT_CHECK_NULL(config_file_path, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
 
@@ -2893,7 +2978,7 @@ loaded_config_result_t load_from_string(const char *content, platform::input::in
     return loaded_config_result_t(bongocat::move(errors));
   }
 
-  return config_after_parsing(ret, input, errors, overwrite_parameters);
+  return config_after_parsing(ret, &input, errors, overwrite_parameters);
 }
 #endif
 

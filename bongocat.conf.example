@@ -1,87 +1,167 @@
-# Bongo Cat Configuration File
-# Edit these values to customize your bongo cat overlay
-
+# Bongo Cat + V-Pets configuration
+# Edit these values to customize your wpet overlay
+#
 # Save this file to: ~/.config/bongocat/bongocat.conf
 # Run with: wpets-all --watch-config
 
 
-# NOTE: OVERLAY SETTINGS DOESN'T WORK WITH HOT RELOAD, NEEDS BONGOCAT RESTART
-# DRAWN LAYERS GETS GLITCHY SOMETIMES, BETTER TO RESTART WHEN THESE CHANGE
-# Overlay settings
-# overlay_height: Height of the entire overlay bar
-overlay_height=120
-# overlay_position: Position of the overlay on screen
-# Options: "top" or "bottom"
-overlay_position=bottom
-# layer: layer for surface of overlay (default: "top")
-# Options: "overlay", "top", "bottom", "background"; top (above windows), overlay (always visible)
-#overlay_layer=top
+## INPUT
+# No keyboard is used unless one is configured here (or --default-devices is passed).
+# `wpets-all --list-devices` prints lines you can paste below.
+# keyboard_device: Input device path (can be repeated)
+#keyboard_device=/dev/input/event4
+#keyboard_device=/dev/input/by-id/usb-My_Keyboard-event-kbd
+# keyboard_name: Add every device whose name contains this text (can be repeated)
+#keyboard_name=Keyboard
+# hotplug_scan_interval: Rescan for new input devices, in seconds (0 = scan once at startup)
+#hotplug_scan_interval=30
 
-# Transparency settings
-# overlay_opacity: Opacity of the overlay background (0-255)
-# 0 = fully transparent, 255 = fully opaque
+
+## OVERLAY
+# overlay_height: Height of the overlay bar
+overlay_height=120
+# overlay_position: "top" or "bottom"
+overlay_position=bottom
+# overlay_layer: "overlay", "top", "bottom" or "background"
+#   top = above windows
+#   overlay = above everything (also fullscreen)
+#overlay_layer=top
+# overlay_opacity: Background opacity
 overlay_opacity=0
 
-# Position settings (in pixels)
-# cat_x_offset: Horizontal offset from center position
-# When cat_align is "center": Positive values move right, negative values move left (default)
-# When cat_align is "left": Positive values move right, negative values move left
-# When cat_align is "right": Positive values move left, negative values move right
-cat_x_offset=0
+# monitor: Show the pet only on this monitor
+# If not set or not found, the first monitor is used
+#monitor=HDMI-A-1
+# screen_width: Override the detected screen width in pixels (0 = auto-detect)
+#screen_width=0
+# disable_fullscreen_hide: Keep the overlay visible over fullscreen windows
+#disable_fullscreen_hide=0
 
-# cat_y_offset: Vertical offset from default position
-# Positive values move down, negative values move up
-cat_y_offset=0
 
-# cat_align: Horizontal alignment in the bar (default: "center")
-# Options: "center", "left" or "right"
-cat_align=center
-
-# Mirroring options
-# mirror_x: Flip cat horizontally (mirror across Y axis) (0 = off, 1 = on)
-mirror_x=0
-# mirror_y: Flip cat vertically (mirror across X axis) (0 = off, 1 = on)
-mirror_y=0
-
-# Anti-aliasing settings
-# enable_antialiasing: Use bilinear interpolation for smooth scaling (0 = off, 1 = on)
-# When enabled, provides smoother edges when scaling sprites
-# Recommended for pixel sprites to be off.
-enable_antialiasing=1
-
-# Size settings
-# cat_height: Height of the bongo cat in pixels
-# Width is automatically calculated to maintain aspect ratio
-cat_height=110
-
-# animation_name: Sprite name (CASE SENSITIVE)
-# Default Option: "bongocat"
-# dm Options: "Agumon", "Greymon", "metal_greymon", "dm20:Agumon", "dmc:Agumon", "dm:Gabumon", ...
-# MS Agent Options: "Clippy", "ms_agent:Links", ...
-# pkmn Options: "Bulbasaur", "Pikachu", "pkmn:Charizard", ...
+## SPRITE
+# animation_name: Sprite name (case sensitive)
+#   Bongocat:  "bongocat"
+#   Digimon:   "Agumon", "Greymon", "metal_greymon", "dm20:Agumon", "dmc:Agumon", "dm:Gabumon", ...
+#   MS Agent:  "Clippy", "ms_agent:Links", ...
+#   Pokémon:   "Bulbasaur", "Pikachu", "pkmn:Charizard", ...
+#   Misc:      "neko"
+#   Custom:    "custom" (see below)
 animation_name=bongocat
 
-# invert_color: Invert color (0 = off, 1 = on)
-# (non-colored) dm sprites are black by default, reverting colors can be used for dark mode
+# cat_height: Height of the pet in pixels
+cat_height=110
+
+# cat_align: Horizontal alignment in the bar: "center", "left" or "right"
+cat_align=center
+# cat_x_offset: Horizontal offset in pixels
+cat_x_offset=0
+# cat_y_offset: Vertical offset in pixels
+cat_y_offset=0
+
+# mirror_x: Flip the pet horizontally
+mirror_x=0
+# mirror_y: Flip the pet vertically
+mirror_y=0
+
+# invert_color: Invert colors (Digimon sprites are black by default, useful for dark mode)
 invert_color=0
 
-# NOTE: Only affect on start up
-# random: Randomize animation_index (0 = off, 1 = on)
-# animation_name is still required, to determine the animation sprite set (dm, MS agent, pkmn, ...)
+# enable_antialiasing: Smooth scaling (bilinear), recommended off for pixel sprites
+enable_antialiasing=1
+
+# random: Pick a random sprite from the set of animation_name (dm, pkmn, ms_agent, ...) on start
 random=0
-# random_on_reload: Randomize sprite on config reload (random needs to be enabled) (0 = off, 1 = on)
+# random_on_reload: Pick a new random sprite on config reload (needs random=1)
 random_on_reload=1
 
-# Animation settings
-# idle_frame: Which frame to use when idle (0, 1, 2, 3)
-# Options for bongocat: 0 = both paws up, 1 = left paw down, 2 = right paw down, 3 = both paw down
-# Options for dm: 0 = idle 1, 1 = idle 2
-# Options for MS Agent: 0 = idle 1, 1 = idle 2
+
+## ANIMATION
+# fps: Render frame rate
+fps=60
+# animation_speed: Duration of each frame in milliseconds (0 = use fps)
+animation_speed=200
+# idle_animation: Show idle animate
+idle_animation=0
+# idle_frame: Frame shown while idle
+#   Bongocat: 0 = both paws up, 1 = left paw down, 2 = right paw down, 3 = both paws down
+#   Digimon / MS Agent: 0 = idle frame 1, 1 = idle frame 2
 idle_frame=0
 
-# Custom Sprite Sheet settings
+# Bongocat only
+# keypress_duration: How long a paw stays down after a keypress, in milliseconds
+keypress_duration=100
+# enable_hand_mapping: When enabled: 1 = left keys -> left paw, right keys -> right paw
+enable_hand_mapping=1
+
+# input_fps: Input polling rate (0 = use fps)
+#input_fps=0
+
+# DEPRECATED: use animation_speed and idle_animation
+#test_animation_duration=0
+#test_animation_interval=0
+
+
+## SLEEP
+# enable_scheduled_sleep: Sleep between sleep_begin and sleep_end (24h, hh:mm)
+enable_scheduled_sleep=0
+sleep_begin=22:00
+sleep_end=06:00
+# idle_sleep_timeout: Fall asleep after this many seconds without input (0 = disabled)
+idle_sleep_timeout=0
+
+
+## HAPPY
+# happy_kpm: Keystrokes per minute that trigger the happy animation (0 = disabled)
+happy_kpm=400
+
+
+#ä CPU
+# update_rate: How often to check CPU usage, in milliseconds (0 = disabled)
+#update_rate=2000
+# cpu_threshold: Average CPU usage (%) that triggers the working animation (0 = disabled)
+#cpu_threshold=90
+# cpu_running_factor: Play the running animation instead and speed it up linearly
+#   cpu_running_factor is at 100% CPU (0 = disabled)
+#cpu_running_factor=5.0
+
+
+## AUDIO (PipeWire) (BUILD REQUIRED) (experimental)
+# audio: React to audio playing on an output sink
+#audio=0
+# audio_sink: PipeWire sink to listen to, see `pactl list short sinks` (empty = default sink)
+#audio_sink=
+# audio_happy_peak: Fraction of 'visualizer bars' (0.0-1.0) that triggers happy (0 = disabled)
+#audio_happy_peak=0.6
+# audio_fps: Audio update rate (0 = use fps)
+#audio_fps=0
+
+
+## MOVEMENT
+# movement_speed: Pixels per move animation (0 = disabled), needs animation_speed
+movement_speed=0
+# movement_radius: Moving area, radius from the pet's position in pixels (0 = disabled)
+movement_radius=960
+# movement_wait_factor: Pause after moving: movement_speed * movement_wait_factor
+#movement_wait_factor=5.1
+# enable_movement_debug: Draw the moving area
+enable_movement_debug=0
+
+
+## EVOLUTION (Digimon and Pokémon)
+# evolution: Evolve after a fixed amount of time
+#   none:    disabled
+#   normal:  time since the last evolution
+#   program: time since program start
+#   uptime:  time since boot
+evolution=none
+# evolution_speed_factor: Speed multiplier for evolution time
+#evolution_speed_factor=1.0
+
+
+## CUSTOM SPRITE SHEET
 #animation_name=custom
 #custom_sprite_sheet_filename=./examples/custom-sprite-sheets/neko.png
+# Frames per row (0 = state not used)
 #custom_idle_frames=2
 #custom_boring_frames=2
 #custom_writing_frames=2
@@ -91,103 +171,13 @@ idle_frame=0
 #custom_wake_up_frames=1
 #custom_working_frames=2
 #custom_moving_frames=2
+# Optional: start/end frames, e.g. custom_start_writing_frames, custom_end_moving_frames, ...
+# Optional: row of each state (1-based, default: in order), e.g. custom_idle_row=1
+# Optional: frame size padding in pixels
+#padding_x=0
+#padding_y=0
 
 
-# Sleep Mode settings
-# enable_scheduled_sleep: When on, animations will be paused and show sleep frame (0 = off, 1 = on)
-# Requires both sleep_begin and sleep_end to be defined
-enable_scheduled_sleep=0
-# Start time for scheduled sleep mode (24-hour format: hh:mm)
-sleep_begin=22:00
-# End time for scheduled sleep mode (24-hour format: hh:mm)
-sleep_end=06:00
-
-# Duration of user inactivity before entering sleep mode (in seconds)
-# Set to 0 to disable idle-based sleep
-idle_sleep_timeout=0
-
-# Happy Animation
-# happy_kpm: Minimum keystrokes per minute (KPM) required to trigger the happy animation (0 = disabled)
-happy_kpm=400
-
-# Work Animation
-# update_rate: Check states rate (in milliseconds) (0 = disabled)
-#update_rate=2000
-# cpu_threshold: Threshold of avg. CPU usage for triggering work animation (0 = disabled)
-#cpu_threshold=90
-# cpu_running_factor: speed up factor for then CPU reaches 100%, it's linear so the animation slowly speed up to `animation_speed * cpu_running_factor` (0 = disabled)
-# When cpu_running_factor is set the running animation is played, instead of the working animation
-#cpu_running_factor=5.0
-
-# Animation timing (in milliseconds)
-# keypress_duration: How long to show animation after keypress
-# DEPRECATED: use animation_speed, keypress_duration is only for the old bongocat
-keypress_duration=100
-
-# enable_hand_mapping: Left half of keyboard triggers left cat hand, right half triggers right hand
-# 0=random hands, 1=left keys -> left hand, right keys -> right hand
-enable_hand_mapping=1
-
-# idle_animation: Enable idle animation (0 = off, 1 = on)
-idle_animation=0
-# animation_speed: Time for frame until next frame (optional, in milliseconds) (0 = use fps)
-animation_speed=200
-
-# test_animation_duration: How long to show test animation (in milliseconds)
-#test_animation_duration=200
-#DEPRECATED: use animation_speed (for non-bongocat)
-
-# test_animation_interval: How often to trigger test animation (in seconds)
-# Set to 0 to disable test animations
-#test_animation_interval=0
-#DEPRECATED: use idle_animation and animation_speed (for non-bongocat)
-
-# Frame rate settings
-# fps: Animation frame rate (frames per second)
-fps=60
-# input_fps: Input thread frame rate (optional, 0 = use fps)
-# This is just a timeout for the input waiting
-#input_fps=60
-
-# Debug settings
-# enable_debug: Show debug messages (0 = off, 1 = on)
+## DEBUG
+# enable_debug: Print debug messages
 enable_debug=0
-
-# Movement Settings (experimental)
-# movement_radius: Moving area (radius from center) (in px) (0 = disabled)
-movement_radius=960
-# movement_speed: move pixels per move animation (0 = disabled)
-# Requires animation_speed be set
-movement_speed=0
-# enable_movement_debug: Show Moving area
-enable_movement_debug=0
-# movement_wait_factor: After movement, make a pause and wait: `movement_speed * movement_wait_factor` (default: 5.1)
-#movement_wait_factor=5.1
-
-# Evolution Settings (experimental)
-# evolution: Trigger evolution after a specified amount of time has passed (0 = disabled)
-#            Evolution happens at fixed presets and intervals
-# Options: normal, program, uptime
-#   normal: Evolution occurs, based on when the previous evolution occurred.
-#   program: Evolution occurs based on the program start time.
-#   uptime: Evolution occurs based on system uptime (time since boot).
-evolution=0
-# evolution_speed_factor: Evolution speed multiplier
-#evolution_speed_factor=1.0
-
-
-# Input devices (you can specify multiple devices)
-# Use keyboard_device for each device you want to monitor
-# Examples:
-#keyboard_device=/dev/input/event4
-#keyboard_device=/dev/input/event20  # External bluetooth keyboard (commented out - doesn't exist)
-#keyboard_device=/dev/input/event5   # Another input device
-
-# Multi-monitor support
-# Specify which monitor to display bongocat on (optional)
-# Use wlr-randr or swaymsg -t get_outputs to find monitor names
-# If not specified or monitor not found, uses first available monitor
-#monitor=HDMI-A-1
-
-# How often to rescan for new input devices, in seconds (0=scan once at startup)
-# hotplug_scan_interval=30

@@ -3,13 +3,14 @@
 % November 2026
 
 # NAME
-bongocat - Wayland overlay with animated V-Pet reacting to keyboard input
+bongocat-all - Wayland overlay with animated V-Pet reacting to keyboard input
 
 # SYNOPSIS
 `bongocat-all [options]`
 
-# DESCRIPTION
-Bongo Cat Wayland Overlay
+```{.include}
+fragments/common.md
+```
 
 # OPTIONS
 ```{.include}
@@ -25,7 +26,8 @@ fragments/usage-custom.md
 ```{.include}
 fragments/files.md
 fragments/copyright.md
+fragments/license.md
 ```
 
 # SEE ALSO
-`wayland(7)`, `bongocat.conf(5)`, `bongocat-find-devices(1)`
+`bongocat-all.conf(5)`, `bongocat-find-devices(1)`, `wayland(7)`

@@ -1,5 +1,5 @@
 
-### animation_name
+# SPRITES (animation_name)
 
 ```{.include}
 fragments/set-bongocat.md
@@ -10,7 +10,7 @@ fragments/set-pen.md
 fragments/set-pen20.md
 fragments/set-dmc.md
 fragments/set-dmall.md
-fragments/set-more-ms-agent.md
+fragments/set-ms-agent.md
 fragments/set-pkmn.md
 fragments/set-misc.md
 ```

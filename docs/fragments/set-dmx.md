@@ -43,7 +43,6 @@ Digital Monster X
 - Duskmon
 - Dynasmon X
 - Ebemon X
-- Examon
 - Examon X
 - Filmon
 - Gabumon X
@@ -55,7 +54,6 @@ Digital Monster X
 - Goddramon X
 - Gomamon X
 - Grademon
-- Grand Dracumon
 - Grandis Kuwagamon
 - Growmon X
 - Gummymon
@@ -65,7 +63,6 @@ Digital Monster X
 - Holydramon X
 - Hououmon X
 - Impmon X
-- Jararchimon
 - Jazamon
 - Jazardmon
 - Jazarichmon
@@ -73,7 +70,6 @@ Digital Monster X
 - Jesmon X
 - Justimon X
 - Kaiser Leomon
-- Keemon
 - Keramon X
 - Kiimon
 - Kokuwamon X
@@ -84,10 +80,8 @@ Digital Monster X
 - Lilimon X
 - Lilithmon X
 - Lopmon X
-- Lord Kightmon X
 - Lord Knightmon X
 - Lucemon X
-- Magidramon X
 - Magnamon X
 - Mamemon X
 - Mametyramon
@@ -110,7 +104,6 @@ Digital Monster X
 - Nefertimon X
 - Noble Pumpmon
 - Numemon X
-- Ofanimon Falldown Mode
 - Ofanimon Falldown Mode X
 - Ofanimon X
 - Ogremon X
@@ -128,7 +121,6 @@ Digital Monster X
 - Plesiomon X
 - Plotmon X
 - Prince Mamemon X
-- Pteranmon X
 - Pteranomon X
 - Pumpmon
 - Puttimon
@@ -166,7 +158,6 @@ Digital Monster X
 - Valdurmon
 - Vamdemon X
 - Velgrmon
-- Voltobautamon
 - War Greymon X
 - Were Garurumon X
 - Wizarmon X

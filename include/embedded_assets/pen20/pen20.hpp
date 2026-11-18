@@ -279,6 +279,24 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BAALMON_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t PEN20_BAALMON_ANIM_INDEX = 14;
 
+    // Name: Babydmon
+    inline static constexpr char PEN20_BABYDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:babydmon";
+    inline static constexpr const char* PEN20_BABYDMON_FQID = PEN20_BABYDMON_FQID_ARR;
+    inline static constexpr size_t PEN20_BABYDMON_FQID_LEN = sizeof(PEN20_BABYDMON_FQID_ARR)-1;
+    inline static constexpr char PEN20_BABYDMON_ID_ARR[] CONFIG_STRING_SECTION = "babydmon";
+    inline static constexpr const char* PEN20_BABYDMON_ID = PEN20_BABYDMON_ID_ARR;
+    inline static constexpr size_t PEN20_BABYDMON_ID_LEN = sizeof(PEN20_BABYDMON_ID_ARR)-1;
+    inline static constexpr char PEN20_BABYDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Babydmon";
+    inline static constexpr const char* PEN20_BABYDMON_NAME = PEN20_BABYDMON_NAME_ARR;
+    inline static constexpr size_t PEN20_BABYDMON_NAME_LEN = sizeof(PEN20_BABYDMON_NAME_ARR)-1;
+    inline static constexpr char PEN20_BABYDMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Babydmon";
+    inline static constexpr const char* PEN20_BABYDMON_FQNAME = PEN20_BABYDMON_FQNAME_ARR;
+    inline static constexpr size_t PEN20_BABYDMON_FQNAME_LEN = sizeof(PEN20_BABYDMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN20_BABYDMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
+    inline static constexpr int PEN20_BABYDMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
+    inline static constexpr size_t PEN20_BABYDMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN20_BABYDMON_ANIM_INDEX = 15;
+
     // Name: Bakemon
     inline static constexpr char PEN20_BAKEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:bakemon";
     inline static constexpr const char* PEN20_BAKEMON_FQID = PEN20_BAKEMON_FQID_ARR;
@@ -295,7 +313,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_BAKEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 8;
     inline static constexpr int PEN20_BAKEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_BAKEMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t PEN20_BAKEMON_ANIM_INDEX = 15;
+    inline static constexpr size_t PEN20_BAKEMON_ANIM_INDEX = 16;
 
     // Name: Bakumon
     inline static constexpr char PEN20_BAKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:bakumon";
@@ -313,7 +331,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_BAKUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_BAKUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_BAKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_BAKUMON_ANIM_INDEX = 16;
+    inline static constexpr size_t PEN20_BAKUMON_ANIM_INDEX = 17;
 
     // Name: Bancho Leomon
     inline static constexpr char PEN20_BANCHO_LEOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:bancho_leomon";
@@ -331,7 +349,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_BANCHO_LEOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_BANCHO_LEOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_BANCHO_LEOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_BANCHO_LEOMON_ANIM_INDEX = 17;
+    inline static constexpr size_t PEN20_BANCHO_LEOMON_ANIM_INDEX = 18;
 
     // Name: Bao Hackmon
     inline static constexpr char PEN20_BAO_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:bao_hackmon";
@@ -349,7 +367,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_BAO_HACKMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_BAO_HACKMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_BAO_HACKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_BAO_HACKMON_ANIM_INDEX = 18;
+    inline static constexpr size_t PEN20_BAO_HACKMON_ANIM_INDEX = 19;
 
     // Name: Beelzebumon Blast Mode
     inline static constexpr char PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:beelzebumon_blast_mode";
@@ -367,7 +385,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_BEELZEBUMON_BLAST_MODE_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_BEELZEBUMON_BLAST_MODE_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_BEELZEBUMON_BLAST_MODE_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX = 19;
+    inline static constexpr size_t PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX = 20;
 
     // Name: Beowolfmon
     inline static constexpr char PEN20_BEOWOLFMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:beowolfmon";
@@ -385,25 +403,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_BEOWOLFMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_BEOWOLFMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_BEOWOLFMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_BEOWOLFMON_ANIM_INDEX = 20;
-
-    // Name: Beowulfmon
-    inline static constexpr char PEN20_BEOWULFMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:beowulfmon";
-    inline static constexpr const char* PEN20_BEOWULFMON_FQID = PEN20_BEOWULFMON_FQID_ARR;
-    inline static constexpr size_t PEN20_BEOWULFMON_FQID_LEN = sizeof(PEN20_BEOWULFMON_FQID_ARR)-1;
-    inline static constexpr char PEN20_BEOWULFMON_ID_ARR[] CONFIG_STRING_SECTION = "beowulfmon";
-    inline static constexpr const char* PEN20_BEOWULFMON_ID = PEN20_BEOWULFMON_ID_ARR;
-    inline static constexpr size_t PEN20_BEOWULFMON_ID_LEN = sizeof(PEN20_BEOWULFMON_ID_ARR)-1;
-    inline static constexpr char PEN20_BEOWULFMON_NAME_ARR[] CONFIG_STRING_SECTION = "Beowulfmon";
-    inline static constexpr const char* PEN20_BEOWULFMON_NAME = PEN20_BEOWULFMON_NAME_ARR;
-    inline static constexpr size_t PEN20_BEOWULFMON_NAME_LEN = sizeof(PEN20_BEOWULFMON_NAME_ARR)-1;
-    inline static constexpr char PEN20_BEOWULFMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Beowulfmon";
-    inline static constexpr const char* PEN20_BEOWULFMON_FQNAME = PEN20_BEOWULFMON_FQNAME_ARR;
-    inline static constexpr size_t PEN20_BEOWULFMON_FQNAME_LEN = sizeof(PEN20_BEOWULFMON_FQNAME_ARR)-1;
-    inline static constexpr int PEN20_BEOWULFMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
-    inline static constexpr int PEN20_BEOWULFMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
-    inline static constexpr size_t PEN20_BEOWULFMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_BEOWULFMON_ANIM_INDEX = 21;
+    inline static constexpr size_t PEN20_BEOWOLFMON_ANIM_INDEX = 21;
 
     // Name: Big Mamemon
     inline static constexpr char PEN20_BIG_MAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:big_mamemon";
@@ -963,6 +963,24 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DEVIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
     inline static constexpr size_t PEN20_DEVIMON_ANIM_INDEX = 52;
 
+    // Name: Dodomon
+    inline static constexpr char PEN20_DODOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dodomon";
+    inline static constexpr const char* PEN20_DODOMON_FQID = PEN20_DODOMON_FQID_ARR;
+    inline static constexpr size_t PEN20_DODOMON_FQID_LEN = sizeof(PEN20_DODOMON_FQID_ARR)-1;
+    inline static constexpr char PEN20_DODOMON_ID_ARR[] CONFIG_STRING_SECTION = "dodomon";
+    inline static constexpr const char* PEN20_DODOMON_ID = PEN20_DODOMON_ID_ARR;
+    inline static constexpr size_t PEN20_DODOMON_ID_LEN = sizeof(PEN20_DODOMON_ID_ARR)-1;
+    inline static constexpr char PEN20_DODOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dodomon";
+    inline static constexpr const char* PEN20_DODOMON_NAME = PEN20_DODOMON_NAME_ARR;
+    inline static constexpr size_t PEN20_DODOMON_NAME_LEN = sizeof(PEN20_DODOMON_NAME_ARR)-1;
+    inline static constexpr char PEN20_DODOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Dodomon";
+    inline static constexpr const char* PEN20_DODOMON_FQNAME = PEN20_DODOMON_FQNAME_ARR;
+    inline static constexpr size_t PEN20_DODOMON_FQNAME_LEN = sizeof(PEN20_DODOMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN20_DODOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
+    inline static constexpr int PEN20_DODOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
+    inline static constexpr size_t PEN20_DODOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN20_DODOMON_ANIM_INDEX = 53;
+
     // Name: Dokugumon
     inline static constexpr char PEN20_DOKUGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dokugumon";
     inline static constexpr const char* PEN20_DOKUGUMON_FQID = PEN20_DOKUGUMON_FQID_ARR;
@@ -979,7 +997,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DOKUGUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DOKUGUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DOKUGUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DOKUGUMON_ANIM_INDEX = 53;
+    inline static constexpr size_t PEN20_DOKUGUMON_ANIM_INDEX = 54;
 
     // Name: Dorimon
     inline static constexpr char PEN20_DORIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorimon";
@@ -997,7 +1015,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DORIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DORIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DORIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DORIMON_ANIM_INDEX = 54;
+    inline static constexpr size_t PEN20_DORIMON_ANIM_INDEX = 55;
 
     // Name: DORUgamon
     inline static constexpr char PEN20_DORUGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorugamon";
@@ -1015,7 +1033,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DORUGAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DORUGAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DORUGAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DORUGAMON_ANIM_INDEX = 55;
+    inline static constexpr size_t PEN20_DORUGAMON_ANIM_INDEX = 56;
 
     // Name: DORUgoramon
     inline static constexpr char PEN20_DORUGORAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorugoramon";
@@ -1033,7 +1051,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DORUGORAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DORUGORAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DORUGORAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DORUGORAMON_ANIM_INDEX = 56;
+    inline static constexpr size_t PEN20_DORUGORAMON_ANIM_INDEX = 57;
 
     // Name: DORUguremon
     inline static constexpr char PEN20_DORUGUREMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:doruguremon";
@@ -1051,7 +1069,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DORUGUREMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DORUGUREMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DORUGUREMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DORUGUREMON_ANIM_INDEX = 57;
+    inline static constexpr size_t PEN20_DORUGUREMON_ANIM_INDEX = 58;
 
     // Name: DORUmon
     inline static constexpr char PEN20_DORUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorumon";
@@ -1069,7 +1087,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DORUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DORUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DORUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DORUMON_ANIM_INDEX = 58;
+    inline static constexpr size_t PEN20_DORUMON_ANIM_INDEX = 59;
 
     // Name: Dracomon
     inline static constexpr char PEN20_DRACOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dracomon";
@@ -1087,7 +1105,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DRACOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DRACOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DRACOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DRACOMON_ANIM_INDEX = 59;
+    inline static constexpr size_t PEN20_DRACOMON_ANIM_INDEX = 60;
 
     // Name: Duramon
     inline static constexpr char PEN20_DURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:duramon";
@@ -1105,7 +1123,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DURAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DURAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DURAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DURAMON_ANIM_INDEX = 60;
+    inline static constexpr size_t PEN20_DURAMON_ANIM_INDEX = 61;
 
     // Name: Durandamon
     inline static constexpr char PEN20_DURANDAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:durandamon";
@@ -1123,7 +1141,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_DURANDAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_DURANDAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_DURANDAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_DURANDAMON_ANIM_INDEX = 61;
+    inline static constexpr size_t PEN20_DURANDAMON_ANIM_INDEX = 62;
 
     // Name: Ebidramon
     inline static constexpr char PEN20_EBIDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ebidramon";
@@ -1141,7 +1159,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_EBIDRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_EBIDRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_EBIDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_EBIDRAMON_ANIM_INDEX = 62;
+    inline static constexpr size_t PEN20_EBIDRAMON_ANIM_INDEX = 63;
 
     // Name: Etemon
     inline static constexpr char PEN20_ETEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:etemon";
@@ -1159,7 +1177,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_ETEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_ETEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_ETEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_ETEMON_ANIM_INDEX = 63;
+    inline static constexpr size_t PEN20_ETEMON_ANIM_INDEX = 64;
 
     // Name: Examon
     inline static constexpr char PEN20_EXAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:examon";
@@ -1177,7 +1195,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_EXAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_EXAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_EXAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_EXAMON_ANIM_INDEX = 64;
+    inline static constexpr size_t PEN20_EXAMON_ANIM_INDEX = 65;
 
     // Name: Fantomon
     inline static constexpr char PEN20_FANTOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:fantomon";
@@ -1195,7 +1213,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_FANTOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_FANTOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_FANTOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_FANTOMON_ANIM_INDEX = 65;
+    inline static constexpr size_t PEN20_FANTOMON_ANIM_INDEX = 66;
 
     // Name: Floramon
     inline static constexpr char PEN20_FLORAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:floramon";
@@ -1213,7 +1231,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_FLORAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_FLORAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_FLORAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_FLORAMON_ANIM_INDEX = 66;
+    inline static constexpr size_t PEN20_FLORAMON_ANIM_INDEX = 67;
 
     // Name: Fufumon
     inline static constexpr char PEN20_FUFUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:fufumon";
@@ -1231,7 +1249,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_FUFUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_FUFUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_FUFUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_FUFUMON_ANIM_INDEX = 67;
+    inline static constexpr size_t PEN20_FUFUMON_ANIM_INDEX = 68;
 
     // Name: Gabumon
     inline static constexpr char PEN20_GABUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gabumon";
@@ -1249,7 +1267,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GABUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_GABUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GABUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_GABUMON_ANIM_INDEX = 68;
+    inline static constexpr size_t PEN20_GABUMON_ANIM_INDEX = 69;
 
     // Name: Galgomon
     inline static constexpr char PEN20_GALGOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:galgomon";
@@ -1267,7 +1285,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GALGOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GALGOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GALGOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GALGOMON_ANIM_INDEX = 69;
+    inline static constexpr size_t PEN20_GALGOMON_ANIM_INDEX = 70;
 
     // Name: Ganimon
     inline static constexpr char PEN20_GANIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ganimon";
@@ -1285,7 +1303,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GANIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GANIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GANIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GANIMON_ANIM_INDEX = 70;
+    inline static constexpr size_t PEN20_GANIMON_ANIM_INDEX = 71;
 
     // Name: Garudamon
     inline static constexpr char PEN20_GARUDAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:garudamon";
@@ -1303,7 +1321,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GARUDAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GARUDAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GARUDAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GARUDAMON_ANIM_INDEX = 71;
+    inline static constexpr size_t PEN20_GARUDAMON_ANIM_INDEX = 72;
 
     // Name: Garurumon
     inline static constexpr char PEN20_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:garurumon";
@@ -1321,7 +1339,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GARURUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_GARURUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_GARURUMON_ANIM_INDEX = 72;
+    inline static constexpr size_t PEN20_GARURUMON_ANIM_INDEX = 73;
 
     // Name: Gekomon
     inline static constexpr char PEN20_GEKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gekomon";
@@ -1339,7 +1357,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GEKOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GEKOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GEKOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GEKOMON_ANIM_INDEX = 73;
+    inline static constexpr size_t PEN20_GEKOMON_ANIM_INDEX = 74;
 
     // Name: Gerbemon
     inline static constexpr char PEN20_GERBEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gerbemon";
@@ -1357,7 +1375,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GERBEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GERBEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GERBEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GERBEMON_ANIM_INDEX = 74;
+    inline static constexpr size_t PEN20_GERBEMON_ANIM_INDEX = 75;
 
     // Name: Gesomon
     inline static constexpr char PEN20_GESOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gesomon";
@@ -1375,7 +1393,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GESOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GESOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GESOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GESOMON_ANIM_INDEX = 75;
+    inline static constexpr size_t PEN20_GESOMON_ANIM_INDEX = 76;
 
     // Name: Ginryumon
     inline static constexpr char PEN20_GINRYUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ginryumon";
@@ -1393,7 +1411,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GINRYUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GINRYUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GINRYUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GINRYUMON_ANIM_INDEX = 76;
+    inline static constexpr size_t PEN20_GINRYUMON_ANIM_INDEX = 77;
 
     // Name: Gomamon
     inline static constexpr char PEN20_GOMAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gomamon";
@@ -1411,7 +1429,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GOMAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GOMAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GOMAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GOMAMON_ANIM_INDEX = 77;
+    inline static constexpr size_t PEN20_GOMAMON_ANIM_INDEX = 78;
 
     // Name: Gottsumon
     inline static constexpr char PEN20_GOTTSUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gottsumon";
@@ -1429,7 +1447,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GOTTSUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GOTTSUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GOTTSUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GOTTSUMON_ANIM_INDEX = 78;
+    inline static constexpr size_t PEN20_GOTTSUMON_ANIM_INDEX = 79;
 
     // Name: Greymon
     inline static constexpr char PEN20_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:greymon";
@@ -1447,7 +1465,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GREYMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 10;
     inline static constexpr int PEN20_GREYMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 10;
-    inline static constexpr size_t PEN20_GREYMON_ANIM_INDEX = 79;
+    inline static constexpr size_t PEN20_GREYMON_ANIM_INDEX = 80;
 
     // Name: Griffomon
     inline static constexpr char PEN20_GRIFFOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:griffomon";
@@ -1465,7 +1483,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GRIFFOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GRIFFOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GRIFFOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GRIFFOMON_ANIM_INDEX = 80;
+    inline static constexpr size_t PEN20_GRIFFOMON_ANIM_INDEX = 81;
 
     // Name: Groundramon
     inline static constexpr char PEN20_GROUNDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:groundramon";
@@ -1483,7 +1501,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GROUNDRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GROUNDRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GROUNDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GROUNDRAMON_ANIM_INDEX = 81;
+    inline static constexpr size_t PEN20_GROUNDRAMON_ANIM_INDEX = 82;
 
     // Name: Growmon
     inline static constexpr char PEN20_GROWMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:growmon";
@@ -1501,7 +1519,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GROWMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GROWMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GROWMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GROWMON_ANIM_INDEX = 82;
+    inline static constexpr size_t PEN20_GROWMON_ANIM_INDEX = 83;
 
     // Name: Guardromon
     inline static constexpr char PEN20_GUARDROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:guardromon";
@@ -1519,25 +1537,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GUARDROMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GUARDROMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GUARDROMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GUARDROMON_ANIM_INDEX = 83;
+    inline static constexpr size_t PEN20_GUARDROMON_ANIM_INDEX = 84;
 
-    // Name: Guimon
-    inline static constexpr char PEN20_GUIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:guimon";
-    inline static constexpr const char* PEN20_GUIMON_FQID = PEN20_GUIMON_FQID_ARR;
-    inline static constexpr size_t PEN20_GUIMON_FQID_LEN = sizeof(PEN20_GUIMON_FQID_ARR)-1;
-    inline static constexpr char PEN20_GUIMON_ID_ARR[] CONFIG_STRING_SECTION = "guimon";
-    inline static constexpr const char* PEN20_GUIMON_ID = PEN20_GUIMON_ID_ARR;
-    inline static constexpr size_t PEN20_GUIMON_ID_LEN = sizeof(PEN20_GUIMON_ID_ARR)-1;
-    inline static constexpr char PEN20_GUIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Guimon";
-    inline static constexpr const char* PEN20_GUIMON_NAME = PEN20_GUIMON_NAME_ARR;
-    inline static constexpr size_t PEN20_GUIMON_NAME_LEN = sizeof(PEN20_GUIMON_NAME_ARR)-1;
-    inline static constexpr char PEN20_GUIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Guimon";
-    inline static constexpr const char* PEN20_GUIMON_FQNAME = PEN20_GUIMON_FQNAME_ARR;
-    inline static constexpr size_t PEN20_GUIMON_FQNAME_LEN = sizeof(PEN20_GUIMON_FQNAME_ARR)-1;
-    inline static constexpr int PEN20_GUIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
-    inline static constexpr int PEN20_GUIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
-    inline static constexpr size_t PEN20_GUIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GUIMON_ANIM_INDEX = 84;
+    // Name: Guilmon
+    inline static constexpr char PEN20_GUILMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:guilmon";
+    inline static constexpr const char* PEN20_GUILMON_FQID = PEN20_GUILMON_FQID_ARR;
+    inline static constexpr size_t PEN20_GUILMON_FQID_LEN = sizeof(PEN20_GUILMON_FQID_ARR)-1;
+    inline static constexpr char PEN20_GUILMON_ID_ARR[] CONFIG_STRING_SECTION = "guilmon";
+    inline static constexpr const char* PEN20_GUILMON_ID = PEN20_GUILMON_ID_ARR;
+    inline static constexpr size_t PEN20_GUILMON_ID_LEN = sizeof(PEN20_GUILMON_ID_ARR)-1;
+    inline static constexpr char PEN20_GUILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Guilmon";
+    inline static constexpr const char* PEN20_GUILMON_NAME = PEN20_GUILMON_NAME_ARR;
+    inline static constexpr size_t PEN20_GUILMON_NAME_LEN = sizeof(PEN20_GUILMON_NAME_ARR)-1;
+    inline static constexpr char PEN20_GUILMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Guilmon";
+    inline static constexpr const char* PEN20_GUILMON_FQNAME = PEN20_GUILMON_FQNAME_ARR;
+    inline static constexpr size_t PEN20_GUILMON_FQNAME_LEN = sizeof(PEN20_GUILMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN20_GUILMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
+    inline static constexpr int PEN20_GUILMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
+    inline static constexpr size_t PEN20_GUILMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN20_GUILMON_ANIM_INDEX = 85;
 
     // Name: Gummymon
     inline static constexpr char PEN20_GUMMYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gummymon";
@@ -1555,7 +1573,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_GUMMYMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_GUMMYMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_GUMMYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_GUMMYMON_ANIM_INDEX = 85;
+    inline static constexpr size_t PEN20_GUMMYMON_ANIM_INDEX = 86;
 
     // Name: Hackmon
     inline static constexpr char PEN20_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:hackmon";
@@ -1573,7 +1591,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_HACKMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_HACKMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_HACKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_HACKMON_ANIM_INDEX = 86;
+    inline static constexpr size_t PEN20_HACKMON_ANIM_INDEX = 87;
 
     // Name: Hagurumon
     inline static constexpr char PEN20_HAGURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:hagurumon";
@@ -1591,25 +1609,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_HAGURUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_HAGURUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_HAGURUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_HAGURUMON_ANIM_INDEX = 87;
-
-    // Name: Hangymon
-    inline static constexpr char PEN20_HANGYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:hangymon";
-    inline static constexpr const char* PEN20_HANGYMON_FQID = PEN20_HANGYMON_FQID_ARR;
-    inline static constexpr size_t PEN20_HANGYMON_FQID_LEN = sizeof(PEN20_HANGYMON_FQID_ARR)-1;
-    inline static constexpr char PEN20_HANGYMON_ID_ARR[] CONFIG_STRING_SECTION = "hangymon";
-    inline static constexpr const char* PEN20_HANGYMON_ID = PEN20_HANGYMON_ID_ARR;
-    inline static constexpr size_t PEN20_HANGYMON_ID_LEN = sizeof(PEN20_HANGYMON_ID_ARR)-1;
-    inline static constexpr char PEN20_HANGYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hangymon";
-    inline static constexpr const char* PEN20_HANGYMON_NAME = PEN20_HANGYMON_NAME_ARR;
-    inline static constexpr size_t PEN20_HANGYMON_NAME_LEN = sizeof(PEN20_HANGYMON_NAME_ARR)-1;
-    inline static constexpr char PEN20_HANGYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Hangymon";
-    inline static constexpr const char* PEN20_HANGYMON_FQNAME = PEN20_HANGYMON_FQNAME_ARR;
-    inline static constexpr size_t PEN20_HANGYMON_FQNAME_LEN = sizeof(PEN20_HANGYMON_FQNAME_ARR)-1;
-    inline static constexpr int PEN20_HANGYMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
-    inline static constexpr int PEN20_HANGYMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
-    inline static constexpr size_t PEN20_HANGYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_HANGYMON_ANIM_INDEX = 88;
+    inline static constexpr size_t PEN20_HAGURUMON_ANIM_INDEX = 88;
 
     // Name: Hangyomon
     inline static constexpr char PEN20_HANGYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:hangyomon";
@@ -2223,24 +2223,6 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MAD_LEOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t PEN20_MAD_LEOMON_ANIM_INDEX = 122;
 
-    // Name: Mambomon
-    inline static constexpr char PEN20_MAMBOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mambomon";
-    inline static constexpr const char* PEN20_MAMBOMON_FQID = PEN20_MAMBOMON_FQID_ARR;
-    inline static constexpr size_t PEN20_MAMBOMON_FQID_LEN = sizeof(PEN20_MAMBOMON_FQID_ARR)-1;
-    inline static constexpr char PEN20_MAMBOMON_ID_ARR[] CONFIG_STRING_SECTION = "mambomon";
-    inline static constexpr const char* PEN20_MAMBOMON_ID = PEN20_MAMBOMON_ID_ARR;
-    inline static constexpr size_t PEN20_MAMBOMON_ID_LEN = sizeof(PEN20_MAMBOMON_ID_ARR)-1;
-    inline static constexpr char PEN20_MAMBOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mambomon";
-    inline static constexpr const char* PEN20_MAMBOMON_NAME = PEN20_MAMBOMON_NAME_ARR;
-    inline static constexpr size_t PEN20_MAMBOMON_NAME_LEN = sizeof(PEN20_MAMBOMON_NAME_ARR)-1;
-    inline static constexpr char PEN20_MAMBOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Mambomon";
-    inline static constexpr const char* PEN20_MAMBOMON_FQNAME = PEN20_MAMBOMON_FQNAME_ARR;
-    inline static constexpr size_t PEN20_MAMBOMON_FQNAME_LEN = sizeof(PEN20_MAMBOMON_FQNAME_ARR)-1;
-    inline static constexpr int PEN20_MAMBOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
-    inline static constexpr int PEN20_MAMBOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
-    inline static constexpr size_t PEN20_MAMBOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MAMBOMON_ANIM_INDEX = 123;
-
     // Name: Mammon
     inline static constexpr char PEN20_MAMMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mammon";
     inline static constexpr const char* PEN20_MAMMON_FQID = PEN20_MAMMON_FQID_ARR;
@@ -2257,7 +2239,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MAMMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MAMMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MAMMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MAMMON_ANIM_INDEX = 124;
+    inline static constexpr size_t PEN20_MAMMON_ANIM_INDEX = 123;
 
     // Name: Manbomon
     inline static constexpr char PEN20_MANBOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:manbomon";
@@ -2275,7 +2257,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MANBOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MANBOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MANBOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MANBOMON_ANIM_INDEX = 125;
+    inline static constexpr size_t PEN20_MANBOMON_ANIM_INDEX = 124;
 
     // Name: Marin Angemon
     inline static constexpr char PEN20_MARIN_ANGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:marin_angemon";
@@ -2293,7 +2275,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MARIN_ANGEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MARIN_ANGEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MARIN_ANGEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MARIN_ANGEMON_ANIM_INDEX = 126;
+    inline static constexpr size_t PEN20_MARIN_ANGEMON_ANIM_INDEX = 125;
 
     // Name: Marin Devimon
     inline static constexpr char PEN20_MARIN_DEVIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:marin_devimon";
@@ -2311,7 +2293,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MARIN_DEVIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MARIN_DEVIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MARIN_DEVIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MARIN_DEVIMON_ANIM_INDEX = 127;
+    inline static constexpr size_t PEN20_MARIN_DEVIMON_ANIM_INDEX = 126;
 
     // Name: Mastemon
     inline static constexpr char PEN20_MASTEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mastemon";
@@ -2329,7 +2311,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MASTEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MASTEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MASTEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MASTEMON_ANIM_INDEX = 128;
+    inline static constexpr size_t PEN20_MASTEMON_ANIM_INDEX = 127;
 
     // Name: Mechanorimon
     inline static constexpr char PEN20_MECHANORIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mechanorimon";
@@ -2347,7 +2329,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MECHANORIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MECHANORIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MECHANORIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MECHANORIMON_ANIM_INDEX = 129;
+    inline static constexpr size_t PEN20_MECHANORIMON_ANIM_INDEX = 128;
 
     // Name: Megadramon
     inline static constexpr char PEN20_MEGADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:megadramon";
@@ -2365,7 +2347,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MEGADRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_MEGADRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MEGADRAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_MEGADRAMON_ANIM_INDEX = 130;
+    inline static constexpr size_t PEN20_MEGADRAMON_ANIM_INDEX = 129;
 
     // Name: Megalo Growmon
     inline static constexpr char PEN20_MEGALO_GROWMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:megalo_growmon";
@@ -2383,7 +2365,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MEGALO_GROWMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MEGALO_GROWMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MEGALO_GROWMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MEGALO_GROWMON_ANIM_INDEX = 131;
+    inline static constexpr size_t PEN20_MEGALO_GROWMON_ANIM_INDEX = 130;
 
     // Name: Mega Seadramon
     inline static constexpr char PEN20_MEGA_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mega_seadramon";
@@ -2401,7 +2383,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MEGA_SEADRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MEGA_SEADRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MEGA_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MEGA_SEADRAMON_ANIM_INDEX = 132;
+    inline static constexpr size_t PEN20_MEGA_SEADRAMON_ANIM_INDEX = 131;
 
     // Name: Meicoomon
     inline static constexpr char PEN20_MEICOOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:meicoomon";
@@ -2419,7 +2401,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MEICOOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MEICOOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MEICOOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MEICOOMON_ANIM_INDEX = 133;
+    inline static constexpr size_t PEN20_MEICOOMON_ANIM_INDEX = 132;
 
     // Name: Meicrackmon Vicious Mode
     inline static constexpr char PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:meicrackmon_vicious_mode";
@@ -2437,7 +2419,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MEICRACKMON_VICIOUS_MODE_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MEICRACKMON_VICIOUS_MODE_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MEICRACKMON_VICIOUS_MODE_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX = 134;
+    inline static constexpr size_t PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX = 133;
 
     // Name: Meramon
     inline static constexpr char PEN20_MERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:meramon";
@@ -2455,7 +2437,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MERAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_MERAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MERAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_MERAMON_ANIM_INDEX = 135;
+    inline static constexpr size_t PEN20_MERAMON_ANIM_INDEX = 134;
 
     // Name: Metal Etemon
     inline static constexpr char PEN20_METAL_ETEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:metal_etemon";
@@ -2473,7 +2455,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_METAL_ETEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_METAL_ETEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_METAL_ETEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_METAL_ETEMON_ANIM_INDEX = 136;
+    inline static constexpr size_t PEN20_METAL_ETEMON_ANIM_INDEX = 135;
 
     // Name: Metal Garurumon
     inline static constexpr char PEN20_METAL_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:metal_garurumon";
@@ -2491,7 +2473,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_METAL_GARURUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 12;
     inline static constexpr int PEN20_METAL_GARURUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_METAL_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t PEN20_METAL_GARURUMON_ANIM_INDEX = 137;
+    inline static constexpr size_t PEN20_METAL_GARURUMON_ANIM_INDEX = 136;
 
     // Name: Metal Greymon
     inline static constexpr char PEN20_METAL_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:metal_greymon";
@@ -2509,7 +2491,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_METAL_GREYMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_METAL_GREYMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_METAL_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_METAL_GREYMON_ANIM_INDEX = 138;
+    inline static constexpr size_t PEN20_METAL_GREYMON_ANIM_INDEX = 137;
 
     // Name: Metal Mamemon
     inline static constexpr char PEN20_METAL_MAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:metal_mamemon";
@@ -2527,7 +2509,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_METAL_MAMEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_METAL_MAMEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_METAL_MAMEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_METAL_MAMEMON_ANIM_INDEX = 139;
+    inline static constexpr size_t PEN20_METAL_MAMEMON_ANIM_INDEX = 138;
 
     // Name: Metal Seadramon
     inline static constexpr char PEN20_METAL_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:metal_seadramon";
@@ -2545,7 +2527,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_METAL_SEADRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_METAL_SEADRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_METAL_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_METAL_SEADRAMON_ANIM_INDEX = 140;
+    inline static constexpr size_t PEN20_METAL_SEADRAMON_ANIM_INDEX = 139;
 
     // Name: Mochimon
     inline static constexpr char PEN20_MOCHIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mochimon";
@@ -2563,7 +2545,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MOCHIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MOCHIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MOCHIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MOCHIMON_ANIM_INDEX = 141;
+    inline static constexpr size_t PEN20_MOCHIMON_ANIM_INDEX = 140;
 
     // Name: Mokumon
     inline static constexpr char PEN20_MOKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mokumon";
@@ -2581,25 +2563,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MOKUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MOKUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MOKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MOKUMON_ANIM_INDEX = 142;
-
-    // Name: Monchromon
-    inline static constexpr char PEN20_MONCHROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:monchromon";
-    inline static constexpr const char* PEN20_MONCHROMON_FQID = PEN20_MONCHROMON_FQID_ARR;
-    inline static constexpr size_t PEN20_MONCHROMON_FQID_LEN = sizeof(PEN20_MONCHROMON_FQID_ARR)-1;
-    inline static constexpr char PEN20_MONCHROMON_ID_ARR[] CONFIG_STRING_SECTION = "monchromon";
-    inline static constexpr const char* PEN20_MONCHROMON_ID = PEN20_MONCHROMON_ID_ARR;
-    inline static constexpr size_t PEN20_MONCHROMON_ID_LEN = sizeof(PEN20_MONCHROMON_ID_ARR)-1;
-    inline static constexpr char PEN20_MONCHROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Monchromon";
-    inline static constexpr const char* PEN20_MONCHROMON_NAME = PEN20_MONCHROMON_NAME_ARR;
-    inline static constexpr size_t PEN20_MONCHROMON_NAME_LEN = sizeof(PEN20_MONCHROMON_NAME_ARR)-1;
-    inline static constexpr char PEN20_MONCHROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Monchromon";
-    inline static constexpr const char* PEN20_MONCHROMON_FQNAME = PEN20_MONCHROMON_FQNAME_ARR;
-    inline static constexpr size_t PEN20_MONCHROMON_FQNAME_LEN = sizeof(PEN20_MONCHROMON_FQNAME_ARR)-1;
-    inline static constexpr int PEN20_MONCHROMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 8;
-    inline static constexpr int PEN20_MONCHROMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
-    inline static constexpr size_t PEN20_MONCHROMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t PEN20_MONCHROMON_ANIM_INDEX = 143;
+    inline static constexpr size_t PEN20_MOKUMON_ANIM_INDEX = 141;
 
     // Name: Monochromon
     inline static constexpr char PEN20_MONOCHROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:monochromon";
@@ -2617,7 +2581,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MONOCHROMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_MONOCHROMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MONOCHROMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_MONOCHROMON_ANIM_INDEX = 144;
+    inline static constexpr size_t PEN20_MONOCHROMON_ANIM_INDEX = 142;
 
     // Name: Mugendramon
     inline static constexpr char PEN20_MUGENDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mugendramon";
@@ -2635,7 +2599,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MUGENDRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MUGENDRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MUGENDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MUGENDRAMON_ANIM_INDEX = 145;
+    inline static constexpr size_t PEN20_MUGENDRAMON_ANIM_INDEX = 143;
 
     // Name: Mushmon
     inline static constexpr char PEN20_MUSHMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:mushmon";
@@ -2653,7 +2617,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_MUSHMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_MUSHMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_MUSHMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_MUSHMON_ANIM_INDEX = 146;
+    inline static constexpr size_t PEN20_MUSHMON_ANIM_INDEX = 144;
 
     // Name: Nyaromon
     inline static constexpr char PEN20_NYAROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:nyaromon";
@@ -2671,7 +2635,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_NYAROMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_NYAROMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_NYAROMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_NYAROMON_ANIM_INDEX = 147;
+    inline static constexpr size_t PEN20_NYAROMON_ANIM_INDEX = 145;
 
     // Name: Nyokimon
     inline static constexpr char PEN20_NYOKIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:nyokimon";
@@ -2689,7 +2653,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_NYOKIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_NYOKIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_NYOKIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_NYOKIMON_ANIM_INDEX = 148;
+    inline static constexpr size_t PEN20_NYOKIMON_ANIM_INDEX = 146;
 
     // Name: Octmon
     inline static constexpr char PEN20_OCTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:octmon";
@@ -2707,7 +2671,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_OCTMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_OCTMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_OCTMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_OCTMON_ANIM_INDEX = 149;
+    inline static constexpr size_t PEN20_OCTMON_ANIM_INDEX = 147;
 
     // Name: Ofanimon
     inline static constexpr char PEN20_OFANIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ofanimon";
@@ -2725,7 +2689,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_OFANIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_OFANIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_OFANIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_OFANIMON_ANIM_INDEX = 150;
+    inline static constexpr size_t PEN20_OFANIMON_ANIM_INDEX = 148;
 
     // Name: Ogudomon
     inline static constexpr char PEN20_OGUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ogudomon";
@@ -2743,7 +2707,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_OGUDOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_OGUDOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_OGUDOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_OGUDOMON_ANIM_INDEX = 151;
+    inline static constexpr size_t PEN20_OGUDOMON_ANIM_INDEX = 149;
 
     // Name: Okuwamon
     inline static constexpr char PEN20_OKUWAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:okuwamon";
@@ -2761,7 +2725,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_OKUWAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_OKUWAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_OKUWAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_OKUWAMON_ANIM_INDEX = 152;
+    inline static constexpr size_t PEN20_OKUWAMON_ANIM_INDEX = 150;
 
     // Name: Omegamon
     inline static constexpr char PEN20_OMEGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:omegamon";
@@ -2779,7 +2743,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_OMEGAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_OMEGAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_OMEGAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_OMEGAMON_ANIM_INDEX = 153;
+    inline static constexpr size_t PEN20_OMEGAMON_ANIM_INDEX = 151;
 
     // Name: Ordinemon
     inline static constexpr char PEN20_ORDINEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ordinemon";
@@ -2797,7 +2761,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_ORDINEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_ORDINEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_ORDINEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_ORDINEMON_ANIM_INDEX = 154;
+    inline static constexpr size_t PEN20_ORDINEMON_ANIM_INDEX = 152;
 
     // Name: Otamamon
     inline static constexpr char PEN20_OTAMAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:otamamon";
@@ -2815,7 +2779,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_OTAMAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_OTAMAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_OTAMAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_OTAMAMON_ANIM_INDEX = 155;
+    inline static constexpr size_t PEN20_OTAMAMON_ANIM_INDEX = 153;
 
     // Name: Ouryumon
     inline static constexpr char PEN20_OURYUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ouryumon";
@@ -2833,7 +2797,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_OURYUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_OURYUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_OURYUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_OURYUMON_ANIM_INDEX = 156;
+    inline static constexpr size_t PEN20_OURYUMON_ANIM_INDEX = 154;
 
     // Name: Paildramon
     inline static constexpr char PEN20_PAILDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:paildramon";
@@ -2851,7 +2815,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PAILDRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PAILDRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PAILDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PAILDRAMON_ANIM_INDEX = 157;
+    inline static constexpr size_t PEN20_PAILDRAMON_ANIM_INDEX = 155;
 
     // Name: Palmon
     inline static constexpr char PEN20_PALMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:palmon";
@@ -2869,7 +2833,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PALMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_PALMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PALMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_PALMON_ANIM_INDEX = 158;
+    inline static constexpr size_t PEN20_PALMON_ANIM_INDEX = 156;
 
     // Name: Peti Meramon
     inline static constexpr char PEN20_PETI_MERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:peti_meramon";
@@ -2887,7 +2851,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PETI_MERAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PETI_MERAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PETI_MERAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PETI_MERAMON_ANIM_INDEX = 159;
+    inline static constexpr size_t PEN20_PETI_MERAMON_ANIM_INDEX = 157;
 
     // Name: Petitmon
     inline static constexpr char PEN20_PETITMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:petitmon";
@@ -2905,7 +2869,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PETITMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PETITMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PETITMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PETITMON_ANIM_INDEX = 160;
+    inline static constexpr size_t PEN20_PETITMON_ANIM_INDEX = 158;
 
     // Name: Phascomon
     inline static constexpr char PEN20_PHASCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:phascomon";
@@ -2923,7 +2887,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PHASCOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PHASCOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PHASCOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PHASCOMON_ANIM_INDEX = 161;
+    inline static constexpr size_t PEN20_PHASCOMON_ANIM_INDEX = 159;
 
     // Name: Piccolomon
     inline static constexpr char PEN20_PICCOLOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:piccolomon";
@@ -2941,7 +2905,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PICCOLOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_PICCOLOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PICCOLOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_PICCOLOMON_ANIM_INDEX = 162;
+    inline static constexpr size_t PEN20_PICCOLOMON_ANIM_INDEX = 160;
 
     // Name: Pico Devimon
     inline static constexpr char PEN20_PICO_DEVIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pico_devimon";
@@ -2959,7 +2923,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PICO_DEVIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PICO_DEVIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PICO_DEVIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PICO_DEVIMON_ANIM_INDEX = 163;
+    inline static constexpr size_t PEN20_PICO_DEVIMON_ANIM_INDEX = 161;
 
     // Name: Piemon
     inline static constexpr char PEN20_PIEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:piemon";
@@ -2977,7 +2941,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PIEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PIEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PIEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PIEMON_ANIM_INDEX = 164;
+    inline static constexpr size_t PEN20_PIEMON_ANIM_INDEX = 162;
 
     // Name: Pinochimon
     inline static constexpr char PEN20_PINOCHIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pinochimon";
@@ -2995,7 +2959,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PINOCHIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PINOCHIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PINOCHIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PINOCHIMON_ANIM_INDEX = 165;
+    inline static constexpr size_t PEN20_PINOCHIMON_ANIM_INDEX = 163;
 
     // Name: Pitchmon
     inline static constexpr char PEN20_PITCHMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pitchmon";
@@ -3013,7 +2977,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PITCHMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PITCHMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PITCHMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PITCHMON_ANIM_INDEX = 166;
+    inline static constexpr size_t PEN20_PITCHMON_ANIM_INDEX = 164;
 
     // Name: Piyomon
     inline static constexpr char PEN20_PIYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:piyomon";
@@ -3031,7 +2995,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PIYOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_PIYOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PIYOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_PIYOMON_ANIM_INDEX = 167;
+    inline static constexpr size_t PEN20_PIYOMON_ANIM_INDEX = 165;
 
     // Name: Plesiomon
     inline static constexpr char PEN20_PLESIOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:plesiomon";
@@ -3049,7 +3013,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PLESIOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PLESIOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PLESIOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PLESIOMON_ANIM_INDEX = 168;
+    inline static constexpr size_t PEN20_PLESIOMON_ANIM_INDEX = 166;
 
     // Name: Plotmon
     inline static constexpr char PEN20_PLOTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:plotmon";
@@ -3067,7 +3031,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PLOTMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PLOTMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PLOTMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PLOTMON_ANIM_INDEX = 169;
+    inline static constexpr size_t PEN20_PLOTMON_ANIM_INDEX = 167;
 
     // Name: Porcupamon
     inline static constexpr char PEN20_PORCUPAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:porcupamon";
@@ -3085,25 +3049,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PORCUPAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PORCUPAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PORCUPAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PORCUPAMON_ANIM_INDEX = 170;
-
-    // Name: Porcupmon
-    inline static constexpr char PEN20_PORCUPMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:porcupmon";
-    inline static constexpr const char* PEN20_PORCUPMON_FQID = PEN20_PORCUPMON_FQID_ARR;
-    inline static constexpr size_t PEN20_PORCUPMON_FQID_LEN = sizeof(PEN20_PORCUPMON_FQID_ARR)-1;
-    inline static constexpr char PEN20_PORCUPMON_ID_ARR[] CONFIG_STRING_SECTION = "porcupmon";
-    inline static constexpr const char* PEN20_PORCUPMON_ID = PEN20_PORCUPMON_ID_ARR;
-    inline static constexpr size_t PEN20_PORCUPMON_ID_LEN = sizeof(PEN20_PORCUPMON_ID_ARR)-1;
-    inline static constexpr char PEN20_PORCUPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Porcupmon";
-    inline static constexpr const char* PEN20_PORCUPMON_NAME = PEN20_PORCUPMON_NAME_ARR;
-    inline static constexpr size_t PEN20_PORCUPMON_NAME_LEN = sizeof(PEN20_PORCUPMON_NAME_ARR)-1;
-    inline static constexpr char PEN20_PORCUPMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Porcupmon";
-    inline static constexpr const char* PEN20_PORCUPMON_FQNAME = PEN20_PORCUPMON_FQNAME_ARR;
-    inline static constexpr size_t PEN20_PORCUPMON_FQNAME_LEN = sizeof(PEN20_PORCUPMON_FQNAME_ARR)-1;
-    inline static constexpr int PEN20_PORCUPMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
-    inline static constexpr int PEN20_PORCUPMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
-    inline static constexpr size_t PEN20_PORCUPMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PORCUPMON_ANIM_INDEX = 171;
+    inline static constexpr size_t PEN20_PORCUPAMON_ANIM_INDEX = 168;
 
     // Name: Pukamon
     inline static constexpr char PEN20_PUKAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pukamon";
@@ -3121,7 +3067,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PUKAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PUKAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PUKAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PUKAMON_ANIM_INDEX = 172;
+    inline static constexpr size_t PEN20_PUKAMON_ANIM_INDEX = 169;
 
     // Name: Pukumon
     inline static constexpr char PEN20_PUKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pukumon";
@@ -3139,7 +3085,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PUKUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PUKUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PUKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PUKUMON_ANIM_INDEX = 173;
+    inline static constexpr size_t PEN20_PUKUMON_ANIM_INDEX = 170;
 
     // Name: Pumpmon
     inline static constexpr char PEN20_PUMPMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pumpmon";
@@ -3157,7 +3103,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PUMPMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PUMPMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PUMPMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PUMPMON_ANIM_INDEX = 174;
+    inline static constexpr size_t PEN20_PUMPMON_ANIM_INDEX = 171;
 
     // Name: Pyocomon
     inline static constexpr char PEN20_PYOCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pyocomon";
@@ -3175,7 +3121,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_PYOCOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_PYOCOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_PYOCOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_PYOCOMON_ANIM_INDEX = 175;
+    inline static constexpr size_t PEN20_PYOCOMON_ANIM_INDEX = 172;
 
     // Name: Rafflesimon
     inline static constexpr char PEN20_RAFFLESIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:rafflesimon";
@@ -3193,7 +3139,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RAFFLESIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RAFFLESIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RAFFLESIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RAFFLESIMON_ANIM_INDEX = 176;
+    inline static constexpr size_t PEN20_RAFFLESIMON_ANIM_INDEX = 173;
 
     // Name: Ragna Lordmon
     inline static constexpr char PEN20_RAGNA_LORDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ragna_lordmon";
@@ -3211,7 +3157,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RAGNA_LORDMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RAGNA_LORDMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RAGNA_LORDMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RAGNA_LORDMON_ANIM_INDEX = 177;
+    inline static constexpr size_t PEN20_RAGNA_LORDMON_ANIM_INDEX = 174;
 
     // Name: Raguelmon
     inline static constexpr char PEN20_RAGUELMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:raguelmon";
@@ -3229,7 +3175,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RAGUELMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RAGUELMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RAGUELMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RAGUELMON_ANIM_INDEX = 178;
+    inline static constexpr size_t PEN20_RAGUELMON_ANIM_INDEX = 175;
 
     // Name: Raiji Ludomon
     inline static constexpr char PEN20_RAIJI_LUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:raiji_ludomon";
@@ -3247,7 +3193,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RAIJI_LUDOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RAIJI_LUDOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RAIJI_LUDOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RAIJI_LUDOMON_ANIM_INDEX = 179;
+    inline static constexpr size_t PEN20_RAIJI_LUDOMON_ANIM_INDEX = 176;
 
     // Name: Rapidmon
     inline static constexpr char PEN20_RAPIDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:rapidmon";
@@ -3265,7 +3211,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RAPIDMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RAPIDMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RAPIDMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RAPIDMON_ANIM_INDEX = 180;
+    inline static constexpr size_t PEN20_RAPIDMON_ANIM_INDEX = 177;
 
     // Name: Red Vegimon
     inline static constexpr char PEN20_RED_VEGIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:red_vegimon";
@@ -3283,7 +3229,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RED_VEGIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RED_VEGIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RED_VEGIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RED_VEGIMON_ANIM_INDEX = 181;
+    inline static constexpr size_t PEN20_RED_VEGIMON_ANIM_INDEX = 178;
 
     // Name: Reppamon
     inline static constexpr char PEN20_REPPAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:reppamon";
@@ -3301,7 +3247,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_REPPAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_REPPAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_REPPAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_REPPAMON_ANIM_INDEX = 182;
+    inline static constexpr size_t PEN20_REPPAMON_ANIM_INDEX = 179;
 
     // Name: Revolmon
     inline static constexpr char PEN20_REVOLMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:revolmon";
@@ -3319,7 +3265,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_REVOLMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_REVOLMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_REVOLMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_REVOLMON_ANIM_INDEX = 183;
+    inline static constexpr size_t PEN20_REVOLMON_ANIM_INDEX = 180;
 
     // Name: Rize Greymon
     inline static constexpr char PEN20_RIZE_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:rize_greymon";
@@ -3337,7 +3283,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RIZE_GREYMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RIZE_GREYMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RIZE_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RIZE_GREYMON_ANIM_INDEX = 184;
+    inline static constexpr size_t PEN20_RIZE_GREYMON_ANIM_INDEX = 181;
 
     // Name: Rosemon
     inline static constexpr char PEN20_ROSEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:rosemon";
@@ -3355,7 +3301,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_ROSEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_ROSEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_ROSEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_ROSEMON_ANIM_INDEX = 185;
+    inline static constexpr size_t PEN20_ROSEMON_ANIM_INDEX = 182;
 
     // Name: Rukamon
     inline static constexpr char PEN20_RUKAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:rukamon";
@@ -3373,7 +3319,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RUKAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RUKAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RUKAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RUKAMON_ANIM_INDEX = 186;
+    inline static constexpr size_t PEN20_RUKAMON_ANIM_INDEX = 183;
 
     // Name: Ryudamon
     inline static constexpr char PEN20_RYUDAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ryudamon";
@@ -3391,7 +3337,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_RYUDAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_RYUDAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_RYUDAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_RYUDAMON_ANIM_INDEX = 187;
+    inline static constexpr size_t PEN20_RYUDAMON_ANIM_INDEX = 184;
 
     // Name: Saber Leomon
     inline static constexpr char PEN20_SABER_LEOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:saber_leomon";
@@ -3409,7 +3355,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SABER_LEOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SABER_LEOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SABER_LEOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SABER_LEOMON_ANIM_INDEX = 188;
+    inline static constexpr size_t PEN20_SABER_LEOMON_ANIM_INDEX = 185;
 
     // Name: Saint Galgomon
     inline static constexpr char PEN20_SAINT_GALGOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:saint_galgomon";
@@ -3427,7 +3373,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SAINT_GALGOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SAINT_GALGOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SAINT_GALGOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SAINT_GALGOMON_ANIM_INDEX = 189;
+    inline static constexpr size_t PEN20_SAINT_GALGOMON_ANIM_INDEX = 186;
 
     // Name: Sakumon
     inline static constexpr char PEN20_SAKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:sakumon";
@@ -3445,7 +3391,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SAKUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SAKUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SAKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SAKUMON_ANIM_INDEX = 190;
+    inline static constexpr size_t PEN20_SAKUMON_ANIM_INDEX = 187;
 
     // Name: Sakuttomon
     inline static constexpr char PEN20_SAKUTTOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:sakuttomon";
@@ -3463,7 +3409,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SAKUTTOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SAKUTTOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SAKUTTOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SAKUTTOMON_ANIM_INDEX = 191;
+    inline static constexpr size_t PEN20_SAKUTTOMON_ANIM_INDEX = 188;
 
     // Name: Savior Hackmon
     inline static constexpr char PEN20_SAVIOR_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:savior_hackmon";
@@ -3481,7 +3427,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SAVIOR_HACKMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SAVIOR_HACKMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SAVIOR_HACKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SAVIOR_HACKMON_ANIM_INDEX = 192;
+    inline static constexpr size_t PEN20_SAVIOR_HACKMON_ANIM_INDEX = 189;
 
     // Name: Seadramon
     inline static constexpr char PEN20_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:seadramon";
@@ -3499,7 +3445,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SEADRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 8;
     inline static constexpr int PEN20_SEADRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t PEN20_SEADRAMON_ANIM_INDEX = 193;
+    inline static constexpr size_t PEN20_SEADRAMON_ANIM_INDEX = 190;
 
     // Name: Seraphimon
     inline static constexpr char PEN20_SERAPHIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:seraphimon";
@@ -3517,7 +3463,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SERAPHIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SERAPHIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SERAPHIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SERAPHIMON_ANIM_INDEX = 194;
+    inline static constexpr size_t PEN20_SERAPHIMON_ANIM_INDEX = 191;
 
     // Name: Shadramon
     inline static constexpr char PEN20_SHADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:shadramon";
@@ -3535,7 +3481,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SHADRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SHADRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SHADRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SHADRAMON_ANIM_INDEX = 195;
+    inline static constexpr size_t PEN20_SHADRAMON_ANIM_INDEX = 192;
 
     // Name: Shakomon
     inline static constexpr char PEN20_SHAKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:shakomon";
@@ -3553,7 +3499,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SHAKOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SHAKOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SHAKOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SHAKOMON_ANIM_INDEX = 196;
+    inline static constexpr size_t PEN20_SHAKOMON_ANIM_INDEX = 193;
 
     // Name: Skull Mammon
     inline static constexpr char PEN20_SKULL_MAMMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:skull_mammon";
@@ -3571,7 +3517,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SKULL_MAMMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SKULL_MAMMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SKULL_MAMMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SKULL_MAMMON_ANIM_INDEX = 197;
+    inline static constexpr size_t PEN20_SKULL_MAMMON_ANIM_INDEX = 194;
 
     // Name: Slayerdramon
     inline static constexpr char PEN20_SLAYERDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:slayerdramon";
@@ -3589,7 +3535,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SLAYERDRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SLAYERDRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SLAYERDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SLAYERDRAMON_ANIM_INDEX = 198;
+    inline static constexpr size_t PEN20_SLAYERDRAMON_ANIM_INDEX = 195;
 
     // Name: Starmon
     inline static constexpr char PEN20_STARMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:starmon";
@@ -3607,7 +3553,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_STARMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_STARMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_STARMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_STARMON_ANIM_INDEX = 199;
+    inline static constexpr size_t PEN20_STARMON_ANIM_INDEX = 196;
 
     // Name: Sunflowmon
     inline static constexpr char PEN20_SUNFLOWMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:sunflowmon";
@@ -3625,7 +3571,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_SUNFLOWMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_SUNFLOWMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_SUNFLOWMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_SUNFLOWMON_ANIM_INDEX = 200;
+    inline static constexpr size_t PEN20_SUNFLOWMON_ANIM_INDEX = 197;
 
     // Name: Tailmon
     inline static constexpr char PEN20_TAILMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:tailmon";
@@ -3643,7 +3589,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TAILMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TAILMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TAILMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TAILMON_ANIM_INDEX = 201;
+    inline static constexpr size_t PEN20_TAILMON_ANIM_INDEX = 198;
 
     // Name: Tankmon
     inline static constexpr char PEN20_TANKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:tankmon";
@@ -3661,7 +3607,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TANKMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TANKMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TANKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TANKMON_ANIM_INDEX = 202;
+    inline static constexpr size_t PEN20_TANKMON_ANIM_INDEX = 199;
 
     // Name: Targetmon
     inline static constexpr char PEN20_TARGETMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:targetmon";
@@ -3679,7 +3625,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TARGETMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TARGETMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TARGETMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TARGETMON_ANIM_INDEX = 203;
+    inline static constexpr size_t PEN20_TARGETMON_ANIM_INDEX = 200;
 
     // Name: Tentomon
     inline static constexpr char PEN20_TENTOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:tentomon";
@@ -3697,7 +3643,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TENTOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TENTOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TENTOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TENTOMON_ANIM_INDEX = 204;
+    inline static constexpr size_t PEN20_TENTOMON_ANIM_INDEX = 201;
 
     // Name: Terriermon
     inline static constexpr char PEN20_TERRIERMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:terriermon";
@@ -3715,7 +3661,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TERRIERMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TERRIERMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TERRIERMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TERRIERMON_ANIM_INDEX = 205;
+    inline static constexpr size_t PEN20_TERRIERMON_ANIM_INDEX = 202;
 
     // Name: Thunderballmon
     inline static constexpr char PEN20_THUNDERBALLMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:thunderballmon";
@@ -3733,7 +3679,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_THUNDERBALLMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_THUNDERBALLMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_THUNDERBALLMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_THUNDERBALLMON_ANIM_INDEX = 206;
+    inline static constexpr size_t PEN20_THUNDERBALLMON_ANIM_INDEX = 203;
 
     // Name: Tia Ludomon
     inline static constexpr char PEN20_TIA_LUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:tia_ludomon";
@@ -3751,7 +3697,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TIA_LUDOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TIA_LUDOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TIA_LUDOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TIA_LUDOMON_ANIM_INDEX = 207;
+    inline static constexpr size_t PEN20_TIA_LUDOMON_ANIM_INDEX = 204;
 
     // Name: Togemon
     inline static constexpr char PEN20_TOGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:togemon";
@@ -3769,7 +3715,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TOGEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TOGEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TOGEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TOGEMON_ANIM_INDEX = 208;
+    inline static constexpr size_t PEN20_TOGEMON_ANIM_INDEX = 205;
 
     // Name: Tonosama Gekomon
     inline static constexpr char PEN20_TONOSAMA_GEKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:tonosama_gekomon";
@@ -3787,7 +3733,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TONOSAMA_GEKOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TONOSAMA_GEKOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TONOSAMA_GEKOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TONOSAMA_GEKOMON_ANIM_INDEX = 209;
+    inline static constexpr size_t PEN20_TONOSAMA_GEKOMON_ANIM_INDEX = 206;
 
     // Name: Tortamon
     inline static constexpr char PEN20_TORTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:tortamon";
@@ -3805,7 +3751,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TORTAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TORTAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TORTAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TORTAMON_ANIM_INDEX = 210;
+    inline static constexpr size_t PEN20_TORTAMON_ANIM_INDEX = 207;
 
     // Name: Toy Agumon
     inline static constexpr char PEN20_TOY_AGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:toy_agumon";
@@ -3823,7 +3769,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TOY_AGUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TOY_AGUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TOY_AGUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TOY_AGUMON_ANIM_INDEX = 211;
+    inline static constexpr size_t PEN20_TOY_AGUMON_ANIM_INDEX = 208;
 
     // Name: Triceramon
     inline static constexpr char PEN20_TRICERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:triceramon";
@@ -3841,7 +3787,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TRICERAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TRICERAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TRICERAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TRICERAMON_ANIM_INDEX = 212;
+    inline static constexpr size_t PEN20_TRICERAMON_ANIM_INDEX = 209;
 
     // Name: Troopmon
     inline static constexpr char PEN20_TROOPMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:troopmon";
@@ -3859,7 +3805,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TROOPMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TROOPMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TROOPMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TROOPMON_ANIM_INDEX = 213;
+    inline static constexpr size_t PEN20_TROOPMON_ANIM_INDEX = 210;
 
     // Name: Turuiemon
     inline static constexpr char PEN20_TURUIEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:turuiemon";
@@ -3877,7 +3823,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_TURUIEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_TURUIEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_TURUIEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_TURUIEMON_ANIM_INDEX = 214;
+    inline static constexpr size_t PEN20_TURUIEMON_ANIM_INDEX = 211;
 
     // Name: Vamdemon
     inline static constexpr char PEN20_VAMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:vamdemon";
@@ -3895,7 +3841,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_VAMDEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_VAMDEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_VAMDEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_VAMDEMON_ANIM_INDEX = 215;
+    inline static constexpr size_t PEN20_VAMDEMON_ANIM_INDEX = 212;
 
     // Name: V-dramon
     inline static constexpr char PEN20_V_DRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:v_dramon";
@@ -3913,7 +3859,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_V_DRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_V_DRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_V_DRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_V_DRAMON_ANIM_INDEX = 216;
+    inline static constexpr size_t PEN20_V_DRAMON_ANIM_INDEX = 213;
 
     // Name: Venom Vamdemon
     inline static constexpr char PEN20_VENOM_VAMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:venom_vamdemon";
@@ -3931,7 +3877,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_VENOM_VAMDEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_VENOM_VAMDEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_VENOM_VAMDEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_VENOM_VAMDEMON_ANIM_INDEX = 217;
+    inline static constexpr size_t PEN20_VENOM_VAMDEMON_ANIM_INDEX = 214;
 
     // Name: V-mon
     inline static constexpr char PEN20_V_MON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:v_mon";
@@ -3949,7 +3895,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_V_MON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_V_MON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_V_MON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_V_MON_ANIM_INDEX = 218;
+    inline static constexpr size_t PEN20_V_MON_ANIM_INDEX = 215;
 
     // Name: Volcanicdramon
     inline static constexpr char PEN20_VOLCANICDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:volcanicdramon";
@@ -3967,7 +3913,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_VOLCANICDRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_VOLCANICDRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_VOLCANICDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_VOLCANICDRAMON_ANIM_INDEX = 219;
+    inline static constexpr size_t PEN20_VOLCANICDRAMON_ANIM_INDEX = 216;
 
     // Name: Voltobautamon
     inline static constexpr char PEN20_VOLTOBAUTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:voltobautamon";
@@ -3985,7 +3931,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_VOLTOBAUTAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_VOLTOBAUTAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_VOLTOBAUTAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_VOLTOBAUTAMON_ANIM_INDEX = 220;
+    inline static constexpr size_t PEN20_VOLTOBAUTAMON_ANIM_INDEX = 217;
 
     // Name: Vorvomon
     inline static constexpr char PEN20_VORVOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:vorvomon";
@@ -4003,7 +3949,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_VORVOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_VORVOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_VORVOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_VORVOMON_ANIM_INDEX = 221;
+    inline static constexpr size_t PEN20_VORVOMON_ANIM_INDEX = 218;
 
     // Name: War Greymon
     inline static constexpr char PEN20_WAR_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:war_greymon";
@@ -4021,7 +3967,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_WAR_GREYMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 12;
     inline static constexpr int PEN20_WAR_GREYMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_WAR_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t PEN20_WAR_GREYMON_ANIM_INDEX = 222;
+    inline static constexpr size_t PEN20_WAR_GREYMON_ANIM_INDEX = 219;
 
     // Name: Waru Monzaemon
     inline static constexpr char PEN20_WARU_MONZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:waru_monzaemon";
@@ -4039,7 +3985,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_WARU_MONZAEMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_WARU_MONZAEMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_WARU_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_WARU_MONZAEMON_ANIM_INDEX = 223;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_ANIM_INDEX = 220;
 
     // Name: Were Garurumon
     inline static constexpr char PEN20_WERE_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:were_garurumon";
@@ -4057,7 +4003,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_WERE_GARURUMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 12;
     inline static constexpr int PEN20_WERE_GARURUMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_WERE_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t PEN20_WERE_GARURUMON_ANIM_INDEX = 224;
+    inline static constexpr size_t PEN20_WERE_GARURUMON_ANIM_INDEX = 221;
 
     // Name: Whamon
     inline static constexpr char PEN20_WHAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:whamon";
@@ -4075,7 +4021,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_WHAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 9;
     inline static constexpr int PEN20_WHAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_WHAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t PEN20_WHAMON_ANIM_INDEX = 225;
+    inline static constexpr size_t PEN20_WHAMON_ANIM_INDEX = 222;
 
     // Name: Wingdramon
     inline static constexpr char PEN20_WINGDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:wingdramon";
@@ -4093,7 +4039,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_WINGDRAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_WINGDRAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_WINGDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_WINGDRAMON_ANIM_INDEX = 226;
+    inline static constexpr size_t PEN20_WINGDRAMON_ANIM_INDEX = 223;
 
     // Name: Wizarmon
     inline static constexpr char PEN20_WIZARMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:wizarmon";
@@ -4111,7 +4057,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_WIZARMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_WIZARMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_WIZARMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_WIZARMON_ANIM_INDEX = 227;
+    inline static constexpr size_t PEN20_WIZARMON_ANIM_INDEX = 224;
 
     // Name: Woodmon
     inline static constexpr char PEN20_WOODMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:woodmon";
@@ -4129,7 +4075,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_WOODMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_WOODMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_WOODMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_WOODMON_ANIM_INDEX = 228;
+    inline static constexpr size_t PEN20_WOODMON_ANIM_INDEX = 225;
 
     // Name: XV-mon
     inline static constexpr char PEN20_XV_MON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:xv_mon";
@@ -4147,7 +4093,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_XV_MON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_XV_MON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_XV_MON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_XV_MON_ANIM_INDEX = 229;
+    inline static constexpr size_t PEN20_XV_MON_ANIM_INDEX = 226;
 
     // Name: Yukimi Botamon
     inline static constexpr char PEN20_YUKIMI_BOTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:yukimi_botamon";
@@ -4165,7 +4111,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_YUKIMI_BOTAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_YUKIMI_BOTAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_YUKIMI_BOTAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_YUKIMI_BOTAMON_ANIM_INDEX = 230;
+    inline static constexpr size_t PEN20_YUKIMI_BOTAMON_ANIM_INDEX = 227;
 
     // Name: Zerimon
     inline static constexpr char PEN20_ZERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zerimon";
@@ -4183,7 +4129,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_ZERIMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_ZERIMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_ZERIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_ZERIMON_ANIM_INDEX = 231;
+    inline static constexpr size_t PEN20_ZERIMON_ANIM_INDEX = 228;
 
     // Name: Zubaeagermon
     inline static constexpr char PEN20_ZUBAEAGERMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zubaeagermon";
@@ -4201,7 +4147,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_ZUBAEAGERMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_ZUBAEAGERMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_ZUBAEAGERMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_ZUBAEAGERMON_ANIM_INDEX = 232;
+    inline static constexpr size_t PEN20_ZUBAEAGERMON_ANIM_INDEX = 229;
 
     // Name: Zubamon
     inline static constexpr char PEN20_ZUBAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zubamon";
@@ -4219,7 +4165,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_ZUBAMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_ZUBAMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_ZUBAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_ZUBAMON_ANIM_INDEX = 233;
+    inline static constexpr size_t PEN20_ZUBAMON_ANIM_INDEX = 230;
 
     // Name: Zudomon
     inline static constexpr char PEN20_ZUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zudomon";
@@ -4237,9 +4183,9 @@ namespace bongocat::assets {
     inline static constexpr int PEN20_ZUDOMON_SPRITE_SHEET_COLS ASSETS_PEN20_DIMS_SECTION = 13;
     inline static constexpr int PEN20_ZUDOMON_SPRITE_SHEET_ROWS ASSETS_PEN20_DIMS_SECTION = 1;
     inline static constexpr size_t PEN20_ZUDOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN20_ZUDOMON_ANIM_INDEX = 234;
+    inline static constexpr size_t PEN20_ZUDOMON_ANIM_INDEX = 231;
 
-    inline static constexpr size_t PEN20_ANIM_COUNT = 235;
+    inline static constexpr size_t PEN20_ANIM_COUNT = 232;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_PEN20_HPP

@@ -13,7 +13,7 @@ let
 
   # Every setting defaults to null; null settings are not written to the
   # generated config, so the binary's built-in defaults apply
-  # (see bongocat.conf.example and `man 5 bongocat`).
+  # (see bongocat.conf.example and `man bongocat.conf`).
   setting =
     type: description:
     lib.mkOption {
@@ -64,8 +64,8 @@ let
     idleAnimation = [ "idle_animation" types.bool "Enable the idle animation." ];
     animationSpeed = [ "animation_speed" durationMsType "Milliseconds per frame, 0 uses the fps speed." ];
     keypressDuration = [ "keypress_duration" durationMsType "Duration of the keypress animation in milliseconds." ];
-    testAnimationDuration = [ "test_animation_duration" durationMsType "Duration of the test animation in milliseconds." ];
-    testAnimationInterval = [ "test_animation_interval" types.ints.unsigned "Seconds between test animations, 0 disables them." ];
+    testAnimationDuration = [ "test_animation_duration" durationMsType "Deprecated, use animationSpeed. Duration of the test animation in milliseconds." ];
+    testAnimationInterval = [ "test_animation_interval" types.ints.unsigned "Deprecated, use idleAnimation. Seconds between test animations, 0 disables them." ];
     happyKpm = [ "happy_kpm" (types.ints.between 0 10000) "Keystrokes per minute that trigger the happy animation, 0 disables it." ];
     fps = [ "fps" (types.ints.between 1 540) "Animation frame rate." ];
     inputFps = [ "input_fps" (types.ints.between 0 540) "Input thread frame rate, 0 uses fps." ];
@@ -88,6 +88,12 @@ let
     sleepEnd = [ "sleep_end" timeType "Scheduled sleep end time (HH:MM)." ];
     idleSleepTimeout = [ "idle_sleep_timeout" (types.ints.between 0 2592000) "Seconds without input before the pet sleeps, 0 disables it." ];
 
+    # Audio (needs a package built with the audio module, see `package`)
+    audio = [ "audio" types.bool "React to audio playing on a PipeWire sink." ];
+    audioSink = [ "audio_sink" types.str "PipeWire sink to listen to (`pactl list short sinks`), empty uses the default sink." ];
+    audioHappyPeak = [ "audio_happy_peak" (types.numbers.between 0 1) "Fraction of visualizer bars peaking at once that triggers the happy animation, 0 disables it." ];
+    audioFps = [ "audio_fps" (types.ints.between 0 540) "Audio thread update rate, 0 uses fps." ];
+
     # Input
     hotplugScanInterval = [ "hotplug_scan_interval" (types.ints.between 0 3600) "Seconds between input device rescans, 0 scans once." ];
 
@@ -95,7 +101,24 @@ let
     enableDebug = [ "enable_debug" types.bool "Enable debug logging." ];
   };
 
-  renderValue = value: if builtins.isBool value then (if value then "1" else "0") else toString value;
+  audioEnabled = cfg.audio == true;
+
+  # toString renders floats with 6 decimals ("0.600000"); strip the trailing zeros ("0.6", "1.0")
+  renderFloat =
+    value:
+    let
+      m = builtins.match "(-?[0-9]+\\.[0-9]*[1-9])0*" (toString value);
+    in
+    if m != null then builtins.head m else "${toString (builtins.floor value)}.0";
+
+  renderValue =
+    value:
+    if builtins.isBool value then
+      (if value then "1" else "0")
+    else if builtins.isFloat value then
+      renderFloat value
+    else
+      toString value;
 
   settingLines = lib.mapAttrsToList (name: spec: "${builtins.head spec}=${renderValue cfg.${name}}") (
     lib.filterAttrs (name: _: cfg.${name} != null) settings
@@ -167,9 +190,9 @@ in
 
       package = lib.mkOption {
         type = types.package;
-        default = pkgs.callPackage ./default.nix { };
-        defaultText = lib.literalMD "the package built from this repository";
-        description = "The wayland-bongocat package to use.";
+        default = pkgs.callPackage ./default.nix { withAudio = audioEnabled; };
+        defaultText = lib.literalMD "the package built from this repository, with the audio module when `audio = true`";
+        description = "The wayland-bongocat package to use. A custom package needs the audio module (`withAudio = true`) for `audio = true`.";
       };
 
       executable = lib.mkOption {
@@ -227,6 +250,12 @@ in
 
   config = lib.mkIf cfg.enable (
     {
+      assertions = [
+        {
+          assertion = !audioEnabled || (cfg.package.withAudio or true);
+          message = "programs.wayland-bongocat.audio needs a package built with the audio module (withAudio = true).";
+        }
+      ];
       _bongocat = {
         inherit configFile;
       };

@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.2.0] - 2026-11-17
+
+### Added
+
+- New **dmall** custom sprite sheets
+
+### Fixed
+
+- replace old placeholder dmc sprites
+
+### [6.1.0] - 2026-11-14
+
+### Added
+
+- **Audio Visualizer** - let pet 'dance' to music (optional) (beta)
+    - react to BPM, stop in silence
+    - show Happy animation at loude sounds
+
 ### [6.0.0] - 2026-11-06
 
 ### Fixed

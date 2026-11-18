@@ -1,6 +1,6 @@
 ## Custom Sprite Sheets
 
-Custom sprite sheets has a full animation per row.
+Custom sprite sheets have one full animation per row.
 To determine the number of rows, the number of frames needs to be provided per row.
 
 - `Idle` -- Idle Pose
@@ -12,7 +12,7 @@ To determine the number of rows, the number of frames needs to be provided per r
 - `ASleep` -- Start falling asleep
 - `Sleep` -- Sleep (looping)
 - `WakeUp` -- After sleep (back to Idle pose)
-- `StartWorking` -- Start seen spike in CPU usage
+- `StartWorking` -- CPU usage spike detected
 - `Working` -- CPU usage over threshold (looping)
 - `EndWorking` -- CPU usage under threshold (cooldown)
 - `StartMoving` -- Start moving
@@ -42,6 +42,9 @@ _**animation_name** needs to be "custom"_
 - **custom_start_moving_frames**: Number of frames for start moving animation (0 = disabled)
 - **custom_moving_frames**: Number of frames for moving animation (0 = disabled)
 - **custom_end_moving_frames**: Number of frames for end moving animation (0 = disabled)
+- **custom_start_running_frames**: Number of frames for start running animation (0 = disabled)
+- **custom_running_frames**: Number of frames for running animation (0 = disabled)
+- **custom_end_running_frames**: Number of frames for end running animation (0 = disabled)
 - **custom_toggle_writing_frames**: Toggle writing frames when writing (`custom_writing_frames` must be `2`) (default; -1 = auto)
 - **custom_toggle_writing_frames_random**: Randomize writing frames on start writing (`custom_writing_frames` must be `2`) (default; -1 = auto)
 - **custom_mirror_x_moving**: Mirror frames horizontally when moving (default; -1 = ignore)
@@ -60,6 +63,13 @@ _**animation_name** needs to be "custom"_
 - **custom_start_moving_row**: Row number for start moving animation (default; -1 = auto)
 - **custom_moving_row**: Row number for moving animation (default; -1 = auto)
 - **custom_end_moving_row**: Row number for end moving animation (default; -1 = auto)
+- **custom_start_running_row**: Row number for start running animation (default; -1 = auto)
+- **custom_running_row**: Row number for running animation (default; -1 = auto)
+- **custom_end_running_row**: Row number for end running animation (default; -1 = auto)
+- **custom_start_evolving_row**: Row number for start evolving animation (default; -1 = auto)
+- **custom_evolving_row**: Row number for evolving animation (default; -1 = auto)
+- **custom_after_evolving_row**: Row number for after evolving animation (default; -1 = auto)
+- **custom_rows**: Total number of rows in the sprite sheet (1–17, default; auto)
 
 
 ### General Example
@@ -75,19 +85,21 @@ _**animation_name** needs to be "custom"_
 | Moving 1   | Moving 2   |          |          |
 
 **Sprite Sheet Settings**
-- Idle = 1 frames
+
+- Idle = 2 frames
 - Boring = 4 frames
 - Writing = 2 frames
 - Sleeping = 2 frames
 - Wake Up = 1 frame
-- Moving = 2 frame
+- Moving = 2 frames
 
-`Idle`, `Writing`, `Sleeping` and `Moving` animations are set.
-No `StartWriting` and `EndWriting` animation are provided when start typing, directly play the `Writing` animation.
-`Sleeping` and `Wake Up` animation are provided so "Sleeping Mode" feature can be used.
-If rows and animations are missing, some features can't be used, for example Working feature is disabled.
-`Boring` animation are played after inactivity and before going to sleep.
-`Moving` feature available and can can be enabled with moving options (see config `movement` options).
+`Idle`, `Boring`, `Writing`, `Sleeping`, `Wake Up` and `Moving` animations are set.
+
+- No `StartWriting` and `EndWriting` animations are provided, so the `Writing` animation plays directly when typing starts.
+- `Sleeping` and `Wake Up` animations are provided, so the "Sleeping Mode" feature can be used.
+- `Boring` animation is played after inactivity and before going to sleep.
+- `Moving` is available and can be enabled with the movement options (`movement_radius`, `movement_speed`).
+- If rows and animations are missing, some features can't be used, e.g. the Working feature is disabled.
 
 
 ### Neko
@@ -169,9 +181,9 @@ custom_rows=1
 animation_speed=250
 ```
 
-### Know issues
+### Known issues
 
 #### extra sprite when sprite is flipping (moving)
 
 Please add some left and right empty padding in your frames.
-Doing to some rounding error, when flipping the frame, some pixels can be visible from the nearer frames.
+Doing to some rounding errors, when flipping the frame, some pixels can be visible from the nearer frames.

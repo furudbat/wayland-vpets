@@ -55,6 +55,7 @@ struct max_distance_per_movement_part_t {
   float part;
 };
 inline static constexpr max_distance_per_movement_part_t SMALL_MAX_DISTANCE_PER_MOVEMENT_PART = {
+    // 1/2 of movement_radius (for very small areas)
     .max_distance = 100,
     .part = 2,
 };
@@ -113,6 +114,19 @@ struct anim_handle_key_press_result_t {
   anim_next_frame_result_t update_frame_result;
 };
 
+/// beat sync (audio): one dance frame per beat
+/// on a beat (AudioUpdate) the frame advances (the audio beat clock guarantees >= 75% beat interval between beats,
+/// so half an interval is safe against double steps and tolerates trigger jitter/render lag at fast tempos);
+/// without a beat the frame only advances when a beat is missing -> dance frames are locked to the beat
+inline static constexpr double AUDIO_BEAT_SYNC_ON_BEAT = 0.5;
+inline static constexpr double AUDIO_BEAT_SYNC_NO_BEAT = 1.25;
+
+enum class process_idle_animation_t : int8_t {
+  None,
+  Idle,
+  Dancing,
+};
+static_assert(sizeof(process_idle_animation_t) == sizeof(bool));
 struct anim_conditions_t {
   platform::timestamp_ms_t last_key_pressed_timestamp{0};
 
@@ -131,7 +145,7 @@ struct anim_conditions_t {
   bool release_frame_after_update{false};
 
   // for continues animations
-  bool process_idle_animation{false};
+  process_idle_animation_t process_idle_animation{process_idle_animation_t::None};
   bool process_movement_animation{false};
   bool process_working_animation{false};
   bool process_evolving_animation{false};
@@ -141,12 +155,15 @@ struct anim_conditions_t {
   bool release_frame_for_non_idle{false};
   bool left_release_frame_for_non_idle{false};
   bool right_release_frame_for_non_idle{false};
+  bool continues_animation{false};
 
   // current animation
   bool is_writing{false};
   bool is_moving{false};
   bool is_working{false};
   bool is_running{false};
+  bool is_dancing{false};
+  bool stop_dancing{false};
   bool continue_writing{false};
   bool left_continue_writing{false};
   bool right_continue_writing{false};
@@ -156,15 +173,20 @@ struct anim_conditions_t {
   bool is_evolving{false};
 };
 static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_thread_context_t& ctx,
-                                             const platform::input::input_context_t& input,
-                                             [[maybe_unused]] const platform::update::update_context_t& upd,
+                                             [[maybe_unused]] const platform::input::input_context_t *input,
+                                             [[maybe_unused]] const platform::update::update_context_t *upd,
+                                             [[maybe_unused]] const platform::audio::audio_context_t *audio,
                                              const animation_state_t& current_state, const animation_evolution_t& evol,
                                              const animation_trigger_t& trigger,
                                              const config::config_t& current_config) {
-  assert(input.shm);
-  const auto& input_shm = *input.shm;
-  const auto& update_shm = *upd.shm;
-  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  // assert(input.shm);
+  // assert(upd.shm);
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *audio_shm = audio ? audio->shm.ptr : BONGOCAT_NULLPTR;
+
+  const auto now = platform::get_current_time_ms();
+  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp : now;
   const platform::timestamp_ms_t fps_ms = 1000 / current_config.fps;
 
   const bool any_key_pressed =
@@ -172,19 +194,81 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   /// @TODO: refactor animation time process, based on ??? animation_speed ? vs fps vs other times like movement_speed
 
-  const bool process_idle_animation = [&] {
+  // audio (BPM) speed factor for idle animations; > 1.0 = faster
+  const double audio_speed_factor = current_state.audio_speed_factor > 0.0 ? current_state.audio_speed_factor : 1.0;
+  // dance frame time (one frame per beat when tempo is known), with beat sync tolerance
+  const auto dance_frame_reached = [&](double base_frame_ms) {
+    assert(audio_speed_factor > 0.0);
+    const double dance_frame_ms = base_frame_ms / audio_speed_factor;
+    const double sync = [&] {
+      if (!current_state.audio_beat_sync) {
+        return 1.0;
+      }
+      return has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioUpdate)
+                 ? AUDIO_BEAT_SYNC_ON_BEAT   // beat: advance now
+                 : AUDIO_BEAT_SYNC_NO_BEAT;  // no beat: only when beat is missing
+    }();
+    const platform::timestamp_ms_t elapsed_ms = now - current_state.last_dance_frame_ms;
+    return static_cast<double>(elapsed_ms) >= dance_frame_ms * sync;
+  };
+  const process_idle_animation_t process_idle_animation = [&] {
+    if (current_config.enable_audio) {
+      if (audio_shm && audio_shm->active) {
+        // by animation_speed
+        assert(audio_speed_factor > 0.0);
+        if (current_config.animation_speed_ms > 0) {
+          return dance_frame_reached(static_cast<double>(current_config.animation_speed_ms))
+                     ? process_idle_animation_t::Dancing
+                     : process_idle_animation_t::None;
+        }
+
+        // by fps
+        return dance_frame_reached(static_cast<double>(fps_ms)) ? process_idle_animation_t::Dancing
+                                                                : process_idle_animation_t::None;
+      }
+    }
+
     if (current_config.idle_animation) {
       // by animation_speed
+      assert(audio_speed_factor > 0.0);
       if (current_config.animation_speed_ms > 0) {
-        return current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
+        return static_cast<double>(current_state.frame_delta_ms_counter) >
+                       static_cast<double>(current_config.animation_speed_ms)
+                   ? process_idle_animation_t::Idle
+                   : process_idle_animation_t::None;
       }
 
       // by fps
-      return current_config.animation_speed_ms <= 0 && current_state.frame_delta_ms_counter >= fps_ms;
+      assert(audio_speed_factor > 0.0);
+      return current_config.animation_speed_ms <= 0 &&
+                     static_cast<double>(current_state.frame_delta_ms_counter) >= static_cast<double>(fps_ms)
+                 ? process_idle_animation_t::Idle
+                 : process_idle_animation_t::None;
+    }
+
+    return process_idle_animation_t::None;
+  }();
+  const bool continues_animation = [&] {
+    if (current_config.idle_animation) {
+      // by animation_speed
+      assert(audio_speed_factor > 0.0);
+      if (current_config.animation_speed_ms > 0) {
+        return static_cast<double>(current_state.frame_delta_ms_counter) >
+               static_cast<double>(current_config.animation_speed_ms);
+      }
+
+      // by fps
+      assert(audio_speed_factor > 0.0);
+      return current_config.animation_speed_ms <= 0 &&
+             static_cast<double>(current_state.frame_delta_ms_counter) >= static_cast<double>(fps_ms);
     }
 
     return false;
   }();
+  const bool is_dancing = current_config.enable_audio && (audio_shm && audio_shm->active);
+  const bool stop_dancing =
+      current_config.enable_audio && (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioStop) ||
+                                      (current_state.was_dancing && !is_dancing));
 
   const bool release_frame_for_non_idle = [&] {
     if (!current_config.idle_animation) {
@@ -227,13 +311,21 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
   }();
 
   const bool go_next_frame = [&] {
+    // audio speed factor (one frame per beat) only applies to dancing
+    if (current_state.row_state == animation_state_row_t::Idle && is_dancing) {
+      return dance_frame_reached(current_config.animation_speed_ms > 0
+                                     ? static_cast<double>(current_config.animation_speed_ms)
+                                     : static_cast<double>(fps_ms));
+    }
+    const double speed_factor = 1.0;
     if (current_config.animation_speed_ms > 0) {
       // by animation_speed
-      return current_state.frame_delta_ms_counter >= current_config.animation_speed_ms;
+      return static_cast<double>(current_state.frame_delta_ms_counter) >=
+             static_cast<double>(current_config.animation_speed_ms) / speed_factor;
     }
 
     // by fps
-    return current_state.frame_delta_ms_counter >= fps_ms;
+    return static_cast<double>(current_state.frame_delta_ms_counter) >= static_cast<double>(fps_ms) / speed_factor;
   }();
 
   const bool process_movement_animation = [&] {
@@ -440,11 +532,11 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
   const bool is_running = current_state.row_state == animation_state_row_t::StartRunning ||
                           current_state.row_state == animation_state_row_t::Running;
   const double running_animation_speed_factor = [&] {
-    if (current_config.cpu_running_factor >= 1.0 && update_shm.cpu_active) {
-      if (update_shm.avg_cpu_usage > 0) {
-        assert(update_shm.avg_cpu_usage > 0);
+    if (current_config.cpu_running_factor >= 1.0 && update_shm && update_shm->cpu_active) {
+      if (update_shm->avg_cpu_usage > 0) {
+        assert(update_shm->avg_cpu_usage > 0);
         assert(current_config.cpu_running_factor > 0);
-        return 1.0 / ((update_shm.avg_cpu_usage / 100.0) * current_config.cpu_running_factor);
+        return 1.0 / ((update_shm->avg_cpu_usage / 100.0) * current_config.cpu_running_factor);
       }
 
       return 0.0;
@@ -509,7 +601,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
           ((SLEEP_BORING_PART > 0 &&
             current_state.frame_delta_ms_counter > current_config.idle_sleep_timeout_sec * 1000L / SLEEP_BORING_PART &&
             last_key_pressed_timestamp > 0) ||
-           process_idle_animation || process_movement),
+           process_idle_animation != process_idle_animation_t::None || process_movement),
       .process_movement = process_movement,
       .start_evolving =
           current_state.row_state != animation_state_row_t::StartEvolution && evol._evolution_pending && can_evol,
@@ -536,11 +628,14 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
           left_release_frame_for_non_idle || go_next_frame || (is_running && go_next_frame_running),
       .right_release_frame_for_non_idle =
           right_release_frame_for_non_idle || go_next_frame || (is_running && go_next_frame_running),
+      .continues_animation = continues_animation,
 
       .is_writing = is_writing,
       .is_moving = is_moving,
       .is_working = is_working,
       .is_running = is_running,
+      .is_dancing = is_dancing,
+      .stop_dancing = stop_dancing,
       .continue_writing = continue_writing,
       .left_continue_writing = left_continue_writing,
       .right_continue_writing = right_continue_writing,
@@ -569,6 +664,7 @@ anim_update_animation_state(animation_shared_memory_t& anim_shm, animation_state
     }
     if (frame_changed) {
       state.frame_delta_ms_counter = 0;
+      state.last_frame_change_ms = platform::get_current_time_ms();
     }
     state.update_delta_ms_counter = 0;
   }
@@ -609,15 +705,15 @@ struct anim_bongocat_process_animation_result_t {
   anim_bongocat_process_animation_result_status_t status{anim_bongocat_process_animation_result_status_t::None};
 };
 static anim_bongocat_process_animation_result_t
-anim_bongocat_process_animation(const platform::input::input_context_t& input,
+anim_bongocat_process_animation(const animation_thread_context_t& ctx, const platform::input::input_context_t *input,
                                 animation_player_result_t& new_animation_result, animation_state_t& new_state,
                                 const animation_state_t& current_state, const bongocat_sprite_sheet_t& current_frames) {
   static_assert(MAX_ANIMATION_FRAMES > 0);
   static_assert(MAX_ANIMATION_FRAMES <= INT_MAX);
 
   // read-only config
-  assert(input._local_copy_config);
-  const config::config_t& current_config = *input._local_copy_config;
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
 
   anim_bongocat_process_animation_result_t ret{
       .row_state = new_state.row_state,
@@ -643,8 +739,9 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   case animation_state_row_t::StartWriting:
   case animation_state_row_t::Writing:
   case animation_state_row_t::EndWriting:
-    if (current_config.enable_hand_mapping) {
-      switch (input.shm->pending_hand_mapping) {
+    if (current_config.enable_hand_mapping && input) {
+      assert(input->shm != BONGOCAT_NULLPTR);
+      switch (input->shm->pending_hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
         break;
@@ -720,7 +817,7 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   return ret;
 }
 static anim_bongocat_process_animation_result_t anim_bongocat_restart_animation(
-    animation_thread_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+    animation_thread_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t *input,
     animation_state_row_t new_row_state, animation_player_result_t& new_animation_result, animation_state_t& new_state,
     [[maybe_unused]] const animation_state_t& current_state, const bongocat_sprite_sheet_t& current_frames) {
   using namespace assets;
@@ -934,12 +1031,12 @@ BONGOCAT_FRAME_BOTH_DOWN;
 */
 
 static anim_bongocat_process_animation_result_t anim_bongocat_start_or_process_animation(
-    animation_thread_context_t& ctx, const platform::input::input_context_t& input, animation_state_row_t new_row_state,
+    animation_thread_context_t& ctx, const platform::input::input_context_t *input, animation_state_row_t new_row_state,
     animation_player_result_t& new_animation_result, animation_state_t& new_state,
     const animation_state_t& current_state, const bongocat_sprite_sheet_t& current_frames) {
   if (current_state.row_state != new_row_state) {
     auto result =
-        anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
+        anim_bongocat_process_animation(ctx, input, new_animation_result, new_state, current_state, current_frames);
     if (result.status == anim_bongocat_process_animation_result_status_t::Looped ||
         result.status == anim_bongocat_process_animation_result_status_t::End) {
       result = anim_bongocat_restart_animation(ctx, input, new_row_state, new_animation_result, new_state,
@@ -954,8 +1051,10 @@ static anim_bongocat_process_animation_result_t anim_bongocat_start_or_process_a
 }
 
 static anim_next_frame_result_t
-anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
-                              [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
+anim_bongocat_idle_next_frame(animation_thread_context_t& ctx,
+                              [[maybe_unused]] const platform::input::input_context_t *input,
+                              [[maybe_unused]] const platform::update::update_context_t *upd,
+                              [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
                               const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
   // read-only config
@@ -963,13 +1062,13 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  const auto& input_shm = *input.shm;
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  const platform::timestamp_ms_t last_key_pressed_timestamp =
+      input_shm ? input_shm->last_key_pressed_timestamp : platform::get_current_time_ms();
   assert(anim_shm.anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat);
   assert(get_current_animation(ctx).type == animation_t::type_t::Bongocat);
   const auto& current_frames = get_current_animation(ctx).bongocat;
@@ -977,8 +1076,8 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution,
+                                              trigger_result.trigger, current_config);
 
   // Idle Animation
   const auto stop_writing = [&] {
@@ -1017,10 +1116,10 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
     new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
   }
   if constexpr (features::BongocatIdleAnimation) {
-    if (!stop_writing && !stop_test_animation && conditions.process_idle_animation) {
+    if (!stop_writing && !stop_test_animation && conditions.continues_animation) {
       if (current_state.row_state == animation_state_row_t::Idle) {
         // loop idle animation
-        anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
+        anim_bongocat_process_animation(ctx, input, new_animation_result, new_state, current_state, current_frames);
       } else if (current_state.row_state == animation_state_row_t::WakeUp) {
         // process wake up animation
         anim_bongocat_start_or_process_animation(ctx, input,
@@ -1046,7 +1145,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   } else if (!conditions.any_key_pressed && conditions.trigger_test_animation &&
              current_state.row_state == animation_state_row_t::Test) {
     // loop test animation
-    anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
+    anim_bongocat_process_animation(ctx, input, new_animation_result, new_state, current_state, current_frames);
   }
 
   const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
@@ -1063,7 +1162,8 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
       if constexpr (features::BongocatBoringAnimation) {
         const bool start_boring = SLEEP_BORING_PART > 0 &&
                                   (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                                   sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART);
+                                   sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART) &&
+                                  !conditions.is_dancing;
         if (current_state.row_state == animation_state_row_t::Idle) {
           // start boring animation
           if (start_boring && !current_state.show_boring_animation_once) {
@@ -1074,7 +1174,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
           }
         } else if (current_state.row_state == animation_state_row_t::Boring) {
           if constexpr (features::BongocatIdleAnimation) {
-            if (conditions.process_idle_animation) {
+            if (conditions.continues_animation) {
               const auto animation_result = anim_bongocat_start_or_process_animation(
                   ctx, input, animation_state_row_t::Idle,  // back to idle, when animation ended
                   new_animation_result, new_state, current_state, current_frames);
@@ -1110,16 +1210,17 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
         } else if (conditions.is_idle_sleep) {
           if constexpr (features::BongocatIdleAnimation) {
             if (current_state.row_state == animation_state_row_t::Sleep) {
-              if (conditions.process_idle_animation) {
+              if (conditions.continues_animation) {
                 // loop sleep animation
-                anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
+                anim_bongocat_process_animation(ctx, input, new_animation_result, new_state, current_state,
+                                                current_frames);
               }
             }
           }
         }
       } else if (current_state.row_state == animation_state_row_t::IdleSleep) {
         if constexpr (features::BongocatIdleAnimation) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             anim_bongocat_start_or_process_animation(ctx, input,
                                                      animation_state_row_t::Idle,  // back to idle, when animation ended
                                                      new_animation_result, new_state, current_state, current_frames);
@@ -1145,9 +1246,9 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
         new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
       } else {
         if constexpr (features::BongocatIdleAnimation) {
-          if (current_state.row_state == animation_state_row_t::Sleep && conditions.process_idle_animation) {
+          if (current_state.row_state == animation_state_row_t::Sleep && conditions.continues_animation) {
             // loop sleep animation
-            anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
+            anim_bongocat_process_animation(ctx, input, new_animation_result, new_state, current_state, current_frames);
           }
         }
       }
@@ -1176,9 +1277,12 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
                                      current_state, current_config);
 }
 
-static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
-    animation_thread_context_t& ctx, animation_state_t& state, const platform::input::input_context_t& input,
-    [[maybe_unused]] const platform::update::update_context_t& upd, const animation_trigger_t& trigger) {
+static anim_next_frame_result_t
+anim_bongocat_key_pressed_next_frame(animation_thread_context_t& ctx, animation_state_t& state,
+                                     [[maybe_unused]] const platform::input::input_context_t *input,
+                                     [[maybe_unused]] const platform::update::update_context_t *upd,
+                                     [[maybe_unused]] const platform::audio::audio_context_t *audio,
+                                     const animation_trigger_t& trigger) {
   using namespace assets;
 
   // read-only config
@@ -1186,36 +1290,42 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  // const auto& input_shm = *input.shm;
+  // const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp :
+  // platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Bongocat);
   const auto& current_frames = get_current_animation(ctx).bongocat;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
-  new_state._current_hand_mapping = flag_add(new_state._current_hand_mapping, input.shm->pending_hand_mapping);
+  if (input) {
+    assert(input->shm != BONGOCAT_NULLPTR);
+    new_state._current_hand_mapping = flag_add(new_state._current_hand_mapping, input->shm->pending_hand_mapping);
+  }
   const auto reset_writing = [&] {
-    switch (input.shm->pending_hand_mapping) {
-    case platform::input::input_hand_mapping_t::None:
-      break;
-    case platform::input::input_hand_mapping_t::Left:
-      return current_state._current_hand_mapping == platform::input::input_hand_mapping_t::Right;
-    case platform::input::input_hand_mapping_t::Right:
-      return current_state._current_hand_mapping == platform::input::input_hand_mapping_t::Left;
-    case platform::input::input_hand_mapping_t::Both:
-      return current_state._current_hand_mapping != platform::input::input_hand_mapping_t::Both;
+    if (input) {
+      assert(input->shm != BONGOCAT_NULLPTR);
+      switch (input->shm->pending_hand_mapping) {
+      case platform::input::input_hand_mapping_t::None:
+        break;
+      case platform::input::input_hand_mapping_t::Left:
+        return current_state._current_hand_mapping == platform::input::input_hand_mapping_t::Right;
+      case platform::input::input_hand_mapping_t::Right:
+        return current_state._current_hand_mapping == platform::input::input_hand_mapping_t::Left;
+      case platform::input::input_hand_mapping_t::Both:
+        return current_state._current_hand_mapping != platform::input::input_hand_mapping_t::Both;
+      }
     }
 
     return false;
   }();
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -1246,7 +1356,7 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
     return conditions.continue_writing;
   }();
   if constexpr (features::BongocatIdleAnimation) {
-    if (conditions.is_writing && conditions.process_idle_animation) {
+    if (conditions.is_writing && conditions.continues_animation) {
       if (release_frame_after_press && current_state.row_state == animation_state_row_t::Writing) {
         anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::EndWriting, new_animation_result,
                                                  new_state, current_state, current_frames);
@@ -1266,7 +1376,7 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
                                           new_state, current_state, current_frames);
         } else {
           // keep writing
-          anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
+          anim_bongocat_process_animation(ctx, input, new_animation_result, new_state, current_state, current_frames);
         }
       } else if (release_frame_after_press) {
         // back to idle
@@ -1748,8 +1858,9 @@ anim_dm_start_or_process_animation(animation_thread_context_t& ctx, animation_st
 }
 
 static anim_dm_process_animation_result_t
-anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
-                        [[maybe_unused]] const platform::update::update_context_t& upd,
+anim_dm_handle_movement(animation_thread_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t *input,
+                        [[maybe_unused]] const platform::update::update_context_t *upd,
+                        [[maybe_unused]] const platform::audio::audio_context_t *audio,
                         animation_player_result_t& new_animation_result, animation_state_t& new_state,
                         const anim_handle_key_press_result_t& trigger_result, const animation_state_t& current_state,
                         const dm_sprite_sheet_t& current_frames, const config::config_t& current_config) {
@@ -1758,14 +1869,14 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
   assert(ctx.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
-  const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution,
+                                              trigger_result.trigger, current_config);
 
   anim_dm_process_animation_result_t ret{.row_state = new_state.row_state,
                                          .status = anim_dm_process_animation_result_status_t::None};
   if (!conditions.is_writing && current_config.movement_speed > 0 && current_config.movement_radius > 0 &&
       current_config.fps > 0) {
-    if (conditions.process_idle_animation || conditions.process_movement || conditions.process_movement_animation) {
+    if (conditions.continues_animation || conditions.process_movement || conditions.process_movement_animation) {
       const float delta = 1.0f / static_cast<float>(current_config.fps);
       const auto delta_ms = static_cast<int32_t>(delta * 1000);
       const auto frame_height = current_config.cat_height;
@@ -1879,7 +1990,7 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
           ret = anim_dm_restart_animation(ctx, animation_state_row_t::StartMoving, new_animation_result, new_state,
                                           current_state, current_frames, current_config);
         } else if (current_state.row_state == animation_state_row_t::StartMoving) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             ret = anim_dm_start_or_process_animation(ctx, animation_state_row_t::Moving,  // continue with moving
                                                      new_animation_result, new_state, current_state, current_frames,
                                                      current_config);
@@ -1917,7 +2028,7 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
             }
           }
         } else if (current_state.row_state == animation_state_row_t::EndMoving) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             ret = anim_dm_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
                                                      current_state, current_frames, current_config);
           } else {
@@ -1956,8 +2067,9 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
 }
 
 static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context_t& ctx,
-                                                        const platform::input::input_context_t& input,
-                                                        const platform::update::update_context_t& upd,
+                                                        [[maybe_unused]] const platform::input::input_context_t *input,
+                                                        [[maybe_unused]] const platform::update::update_context_t *upd,
+                                                        [[maybe_unused]] const platform::audio::audio_context_t *audio,
                                                         animation_state_t& state,
                                                         const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
@@ -1966,21 +2078,23 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  const auto& input_shm = *input.shm;
-  const auto& update_shm = *upd.shm;
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto *audio_shm = audio ? audio->shm.ptr : BONGOCAT_NULLPTR;
   auto& anim_shm = *ctx.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  const platform::timestamp_ms_t last_key_pressed_timestamp =
+      input_shm ? input_shm->last_key_pressed_timestamp : platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
   const auto& current_frames = get_current_animation(ctx).dm;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution,
+                                              trigger_result.trigger, current_config);
 
   /// @TODO: make animation state machine ?
 
@@ -1988,11 +2102,20 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
     // Idle Animation
     const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
     const bool stop_happy_kpm = current_state.row_state == animation_state_row_t::Happy &&
-                                conditions.release_frame_after_press && !conditions.process_idle_animation;
+                                conditions.release_frame_after_press && !conditions.continues_animation;
     const bool stop_test_animation = conditions.trigger_test_animation &&
                                      current_state.row_state == animation_state_row_t::Test &&
                                      conditions.release_test_frame;
-    if ((stop_writing || stop_test_animation || stop_happy_kpm) && !conditions.is_evolving) {
+    const bool stop_dancing =
+        (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) ||
+        (current_state.was_dancing && !conditions.is_dancing);
+    const bool stop_happy_dancing = (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.release_frame_after_press && !conditions.continues_animation) ||
+                                    (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.process_idle_animation == process_idle_animation_t::Dancing &&
+                                     conditions.release_frame_for_non_idle && !conditions.continues_animation);
+    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing || stop_happy_dancing) &&
+        !conditions.is_evolving) {
       // back to idle
       anim_dm_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                 current_frames, current_config);
@@ -2004,7 +2127,13 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
       } else {
         // continues animations
         if (current_state.row_state == animation_state_row_t::Idle) {
-          if (conditions.process_idle_animation) {
+          // audio/dancing animation or idle animation
+          // while dancing, only the dance frame time (one frame per beat) advances the animation
+          const bool advance_idle_animation =
+              conditions.is_dancing ? conditions.process_idle_animation == process_idle_animation_t::Dancing
+                                    : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
+                                       conditions.continues_animation);
+          if (advance_idle_animation) {
             // Idle Animation
             anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
@@ -2012,7 +2141,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
         // finish animations, back to idle
         if (current_state.row_state == animation_state_row_t::Happy) {
           if (conditions.release_frame_after_press) {
-            if (conditions.process_idle_animation) {
+            if (conditions.continues_animation) {
               // finish last happy animation
               anim_dm_start_or_process_animation(ctx, animation_state_row_t::Idle,  // back to idle
                                                  new_animation_result, new_state, current_state, current_frames,
@@ -2028,7 +2157,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
         // Finish wakeup
         if (current_state.row_state == animation_state_row_t::WakeUp) {
           // back to idle
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             // end current sleep animation
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
                                                current_state, current_frames, current_config);
@@ -2042,8 +2171,8 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
         // Finish Working
         if (current_state.row_state == animation_state_row_t::EndWorking &&
             (conditions.release_frame_after_update || conditions.release_frame_for_non_idle) &&
-            !update_shm.cpu_active) {
-          if (conditions.process_idle_animation) {
+            (update_shm && !update_shm->cpu_active)) {
+          if (conditions.continues_animation) {
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::Idle,  // back to idle, when animation ended
                                                new_animation_result, new_state, current_state, current_frames,
                                                current_config);
@@ -2055,9 +2184,9 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
             }
           }
         } else if (conditions.is_working && current_state.row_state != animation_state_row_t::EndWorking &&
-                   !update_shm.cpu_active) {
+                   (update_shm && !update_shm->cpu_active)) {
           // Cancel Working
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndWorking, new_animation_result, new_state,
                                                current_state, current_frames, current_config);
           } else {
@@ -2083,7 +2212,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
   */
 
   // Move Animation
-  anim_dm_handle_movement(ctx, input, upd, new_animation_result, new_state, trigger_result, current_state,
+  anim_dm_handle_movement(ctx, input, upd, audio, new_animation_result, new_state, trigger_result, current_state,
                           current_frames, current_config);
 
   const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
@@ -2097,13 +2226,13 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
       const auto sleep_timeout_by_latest_keypress_ms = now - last_key_pressed_timestamp;
       const auto sleep_timeout_by_awake_ms = now - ctx.shm->last_wakeup_timestamp;
 
-      const bool start_boring = SLEEP_BORING_PART > 0 &&
-                                sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                                sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
+      const bool start_boring =
+          SLEEP_BORING_PART > 0 && sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+          sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART && !conditions.is_dancing;
       if (current_state.row_state == animation_state_row_t::Idle) {
         // start boring animation
         if (start_boring && !current_state.show_boring_animation_once) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             anim_dm_restart_animation(ctx, animation_state_row_t::Boring, new_animation_result, new_state,
                                       current_state, current_frames, current_config);
           } else {
@@ -2114,7 +2243,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
           new_state.anim_last_direction = 0.0f;
         }
       } else if (current_state.row_state == animation_state_row_t::Boring) {
-        if (conditions.process_idle_animation) {
+        if (conditions.continues_animation) {
           const auto animation_result = anim_dm_start_or_process_animation(
               ctx, animation_state_row_t::Idle,  // back to idle, when animation ended
               new_animation_result, new_state, current_state, current_frames, current_config);
@@ -2136,10 +2265,12 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
       }
 
       // idle sleep
-      if (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
-          sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms) {
+      const bool go_to_idle_sleep =
+          !conditions.is_dancing && (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
+                                     sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms);
+      if (go_to_idle_sleep) {
         if (current_state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
-          if (conditions.process_idle_animation && conditions.is_moving) {
+          if (conditions.continues_animation && conditions.is_moving) {
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::Sleep,  // wait for moving to end
                                                new_animation_result, new_state, current_state, current_frames,
                                                current_config);
@@ -2149,7 +2280,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
           }
           new_state.anim_last_direction = 0.0f;
         } else if (current_state.row_state == animation_state_row_t::Sleep) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             // loop sleep animation
             anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
@@ -2157,7 +2288,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
       } else {
         if (current_state.row_state == animation_state_row_t::IdleSleep) {
           // wake up
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             // end current sleep animation
             const auto animation_result =
                 anim_dm_start_or_process_animation(ctx, animation_state_row_t::WakeUp, new_animation_result, new_state,
@@ -2187,14 +2318,14 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
                                   current_frames, current_config);
         new_state.anim_last_direction = 0.0f;
       } else if (state.row_state == animation_state_row_t::Sleep) {
-        if (conditions.process_idle_animation) {
+        if (conditions.continues_animation) {
           anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
         }
       }
     } else {
       if (current_state.row_state == animation_state_row_t::Sleep) {
         // wake up
-        if (conditions.process_idle_animation) {
+        if (conditions.continues_animation) {
           // end current sleep animation
           const auto animation_result =
               anim_dm_start_or_process_animation(ctx, animation_state_row_t::WakeUp, new_animation_result, new_state,
@@ -2216,7 +2347,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
   } else {
     if (current_state.row_state == animation_state_row_t::Sleep) {
       // wake up
-      if (conditions.process_idle_animation) {
+      if (conditions.continues_animation) {
         // end current sleep animation
         const auto animation_result =
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::WakeUp, new_animation_result, new_state,
@@ -2241,8 +2372,10 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
 }
 
 static anim_next_frame_result_t
-anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
-                               [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
+anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx,
+                               [[maybe_unused]] const platform::input::input_context_t *input,
+                               [[maybe_unused]] const platform::update::update_context_t *upd,
+                               [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
                                const animation_trigger_t& trigger) {
   using namespace assets;
 
@@ -2251,9 +2384,9 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  const auto& input_shm = *input.shm;
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto* update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -2264,11 +2397,11 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
   auto new_state = state;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   bool show_happy = false;
-  if (input_shm.kpm > 0) {
-    if (current_config.happy_kpm > 0 && input_shm.kpm >= current_config.happy_kpm) {
+  if (input_shm && input_shm->kpm > 0) {
+    if (current_config.happy_kpm > 0 && input_shm->kpm >= current_config.happy_kpm) {
       show_happy = DM_HAPPY_CHANCE_PERCENT >= 100 || ctx._rng.range(0, 99) < DM_HAPPY_CHANCE_PERCENT;
     }
   }
@@ -2287,7 +2420,7 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
                                 current_state, current_frames, current_config);
       new_state.show_boring_animation_once = false;
     } else {
-      if (conditions.process_idle_animation) {
+      if (conditions.continues_animation) {
         // transition writing animations
         if (current_state.row_state == animation_state_row_t::StartWriting) {
           anim_dm_start_or_process_animation(ctx, animation_state_row_t::Writing, new_animation_result, new_state,
@@ -2320,7 +2453,7 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
     }
   } else if (current_state.row_state == animation_state_row_t::Happy) {
     if (conditions.release_frame_after_press) {
-      if (conditions.process_idle_animation) {
+      if (conditions.continues_animation) {
         // finish last happy animation
         anim_dm_start_or_process_animation(
             ctx,
@@ -2333,7 +2466,7 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
             new_animation_result, new_state, current_state, current_frames, current_config);
       }
     } else {
-      if (!conditions.process_idle_animation) {
+      if (!conditions.continues_animation) {
         // back to idle
         anim_dm_restart_animation(
             ctx, conditions.continue_writing ? animation_state_row_t::Writing : animation_state_row_t::Idle,
@@ -2357,11 +2490,12 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
                                      current_state, current_config);
 }
 
-static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_context_t& ctx,
-                                                           const platform::input::input_context_t& input,
-                                                           const platform::update::update_context_t& upd,
-                                                           animation_state_t& state,
-                                                           const animation_trigger_t& trigger) {
+static anim_next_frame_result_t
+anim_dm_working_next_frame(animation_thread_context_t& ctx,
+                           [[maybe_unused]] const platform::input::input_context_t *input,
+                           [[maybe_unused]] const platform::update::update_context_t *upd,
+                           [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
+                           const animation_trigger_t& trigger) {
   using namespace assets;
 
   // read-only config
@@ -2369,15 +2503,14 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  // assert(input.shm != nullptr);
-  assert(upd.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  // const auto& input_shm = *input.shm;
-  const auto& update_shm = *upd.shm;
+  // const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp :
+  // platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
   const auto& current_frames = get_current_animation(ctx).dm;
 
@@ -2385,61 +2518,65 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
   auto new_state = state;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
   if (conditions.process_working_animation) {
     // toggle frame, show attack animation
     const bool start_above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                       update_shm.avg_cpu_usage >= current_config.cpu_threshold;
+                                       (update_shm && update_shm->avg_cpu_usage >= current_config.cpu_threshold);
     const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                 (update_shm.avg_cpu_usage >= current_config.cpu_threshold ||
-                                  update_shm.max_cpu_usage >= current_config.cpu_threshold);
+                                 (update_shm && (update_shm->avg_cpu_usage >= current_config.cpu_threshold ||
+                                                 update_shm->max_cpu_usage >= current_config.cpu_threshold));
     const bool lower_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                 (update_shm.avg_cpu_usage < current_config.cpu_threshold &&
-                                  update_shm.max_cpu_usage < current_config.cpu_threshold);
+                                 (update_shm && (update_shm->avg_cpu_usage < current_config.cpu_threshold &&
+                                                 update_shm->max_cpu_usage < current_config.cpu_threshold));
 
     if (start_above_threshold && conditions.ready_to_work) {
       anim_dm_restart_animation(ctx, animation_state_row_t::StartWorking, new_animation_result, new_state,
                                 current_state, current_frames, current_config);
-      BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+      BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
+                           update_shm ? update_shm->avg_cpu_usage : 0.0);
     } else if (above_threshold) {
       if (conditions.is_working) {
         // continues animations
-        if (conditions.process_idle_animation) {
-          if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
+        if (conditions.continues_animation) {
+          if (update_shm && update_shm->cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::Working,  // continue working
                                                new_animation_result, new_state, current_state, current_frames,
                                                current_config);
-          } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartWorking ||
-                                                state.row_state == animation_state_row_t::Working)) {
+          } else if (update_shm && !update_shm->cpu_active &&
+                     (current_state.row_state == animation_state_row_t::StartWorking ||
+                      state.row_state == animation_state_row_t::Working)) {
             // end working, cool down
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndWorking, new_animation_result, new_state,
                                                current_state, current_frames, current_config);
-          } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndWorking) {
+          } else if (update_shm && !update_shm->cpu_active &&
+                     current_state.row_state == animation_state_row_t::EndWorking) {
             // back to idle
             anim_dm_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
                                                current_state, current_frames, current_config);
-          } else if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::Working) {
+          } else if (update_shm && update_shm->cpu_active &&
+                     current_state.row_state == animation_state_row_t::Working) {
             // keep working
             anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
         } else {
-          if (update_shm.cpu_active) {
-            if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
+          if (update_shm) {
+            if (update_shm->cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
               anim_dm_show_single_frame(ctx, animation_state_row_t::Working, new_animation_result, new_state,
                                         current_state, current_frames, current_config);
-            } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartWorking ||
-                                                  state.row_state == animation_state_row_t::Working)) {
+            } else if (!update_shm->cpu_active && (current_state.row_state == animation_state_row_t::StartWorking ||
+                                                   state.row_state == animation_state_row_t::Working)) {
               // end working
               anim_dm_show_single_frame(ctx, animation_state_row_t::EndWorking, new_animation_result, new_state,
                                         current_state, current_frames, current_config);
-            } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndWorking) {
+            } else if (!update_shm->cpu_active && current_state.row_state == animation_state_row_t::EndWorking) {
               // back to idle
               anim_dm_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
                                         current_state, current_frames, current_config);
-            } else if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::Working) {
+            } else if (update_shm->cpu_active && current_state.row_state == animation_state_row_t::Working) {
               // keep working
               anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
             }
@@ -2449,7 +2586,7 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
     } else if (lower_threshold) {
       // End Working
       if (conditions.is_working && current_state.row_state != animation_state_row_t::EndMoving) {
-        if (conditions.process_idle_animation) {
+        if (conditions.continues_animation) {
           // end working, cool down
           anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndWorking, new_animation_result, new_state,
                                              current_state, current_frames, current_config);
@@ -2457,13 +2594,14 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
           anim_dm_show_single_frame(ctx, animation_state_row_t::EndWorking, new_animation_result, new_state,
                                     current_state, current_frames, current_config);
         }
-        BONGOCAT_LOG_VERBOSE("Stop Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+        BONGOCAT_LOG_VERBOSE("Stop Working: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm ? update_shm->avg_cpu_usage : 0.0);
       }
     } else {
       // Cancel Working
       if (conditions.is_working && current_state.row_state != animation_state_row_t::EndWorking &&
-          !update_shm.cpu_active) {
-        if (conditions.process_idle_animation) {
+          (update_shm && !update_shm->cpu_active)) {
+        if (conditions.continues_animation) {
           // back to idle
           anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndWorking, new_animation_result, new_state,
                                              current_state, current_frames, current_config);
@@ -2471,7 +2609,8 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
           anim_dm_show_single_frame(ctx, animation_state_row_t::EndMoving, new_animation_result, new_state,
                                     current_state, current_frames, current_config);
         }
-        BONGOCAT_LOG_VERBOSE("Stop Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+        BONGOCAT_LOG_VERBOSE("Stop Working: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm ? update_shm->avg_cpu_usage : 0.0);
       }
     }
   }
@@ -2486,12 +2625,11 @@ static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_context_t&
   using namespace assets;
 
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
   assert(animation_ctx._update != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
   animation_thread_context_t& ctx = animation_ctx.thread_context;
-  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
+  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
   auto& anim_shm = *ctx.shm;
 
   // read-only config
@@ -2499,14 +2637,13 @@ static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_context_t&
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  // assert(input.shm != nullptr);
-  assert(upd.shm);
-  // const auto& input_shm = *input.shm;
-  // const auto& update_shm = *upd.shm;
+  // const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto* update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp :
+  // platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
   const auto& current_frames = get_current_animation(ctx).dm;
   auto& evol = anim_shm.evolution;
@@ -2514,7 +2651,7 @@ static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_context_t&
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, evol, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, evol, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -2552,6 +2689,33 @@ static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_context_t&
       }
     }
   }
+
+  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                     current_state, current_config);
+}
+static anim_next_frame_result_t anim_dm_audio_peak_next_frame(animation_thread_context_t& ctx,
+                                                              animation_state_t& state) {
+  using namespace assets;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  assert(ctx.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+  assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
+  const auto& current_frames = get_current_animation(ctx).dm;
+  // only start happy from idle (don't interrupt writing, working, sleeping, evolving, ...)
+  if (!current_frames.frames.happy.valid || state.row_state != animation_state_row_t::Idle) {
+    return {};
+  }
+
+  const auto current_state = state;
+  const auto& current_animation_result = anim_shm.animation_player_result;
+  auto new_animation_result = anim_shm.animation_player_result;
+  auto new_state = state;
+  anim_dm_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
+                            current_frames, current_config);
 
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
                                      current_state, current_config);
@@ -2923,32 +3087,35 @@ anim_pkmn_start_or_process_animation(animation_thread_context_t& ctx, animation_
                                      current_config);
 }
 
-static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
-                                                          const platform::input::input_context_t& input,
-                                                          const platform::update::update_context_t& upd,
-                                                          animation_state_t& state,
-                                                          const anim_handle_key_press_result_t& trigger_result) {
+static anim_next_frame_result_t
+anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
+                          [[maybe_unused]] const platform::input::input_context_t *input,
+                          [[maybe_unused]] const platform::update::update_context_t *upd,
+                          [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
+                          const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
   // read-only config
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  const auto& input_shm = *input.shm;
-  const auto& update_shm = *upd.shm;
+  assert(ctx.shm != BONGOCAT_NULLPTR);
   auto& anim_shm = *ctx.shm;
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  const platform::timestamp_ms_t last_key_pressed_timestamp =
+      input_shm ? input_shm->last_key_pressed_timestamp : platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Pkmn);
   const auto& current_frames = get_current_animation(ctx).pkmn;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution,
+                                              trigger_result.trigger, current_config);
 
   /// @TODO: make animation state machine ?
 
@@ -2956,11 +3123,20 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
     // Idle Animation
     const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
     const bool stop_happy_kpm = current_state.row_state == animation_state_row_t::Happy &&
-                                conditions.release_frame_after_press && !conditions.process_idle_animation;
+                                conditions.release_frame_after_press && !conditions.continues_animation;
     const bool stop_test_animation = conditions.trigger_test_animation &&
                                      current_state.row_state == animation_state_row_t::Test &&
                                      conditions.release_test_frame;
-    if ((stop_writing || stop_test_animation || stop_happy_kpm) && !conditions.is_evolving) {
+    const bool stop_dancing =
+        (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) ||
+        (current_state.was_dancing && !conditions.is_dancing);
+    const bool stop_happy_dancing = (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.release_frame_after_press && !conditions.continues_animation) ||
+                                    (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.process_idle_animation == process_idle_animation_t::Dancing &&
+                                     conditions.release_frame_for_non_idle && !conditions.continues_animation);
+    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing || stop_happy_dancing) &&
+        !conditions.is_evolving) {
       // back to idle
       anim_pkmn_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                   current_frames, current_config);
@@ -2972,7 +3148,13 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
       } else {
         // continues animations
         if (current_state.row_state == animation_state_row_t::Idle) {
-          if (conditions.process_idle_animation) {
+          // audio/dancing animation or idle animation
+          // while dancing, only the dance frame time (one frame per beat) advances the animation
+          const bool advance_idle_animation =
+              conditions.is_dancing ? conditions.process_idle_animation == process_idle_animation_t::Dancing
+                                    : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
+                                       conditions.continues_animation);
+          if (advance_idle_animation) {
             // Idle Animation
             anim_pkmn_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
@@ -2980,7 +3162,7 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
         // finish animations, back to idle
         if (current_state.row_state == animation_state_row_t::Happy) {
           if (conditions.release_frame_after_press) {
-            if (conditions.process_idle_animation) {
+            if (conditions.continues_animation) {
               // finish last happy animation
               anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::Idle,  // back to idle
                                                    new_animation_result, new_state, current_state, current_frames,
@@ -2996,7 +3178,7 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
         // Finish wakeup
         if (current_state.row_state == animation_state_row_t::WakeUp) {
           // back to idle
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             // end current sleep animation
             anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
                                                  current_state, current_frames, current_config);
@@ -3010,8 +3192,8 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
         // Finish Working
         if (current_state.row_state == animation_state_row_t::EndWorking &&
             (conditions.release_frame_after_update || conditions.release_frame_for_non_idle) &&
-            !update_shm.cpu_active) {
-          if (conditions.process_idle_animation) {
+            (update_shm && !update_shm->cpu_active)) {
+          if (conditions.continues_animation) {
             anim_pkmn_start_or_process_animation(
                 ctx, animation_state_row_t::Idle,  // back to idle, when animation ended
                 new_animation_result, new_state, current_state, current_frames, current_config);
@@ -3023,9 +3205,9 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
             }
           }
         } else if (conditions.is_working && current_state.row_state != animation_state_row_t::EndWorking &&
-                   !update_shm.cpu_active) {
+                   (update_shm && !update_shm->cpu_active)) {
           // Cancel Working
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::EndWorking, new_animation_result,
                                                  new_state, current_state, current_frames, current_config);
           } else {
@@ -3064,13 +3246,13 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
       const auto sleep_timeout_by_latest_keypress_ms = now - last_key_pressed_timestamp;
       const auto sleep_timeout_by_awake_ms = now - ctx.shm->last_wakeup_timestamp;
 
-      const bool start_boring = SLEEP_BORING_PART > 0 &&
-                                sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                                sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
+      const bool start_boring =
+          SLEEP_BORING_PART > 0 && sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+          sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART && !conditions.is_dancing;
       if (current_state.row_state == animation_state_row_t::Idle) {
         // start boring animation
         if (start_boring && !current_state.show_boring_animation_once) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             anim_pkmn_restart_animation(ctx, animation_state_row_t::Boring, new_animation_result, new_state,
                                         current_state, current_frames, current_config);
           } else {
@@ -3081,7 +3263,7 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
           new_state.anim_last_direction = 0.0f;
         }
       } else if (current_state.row_state == animation_state_row_t::Boring) {
-        if (conditions.process_idle_animation) {
+        if (conditions.continues_animation) {
           const auto animation_result = anim_pkmn_start_or_process_animation(
               ctx, animation_state_row_t::Idle,  // back to idle, when animation ended
               new_animation_result, new_state, current_state, current_frames, current_config);
@@ -3212,8 +3394,9 @@ static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_conte
 
 static anim_next_frame_result_t
 anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
-                                 [[maybe_unused]] const platform::input::input_context_t& input,
-                                 [[maybe_unused]] const platform::update::update_context_t& upd,
+                                 [[maybe_unused]] const platform::input::input_context_t *input,
+                                 [[maybe_unused]] const platform::update::update_context_t *upd,
+                                 [[maybe_unused]] const platform::audio::audio_context_t *audio,
                                  animation_state_t& state, const animation_trigger_t& trigger) {
   using namespace assets;
 
@@ -3222,9 +3405,9 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  [[maybe_unused]] const auto& input_shm = *input.shm;
+  // const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto* update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -3235,7 +3418,7 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
   auto new_state = state;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -3263,7 +3446,7 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
                                   current_state, current_frames, current_config);
       new_state.show_boring_animation_once = false;
     } else {
-      if (conditions.process_idle_animation) {
+      if (conditions.continues_animation) {
         // transition writing animations
         if (current_state.row_state == animation_state_row_t::StartWriting) {
           anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::Writing, new_animation_result, new_state,
@@ -3341,12 +3524,11 @@ static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_
   using namespace assets;
 
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
   assert(animation_ctx._update != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
   animation_thread_context_t& ctx = animation_ctx.thread_context;
-  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
+  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
   auto& anim_shm = *ctx.shm;
 
   // read-only config
@@ -3354,14 +3536,13 @@ static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  // assert(input.shm != nullptr);
-  assert(upd.shm);
-  // const auto& input_shm = *input.shm;
-  // const auto& update_shm = *upd.shm;
+  // const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto* update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp :
+  // platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Pkmn);
   const auto& current_frames = get_current_animation(ctx).pkmn;
   auto& evol = anim_shm.evolution;
@@ -3369,7 +3550,7 @@ static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, evol, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, evol, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -3670,8 +3851,10 @@ anim_ms_agent_start_or_process_animation(animation_thread_context_t& ctx, animat
 }
 
 static anim_next_frame_result_t
-anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
-                              [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
+anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx,
+                              [[maybe_unused]] const platform::input::input_context_t *input,
+                              [[maybe_unused]] const platform::update::update_context_t *upd,
+                              [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
                               const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
@@ -3680,23 +3863,22 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  assert(input.shm);
-  // assert(upd.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  const auto& input_shm = *input.shm;
-  // const auto& update_shm = *upd.shm;
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto* update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  const platform::timestamp_ms_t last_key_pressed_timestamp =
+      input_shm ? input_shm->last_key_pressed_timestamp : platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
   const auto& current_frames = get_current_animation(ctx).ms_agent;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution,
+                                              trigger_result.trigger, current_config);
 
   /// @TODO: make animation fsm
 
@@ -3706,13 +3888,14 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   const auto sleep_timeout_by_latest_keypress_ms = now - last_key_pressed_timestamp;
   const auto sleep_timeout_by_awake_keypress_ms = now - ctx.shm->last_wakeup_timestamp;
 
-  const bool start_boring = SLEEP_BORING_PART > 0 &&
-                            sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                            sleep_timeout_by_awake_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
-
+  const bool start_boring =
+      SLEEP_BORING_PART > 0 && sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+      sleep_timeout_by_awake_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART && !conditions.is_dancing;
   switch (current_state.row_state) {
-  case animation_state_row_t::Test:
   case animation_state_row_t::Happy:
+    /// @TODO: add happy animation for audio ?
+    break;
+  case animation_state_row_t::Test:
   case animation_state_row_t::StartMoving:
   case animation_state_row_t::Moving:
   case animation_state_row_t::EndMoving:
@@ -3913,8 +4096,8 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
 
 static anim_next_frame_result_t
 anim_ms_agent_key_pressed_next_frame(animation_thread_context_t& ctx, animation_state_t& state,
-                                     [[maybe_unused]] const platform::input::input_context_t& input,
-                                     [[maybe_unused]] const platform::update::update_context_t& upd,
+                                     [[maybe_unused]] const platform::input::input_context_t *input,
+                                     [[maybe_unused]] const platform::update::update_context_t *upd,
                                      [[maybe_unused]] const animation_trigger_t& trigger) {
   using namespace assets;
 
@@ -3923,7 +4106,6 @@ anim_ms_agent_key_pressed_next_frame(animation_thread_context_t& ctx, animation_
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto current_state = state;
@@ -4009,17 +4191,15 @@ platform::update::update_context_t& upd, animation_state_t& state) { using names
     const config::config_t& current_config = *ctx._local_copy_config;
 
     assert(ctx.shm != nullptr);
-    assert(upd.shm != nullptr);
-    //assert(input.shm != nullptr);
     animation_shared_memory_t& anim_shm = *ctx.shm;
-    //const auto& input_shm = *input.shm;
-    const auto& update_shm = *upd.shm;
+    const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+    const auto* update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
     const auto current_state = state;
     const auto& current_animation_result = anim_shm.animation_player_result;
     [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-    //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-    assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
-    const auto& current_frames = get_current_animation(ctx).ms_agent;
+    //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp :
+platform::get_current_time_ms(); assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent); const auto&
+current_frames = get_current_animation(ctx).ms_agent;
 
     auto new_animation_result = anim_shm.animation_player_result;
     auto new_state = state;
@@ -4034,6 +4214,33 @@ platform::update::update_context_t& upd, animation_state_t& state) { using names
                                         current_config);
 }
 */
+static anim_next_frame_result_t anim_ms_agent_audio_peak_next_frame(animation_thread_context_t& ctx,
+                                                                    animation_state_t& state) {
+  using namespace assets;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  assert(ctx.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+  assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
+  const auto& current_frames = get_current_animation(ctx).ms_agent;
+  // only start happy from idle
+  if (!current_frames.happy.valid || state.row_state != animation_state_row_t::Idle) {
+    return {};
+  }
+
+  const auto current_state = state;
+  const auto& current_animation_result = anim_shm.animation_player_result;
+  auto new_animation_result = anim_shm.animation_player_result;
+  auto new_state = state;
+  anim_ms_agent_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
+                                  current_frames, current_config);
+
+  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                     current_state, current_config);
+}
 #endif
 
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
@@ -4445,26 +4652,26 @@ static anim_custom_process_animation_result_t anim_custom_start_or_process_anima
                                        current_frames, current_config);
 }
 
-static anim_custom_process_animation_result_t
-anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
-                            [[maybe_unused]] const platform::update::update_context_t& upd,
-                            animation_player_result_t& new_animation_result, animation_state_t& new_state,
-                            const anim_handle_key_press_result_t& trigger_result,
-                            const animation_state_t& current_state, const custom_sprite_sheet_t& current_frames,
-                            const config::config_t& current_config) {
+static anim_custom_process_animation_result_t anim_custom_handle_movement(
+    animation_thread_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t *input,
+    [[maybe_unused]] const platform::update::update_context_t *upd,
+    [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_player_result_t& new_animation_result,
+    animation_state_t& new_state, const anim_handle_key_press_result_t& trigger_result,
+    const animation_state_t& current_state, const custom_sprite_sheet_t& current_frames,
+    const config::config_t& current_config) {
   using namespace assets;
 
   assert(ctx.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
-  const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution,
+                                              trigger_result.trigger, current_config);
 
   anim_custom_process_animation_result_t ret{.row_state = new_state.row_state,
                                              .status = anim_custom_process_animation_result_status_t::None};
   if (!conditions.is_writing && current_config.movement_speed > 0 && current_config.movement_radius > 0 &&
       current_config.fps > 0) {
-    if ((conditions.go_next_frame || conditions.process_idle_animation) || conditions.process_movement ||
+    if ((conditions.go_next_frame || conditions.continues_animation) || conditions.process_movement ||
         conditions.process_movement_animation) {
       const float delta = 1.0f / static_cast<float>(current_config.fps);
       const auto delta_ms = static_cast<int32_t>(delta * 1000);
@@ -4581,7 +4788,7 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
                                               animation_state_row_t::EndMoving, new_animation_result, new_state,
                                               current_state, current_frames, current_config);
         } else if (current_state.row_state == animation_state_row_t::StartMoving) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             ret = anim_custom_start_or_process_animation(ctx, animation_state_row_t::Moving,
                                                          animation_state_row_t::EndMoving, new_animation_result,
                                                          new_state, current_state, current_frames, current_config);
@@ -4629,7 +4836,7 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
         }
 
         if (end_movement) {
-          if (conditions.process_idle_animation) {
+          if (conditions.continues_animation) {
             ret = anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result,
                                                          new_state, current_state, current_frames, current_config);
           } else {
@@ -4673,12 +4880,11 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
   using namespace assets;
 
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
   assert(animation_ctx._update != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
   animation_thread_context_t& ctx = animation_ctx.thread_context;
-  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
+  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
   auto& anim_shm = *ctx.shm;
 
   // read-only config
@@ -4686,14 +4892,13 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm != BONGOCAT_NULLPTR);
-  assert(input.shm != BONGOCAT_NULLPTR);
-  assert(upd.shm != BONGOCAT_NULLPTR);
-  const auto& input_shm = *input.shm;
-  const auto& update_shm = *upd.shm;
   const auto current_state = state;
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  const platform::timestamp_ms_t last_key_pressed_timestamp =
+      input_shm ? input_shm->last_key_pressed_timestamp : platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
   const auto& current_frames = get_current_animation(ctx).custom;
   auto& evol = anim_shm.evolution;
@@ -4701,8 +4906,8 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution,
+                                              trigger_result.trigger, current_config);
 
   /// @TODO: make animation fsm
 
@@ -4714,7 +4919,8 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
 
   const bool start_boring = current_frames.feature_boring && SLEEP_BORING_PART > 0 &&
                             sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                            sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
+                            sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+                            !conditions.is_dancing;
 
   switch (current_state.row_state) {
   case animation_state_row_t::Happy:
@@ -4722,7 +4928,7 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
       if (current_frames.feature_writing_toggle_frames && current_frames.happy.end_col == 0) {
         // animation for
         const bool stop_happy_kpm = current_state.row_state == animation_state_row_t::Happy &&
-                                    conditions.release_frame_after_press && !conditions.process_idle_animation;
+                                    conditions.release_frame_after_press && !conditions.continues_animation;
         if (stop_happy_kpm) {
           // back to idle
           anim_custom_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
@@ -4750,8 +4956,8 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
   case animation_state_row_t::Moving:
   case animation_state_row_t::EndMoving:
     if (current_frames.feature_moving) {
-      anim_custom_handle_movement(ctx, input, upd, new_animation_result, new_state, trigger_result, current_state,
-                                  current_frames, current_config);
+      anim_custom_handle_movement(ctx, input, upd, audio, new_animation_result, new_state, trigger_result,
+                                  current_state, current_frames, current_config);
     }
     break;
   case animation_state_row_t::StartWorking:
@@ -4769,7 +4975,7 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
   case animation_state_row_t::Working:
     if (current_frames.feature_working) {
       if (conditions.go_next_frame) {
-        if (update_shm.cpu_active) {
+        if (update_shm && update_shm->cpu_active) {
           anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
         } else {
           anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndWorking, animation_state_row_t::Idle,
@@ -4812,12 +5018,16 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
   case animation_state_row_t::Idle: {
     if (current_config.idle_animation && conditions.go_next_frame) {
       anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+    } else if (conditions.is_dancing && conditions.go_next_frame) {
+      if (current_frames.feature_dancing) {
+        anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+      }
     }
 
     if (current_frames.feature_moving) {
       // Move Animation
-      anim_custom_handle_movement(ctx, input, upd, new_animation_result, new_state, trigger_result, current_state,
-                                  current_frames, current_config);
+      anim_custom_handle_movement(ctx, input, upd, audio, new_animation_result, new_state, trigger_result,
+                                  current_state, current_frames, current_config);
     }
 
     if (current_frames.feature_sleep || current_frames.feature_boring) {
@@ -4841,8 +5051,10 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
 
           // idle sleep
           if (current_frames.feature_sleep) {
-            if (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
-                sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms) {
+            const bool go_to_idle_sleep =
+                !conditions.is_dancing && (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
+                                           sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms);
+            if (go_to_idle_sleep) {
               if (current_state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
                 anim_custom_process_animation_result_t animation_result{.row_state = current_state.row_state};
                 if (conditions.is_moving) {
@@ -4951,7 +5163,7 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
           // back to Idle Animation (after writing)
           const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
           const bool stop_happy_kpm = current_state.row_state == animation_state_row_t::Happy &&
-                                      conditions.release_frame_after_press && !conditions.process_idle_animation;
+                                      conditions.release_frame_after_press && !conditions.continues_animation;
           if (stop_writing || stop_happy_kpm) {
             // back to idle
             anim_custom_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
@@ -5108,7 +5320,7 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
   case animation_state_row_t::Running:
     if (current_frames.feature_running) {
       if (conditions.go_next_frame_running) {
-        if (update_shm.cpu_active) {
+        if (update_shm && update_shm->cpu_active) {
           anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
         } else {
           anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Idle,
@@ -5195,8 +5407,9 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
 }
 static anim_next_frame_result_t
 anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_state_t& state,
-                                   [[maybe_unused]] const platform::input::input_context_t& input,
-                                   [[maybe_unused]] const platform::update::update_context_t& upd,
+                                   [[maybe_unused]] const platform::input::input_context_t *input,
+                                   [[maybe_unused]] const platform::update::update_context_t *upd,
+                                   [[maybe_unused]] const platform::audio::audio_context_t *audio,
                                    [[maybe_unused]] const animation_trigger_t& trigger) {
   using namespace assets;
 
@@ -5205,9 +5418,9 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm != BONGOCAT_NULLPTR);
-  assert(input.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  const auto& input_shm = *input.shm;
+  const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto* update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -5218,12 +5431,12 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
   auto new_state = state;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   bool show_happy = false;
   if (current_frames.feature_writing_happy) {
-    if (input_shm.kpm > 0) {
-      if (current_config.happy_kpm > 0 && input_shm.kpm >= current_config.happy_kpm) {
+    if (input_shm && input_shm->kpm > 0) {
+      if (current_config.happy_kpm > 0 && input_shm->kpm >= current_config.happy_kpm) {
         show_happy = CUSTOM_HAPPY_CHANCE_PERCENT >= 100 || ctx._rng.range(0, 99) < CUSTOM_HAPPY_CHANCE_PERCENT;
       }
     }
@@ -5345,11 +5558,12 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
                                      current_state, current_config);
 }
 
-static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_context_t& ctx,
-                                                               const platform::input::input_context_t& input,
-                                                               const platform::update::update_context_t& upd,
-                                                               animation_state_t& state,
-                                                               const animation_trigger_t& trigger) {
+static anim_next_frame_result_t
+anim_custom_working_next_frame(animation_thread_context_t& ctx,
+                               [[maybe_unused]] const platform::input::input_context_t *input,
+                               [[maybe_unused]] const platform::update::update_context_t *upd,
+                               [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
+                               const animation_trigger_t& trigger) {
   using namespace assets;
 
   // read-only config
@@ -5357,15 +5571,15 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm != BONGOCAT_NULLPTR);
-  // assert(input.shm != nullptr);
-  assert(upd.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  // const auto& input_shm = *input.shm;
-  const auto& update_shm = *upd.shm;
+  // const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
+  // const auto *audio_shm = audio ? audio->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp :
+  // platform::get_current_time_ms();
   assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
   const auto& current_frames = get_current_animation(ctx).custom;
 
@@ -5373,7 +5587,7 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
   auto new_state = state;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -5381,13 +5595,13 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
     if (conditions.process_working_animation) {
       // toggle frame, show attack animation
       const bool start_above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                         update_shm.avg_cpu_usage >= current_config.cpu_threshold;
+                                         (update_shm && update_shm->avg_cpu_usage >= current_config.cpu_threshold);
       const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                   (update_shm.avg_cpu_usage >= current_config.cpu_threshold ||
-                                    update_shm.max_cpu_usage >= current_config.cpu_threshold);
+                                   (update_shm && (update_shm->avg_cpu_usage >= current_config.cpu_threshold ||
+                                                   update_shm->max_cpu_usage >= current_config.cpu_threshold));
       const bool lower_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                   (update_shm.avg_cpu_usage < current_config.cpu_threshold &&
-                                    update_shm.max_cpu_usage < current_config.cpu_threshold);
+                                   (update_shm && update_shm->avg_cpu_usage < current_config.cpu_threshold &&
+                                    update_shm->max_cpu_usage < current_config.cpu_threshold);
       if (start_above_threshold && conditions.is_idle_sleep && conditions.ready_to_work) {
         // wake up from working
         anim_custom_process_animation_result_t animation_result{.row_state = current_state.row_state};
@@ -5405,28 +5619,32 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
         if (animation_result.row_state != animation_state_row_t::IdleSleep) {
           ctx.shm->last_wakeup_timestamp = platform::get_current_time_ms();
         }
-        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm ? update_shm->avg_cpu_usage : 0.0);
       } else if (start_above_threshold && conditions.ready_to_work) {
         anim_custom_restart_animation(ctx, animation_state_row_t::StartWorking, animation_state_row_t::Working,
                                       animation_state_row_t::EndWorking, new_animation_result, new_state, current_state,
                                       current_frames, current_config);
-        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm ? update_shm->avg_cpu_usage : 0.0);
       } else if (above_threshold) {
         if (conditions.is_working) {
-          if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
-            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Working,
-                                                   animation_state_row_t::EndWorking, new_animation_result, new_state,
-                                                   current_state, current_frames, current_config);
-          } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartWorking ||
-                                                state.row_state == animation_state_row_t::Working)) {
-            // end working, cool down
-            anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndWorking, animation_state_row_t::Idle,
-                                                   new_animation_result, new_state, current_state, current_frames,
-                                                   current_config);
-          } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndWorking) {
-            // back to idle
-            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
-                                                   current_state, current_frames, current_config);
+          if (update_shm) {
+            if (update_shm->cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
+              anim_custom_start_or_process_animation(ctx, animation_state_row_t::Working,
+                                                     animation_state_row_t::EndWorking, new_animation_result, new_state,
+                                                     current_state, current_frames, current_config);
+            } else if (!update_shm->cpu_active && (current_state.row_state == animation_state_row_t::StartWorking ||
+                                                   state.row_state == animation_state_row_t::Working)) {
+              // end working, cool down
+              anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndWorking,
+                                                     animation_state_row_t::Idle, new_animation_result, new_state,
+                                                     current_state, current_frames, current_config);
+            } else if (!update_shm->cpu_active && current_state.row_state == animation_state_row_t::EndWorking) {
+              // back to idle
+              anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
+                                                     current_state, current_frames, current_config);
+            }
           }
         }
       } else if (lower_threshold) {
@@ -5438,24 +5656,25 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
                                                    new_animation_result, new_state, current_state, current_frames,
                                                    current_config);
             BONGOCAT_LOG_VERBOSE("Stop Working: %d %d; %d%%", above_threshold, lower_threshold,
-                                 update_shm.avg_cpu_usage);
+                                 update_shm ? update_shm->avg_cpu_usage : 0.0);
           }
         }
       } else {
         // Cancel Working
         if (conditions.is_working && current_state.row_state != animation_state_row_t::EndMoving &&
-            !update_shm.cpu_active) {
+            (update_shm && !update_shm->cpu_active)) {
           // back to idle
           anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndMoving, animation_state_row_t::Idle,
                                                  new_animation_result, new_state, current_state, current_frames,
                                                  current_config);
-          BONGOCAT_LOG_VERBOSE("Stop Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+          BONGOCAT_LOG_VERBOSE("Stop Working: %d %d; %d%%", above_threshold, lower_threshold,
+                               update_shm ? update_shm->avg_cpu_usage : 0.0);
         }
       }
     }
   } else {
     // Cancel Working
-    if (conditions.is_working && !update_shm.cpu_active) {
+    if (conditions.is_working && update_shm && !update_shm->cpu_active) {
       // back to idle
       anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
                                              current_state, current_frames, current_config);
@@ -5466,11 +5685,11 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
                                      current_state, current_config);
 }
 
-static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_context_t& ctx,
-                                                               const platform::input::input_context_t& input,
-                                                               const platform::update::update_context_t& upd,
-                                                               animation_state_t& state,
-                                                               const animation_trigger_t& trigger) {
+static anim_next_frame_result_t
+anim_custom_running_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t *input,
+                               const platform::update::update_context_t *upd,
+                               [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
+                               const animation_trigger_t& trigger) {
   using namespace assets;
 
   // read-only config
@@ -5478,11 +5697,9 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm != BONGOCAT_NULLPTR);
-  // assert(input.shm != nullptr);
-  assert(upd.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
-  // const auto& input_shm = *input.shm;
-  const auto& update_shm = *upd.shm;
+  // const auto* input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
+  const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -5494,7 +5711,7 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
   auto new_state = state;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -5502,34 +5719,37 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
     if (conditions.process_running_animation) {
       // toggle frame, show running animation
       const bool start_above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                         update_shm.avg_cpu_usage >= current_config.cpu_threshold;
+                                         (update_shm && update_shm->avg_cpu_usage >= current_config.cpu_threshold);
       const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                   (update_shm.avg_cpu_usage >= current_config.cpu_threshold ||
-                                    update_shm.max_cpu_usage >= current_config.cpu_threshold);
+                                   (update_shm && (update_shm->avg_cpu_usage >= current_config.cpu_threshold ||
+                                                   update_shm->max_cpu_usage >= current_config.cpu_threshold));
       const bool lower_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
-                                   (update_shm.avg_cpu_usage < current_config.cpu_threshold &&
-                                    update_shm.max_cpu_usage < current_config.cpu_threshold);
+                                   (update_shm && (update_shm->avg_cpu_usage < current_config.cpu_threshold &&
+                                                   update_shm->max_cpu_usage < current_config.cpu_threshold));
 
       if (start_above_threshold && conditions.ready_to_work) {
         anim_custom_restart_animation(ctx, animation_state_row_t::StartRunning, animation_state_row_t::Running,
                                       animation_state_row_t::EndRunning, new_animation_result, new_state, current_state,
                                       current_frames, current_config);
-        BONGOCAT_LOG_VERBOSE("Start Running: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+        BONGOCAT_LOG_VERBOSE("Start Running: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm ? update_shm->avg_cpu_usage : 0.0);
       } else if (above_threshold && conditions.is_running) {
-        if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartRunning) {
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running, animation_state_row_t::EndRunning,
-                                                 new_animation_result, new_state, current_state, current_frames,
-                                                 current_config);
-        } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartRunning ||
-                                              state.row_state == animation_state_row_t::Running)) {
-          // end running, cool down
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Running,
-                                                 new_animation_result, new_state, current_state, current_frames,
-                                                 current_config);
-        } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndRunning) {
-          // back to idle
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
-                                                 current_state, current_frames, current_config);
+        if (update_shm) {
+          if (update_shm->cpu_active && current_state.row_state == animation_state_row_t::StartRunning) {
+            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running,
+                                                   animation_state_row_t::EndRunning, new_animation_result, new_state,
+                                                   current_state, current_frames, current_config);
+          } else if (!update_shm->cpu_active && (current_state.row_state == animation_state_row_t::StartRunning ||
+                                                 state.row_state == animation_state_row_t::Running)) {
+            // end running, cool down
+            anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning,
+                                                   animation_state_row_t::Running, new_animation_result, new_state,
+                                                   current_state, current_frames, current_config);
+          } else if (!update_shm->cpu_active && current_state.row_state == animation_state_row_t::EndRunning) {
+            // back to idle
+            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
+                                                   current_state, current_frames, current_config);
+          }
         }
       } else if (lower_threshold) {
         // End Running
@@ -5540,24 +5760,25 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
                                                    new_animation_result, new_state, current_state, current_frames,
                                                    current_config);
             BONGOCAT_LOG_VERBOSE("Stop Running: %d %d; %d%%", above_threshold, lower_threshold,
-                                 update_shm.avg_cpu_usage);
+                                 update_shm ? update_shm->avg_cpu_usage : 0.0);
           }
         }
       } else {
         // Cancel Running
         if (conditions.is_running && current_state.row_state != animation_state_row_t::EndRunning &&
-            !update_shm.cpu_active) {
+            (update_shm && !update_shm->cpu_active)) {
           // back to idle
           anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Idle,
                                                  new_animation_result, new_state, current_state, current_frames,
                                                  current_config);
-          BONGOCAT_LOG_VERBOSE("Stop Running: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+          BONGOCAT_LOG_VERBOSE("Stop Running: %d %d; %d%%", above_threshold, lower_threshold,
+                               update_shm ? update_shm->avg_cpu_usage : 0.0);
         }
       }
     }
   } else {
     // Cancel Running
-    if (conditions.is_running && !update_shm.cpu_active) {
+    if (conditions.is_running && update_shm && !update_shm->cpu_active) {
       // back to idle
       anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
                                              current_state, current_frames, current_config);
@@ -5573,13 +5794,10 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
                                                                 const animation_trigger_t& trigger) {
   using namespace assets;
 
-  assert(animation_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
   animation_thread_context_t& ctx = animation_ctx.thread_context;
-  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
+  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
   auto& anim_shm = *ctx.shm;
 
   // read-only config
@@ -5587,10 +5805,6 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
-  // assert(input.shm != nullptr);
-  assert(upd.shm);
-  // const auto& input_shm = *input.shm;
-  // const auto& update_shm = *upd.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -5603,7 +5817,7 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
   auto new_state = state;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -5685,19 +5899,49 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
                                      current_state, current_config);
 }
+static anim_next_frame_result_t anim_custom_audio_peak_next_frame(animation_thread_context_t& ctx,
+                                                                  animation_state_t& state) {
+  using namespace assets;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  assert(ctx.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+  assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
+  const auto& current_frames = get_current_animation(ctx).custom;
+  // only start happy from idle
+  if (!current_frames.feature_writing_happy || !current_frames.happy.valid ||
+      state.row_state != animation_state_row_t::Idle) {
+    return {};
+  }
+
+  if (current_frames.feature_dancing) {
+    const auto current_state = state;
+    const auto& current_animation_result = anim_shm.animation_player_result;
+    auto new_animation_result = anim_shm.animation_player_result;
+    auto new_state = state;
+    anim_custom_restart_animation(ctx, animation_state_row_t::Happy, animation_state_row_t::Idle,
+                                  animation_state_row_t::Idle, new_animation_result, new_state, current_state,
+                                  current_frames, current_config);
+
+    return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                       current_state, current_config);
+  }
+
+  return {};
+}
 #endif
 
 static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& animation_ctx, animation_state_t& state,
                                                            const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
-  assert(animation_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
   animation_thread_context_t& ctx = animation_ctx.thread_context;
-  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
+  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
   const animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   // auto& animation_player_data = anim_shm.animation_player_data;
@@ -5711,22 +5955,22 @@ static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& 
     break;
   case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-    return anim_bongocat_idle_next_frame(ctx, input, upd, state, trigger_result);
+    return anim_bongocat_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
 #endif
   } break;
   case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-    return anim_dm_idle_next_frame(ctx, input, upd, state, trigger_result);
+    return anim_dm_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
 #endif
   } break;
   case config::config_animation_sprite_sheet_layout_t::Pkmn: {
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-    return anim_pkmn_idle_next_frame(ctx, input, upd, state, trigger_result);
+    return anim_pkmn_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
 #endif
   } break;
   case config::config_animation_sprite_sheet_layout_t::MsAgent: {
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-    return anim_ms_agent_idle_next_frame(ctx, input, upd, state, trigger_result);
+    return anim_ms_agent_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
 #endif
   } break;
   case config::config_animation_sprite_sheet_layout_t::Custom: {
@@ -5738,18 +5982,67 @@ static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& 
   return {};
 }
 
+static anim_next_frame_result_t anim_handle_audio_peak(animation_context_t& animation_ctx, animation_state_t& state) {
+  [[maybe_unused]] animation_thread_context_t& ctx = animation_ctx.thread_context;
+  assert(ctx.shm != BONGOCAT_NULLPTR);
+  const animation_shared_memory_t& anim_shm = *ctx.shm;
+
+  switch (anim_shm.anim_type) {
+  case config::config_animation_sprite_sheet_layout_t::None:
+  case config::config_animation_sprite_sheet_layout_t::Bongocat:
+  case config::config_animation_sprite_sheet_layout_t::Pkmn:
+    // no happy animation (frames)
+    break;
+  case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+    return anim_dm_audio_peak_next_frame(ctx, state);
+#endif
+  } break;
+  case config::config_animation_sprite_sheet_layout_t::MsAgent: {
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+    return anim_ms_agent_audio_peak_next_frame(ctx, state);
+#endif
+  } break;
+  case config::config_animation_sprite_sheet_layout_t::Custom: {
+#ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
+    return anim_custom_audio_peak_next_frame(ctx, state);
+#endif
+  } break;
+  }
+  return {};
+}
+
+static void anim_update_audio_state([[maybe_unused]] animation_context_t& animation_ctx, animation_state_t& state) {
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+  if (animation_ctx._audio == BONGOCAT_NULLPTR) {
+    state.audio_speed_factor = 1.0;
+    state.audio_beat_sync = false;
+    return;
+  }
+  platform::audio::audio_context_t& audio = *animation_ctx._audio;
+  if (!audio.shm) {
+    state.audio_speed_factor = 1.0;
+    state.audio_beat_sync = false;
+    return;
+  }
+  const auto& audio_shm = *audio.shm;
+  state.audio_speed_factor = audio_shm.active && audio_shm.speed_factor > 0.0 ? audio_shm.speed_factor : 1.0;
+  state.audio_beat_sync = audio_shm.active && audio_shm.beat_sync;
+#else
+  state.audio_speed_factor = 1.0;
+  state.audio_beat_sync = false;
+#endif
+}
+
 static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_context_t& animation_ctx,
                                                                     animation_state_t& state,
                                                                     const animation_trigger_t& trigger) {
   using namespace assets;
 
-  assert(animation_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update != BONGOCAT_NULLPTR);
-  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
   animation_thread_context_t& ctx = animation_ctx.thread_context;
-  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
+  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
 
   // read-only config
   assert(ctx._local_copy_config != BONGOCAT_NULLPTR);
@@ -5757,8 +6050,6 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
   assert(animation_ctx._config != BONGOCAT_NULLPTR);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(input.shm != BONGOCAT_NULLPTR);
-  assert(upd.shm != BONGOCAT_NULLPTR);
   assert(ctx.shm != BONGOCAT_NULLPTR);
   const animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
@@ -5767,9 +6058,25 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
 
   const auto conditions =
-      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+      get_anim_conditions(ctx, input, upd, audio, current_state, anim_shm.evolution, trigger, current_config);
 
   anim_next_frame_result_t update_frame_result{};
+
+  // audio: update speed factor (BPM) and show happy animation on peak
+  // (AudioUpdate itself only wakes up the animation thread, idle animation gets processed in
+  // anim_handle_idle_animation)
+  if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioUpdate) ||
+      has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioPeak) ||
+      has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioStop)) {
+    anim_update_audio_state(animation_ctx, state);
+  }
+  if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioPeak) && !conditions.any_key_pressed &&
+      !conditions.is_evolving && conditions.is_dancing) {
+    update_frame_result = anim_handle_audio_peak(animation_ctx, state);
+    if (update_frame_result.frame_changed) {
+      BONGOCAT_LOG_VERBOSE("Audio peak detected - switching to happy frame %d", update_frame_result.new_col);
+    }
+  }
 
   if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) {
     // handle working animation
@@ -5780,7 +6087,7 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
       break;
     case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-      update_frame_result = anim_dm_working_next_frame(ctx, input, upd, state, trigger);
+      update_frame_result = anim_dm_working_next_frame(ctx, input, upd, audio, state, trigger);
 #endif
     } break;
     case config::config_animation_sprite_sheet_layout_t::Pkmn:
@@ -5793,7 +6100,7 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
     } break;
     case config::config_animation_sprite_sheet_layout_t::Custom: {
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-      update_frame_result = anim_custom_working_next_frame(ctx, input, upd, state, trigger);
+      update_frame_result = anim_custom_working_next_frame(ctx, input, upd, audio, state, trigger);
 #endif
     } break;
     }
@@ -5811,7 +6118,7 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
       break;
     case config::config_animation_sprite_sheet_layout_t::Custom: {
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-      update_frame_result = anim_custom_running_next_frame(ctx, input, upd, state, trigger);
+      update_frame_result = anim_custom_running_next_frame(ctx, input, upd, audio, state, trigger);
 #endif
     } break;
     }
@@ -5826,17 +6133,17 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
       break;
     case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-      update_frame_result = anim_bongocat_key_pressed_next_frame(ctx, state, input, upd, trigger);
+      update_frame_result = anim_bongocat_key_pressed_next_frame(ctx, state, input, upd, audio, trigger);
 #endif
     } break;
     case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-      update_frame_result = anim_dm_key_pressed_next_frame(ctx, input, upd, state, trigger);
+      update_frame_result = anim_dm_key_pressed_next_frame(ctx, input, upd, audio, state, trigger);
 #endif
     } break;
     case config::config_animation_sprite_sheet_layout_t::Pkmn: {
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-      update_frame_result = anim_pkmn_key_pressed_next_frame(ctx, input, upd, state, trigger);
+      update_frame_result = anim_pkmn_key_pressed_next_frame(ctx, input, upd, audio, state, trigger);
 #endif
     } break;
     case config::config_animation_sprite_sheet_layout_t::MsAgent: {
@@ -5846,7 +6153,7 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
     } break;
     case config::config_animation_sprite_sheet_layout_t::Custom: {
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-      update_frame_result = anim_custom_key_pressed_next_frame(ctx, state, input, upd, trigger);
+      update_frame_result = anim_custom_key_pressed_next_frame(ctx, state, input, upd, audio, trigger);
 #endif
     } break;
     }
@@ -5921,18 +6228,21 @@ struct anim_update_state_result_t {
 };
 static anim_update_state_result_t anim_update_state(animation_context_t& animation_ctx, animation_state_t& state,
                                                     const animation_trigger_t& trigger) {
-  assert(animation_ctx._input);
-  platform::input::input_context_t& input = *animation_ctx._input;
-  platform::update::update_context_t& upd = *animation_ctx._update;
+  // assert(animation_ctx._input);
+  // assert(animation_ctx._update);
+  platform::input::input_context_t *input = animation_ctx._input;
+  platform::update::update_context_t *upd = animation_ctx._update;
+  platform::audio::audio_context_t *audio = animation_ctx._audio;
   animation_thread_context_t& ctx = animation_ctx.thread_context;
+
+  platform::LockGuardOptional input_guard(input ? &input->input_lock.pt_mutex : BONGOCAT_NULLPTR);
+  platform::LockGuardOptional update_guard(upd ? &upd->update_lock.pt_mutex : BONGOCAT_NULLPTR);
+  platform::LockGuardOptional audio_guard(audio ? &audio->audio_lock.pt_mutex : BONGOCAT_NULLPTR);
 
   state.frame_delta_ms_counter += state.frame_time_ms;
   state.update_delta_ms_counter += state.frame_time_ms;
 
   anim_update_state_result_t ret = [&] {
-    platform::LockGuard input_guard(input.input_lock);
-    platform::LockGuard update_guard(upd.update_lock);
-
     // read-only config
     assert(ctx._local_copy_config != BONGOCAT_NULLPTR);
     assert(ctx.shm != BONGOCAT_NULLPTR);
@@ -5951,7 +6261,14 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
       BONGOCAT_LOG_VERBOSE("Writing started animation triggered");
     }
 
+    const bool dance_step_due =
+        features::EnableAudioModule &&
+        get_anim_conditions(ctx, input, upd, audio, state, anim_shm.evolution, trigger_result.trigger, current_config)
+                .process_idle_animation == process_idle_animation_t::Dancing;
     const auto idle_update_result = anim_handle_idle_animation(animation_ctx, state, trigger_result);
+    if (dance_step_due && idle_update_result.frame_changed && !key_pressed) {
+      state.last_dance_frame_ms = platform::get_current_time_ms();
+    }
     const auto hold_frame =
         key_pressed || idle_update_result.frame_changed || idle_update_result.rerender || state.swap_animation_done;
     const auto rerender = idle_update_result.rerender || trigger_result.update_frame_result.rerender;
@@ -5970,7 +6287,7 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
     }
 
     auto conditions =
-        get_anim_conditions(ctx, input, upd, state, anim_shm.evolution, trigger_result.trigger, current_config);
+        get_anim_conditions(ctx, input, upd, audio, state, anim_shm.evolution, trigger_result.trigger, current_config);
     return anim_update_state_result_t{
         .hold_frame = hold_frame,
         .key_pressed = key_pressed,
@@ -6004,9 +6321,6 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
       /// @FIXME: bongocat reset to idle frame after button press
       /// @WORKAROUND: fallback, back to idle
       if (ret.conditions.is_writing) {
-        platform::LockGuard input_guard(input.input_lock);
-        platform::LockGuard update_guard(upd.update_lock);
-
         // read-only config
         assert(ctx._local_copy_config != BONGOCAT_NULLPTR);
         assert(ctx.shm != BONGOCAT_NULLPTR);
@@ -6020,8 +6334,8 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
                                         state, state, get_current_animation(ctx).bongocat);
         ret.rerender = true;
         ret.hold_frame = false;
-        ret.conditions =
-            get_anim_conditions(ctx, input, upd, state, anim_shm.evolution, trigger_result.trigger, current_config);
+        ret.conditions = get_anim_conditions(ctx, input, upd, audio, state, anim_shm.evolution, trigger_result.trigger,
+                                             current_config);
       }
     }
   } else if (state.hold_frame_after_release) {
@@ -6168,47 +6482,55 @@ static void anim_init_state(animation_thread_context_t& ctx) {
   ctx._state.frame_time_ns = 1000000000LL / current_config.fps;
   ctx._state.frame_time_ms = ctx._state.frame_time_ns / 1000000LL;
   ctx._state.last_frame_update_ms = platform::get_current_time_ms();
+  ctx._state.last_frame_change_ms = platform::get_current_time_ms();
   ctx._state.row_state = animation_state_row_t::Idle;
   ctx._state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
+  ctx._state.last_dance_frame_ms = 0;
+  ctx._state.was_dancing = false;
 }
 
 static void anim_init_evol(animation_context_t& animation_ctx, animation_evolution_t& state) {
-  // assert(animation_ctx._input);
-  // platform::input::input_context_t& input = *animation_ctx._input;
-  platform::update::update_context_t& upd = *animation_ctx._update;
-  animation_thread_context_t& ctx = animation_ctx.thread_context;
+  if constexpr (features::EnableUpdateModule) {
+    // assert(animation_ctx._input);
+    // platform::input::input_context_t& input = *animation_ctx._input;
+    assert(animation_ctx._update != BONGOCAT_NULLPTR);
+    platform::update::update_context_t& upd = *animation_ctx._update;
+    animation_thread_context_t& ctx = animation_ctx.thread_context;
 
-  // read-only config
-  assert(ctx._local_copy_config);
-  const config::config_t& current_config = *ctx._local_copy_config;
+    // read-only config
+    assert(ctx._local_copy_config);
+    const config::config_t& current_config = *ctx._local_copy_config;
 
-  {
-    platform::LockGuard update_guard(upd.update_lock);
-    assert(upd.shm);
+    {
+      platform::LockGuard update_guard(upd.update_lock);
+      assert(upd.shm);
 
-    const platform::timestamp_ms_t now = platform::get_current_time_ms();
+      const platform::timestamp_ms_t now = platform::get_current_time_ms();
 
-    state.uptime_sec = upd.shm->uptime_sec;
-    state.time_since_start_sec = upd.shm->time_since_start_sec;
-    state.last_evolution_timestamp = now;
-    state.last_animation_name_change_timestamp = now;
+      state.uptime_sec = upd.shm->uptime_sec;
+      state.time_since_start_sec = upd.shm->time_since_start_sec;
+      state.last_evolution_timestamp = now;
+      state.last_animation_name_change_timestamp = now;
 
-    state.current_stage_life_time_sec = [&]() -> platform::time_sec_t {
-      switch (current_config.evolution) {
-      case config::evolution_time_mode_t::NONE:
+      state.current_stage_life_time_sec = [&]() -> platform::time_sec_t {
+        switch (current_config.evolution) {
+        case config::evolution_time_mode_t::NONE:
+          return 0;
+        case config::evolution_time_mode_t::NORMAL:
+          return now;
+        case config::evolution_time_mode_t::PROGRAM_START:
+          return state.time_since_start_sec;
+        case config::evolution_time_mode_t::UPTIME:
+          return state.uptime_sec;
+        }
+
         return 0;
-      case config::evolution_time_mode_t::NORMAL:
-        return now;
-      case config::evolution_time_mode_t::PROGRAM_START:
-        return state.time_since_start_sec;
-      case config::evolution_time_mode_t::UPTIME:
-        return state.uptime_sec;
-      }
+      }();
 
-      return 0;
-    }();
-
-    state._lvl = MIN_ANIMATION_EVOLUTION_LEVEL;
+      state._lvl = MIN_ANIMATION_EVOLUTION_LEVEL;
+    }
+  } else {
+    BONGOCAT_LOG_WARNING("animation: update thread/module is needed for anim_init_evol");
   }
 }
 
@@ -6233,8 +6555,15 @@ static void *anim_thread(void *arg) {
 
   // sanity checks
   assert(trigger_ctx._config != BONGOCAT_NULLPTR);
+#ifdef BONGOCAT_ENABLE_INPUT_MODULE
   assert(trigger_ctx._input != BONGOCAT_NULLPTR);
+#endif
+#ifdef BONGOCAT_ENABLE_UPDATE_MODULE
   assert(trigger_ctx._update != BONGOCAT_NULLPTR);
+#endif
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+  assert(trigger_ctx._audio != BONGOCAT_NULLPTR);
+#endif
   assert(trigger_ctx._configs_reloaded_cond != BONGOCAT_NULLPTR);
   assert(trigger_ctx.thread_context.shm);
   assert(trigger_ctx.trigger_efd._fd >= 0);
@@ -6496,6 +6825,15 @@ static void *anim_thread(void *arg) {
           case trigger_animation_cause_mask_t::StartEvolution:
             triggered_anim_cause = flag_add(triggered_anim_cause, cause);
             break;
+          case trigger_animation_cause_mask_t::AudioUpdate:
+            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+            break;
+          case trigger_animation_cause_mask_t::AudioPeak:
+            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+            break;
+          case trigger_animation_cause_mask_t::AudioStop:
+            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+            break;
           }
         }
         if (rc < 0) {
@@ -6544,6 +6882,11 @@ static void *anim_thread(void *arg) {
         } else {
           BONGOCAT_LOG_ERROR("animation: Failed to write to notify pipe in animation: %s", strerror(errno));
         }
+      }
+
+      // keep last state of dancing for next frame
+      if constexpr (features::EnableAudioModule) {
+        ctx._state.was_dancing = anim_result.conditions.is_dancing;
       }
 
       // Advance next frame time by exactly one frame
@@ -6638,6 +6981,11 @@ static void *anim_thread(void *arg) {
         BONGOCAT_LOG_VERBOSE("animation: Animation reloaded after evolution: %d -> %d", reload_result.old_anim_index,
                              reload_result.new_anim_index);
       }
+
+      if constexpr (features::EnableAudioModule) {
+        ctx._state.was_dancing = false;
+      }
+
       reload_animation = false;
     }
   }
@@ -6657,17 +7005,19 @@ static void *anim_thread(void *arg) {
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-bongocat_error_t start(animation_context_t& animation_ctx, platform::input::input_context_t& input,
-                       platform::update::update_context_t& upd, const config::config_t& config,
-                       platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
+bongocat_error_t start(animation_context_t& animation_ctx, platform::input::input_context_t *input,
+                       platform::update::update_context_t *upd, platform::audio::audio_context_t *audio,
+                       const config::config_t& config, platform::CondVariable& configs_reloaded_cond,
+                       atomic_uint64_t& config_generation) {
   BONGOCAT_LOG_INFO("Initializing animation system");
 
   assert(animation_ctx.thread_context._local_copy_config);
   update_config(animation_ctx.thread_context, config, atomic_load(&config_generation));
 
   // set extern/global references
-  animation_ctx._input = &input;
-  animation_ctx._update = &upd;
+  animation_ctx._input = input;
+  animation_ctx._update = upd;
+  animation_ctx._audio = audio;
   animation_ctx._config = &config;
   animation_ctx._configs_reloaded_cond = &configs_reloaded_cond;
   animation_ctx._config_generation = &config_generation;

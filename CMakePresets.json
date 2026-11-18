@@ -8,7 +8,7 @@
   "configurePresets": [
     {
       "name": "debug",
-      "displayName": "Debug Build",
+      "displayName": "Debug",
       "description": "Debug build with sanitizers",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug",
@@ -22,7 +22,7 @@
     },
     {
       "name": "release",
-      "displayName": "Release Build",
+      "displayName": "Release",
       "description": "Release build with optimizations",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release",
@@ -35,7 +35,7 @@
     },
     {
       "name": "relwithdebinfo",
-      "displayName": "RelWithDebInfo Build",
+      "displayName": "RelWithDebInfo",
       "description": "Release build with debug info",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo",
@@ -47,7 +47,7 @@
     },
     {
       "name": "relwithdebinfo_tsan",
-      "displayName": "RelWithDebInfo Build (TSAN)",
+      "displayName": "RelWithDebInfo (TSAN)",
       "description": "Release build with debug info and thread sanitizer",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-tsan",
@@ -61,7 +61,7 @@
     },
     {
       "name": "minsize",
-      "displayName": "MinSizeRel Build",
+      "displayName": "MinSizeRel",
       "description": "MinSize build optimized for size",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-minsizerel",
@@ -136,7 +136,7 @@
     },
     {
       "name": "release_pngle",
-      "displayName": "Release Build (pngle image loader)",
+      "displayName": "Release (pngle image loader)",
       "description": "Release build with optimizations and pngle loader",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release-pngle",
@@ -148,7 +148,7 @@
     },
     {
       "name": "relwithdebinfo_pngle",
-      "displayName": "RelWithDebInfo Build (pngle image loader)",
+      "displayName": "RelWithDebInfo (pngle image loader)",
       "description": "Release build with debug info and pngle loader",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-pngle",
@@ -161,7 +161,7 @@
     },
     {
       "name": "release_hybrid",
-      "displayName": "Release Build (hybrid image loader)",
+      "displayName": "Release (hybrid image loader)",
       "description": "Release build with optimizations and hybrid loader (stb_image + pngle)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release-hybrid",
@@ -173,7 +173,7 @@
     },
     {
       "name": "relwithdebinfo_hybrid",
-      "displayName": "RelWithDebInfo Build (hybrid image loader)",
+      "displayName": "RelWithDebInfo (hybrid image loader)",
       "description": "Release build with debug info and hybrid loader (stb_image + pngle)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-hybrid",
@@ -249,6 +249,7 @@
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
         "SKIP_CPM": "OFF",
+        "BUILD_TESTING": "ON",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -264,8 +265,7 @@
         "FEATURE_PMD_EMBEDDED_ASSETS": "ON",
         "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "ON",
-        "FEATURE_LAZY_LOAD_ASSETS": "OFF",
-        "BUILD_TESTING": "ON"
+        "FEATURE_LAZY_LOAD_ASSETS": "OFF"
       }
     },
     {
@@ -329,7 +329,7 @@
     },
     {
       "name": "debug_svg",
-      "displayName": "Debug Build",
+      "displayName": "Debug (SVG)",
       "description": "Debug build with sanitizers",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-svg",
@@ -343,7 +343,7 @@
     },
     {
       "name": "debug_no_svg",
-      "displayName": "Debug Build",
+      "displayName": "Debug (No SVG)",
       "description": "Debug build with sanitizers",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-no-svg",
@@ -357,7 +357,7 @@
     },
     {
       "name": "debug_all_features",
-      "displayName": "Debug Build",
+      "displayName": "Debug (All Features)",
       "description": "Debug build with all sorts of features (for testing; experimental)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-all-features",
@@ -366,6 +366,7 @@
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
         "SKIP_CPM": "OFF",
+        "BUILD_TESTING": "ON",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -386,18 +387,21 @@
         "FEATURE_USE_BONGOCAT_SVG": "ON",
         "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
         "FEATURE_EVOLUTION": "ON",
-        "BUILD_TESTING": "ON"
+        "ENABLE_INPUT_MODULE": "ON",
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON"
       }
     },
     {
       "name": "release_all_features",
-      "displayName": "Release Build",
+      "displayName": "Release (All Features)",
       "description": "Release build all sorts of features (for testing; experimental)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release-all-features",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "GENERATE_PROTOCOLS": "OFF",
+        "BUILD_TESTING": "ON",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -418,12 +422,14 @@
         "FEATURE_USE_BONGOCAT_SVG": "ON",
         "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
         "FEATURE_EVOLUTION": "ON",
-        "BUILD_TESTING": "ON"
+        "ENABLE_INPUT_MODULE": "ON",
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON"
       }
     },
     {
       "name": "relwithdebinfo_all_features",
-      "displayName": "RelWithDebInfo Build",
+      "displayName": "RelWithDebInfo (All Features)",
       "description": "Release build with Debug Info + all sorts of features (for testing; experimental)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-features",
@@ -431,6 +437,7 @@
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "SKIP_CPM": "OFF",
         "GENERATE_PROTOCOLS": "OFF",
+        "BUILD_TESTING": "ON",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -451,7 +458,95 @@
         "FEATURE_USE_BONGOCAT_SVG": "ON",
         "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
         "FEATURE_EVOLUTION": "ON",
-        "BUILD_TESTING": "ON"
+        "ENABLE_INPUT_MODULE": "ON",
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON"
+      }
+    },
+    {
+      "name": "relwithdebinfo_all_features_tsan",
+      "displayName": "RelWithDebInfo (All Features + TSAN)",
+      "description": "Release build with debug info and thread sanitizer",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-features-tsan",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "ENABLE_TSAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
+        "BUILD_TESTING": "ON",
+        "GENERATE_PROTOCOLS": "OFF",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PMD_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PRELOAD_ASSETS": "OFF",
+        "FEATURE_LAZY_LOAD_ASSETS": "ON",
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON",
+        "FEATURE_USE_BONGOCAT_SVG": "ON",
+        "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
+        "FEATURE_EVOLUTION": "ON",
+        "ENABLE_INPUT_MODULE": "ON",
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON"
+      }
+    },
+    {
+      "name": "debug_input_module_only",
+      "displayName": "Debug (Input Module only)",
+      "description": "Debug build with input module only",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-input-only",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
+        "ENABLE_INPUT_MODULE": "ON",
+        "ENABLE_UPDATE_MODULE": "OFF",
+        "ENABLE_AUDIO_MODULE": "OFF"
+      }
+    },
+    {
+      "name": "debug_update_module_only",
+      "displayName": "Debug (Update Module only)",
+      "description": "Debug build with update module only",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-update-only",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
+        "ENABLE_INPUT_MODULE": "OFF",
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "OFF"
+      }
+    },
+    {
+      "name": "debug_audio_module_only",
+      "displayName": "Debug (Audio Module only)",
+      "description": "Debug build with audio module only",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-audio-only",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
+        "ENABLE_INPUT_MODULE": "OFF",
+        "ENABLE_UPDATE_MODULE": "OFF",
+        "ENABLE_AUDIO_MODULE": "ON"
       }
     }
   ],

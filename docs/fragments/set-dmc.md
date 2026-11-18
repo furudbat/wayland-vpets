@@ -5,7 +5,6 @@ Digital Monster Color
 - Airdramon
 - Andromon
 - Angemon
-- Babydmon
 - Bakemon
 - Bancho Leomon
 - Bancho Mamemon
@@ -14,13 +13,12 @@ Digital Monster Color
 - Blitz Greymon
 - Bloom Lordmon
 - Botamon
-- Centalmon
+- Centaurmon
 - Chaosdramon
 - Chaosmon
 - Chimairamon
 - Cockatrimon
 - Coelamon
-- Coronamon
 - Cres Garurumon
 - Cyclomon
 - Darkdramon
@@ -53,8 +51,6 @@ Digital Monster Color
 - Mamemon
 - Megadramon
 - Meramon
-- Metal Garurumon
-- Metal Greymon
 - Metal Greymon (Virus)
 - Metal Mamemon
 - Metal Tyranomon
@@ -67,20 +63,16 @@ Digital Monster Color
 - Nanomon
 - Numemon
 - Ogremon
-- Omegamon Alter S
-- Omegamon
-- Orgemon
+- Omegamon Alter-S
 - Pagumon
 - Palmon
 - Patamon
-- Petitmon
 - Piccolomon
 - Piyomon
 - Poyomon
 - Punimon
 - Raidenmon
 - Raremon
-- Rust Tyranomon
 - Scumon
 - Seadramon
 - Shellmon
@@ -88,7 +80,6 @@ Digital Monster Color
 - Skull Greymon
 - Skull Mammon
 - Tanemon
-- Titamon
 - Tokomon
 - Tsunomon
 - Tuskmon
@@ -96,8 +87,6 @@ Digital Monster Color
 - Unimon
 - Vademon
 - Vegimon
-- War Greymon
-- Were Garurumon
 - Whamon
 - Yukidarumon
 - Yuramon

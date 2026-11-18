@@ -83,6 +83,22 @@ namespace features {
 #else
   inline static constexpr bool EnableEvolution = false;
 #endif
+
+#ifdef BONGOCAT_ENABLE_INPUT_MODULE
+  inline static constexpr bool EnableInputModule = true;
+#else
+  inline static constexpr bool EnableInputModule = false;
+#endif
+#ifdef BONGOCAT_ENABLE_UPDATE_MODULE
+  inline static constexpr bool EnableUpdateModule = true;
+#else
+  inline static constexpr bool EnableUpdateModule = false;
+#endif
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+  inline static constexpr bool EnableAudioModule = true;
+#else
+  inline static constexpr bool EnableAudioModule = false;
+#endif
 }  // namespace features
 
 // Global constants

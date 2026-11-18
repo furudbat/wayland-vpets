@@ -59,7 +59,6 @@ namespace bongocat::animation {
         {assets::PEN_GRIFFOMON_SPRITE_SHEET_COLS, assets::PEN_GRIFFOMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_GUARDROMON_SPRITE_SHEET_COLS, assets::PEN_GUARDROMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_HAGURUMON_SPRITE_SHEET_COLS, assets::PEN_HAGURUMON_SPRITE_SHEET_ROWS}, 
-        {assets::PEN_HANGYMON_SPRITE_SHEET_COLS, assets::PEN_HANGYMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_HANGYOMON_SPRITE_SHEET_COLS, assets::PEN_HANGYOMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_HANUMON_SPRITE_SHEET_COLS, assets::PEN_HANUMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_ROWS}, 
@@ -146,7 +145,7 @@ namespace bongocat::animation {
         {assets::PEN_ZUDOMON_SPRITE_SHEET_COLS, assets::PEN_ZUDOMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* pen_pngs_table[] = {
+    static const unsigned char* const pen_pngs_table[] = {
         pen_aero_v_dramon_png, 
         pen_agumon_png, 
         pen_andromon_png, 
@@ -189,7 +188,6 @@ namespace bongocat::animation {
         pen_griffomon_png, 
         pen_guardromon_png, 
         pen_hagurumon_png, 
-        pen_hangymon_png, 
         pen_hangyomon_png, 
         pen_hanumon_png, 
         pen_herakle_kabuterimon_png, 
@@ -276,7 +274,7 @@ namespace bongocat::animation {
         pen_zudomon_png, 
         
     };
-    static const size_t pen_png_sizes_table[] = {
+    static constexpr uint32_t pen_png_sizes_table[] = {
         pen_aero_v_dramon_png_size, 
         pen_agumon_png_size, 
         pen_andromon_png_size, 
@@ -319,7 +317,6 @@ namespace bongocat::animation {
         pen_griffomon_png_size, 
         pen_guardromon_png_size, 
         pen_hagurumon_png_size, 
-        pen_hangymon_png_size, 
         pen_hangyomon_png_size, 
         pen_hanumon_png_size, 
         pen_herakle_kabuterimon_png_size, 
@@ -406,7 +403,7 @@ namespace bongocat::animation {
         pen_zudomon_png_size, 
         
     };
-    static const char* pen_names_table[] = {
+    static const char* const pen_names_table[] = {
         assets::PEN_AERO_V_DRAMON_ID, 
         assets::PEN_AGUMON_ID, 
         assets::PEN_ANDROMON_ID, 
@@ -449,7 +446,6 @@ namespace bongocat::animation {
         assets::PEN_GRIFFOMON_ID, 
         assets::PEN_GUARDROMON_ID, 
         assets::PEN_HAGURUMON_ID, 
-        assets::PEN_HANGYMON_ID, 
         assets::PEN_HANGYOMON_ID, 
         assets::PEN_HANUMON_ID, 
         assets::PEN_HERAKLE_KABUTERIMON_ID, 

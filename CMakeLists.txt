@@ -118,6 +118,10 @@ option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
 option(ENABLE_TSAN "Enable Thread Sanitizer" OFF)
 
+option(ENABLE_INPUT_MODULE "Enable input listener thread" ON)
+option(ENABLE_UPDATE_MODULE "Enable update/CPU thread" ON)
+option(ENABLE_AUDIO_MODULE "Enable audio thread (PipeWire and fftw required)" OFF)
+
 find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner)
 if(WAYLAND_SCANNER_EXECUTABLE)
   option(GENERATE_PROTOCOLS "Generate Wayland protocol files" ON)
@@ -259,6 +263,7 @@ endif()
 set(PROTOCOLS_DIR ${PROJECT_SOURCE_DIR}/protocols)
 add_subdirectory(protocols)
 
+add_subdirectory(lib)
 include(cmake/EmbeddedAssets.cmake)
 set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
@@ -801,6 +806,8 @@ if(PANDOC)
     set(BINARY_TARGETS bongocat)
   endif()
 
+  file(GLOB MAN_FRAGMENTS CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/docs/fragments/*.md)
+  set(MAN_SOURCE_DEPENDS ${MAN_FRAGMENTS} ${PROJECT_SOURCE_DIR}/docs/include.lua)
   set(ALL_MAN_OUTPUTS)
   foreach(BIN ${BINARY_TARGETS})
     set(MD_FILE_1 ${PROJECT_SOURCE_DIR}/docs/${BIN}.md)
@@ -810,25 +817,26 @@ if(PANDOC)
       OUTPUT ${MAN_OUTPUT_1}
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
       COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_1} ${MD_FILE_1}
-      DEPENDS ${MD_FILE_1}
+      DEPENDS ${MD_FILE_1} ${MAN_SOURCE_DEPENDS}
       COMMENT "Generating man page for ${BIN} using Pandoc"
       VERBATIM
     )
 
     set(MD_FILE_5 ${PROJECT_SOURCE_DIR}/docs/${BIN}.conf.md)
-    set(MAN_OUTPUT_5 ${CMAKE_CURRENT_BINARY_DIR}/${BIN}.5)
+    set(MAN_OUTPUT_5 ${CMAKE_CURRENT_BINARY_DIR}/${BIN}.conf.5)
     # man conf
     add_custom_command(
       OUTPUT ${MAN_OUTPUT_5}
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
       COMMAND
-        ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_5}
+        ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man --metadata=title:${BIN}.conf --metadata=section:5 -o ${MAN_OUTPUT_5}
         ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
       DEPENDS
         ${MD_FILE_5}
         ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md
         ${MD_FILE_5}
         ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
+        ${MAN_SOURCE_DEPENDS}
       COMMENT "Generating man page for ${BIN}.conf using Pandoc"
       VERBATIM
     )
@@ -849,7 +857,7 @@ if(PANDOC)
     OUTPUT ${FD_MAN_OUTPUT_1}
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
     COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${FD_MAN_OUTPUT_1} ${FD_MD_FILE_1}
-    DEPENDS ${FD_MD_FILE_1}
+    DEPENDS ${FD_MD_FILE_1} ${MAN_SOURCE_DEPENDS}
     COMMENT "Generating man page for bongocat-find-devices using Pandoc"
     VERBATIM
   )

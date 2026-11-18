@@ -21,7 +21,7 @@
 // #pragma GCC diagnostic ignored "-Wimplicit-int-conversion"
 #  endif
 #endif
-#include "pngle.h"
+#include <pngle.h>
 #if defined(__GNUC__) || defined(__clang__)
 #  pragma GCC diagnostic pop
 #endif
@@ -42,7 +42,7 @@
 // #pragma GCC diagnostic ignored "-Wimplicit-int-conversion"
 #  endif
 #endif
-#include "stb_image.h"
+#include <stb_image.h>
 #if defined(__GNUC__) || defined(__clang__)
 #  pragma GCC diagnostic pop
 #endif
@@ -137,6 +137,10 @@ int desired_channels) {
   assert(size <= INT_MAX);
   int channels_in_file;
   unsigned char* stbi_pixels = stbi_load_from_memory(data, static_cast<int>(size), &ret.width, &ret.height, &channels_in_file, desired_channels);
+  if (stbi_pixels == BONGOCAT_NULLPTR) [[unlikely]] {
+    BONGOCAT_LOG_VERBOSE("load_image_stb_image: failed to load image: %s", stbi_failure_reason() ? stbi_failure_reason() : "unknown");
+    return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
+  }
   assert(ret.width >= 0);
   assert(ret.height >= 0);
   assert(desired_channels >= 0);

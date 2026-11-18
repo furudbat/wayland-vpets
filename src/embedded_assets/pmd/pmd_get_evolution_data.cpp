@@ -6,12 +6,30 @@
 /// @NOTE: Generated evolution data pmd
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t pmd_evol_data_table[] ASSETS_PMD_EVOL_DATA_SECTION = {
+      struct compact_evolution_conditions_t {
+          int32_t next_evolution_time_sec{-1};
+          int8_t min_lvl{-1};
+      };
+      struct compact_evolution_data_t {
+          compact_evolution_conditions_t conditions;
+          uint8_t num_animation_indices{0};
+          int16_t animation_indices[animation::MAX_ANIMATION_EVOLUTION_INDICIES]{};
+      };
+      static animation::animation_evolution_data_t expand_evolution_data(const compact_evolution_data_t& data) {
+          animation::animation_evolution_data_t ret;
+          ret.conditions.next_evolution_time_sec = data.conditions.next_evolution_time_sec;
+          ret.conditions.min_lvl = data.conditions.min_lvl;
+          ret.num_animation_indices = data.num_animation_indices;
+          for (size_t i = 0; i < animation::MAX_ANIMATION_EVOLUTION_INDICIES; ++i) {
+              ret.animation_indices[i] = data.animation_indices[i];
+          }
+          return ret;
+      }
+    static constexpr compact_evolution_data_t pmd_evol_data_table[] ASSETS_PMD_EVOL_DATA_SECTION = {
         // Name: Bulbasaur
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_IVYSAUR_ANIM_INDEX
@@ -21,7 +39,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VENUSAUR_ANIM_INDEX
@@ -31,7 +48,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -41,7 +57,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHARMELEON_ANIM_INDEX
@@ -51,7 +66,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHARIZARD_ANIM_INDEX
@@ -61,7 +75,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -71,7 +84,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WARTORTLE_ANIM_INDEX
@@ -81,7 +93,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BLASTOISE_ANIM_INDEX
@@ -91,7 +102,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -101,7 +111,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 7 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_METAPOD_ANIM_INDEX
@@ -111,7 +120,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 10 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BUTTERFREE_ANIM_INDEX
@@ -121,7 +129,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -131,7 +138,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 7 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KAKUNA_ANIM_INDEX
@@ -141,7 +147,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 10 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BEEDRILL_ANIM_INDEX
@@ -151,7 +156,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -161,7 +165,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PIDGEOTTO_ANIM_INDEX
@@ -171,7 +174,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PIDGEOT_ANIM_INDEX
@@ -181,7 +183,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -191,7 +192,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RATICATE_ANIM_INDEX
@@ -201,7 +201,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -211,7 +210,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FEAROW_ANIM_INDEX
@@ -221,7 +219,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -231,7 +228,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ARBOK_ANIM_INDEX
@@ -241,7 +237,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -251,7 +246,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RAICHU_ANIM_INDEX
@@ -261,7 +255,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -271,7 +264,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SANDSLASH_ANIM_INDEX
@@ -281,7 +273,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -291,7 +282,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NIDORINA_ANIM_INDEX
@@ -301,7 +291,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NIDOQUEEN_ANIM_INDEX
@@ -311,7 +300,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -321,7 +309,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NIDORINO_ANIM_INDEX
@@ -331,7 +318,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NIDOKING_ANIM_INDEX
@@ -341,7 +327,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -351,7 +336,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CLEFABLE_ANIM_INDEX
@@ -361,7 +345,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -371,7 +354,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NINETALES_ANIM_INDEX
@@ -381,7 +363,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -391,7 +372,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WIGGLYTUFF_ANIM_INDEX
@@ -401,7 +381,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -411,7 +390,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOLBAT_ANIM_INDEX
@@ -421,7 +399,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CROBAT_ANIM_INDEX
@@ -431,7 +408,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 21 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GLOOM_ANIM_INDEX
@@ -441,7 +417,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_VILEPLUME_ANIM_INDEX ,PMD_BELLOSSOM_ANIM_INDEX
@@ -451,7 +426,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -461,7 +435,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PARASECT_ANIM_INDEX
@@ -471,7 +444,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -481,7 +453,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 31 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VENOMOTH_ANIM_INDEX
@@ -491,7 +462,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -501,7 +471,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 26 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DUGTRIO_ANIM_INDEX
@@ -511,7 +480,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -521,7 +489,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PERSIAN_ANIM_INDEX
@@ -531,7 +498,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -541,7 +507,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 33 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOLDUCK_ANIM_INDEX
@@ -551,7 +516,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -561,7 +525,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PRIMEAPE_ANIM_INDEX
@@ -571,7 +534,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -581,7 +543,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ARCANINE_ANIM_INDEX
@@ -591,7 +552,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -601,7 +561,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_POLIWHIRL_ANIM_INDEX
@@ -611,7 +570,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_POLIWRATH_ANIM_INDEX ,PMD_POLITOED_ANIM_INDEX
@@ -621,7 +579,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -631,7 +588,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KADABRA_ANIM_INDEX
@@ -641,7 +597,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ALAKAZAM_ANIM_INDEX
@@ -651,7 +606,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -661,7 +615,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MACHOKE_ANIM_INDEX
@@ -671,7 +624,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MACHAMP_ANIM_INDEX
@@ -681,7 +633,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -691,7 +642,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 21 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WEEPINBELL_ANIM_INDEX
@@ -701,7 +651,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VICTREEBEL_ANIM_INDEX
@@ -711,7 +660,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -721,7 +669,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TENTACRUEL_ANIM_INDEX
@@ -731,7 +678,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -741,7 +687,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GRAVELER_ANIM_INDEX
@@ -751,7 +696,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOLEM_ANIM_INDEX
@@ -761,7 +705,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -771,7 +714,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RAPIDASH_ANIM_INDEX
@@ -781,7 +723,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -791,7 +732,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_SLOWBRO_ANIM_INDEX ,PMD_SLOWKING_ANIM_INDEX
@@ -801,7 +741,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -811,7 +750,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MAGNETON_ANIM_INDEX
@@ -821,7 +759,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MAGNEZONE_ANIM_INDEX
@@ -831,7 +768,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SIRFETCHD_ANIM_INDEX
@@ -841,7 +777,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 31 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DODRIO_ANIM_INDEX
@@ -851,7 +786,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -861,7 +795,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DEWGONG_ANIM_INDEX
@@ -871,7 +804,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -881,7 +813,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 38 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MUK_ANIM_INDEX
@@ -891,7 +822,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -901,7 +831,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CLOYSTER_ANIM_INDEX
@@ -911,7 +840,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -921,7 +849,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HAUNTER_ANIM_INDEX
@@ -931,7 +858,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GENGAR_ANIM_INDEX
@@ -941,7 +867,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -951,7 +876,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_STEELIX_ANIM_INDEX
@@ -961,7 +885,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 26 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HYPNO_ANIM_INDEX
@@ -971,7 +894,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -981,7 +903,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KINGLER_ANIM_INDEX
@@ -991,7 +912,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1001,7 +921,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ELECTRODE_ANIM_INDEX
@@ -1011,7 +930,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1021,7 +939,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_EXEGGUTOR_ANIM_INDEX
@@ -1031,7 +948,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1041,7 +957,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MAROWAK_ANIM_INDEX
@@ -1051,7 +966,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1061,7 +975,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1071,7 +984,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1081,7 +993,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LICKILICKY_ANIM_INDEX
@@ -1091,7 +1002,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WEEZING_ANIM_INDEX
@@ -1101,7 +1011,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1111,7 +1020,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 42 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RHYDON_ANIM_INDEX
@@ -1121,7 +1029,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RHYPERIOR_ANIM_INDEX
@@ -1131,7 +1038,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BLISSEY_ANIM_INDEX
@@ -1141,7 +1047,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TANGROWTH_ANIM_INDEX
@@ -1151,7 +1056,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1161,7 +1065,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SEADRA_ANIM_INDEX
@@ -1171,7 +1074,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KINGDRA_ANIM_INDEX
@@ -1181,7 +1083,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 33 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SEAKING_ANIM_INDEX
@@ -1191,7 +1092,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1201,7 +1101,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_STARMIE_ANIM_INDEX
@@ -1211,7 +1110,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1221,7 +1119,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 42 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1231,7 +1128,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_SCIZOR_ANIM_INDEX ,PMD_KLEAVOR_ANIM_INDEX
@@ -1241,7 +1137,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1251,7 +1146,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ELECTIVIRE_ANIM_INDEX
@@ -1261,7 +1155,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MAGMORTAR_ANIM_INDEX
@@ -1271,7 +1164,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1281,7 +1173,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1291,7 +1182,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GYARADOS_ANIM_INDEX
@@ -1301,7 +1191,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1311,7 +1200,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1321,7 +1209,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1331,7 +1218,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 8,
             .animation_indices = {
                 PMD_VAPOREON_ANIM_INDEX ,PMD_JOLTEON_ANIM_INDEX ,PMD_FLAREON_ANIM_INDEX ,PMD_ESPEON_ANIM_INDEX ,PMD_UMBREON_ANIM_INDEX ,PMD_LEAFEON_ANIM_INDEX ,PMD_GLACEON_ANIM_INDEX ,PMD_SYLVEON_ANIM_INDEX
@@ -1341,7 +1227,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1351,7 +1236,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1361,7 +1245,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1371,7 +1254,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PORYGON2_ANIM_INDEX
@@ -1381,7 +1263,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_OMASTAR_ANIM_INDEX
@@ -1391,7 +1272,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1401,7 +1281,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KABUTOPS_ANIM_INDEX
@@ -1411,7 +1290,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1421,7 +1299,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1431,7 +1308,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1441,7 +1317,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1451,7 +1326,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1461,7 +1335,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1471,7 +1344,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRAGONAIR_ANIM_INDEX
@@ -1481,7 +1353,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 55 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRAGONITE_ANIM_INDEX
@@ -1491,7 +1362,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1501,7 +1371,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1511,7 +1380,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1521,7 +1389,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BAYLEEF_ANIM_INDEX
@@ -1531,7 +1398,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MEGANIUM_ANIM_INDEX
@@ -1541,7 +1407,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1551,7 +1416,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 14 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_QUILAVA_ANIM_INDEX
@@ -1561,7 +1425,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TYPHLOSION_ANIM_INDEX
@@ -1571,7 +1434,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1581,7 +1443,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CROCONAW_ANIM_INDEX
@@ -1591,7 +1452,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FERALIGATR_ANIM_INDEX
@@ -1601,7 +1461,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1611,7 +1470,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 15 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FURRET_ANIM_INDEX
@@ -1621,7 +1479,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1631,7 +1488,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NOCTOWL_ANIM_INDEX
@@ -1641,7 +1497,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1651,7 +1506,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LEDIAN_ANIM_INDEX
@@ -1661,7 +1515,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1671,7 +1524,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ARIADOS_ANIM_INDEX
@@ -1681,7 +1533,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1691,7 +1542,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1701,7 +1551,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 27 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LANTURN_ANIM_INDEX
@@ -1711,7 +1560,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1721,7 +1569,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PIKACHU_ANIM_INDEX
@@ -1731,7 +1578,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CLEFAIRY_ANIM_INDEX
@@ -1741,7 +1587,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_JIGGLYPUFF_ANIM_INDEX
@@ -1751,7 +1596,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TOGETIC_ANIM_INDEX
@@ -1761,7 +1605,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TOGEKISS_ANIM_INDEX
@@ -1771,7 +1614,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_XATU_ANIM_INDEX
@@ -1781,7 +1623,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1791,7 +1632,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 15 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FLAAFFY_ANIM_INDEX
@@ -1801,7 +1641,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_AMPHAROS_ANIM_INDEX
@@ -1811,7 +1650,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1821,7 +1659,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1831,7 +1668,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_AZUMARILL_ANIM_INDEX
@@ -1841,7 +1677,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1851,7 +1686,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1861,7 +1695,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1871,7 +1704,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SKIPLOOM_ANIM_INDEX
@@ -1881,7 +1713,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 27 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_JUMPLUFF_ANIM_INDEX
@@ -1891,7 +1722,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1901,7 +1731,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_AMBIPOM_ANIM_INDEX
@@ -1911,7 +1740,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SUNFLORA_ANIM_INDEX
@@ -1921,7 +1749,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1931,7 +1758,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_YANMEGA_ANIM_INDEX
@@ -1941,7 +1767,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_QUAGSIRE_ANIM_INDEX
@@ -1951,7 +1776,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1961,7 +1785,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1971,7 +1794,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1981,7 +1803,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HONCHKROW_ANIM_INDEX
@@ -1991,7 +1812,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2001,7 +1821,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MISMAGIUS_ANIM_INDEX
@@ -2011,7 +1830,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2021,7 +1839,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2031,7 +1848,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2041,7 +1857,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 31 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FORRETRESS_ANIM_INDEX
@@ -2051,7 +1866,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2061,7 +1875,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2071,7 +1884,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GLISCOR_ANIM_INDEX
@@ -2081,7 +1893,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2091,7 +1902,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 23 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GRANBULL_ANIM_INDEX
@@ -2101,7 +1911,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2111,7 +1920,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_OVERQWIL_ANIM_INDEX
@@ -2121,7 +1929,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2131,7 +1938,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2141,7 +1947,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2151,7 +1956,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_WEAVILE_ANIM_INDEX ,PMD_SNEASLER_ANIM_INDEX
@@ -2161,7 +1965,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_URSARING_ANIM_INDEX
@@ -2171,7 +1974,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_URSALUNA_ANIM_INDEX
@@ -2181,7 +1983,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 38 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MAGCARGO_ANIM_INDEX
@@ -2191,7 +1992,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2201,7 +2001,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 33 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PILOSWINE_ANIM_INDEX
@@ -2211,7 +2010,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MAMOSWINE_ANIM_INDEX
@@ -2221,7 +2019,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 38 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CURSOLA_ANIM_INDEX
@@ -2231,7 +2028,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_OCTILLERY_ANIM_INDEX
@@ -2241,7 +2037,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2251,7 +2046,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2261,7 +2055,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2271,7 +2064,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2281,7 +2073,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HOUNDOOM_ANIM_INDEX
@@ -2291,7 +2082,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2301,7 +2091,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2311,7 +2100,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DONPHAN_ANIM_INDEX
@@ -2321,7 +2109,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2331,7 +2118,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PORYGON_Z_ANIM_INDEX
@@ -2341,7 +2127,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WYRDEER_ANIM_INDEX
@@ -2351,7 +2136,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2361,7 +2145,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 PMD_HITMONLEE_ANIM_INDEX ,PMD_HITMONCHAN_ANIM_INDEX ,PMD_HITMONTOP_ANIM_INDEX
@@ -2371,7 +2154,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2381,7 +2163,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_JYNX_ANIM_INDEX
@@ -2391,7 +2172,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ELECTABUZZ_ANIM_INDEX
@@ -2401,7 +2181,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MAGMAR_ANIM_INDEX
@@ -2411,7 +2190,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2421,7 +2199,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2431,7 +2208,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2441,7 +2217,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2451,7 +2226,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2461,7 +2235,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PUPITAR_ANIM_INDEX
@@ -2471,7 +2244,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 55 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TYRANITAR_ANIM_INDEX
@@ -2481,7 +2253,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2491,7 +2262,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2501,7 +2271,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2511,7 +2280,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2521,7 +2289,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GROVYLE_ANIM_INDEX
@@ -2531,7 +2298,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SCEPTILE_ANIM_INDEX
@@ -2541,7 +2307,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2551,7 +2316,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_COMBUSKEN_ANIM_INDEX
@@ -2561,7 +2325,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BLAZIKEN_ANIM_INDEX
@@ -2571,7 +2334,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2581,7 +2343,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MARSHTOMP_ANIM_INDEX
@@ -2591,7 +2352,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SWAMPERT_ANIM_INDEX
@@ -2601,7 +2361,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2611,7 +2370,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MIGHTYENA_ANIM_INDEX
@@ -2621,7 +2379,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2631,7 +2388,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LINOONE_ANIM_INDEX
@@ -2641,7 +2397,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_OBSTAGOON_ANIM_INDEX
@@ -2651,7 +2406,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 7 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_SILCOON_ANIM_INDEX ,PMD_CASCOON_ANIM_INDEX
@@ -2661,7 +2415,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 10 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BEAUTIFLY_ANIM_INDEX
@@ -2671,7 +2424,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2681,7 +2433,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 10 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DUSTOX_ANIM_INDEX
@@ -2691,7 +2442,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2701,7 +2451,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 14 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LOMBRE_ANIM_INDEX
@@ -2711,7 +2460,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LUDICOLO_ANIM_INDEX
@@ -2721,7 +2469,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2731,7 +2478,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 14 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NUZLEAF_ANIM_INDEX
@@ -2741,7 +2487,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SHIFTRY_ANIM_INDEX
@@ -2751,7 +2496,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2761,7 +2505,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SWELLOW_ANIM_INDEX
@@ -2771,7 +2514,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2781,7 +2523,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PELIPPER_ANIM_INDEX
@@ -2791,7 +2532,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2801,7 +2541,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KIRLIA_ANIM_INDEX
@@ -2811,7 +2550,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_GARDEVOIR_ANIM_INDEX ,PMD_GALLADE_ANIM_INDEX
@@ -2821,7 +2559,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2831,7 +2568,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MASQUERAIN_ANIM_INDEX
@@ -2841,7 +2577,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2851,7 +2586,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 23 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BRELOOM_ANIM_INDEX
@@ -2861,7 +2595,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2871,7 +2604,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VIGOROTH_ANIM_INDEX
@@ -2881,7 +2613,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SLAKING_ANIM_INDEX
@@ -2891,7 +2622,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2901,7 +2631,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_NINJASK_ANIM_INDEX ,PMD_SHEDINJA_ANIM_INDEX
@@ -2911,7 +2640,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2921,7 +2649,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2931,7 +2658,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LOUDRED_ANIM_INDEX
@@ -2941,7 +2667,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_EXPLOUD_ANIM_INDEX
@@ -2951,7 +2676,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2961,7 +2685,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HARIYAMA_ANIM_INDEX
@@ -2971,7 +2694,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -2981,7 +2703,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MARILL_ANIM_INDEX
@@ -2991,7 +2712,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PROBOPASS_ANIM_INDEX
@@ -3001,7 +2721,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DELCATTY_ANIM_INDEX
@@ -3011,7 +2730,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3021,7 +2739,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3031,7 +2748,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3041,7 +2757,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LAIRON_ANIM_INDEX
@@ -3051,7 +2766,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 42 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_AGGRON_ANIM_INDEX
@@ -3061,7 +2775,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3071,7 +2784,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MEDICHAM_ANIM_INDEX
@@ -3081,7 +2793,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3091,7 +2802,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 26 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MANECTRIC_ANIM_INDEX
@@ -3101,7 +2811,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3111,7 +2820,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3121,7 +2829,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3131,7 +2838,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3141,7 +2847,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3151,7 +2856,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ROSERADE_ANIM_INDEX
@@ -3161,7 +2865,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 26 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SWALOT_ANIM_INDEX
@@ -3171,7 +2874,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3181,7 +2883,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SHARPEDO_ANIM_INDEX
@@ -3191,7 +2892,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3201,7 +2901,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WAILORD_ANIM_INDEX
@@ -3211,7 +2910,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3221,7 +2919,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 33 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CAMERUPT_ANIM_INDEX
@@ -3231,7 +2928,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3241,7 +2937,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3251,7 +2946,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GRUMPIG_ANIM_INDEX
@@ -3261,7 +2955,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3271,7 +2964,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3281,7 +2973,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VIBRAVA_ANIM_INDEX
@@ -3291,7 +2982,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 45 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FLYGON_ANIM_INDEX
@@ -3301,7 +2991,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3311,7 +3000,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CACTURNE_ANIM_INDEX
@@ -3321,7 +3009,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3331,7 +3018,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ALTARIA_ANIM_INDEX
@@ -3341,7 +3027,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3351,7 +3036,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3361,7 +3045,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3371,7 +3054,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3381,7 +3063,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3391,7 +3072,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WHISCASH_ANIM_INDEX
@@ -3401,7 +3081,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3411,7 +3090,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CRAWDAUNT_ANIM_INDEX
@@ -3421,7 +3099,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3431,7 +3108,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CLAYDOL_ANIM_INDEX
@@ -3441,7 +3117,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3451,7 +3126,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CRADILY_ANIM_INDEX
@@ -3461,7 +3135,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3471,7 +3144,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ARMALDO_ANIM_INDEX
@@ -3481,7 +3153,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3491,7 +3162,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MILOTIC_ANIM_INDEX
@@ -3501,7 +3171,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3511,7 +3180,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3521,7 +3189,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3531,7 +3198,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BANETTE_ANIM_INDEX
@@ -3541,7 +3207,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3551,7 +3216,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DUSCLOPS_ANIM_INDEX
@@ -3561,7 +3225,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DUSKNOIR_ANIM_INDEX
@@ -3571,7 +3234,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3581,7 +3243,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3591,7 +3252,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3601,7 +3261,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 15 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WOBBUFFET_ANIM_INDEX
@@ -3611,7 +3270,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_GLALIE_ANIM_INDEX ,PMD_FROSLASS_ANIM_INDEX
@@ -3621,7 +3279,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3631,7 +3288,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SEALEO_ANIM_INDEX
@@ -3641,7 +3297,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 44 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WALREIN_ANIM_INDEX
@@ -3651,7 +3306,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3661,7 +3315,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_HUNTAIL_ANIM_INDEX ,PMD_GOREBYSS_ANIM_INDEX
@@ -3671,7 +3324,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3681,7 +3333,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3691,7 +3342,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3701,7 +3351,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3711,7 +3360,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SHELGON_ANIM_INDEX
@@ -3721,7 +3369,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 50 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SALAMENCE_ANIM_INDEX
@@ -3731,7 +3378,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3741,7 +3387,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_METANG_ANIM_INDEX
@@ -3751,7 +3396,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 45 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_METAGROSS_ANIM_INDEX
@@ -3761,7 +3405,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3771,7 +3414,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3781,7 +3423,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3791,7 +3432,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3801,7 +3441,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3811,7 +3450,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3821,7 +3459,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3831,7 +3468,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3841,7 +3477,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3851,7 +3486,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3861,7 +3495,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3871,7 +3504,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GROTLE_ANIM_INDEX
@@ -3881,7 +3513,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TORTERRA_ANIM_INDEX
@@ -3891,7 +3522,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3901,7 +3531,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 14 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MONFERNO_ANIM_INDEX
@@ -3911,7 +3540,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_INFERNAPE_ANIM_INDEX
@@ -3921,7 +3549,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3931,7 +3558,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PRINPLUP_ANIM_INDEX
@@ -3941,7 +3567,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_EMPOLEON_ANIM_INDEX
@@ -3951,7 +3576,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3961,7 +3585,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 14 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_STARAVIA_ANIM_INDEX
@@ -3971,7 +3594,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_STARAPTOR_ANIM_INDEX
@@ -3981,7 +3603,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -3991,7 +3612,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 15 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BIBAREL_ANIM_INDEX
@@ -4001,7 +3621,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4011,7 +3630,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 10 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KRICKETUNE_ANIM_INDEX
@@ -4021,7 +3639,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4031,7 +3648,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 15 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LUXIO_ANIM_INDEX
@@ -4041,7 +3657,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LUXRAY_ANIM_INDEX
@@ -4051,7 +3666,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4061,7 +3675,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ROSELIA_ANIM_INDEX
@@ -4071,7 +3684,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4081,7 +3693,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RAMPARDOS_ANIM_INDEX
@@ -4091,7 +3702,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4101,7 +3711,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BASTIODON_ANIM_INDEX
@@ -4111,7 +3720,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4121,7 +3729,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_WORMADAM_ANIM_INDEX ,PMD_MOTHIM_ANIM_INDEX
@@ -4131,7 +3738,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4141,7 +3747,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4151,7 +3756,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 21 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VESPIQUEN_ANIM_INDEX
@@ -4161,7 +3765,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4171,7 +3774,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4181,7 +3783,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 26 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FLOATZEL_ANIM_INDEX
@@ -4191,7 +3792,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4201,7 +3801,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHERRIM_ANIM_INDEX
@@ -4211,7 +3810,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4221,7 +3819,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GASTRODON_ANIM_INDEX
@@ -4231,7 +3828,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4241,7 +3837,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4251,7 +3846,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRIFBLIM_ANIM_INDEX
@@ -4261,7 +3855,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4271,7 +3864,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LOPUNNY_ANIM_INDEX
@@ -4281,7 +3873,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4291,7 +3882,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4301,7 +3891,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4311,7 +3900,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 38 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PURUGLY_ANIM_INDEX
@@ -4321,7 +3909,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4331,7 +3918,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHIMECHO_ANIM_INDEX
@@ -4341,7 +3927,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SKUNTANK_ANIM_INDEX
@@ -4351,7 +3936,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4361,7 +3945,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 33 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BRONZONG_ANIM_INDEX
@@ -4371,7 +3954,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4381,7 +3963,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SUDOWOODO_ANIM_INDEX
@@ -4391,7 +3972,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MR_MIME_ANIM_INDEX
@@ -4401,7 +3981,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHANSEY_ANIM_INDEX
@@ -4411,7 +3990,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4421,7 +3999,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4431,7 +4008,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GABITE_ANIM_INDEX
@@ -4441,7 +4017,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 48 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GARCHOMP_ANIM_INDEX
@@ -4451,7 +4026,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4461,7 +4035,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SNORLAX_ANIM_INDEX
@@ -4471,7 +4044,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LUCARIO_ANIM_INDEX
@@ -4481,7 +4053,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4491,7 +4062,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HIPPOWDON_ANIM_INDEX
@@ -4501,7 +4071,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4511,7 +4080,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRAPION_ANIM_INDEX
@@ -4521,7 +4089,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4531,7 +4098,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TOXICROAK_ANIM_INDEX
@@ -4541,7 +4107,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4551,7 +4116,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4561,7 +4125,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 31 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LUMINEON_ANIM_INDEX
@@ -4571,7 +4134,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4581,7 +4143,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MANTINE_ANIM_INDEX
@@ -4591,7 +4152,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ABOMASNOW_ANIM_INDEX
@@ -4601,7 +4161,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4611,7 +4170,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4621,7 +4179,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4631,7 +4188,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4641,7 +4197,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4651,7 +4206,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4661,7 +4215,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4671,7 +4224,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4681,7 +4233,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4691,7 +4242,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4701,7 +4251,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4711,7 +4260,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4721,7 +4269,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4731,7 +4278,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4741,7 +4287,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4751,7 +4296,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4761,7 +4305,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4771,7 +4314,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4781,7 +4323,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4791,7 +4332,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4801,7 +4341,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4811,7 +4350,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4821,7 +4359,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4831,7 +4368,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4841,7 +4377,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4851,7 +4386,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4861,7 +4395,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4871,7 +4404,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4881,7 +4413,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4891,7 +4422,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MANAPHY_ANIM_INDEX
@@ -4901,7 +4431,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4911,7 +4440,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4921,7 +4449,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4931,7 +4458,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4941,7 +4467,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4951,7 +4476,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 17 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SERVINE_ANIM_INDEX
@@ -4961,7 +4485,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SERPERIOR_ANIM_INDEX
@@ -4971,7 +4494,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -4981,7 +4503,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 17 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PIGNITE_ANIM_INDEX
@@ -4991,7 +4512,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_EMBOAR_ANIM_INDEX
@@ -5001,7 +4521,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5011,7 +4530,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 17 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DEWOTT_ANIM_INDEX
@@ -5021,7 +4539,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SAMUROTT_ANIM_INDEX
@@ -5031,7 +4548,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5041,7 +4557,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WATCHOG_ANIM_INDEX
@@ -5051,7 +4566,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5061,7 +4575,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HERDIER_ANIM_INDEX
@@ -5071,7 +4584,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_STOUTLAND_ANIM_INDEX
@@ -5081,7 +4593,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5091,7 +4602,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LIEPARD_ANIM_INDEX
@@ -5101,7 +4611,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5111,7 +4620,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SIMISAGE_ANIM_INDEX
@@ -5121,7 +4629,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5131,7 +4638,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5141,7 +4647,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5151,7 +4656,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MUSHARNA_ANIM_INDEX
@@ -5161,7 +4665,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5171,7 +4674,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 21 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5181,7 +4683,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5191,7 +4692,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BOLDORE_ANIM_INDEX
@@ -5201,7 +4701,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GIGALITH_ANIM_INDEX
@@ -5211,7 +4710,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5221,7 +4719,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SWOOBAT_ANIM_INDEX
@@ -5231,7 +4728,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5241,7 +4737,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 31 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_EXCADRILL_ANIM_INDEX
@@ -5251,7 +4746,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5261,7 +4755,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5271,7 +4764,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GURDURR_ANIM_INDEX
@@ -5281,7 +4773,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CONKELDURR_ANIM_INDEX
@@ -5291,7 +4782,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5301,7 +4791,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PALPITOAD_ANIM_INDEX
@@ -5311,7 +4800,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SEISMITOAD_ANIM_INDEX
@@ -5321,7 +4809,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5331,7 +4818,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SWADLOON_ANIM_INDEX
@@ -5341,7 +4827,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LEAVANNY_ANIM_INDEX
@@ -5351,7 +4836,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5361,7 +4845,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WHIRLIPEDE_ANIM_INDEX
@@ -5371,7 +4854,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SCOLIPEDE_ANIM_INDEX
@@ -5381,7 +4863,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5391,7 +4872,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_WHIMSICOTT_ANIM_INDEX
@@ -5401,7 +4881,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5411,7 +4890,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LILLIGANT_ANIM_INDEX
@@ -5421,7 +4899,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5431,7 +4908,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BASCULEGION_ANIM_INDEX
@@ -5441,7 +4917,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 29 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KROKOROK_ANIM_INDEX
@@ -5451,7 +4926,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KROOKODILE_ANIM_INDEX
@@ -5461,7 +4935,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5471,7 +4944,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DARMANITAN_ANIM_INDEX
@@ -5481,7 +4953,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5491,7 +4962,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5501,7 +4971,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5511,7 +4980,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 39 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SCRAFTY_ANIM_INDEX
@@ -5521,7 +4989,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5531,7 +4998,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5541,7 +5007,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_COFAGRIGUS_ANIM_INDEX ,PMD_RUNERIGUS_ANIM_INDEX
@@ -5551,7 +5016,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5561,7 +5025,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ARCHEOPS_ANIM_INDEX
@@ -5571,7 +5034,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5581,7 +5043,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GARBODOR_ANIM_INDEX
@@ -5591,7 +5052,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5601,7 +5061,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ZOROARK_ANIM_INDEX
@@ -5611,7 +5070,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5621,7 +5079,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CINCCINO_ANIM_INDEX
@@ -5631,7 +5088,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5641,7 +5097,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOTHORITA_ANIM_INDEX
@@ -5651,7 +5106,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 41 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOTHITELLE_ANIM_INDEX
@@ -5661,7 +5115,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5671,7 +5124,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DUOSION_ANIM_INDEX
@@ -5681,7 +5133,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 41 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_REUNICLUS_ANIM_INDEX
@@ -5691,7 +5142,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5701,7 +5151,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5711,7 +5160,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VANILLISH_ANIM_INDEX
@@ -5721,7 +5169,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 47 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VANILLUXE_ANIM_INDEX
@@ -5731,7 +5178,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5741,7 +5187,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SAWSBUCK_ANIM_INDEX
@@ -5751,7 +5196,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5761,7 +5205,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5771,7 +5214,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ESCAVALIER_ANIM_INDEX
@@ -5781,7 +5223,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5791,7 +5232,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 39 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5801,7 +5241,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5811,7 +5250,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5821,7 +5259,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GALVANTULA_ANIM_INDEX
@@ -5831,7 +5268,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5841,7 +5277,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FERROTHORN_ANIM_INDEX
@@ -5851,7 +5286,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5861,7 +5295,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 39 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_EELEKTRIK_ANIM_INDEX
@@ -5871,7 +5304,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_EELEKTROSS_ANIM_INDEX
@@ -5881,7 +5313,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5891,7 +5322,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 42 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BEHEEYEM_ANIM_INDEX
@@ -5901,7 +5331,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5911,7 +5340,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 41 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LAMPENT_ANIM_INDEX
@@ -5921,7 +5349,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHANDELURE_ANIM_INDEX
@@ -5931,7 +5358,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5941,7 +5367,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 38 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FRAXURE_ANIM_INDEX
@@ -5951,7 +5376,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 48 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HAXORUS_ANIM_INDEX
@@ -5961,7 +5385,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5971,7 +5394,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BEARTIC_ANIM_INDEX
@@ -5981,7 +5403,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -5991,7 +5412,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6001,7 +5421,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6011,7 +5430,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 50 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MIENSHAO_ANIM_INDEX
@@ -6021,7 +5439,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6031,7 +5448,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6041,7 +5457,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 43 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOLURK_ANIM_INDEX
@@ -6051,7 +5466,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6061,7 +5475,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 52 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BISHARP_ANIM_INDEX
@@ -6071,7 +5484,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6081,7 +5493,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 54 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BRAVIARY_ANIM_INDEX
@@ -6091,7 +5502,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6101,7 +5511,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 54 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MANDIBUZZ_ANIM_INDEX
@@ -6111,7 +5520,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6121,7 +5529,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6131,7 +5538,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6141,7 +5547,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 50 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ZWEILOUS_ANIM_INDEX
@@ -6151,7 +5556,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 64 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HYDREIGON_ANIM_INDEX
@@ -6161,7 +5565,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6171,7 +5574,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 59 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VOLCARONA_ANIM_INDEX
@@ -6181,7 +5583,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6191,7 +5592,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6201,7 +5601,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6211,7 +5610,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6221,7 +5619,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6231,7 +5628,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6241,7 +5637,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6251,7 +5646,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6261,7 +5655,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6271,7 +5664,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6281,7 +5673,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6291,7 +5682,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6301,7 +5691,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6311,7 +5700,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_QUILLADIN_ANIM_INDEX
@@ -6321,7 +5709,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHESNAUGHT_ANIM_INDEX
@@ -6331,7 +5718,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6341,7 +5727,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BRAIXEN_ANIM_INDEX
@@ -6351,7 +5736,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DELPHOX_ANIM_INDEX
@@ -6361,7 +5745,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6371,7 +5754,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FROGADIER_ANIM_INDEX
@@ -6381,7 +5763,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GRENINJA_ANIM_INDEX
@@ -6391,7 +5772,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6401,7 +5781,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6411,7 +5790,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 17 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FLETCHINDER_ANIM_INDEX
@@ -6421,7 +5799,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TALONFLAME_ANIM_INDEX
@@ -6431,7 +5808,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6441,7 +5817,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 9 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SPEWPA_ANIM_INDEX
@@ -6451,7 +5826,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 12 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VIVILLON_ANIM_INDEX
@@ -6461,7 +5835,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6471,7 +5844,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6481,7 +5853,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 19 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FLOETTE_ANIM_INDEX
@@ -6491,7 +5862,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FLORGES_ANIM_INDEX
@@ -6501,7 +5871,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6511,7 +5880,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOGOAT_ANIM_INDEX
@@ -6521,7 +5889,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6531,7 +5898,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PANGORO_ANIM_INDEX
@@ -6541,7 +5907,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6551,7 +5916,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6561,7 +5925,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MEOWSTIC_ANIM_INDEX
@@ -6571,7 +5934,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6581,7 +5943,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DOUBLADE_ANIM_INDEX
@@ -6591,7 +5952,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_AEGISLASH_ANIM_INDEX
@@ -6601,7 +5961,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6611,7 +5970,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_AROMATISSE_ANIM_INDEX
@@ -6621,7 +5979,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6631,7 +5988,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SLURPUFF_ANIM_INDEX
@@ -6641,7 +5997,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6651,7 +6006,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MALAMAR_ANIM_INDEX
@@ -6661,7 +6015,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6671,7 +6024,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 39 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BARBARACLE_ANIM_INDEX
@@ -6681,7 +6033,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6691,7 +6042,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 48 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRAGALGE_ANIM_INDEX
@@ -6701,7 +6051,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6711,7 +6060,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CLAWITZER_ANIM_INDEX
@@ -6721,7 +6069,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6731,7 +6078,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HELIOLISK_ANIM_INDEX
@@ -6741,7 +6087,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6751,7 +6096,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 39 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TYRANTRUM_ANIM_INDEX
@@ -6761,7 +6105,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6771,7 +6114,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 39 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_AURORUS_ANIM_INDEX
@@ -6781,7 +6123,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6791,7 +6132,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6801,7 +6141,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6811,7 +6150,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6821,7 +6159,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6831,7 +6168,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 40 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SLIGGOO_ANIM_INDEX
@@ -6841,7 +6177,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 50 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOODRA_ANIM_INDEX
@@ -6851,7 +6186,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6861,7 +6195,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6871,7 +6204,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TREVENANT_ANIM_INDEX
@@ -6881,7 +6213,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6891,7 +6222,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOURGEIST_ANIM_INDEX
@@ -6901,7 +6231,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6911,7 +6240,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 37 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6921,7 +6249,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 48 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NOIVERN_ANIM_INDEX
@@ -6931,7 +6258,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6941,7 +6267,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6951,7 +6276,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6961,7 +6285,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6971,7 +6294,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6981,7 +6303,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -6991,7 +6312,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7001,7 +6321,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 17 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DARTRIX_ANIM_INDEX
@@ -7011,7 +6330,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DECIDUEYE_ANIM_INDEX
@@ -7021,7 +6339,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7031,7 +6348,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 17 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TORRACAT_ANIM_INDEX
@@ -7041,7 +6357,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_INCINEROAR_ANIM_INDEX
@@ -7051,7 +6366,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7061,7 +6375,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 17 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BRIONNE_ANIM_INDEX
@@ -7071,7 +6384,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PRIMARINA_ANIM_INDEX
@@ -7081,7 +6393,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7091,7 +6402,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7101,7 +6411,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CHARJABUG_ANIM_INDEX
@@ -7111,7 +6420,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_VIKAVOLT_ANIM_INDEX
@@ -7121,7 +6429,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7131,7 +6438,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CRABOMINABLE_ANIM_INDEX
@@ -7141,7 +6447,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7151,7 +6456,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RIBOMBEE_ANIM_INDEX
@@ -7161,7 +6465,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7171,7 +6474,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LYCANROC_ANIM_INDEX
@@ -7181,7 +6483,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7191,7 +6492,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7201,7 +6501,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 38 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7211,7 +6510,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MUDSDALE_ANIM_INDEX
@@ -7221,7 +6519,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7231,7 +6528,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ARAQUANID_ANIM_INDEX
@@ -7241,7 +6537,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7251,7 +6546,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 34 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_LURANTIS_ANIM_INDEX
@@ -7261,7 +6555,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7271,7 +6564,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7281,7 +6573,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 33 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SALAZZLE_ANIM_INDEX
@@ -7291,7 +6582,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7301,7 +6591,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 27 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_BEWEAR_ANIM_INDEX
@@ -7311,7 +6600,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7321,7 +6609,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_STEENEE_ANIM_INDEX
@@ -7331,7 +6618,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TSAREENA_ANIM_INDEX
@@ -7341,7 +6627,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7351,7 +6636,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7361,7 +6645,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7371,7 +6654,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GOLISOPOD_ANIM_INDEX
@@ -7381,7 +6663,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7391,7 +6672,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 42 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_PALOSSAND_ANIM_INDEX
@@ -7401,7 +6681,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7411,7 +6690,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7421,7 +6699,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SILVALLY_ANIM_INDEX
@@ -7431,7 +6708,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7441,7 +6717,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7451,7 +6726,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7461,7 +6735,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7471,7 +6744,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7481,7 +6753,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7491,7 +6762,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7501,7 +6771,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7511,7 +6780,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7521,7 +6789,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HAKAMO_O_ANIM_INDEX
@@ -7531,7 +6798,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 45 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_KOMMO_O_ANIM_INDEX
@@ -7541,7 +6807,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7551,7 +6816,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7561,7 +6825,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7571,7 +6834,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7581,7 +6843,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7591,7 +6852,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 43 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_COSMOEM_ANIM_INDEX
@@ -7601,7 +6861,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 53 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_SOLGALEO_ANIM_INDEX ,PMD_LUNALA_ANIM_INDEX
@@ -7611,7 +6870,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7621,7 +6879,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7631,7 +6888,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7641,7 +6897,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7651,7 +6906,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7661,7 +6915,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7671,7 +6924,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7681,7 +6933,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7691,7 +6942,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7701,7 +6951,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7711,7 +6960,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7721,7 +6969,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7731,7 +6978,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_NAGANADEL_ANIM_INDEX
@@ -7741,7 +6987,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7751,7 +6996,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7761,7 +7005,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7771,7 +7014,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7780,18 +7022,16 @@ namespace bongocat::assets {
         // Name: Meltan
         {
             // Stage: 
-            .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
-            .num_animation_indices = 0,
+            .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                PMD_MELMETAL_ANIM_INDEX
             },
         },
         // Name: Melmetal
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7801,7 +7041,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_THWACKEY_ANIM_INDEX
@@ -7811,7 +7050,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RILLABOOM_ANIM_INDEX
@@ -7821,7 +7059,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7831,7 +7068,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_RABOOT_ANIM_INDEX
@@ -7841,7 +7077,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CINDERACE_ANIM_INDEX
@@ -7851,7 +7086,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7861,7 +7095,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 16 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRIZZILE_ANIM_INDEX
@@ -7871,7 +7104,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 35 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_INTELEON_ANIM_INDEX
@@ -7881,7 +7113,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7891,7 +7122,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7901,7 +7131,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CORVISQUIRE_ANIM_INDEX
@@ -7911,7 +7140,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 38 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CORVIKNIGHT_ANIM_INDEX
@@ -7921,7 +7149,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7931,7 +7158,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 10 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DOTTLER_ANIM_INDEX
@@ -7941,7 +7167,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ORBEETLE_ANIM_INDEX
@@ -7951,7 +7176,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7961,7 +7185,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 18 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_THIEVUL_ANIM_INDEX
@@ -7971,7 +7194,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -7981,7 +7203,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 20 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ELDEGOSS_ANIM_INDEX
@@ -7991,7 +7212,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8001,7 +7221,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8011,7 +7230,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 22 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DREDNAW_ANIM_INDEX
@@ -8021,7 +7239,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8031,7 +7248,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 25 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8041,7 +7257,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 PMD_FLAPPLE_ANIM_INDEX ,PMD_APPLETUN_ANIM_INDEX
@@ -8051,7 +7266,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8061,7 +7275,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8071,7 +7284,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 36 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_SANDACONDA_ANIM_INDEX
@@ -8081,7 +7293,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8091,7 +7302,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8101,7 +7311,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 26 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8111,7 +7320,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 30 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_TOXTRICITY_ANIM_INDEX
@@ -8121,7 +7329,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8131,7 +7338,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 28 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_CENTISKORCH_ANIM_INDEX
@@ -8141,7 +7347,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8151,7 +7356,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GRAPPLOCT_ANIM_INDEX
@@ -8161,7 +7365,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8171,7 +7374,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_POLTEAGEIST_ANIM_INDEX
@@ -8181,7 +7383,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8191,7 +7392,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HATTREM_ANIM_INDEX
@@ -8201,7 +7401,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 42 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_HATTERENE_ANIM_INDEX
@@ -8211,7 +7410,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8221,7 +7419,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_MORGREM_ANIM_INDEX
@@ -8231,7 +7428,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 42 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_GRIMMSNARL_ANIM_INDEX
@@ -8241,7 +7437,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8251,7 +7446,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8261,7 +7455,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8271,7 +7464,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8281,7 +7473,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8290,8 +7481,7 @@ namespace bongocat::assets {
         // Name: Milcery
         {
             // Stage: 
-            .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
+            .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_ALCREMIE_ANIM_INDEX
@@ -8301,7 +7491,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8311,7 +7500,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8321,7 +7509,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_FROSMOTH_ANIM_INDEX
@@ -8331,7 +7518,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8341,7 +7527,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8351,7 +7536,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8361,7 +7545,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8371,7 +7554,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8381,7 +7563,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8391,7 +7572,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8401,7 +7581,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8411,7 +7590,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8421,7 +7599,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8431,7 +7608,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 32 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8441,7 +7617,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 50 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRAKLOAK_ANIM_INDEX
@@ -8451,7 +7626,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 60 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_DRAGAPULT_ANIM_INDEX
@@ -8461,7 +7635,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8471,7 +7644,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8481,7 +7653,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8491,7 +7662,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = 24 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 PMD_URSHIFU_ANIM_INDEX
@@ -8501,7 +7671,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8511,7 +7680,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8521,7 +7689,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8531,7 +7698,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8541,7 +7707,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8551,7 +7716,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8561,7 +7725,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8571,7 +7734,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8581,7 +7743,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8591,7 +7752,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8601,7 +7761,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8611,7 +7770,6 @@ namespace bongocat::assets {
         {
             // Stage: 
             .conditions = { .next_evolution_time_sec = -1, .min_lvl = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -8623,7 +7781,7 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(pmd_evol_data_table) == PMD_ANIM_COUNT);
         assert(index < PMD_ANIM_COUNT);
-        auto result = pmd_evol_data_table[index];
+        auto result = expand_evolution_data(pmd_evol_data_table[index]);
         return result;
     }
 }

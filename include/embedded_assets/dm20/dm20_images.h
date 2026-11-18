@@ -295,10 +295,6 @@ inline constexpr size_t dm20_meicrackmon_png_size ASSETS_DM20_IMAGE_SIZES_SECTIO
 extern const unsigned char dm20_meramon_png[1059];
 inline constexpr size_t dm20_meramon_png_size ASSETS_DM20_IMAGE_SIZES_SECTION = 1059;
 
-// Name: Metal Garurumon
-extern const unsigned char dm20_metal_garurumon_png[1254];
-inline constexpr size_t dm20_metal_garurumon_png_size ASSETS_DM20_IMAGE_SIZES_SECTION = 1254;
-
 // Name: Metal Greymon
 extern const unsigned char dm20_metal_greymon_png[869];
 inline constexpr size_t dm20_metal_greymon_png_size ASSETS_DM20_IMAGE_SIZES_SECTION = 869;
@@ -478,10 +474,6 @@ inline constexpr size_t dm20_titamon_png_size ASSETS_DM20_IMAGE_SIZES_SECTION = 
 // Name: Tokomon
 extern const unsigned char dm20_tokomon_png[862];
 inline constexpr size_t dm20_tokomon_png_size ASSETS_DM20_IMAGE_SIZES_SECTION = 862;
-
-// Name: Tsunomon
-extern const unsigned char dm20_tsunomon_png[783];
-inline constexpr size_t dm20_tsunomon_png_size ASSETS_DM20_IMAGE_SIZES_SECTION = 783;
 
 // Name: Tunomon
 extern const unsigned char dm20_tunomon_png[822];

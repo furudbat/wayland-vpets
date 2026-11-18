@@ -80,6 +80,13 @@ target_link_options(
     -s
     >
 )
+# Pack relative relocations into compact DT_RELR format (needs binutils >= 2.38 / lld >= 15, glibc >= 2.36).
+# The embedded asset tables are full of pointers, each one a 24-byte R_X86_64_RELATIVE entry otherwise.
+include(CheckLinkerFlag)
+check_linker_flag(CXX "-Wl,-z,pack-relative-relocs" BONGOCAT_LINKER_HAS_PACK_RELATIVE_RELOCS)
+if(BONGOCAT_LINKER_HAS_PACK_RELATIVE_RELOCS)
+  target_link_options(bongocat_options INTERFACE -Wl,-z,pack-relative-relocs)
+endif()
 
 add_library(bongocat_libs INTERFACE)
 # wayland-client dependency
@@ -114,9 +121,6 @@ set(
   graphics/bar.cpp
   graphics/drawing_images.cpp
   graphics/drawing_scale.cpp
-  platform/input.cpp
-  platform/input_devices.cpp
-  platform/update.cpp
   platform/wayland.cpp
   platform/wayland_callbacks.cpp
   platform/wayland_hyprland.cpp
@@ -124,11 +128,33 @@ set(
   platform/wayland_sway.cpp
   platform/wayland_monitors.cpp
 )
+set(INPUT_SOURCES platform/input/input.cpp platform/input/input_devices.cpp)
+set(UPDATE_SOURCES platform/update/update.cpp)
+set(AUDIO_SOURCES platform/audio/audio.cpp)
 add_library(bongocat_base INTERFACE)
 target_sources(bongocat_base INTERFACE ${SOURCES})
 target_include_directories(bongocat_base INTERFACE ${INCLUDE_DIR})
 target_link_libraries(bongocat_base INTERFACE bongocat_options bongocat_libs)
 target_compile_options(bongocat_base INTERFACE -ffunction-sections -fdata-sections)
+# @NOTE(module): enable more module here
+if(ENABLE_INPUT_MODULE)
+  target_sources(bongocat_base INTERFACE ${INPUT_SOURCES})
+  target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_INPUT_MODULE)
+endif()
+if(ENABLE_UPDATE_MODULE)
+  target_sources(bongocat_base INTERFACE ${UPDATE_SOURCES})
+  target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_UPDATE_MODULE)
+endif()
+if(ENABLE_AUDIO_MODULE)
+  target_sources(bongocat_base INTERFACE ${AUDIO_SOURCES})
+  target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_AUDIO_MODULE)
+
+  # PipeWire (sink-monitor capture)
+  pkg_check_modules(PIPEWIRE REQUIRED libpipewire-0.3)
+  target_include_directories(bongocat_base SYSTEM INTERFACE ${PIPEWIRE_INCLUDE_DIRS})
+  target_compile_options(bongocat_base INTERFACE ${PIPEWIRE_CFLAGS_OTHER})
+  target_link_libraries(bongocat_base INTERFACE cavacore ${PIPEWIRE_LIBRARIES})
+endif()
 
 # @NOTE(assets): 2. add embedded_assets sub directory
 add_subdirectory(embedded_assets/bongocat)

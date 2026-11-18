@@ -366,6 +366,7 @@ load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_i
   ret.feature_moving = ret.moving.valid || ret.start_moving.valid || ret.end_moving.valid;
   ret.feature_running = ret.running.valid || ret.start_running.valid || ret.end_running.valid;
   ret.feature_evolving = ret.start_evolving.valid || ret.evolving.valid || ret.after_evolving.valid;
+  /// @TODO: add feature_dancing based on custom dancing frames
 
   // is feature_toggle_writing_frames enabled or writing has only 2 frames (default)
   ret.feature_writing_toggle_frames =

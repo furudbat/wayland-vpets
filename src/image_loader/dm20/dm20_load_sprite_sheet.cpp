@@ -88,7 +88,6 @@ namespace bongocat::animation {
         {assets::DM20_MEICOOMON_SPRITE_SHEET_COLS, assets::DM20_MEICOOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_MEICRACKMON_SPRITE_SHEET_COLS, assets::DM20_MEICRACKMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_MERAMON_SPRITE_SHEET_COLS, assets::DM20_MERAMON_SPRITE_SHEET_ROWS}, 
-        {assets::DM20_METAL_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_METAL_GARURUMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_METAL_GREYMON_SPRITE_SHEET_COLS, assets::DM20_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_METAL_MAMEMON_SPRITE_SHEET_COLS, assets::DM20_METAL_MAMEMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_METAL_TYRANOMON_SPRITE_SHEET_COLS, assets::DM20_METAL_TYRANOMON_SPRITE_SHEET_ROWS}, 
@@ -134,7 +133,6 @@ namespace bongocat::animation {
         {assets::DM20_TANEMON_SPRITE_SHEET_COLS, assets::DM20_TANEMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_TITAMON_SPRITE_SHEET_COLS, assets::DM20_TITAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_TOKOMON_SPRITE_SHEET_COLS, assets::DM20_TOKOMON_SPRITE_SHEET_ROWS}, 
-        {assets::DM20_TSUNOMON_SPRITE_SHEET_COLS, assets::DM20_TSUNOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_TUNOMON_SPRITE_SHEET_COLS, assets::DM20_TUNOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_TUSKMON_SPRITE_SHEET_COLS, assets::DM20_TUSKMON_SPRITE_SHEET_ROWS}, 
         {assets::DM20_TYRANOMON_SPRITE_SHEET_COLS, assets::DM20_TYRANOMON_SPRITE_SHEET_ROWS}, 
@@ -155,7 +153,7 @@ namespace bongocat::animation {
         {assets::DM20_ZURUMON_SPRITE_SHEET_COLS, assets::DM20_ZURUMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* dm20_pngs_table[] = {
+    static const unsigned char* const dm20_pngs_table[] = {
         dm20_aegisdramon_png, 
         dm20_agumon_png, 
         dm20_airdramon_png, 
@@ -227,7 +225,6 @@ namespace bongocat::animation {
         dm20_meicoomon_png, 
         dm20_meicrackmon_png, 
         dm20_meramon_png, 
-        dm20_metal_garurumon_png, 
         dm20_metal_greymon_png, 
         dm20_metal_mamemon_png, 
         dm20_metal_tyranomon_png, 
@@ -273,7 +270,6 @@ namespace bongocat::animation {
         dm20_tanemon_png, 
         dm20_titamon_png, 
         dm20_tokomon_png, 
-        dm20_tsunomon_png, 
         dm20_tunomon_png, 
         dm20_tuskmon_png, 
         dm20_tyranomon_png, 
@@ -294,7 +290,7 @@ namespace bongocat::animation {
         dm20_zurumon_png, 
         
     };
-    static const size_t dm20_png_sizes_table[] = {
+    static constexpr uint32_t dm20_png_sizes_table[] = {
         dm20_aegisdramon_png_size, 
         dm20_agumon_png_size, 
         dm20_airdramon_png_size, 
@@ -366,7 +362,6 @@ namespace bongocat::animation {
         dm20_meicoomon_png_size, 
         dm20_meicrackmon_png_size, 
         dm20_meramon_png_size, 
-        dm20_metal_garurumon_png_size, 
         dm20_metal_greymon_png_size, 
         dm20_metal_mamemon_png_size, 
         dm20_metal_tyranomon_png_size, 
@@ -412,7 +407,6 @@ namespace bongocat::animation {
         dm20_tanemon_png_size, 
         dm20_titamon_png_size, 
         dm20_tokomon_png_size, 
-        dm20_tsunomon_png_size, 
         dm20_tunomon_png_size, 
         dm20_tuskmon_png_size, 
         dm20_tyranomon_png_size, 
@@ -433,7 +427,7 @@ namespace bongocat::animation {
         dm20_zurumon_png_size, 
         
     };
-    static const char* dm20_names_table[] = {
+    static const char* const dm20_names_table[] = {
         assets::DM20_AEGISDRAMON_ID, 
         assets::DM20_AGUMON_ID, 
         assets::DM20_AIRDRAMON_ID, 
@@ -505,7 +499,6 @@ namespace bongocat::animation {
         assets::DM20_MEICOOMON_ID, 
         assets::DM20_MEICRACKMON_ID, 
         assets::DM20_MERAMON_ID, 
-        assets::DM20_METAL_GARURUMON_ID, 
         assets::DM20_METAL_GREYMON_ID, 
         assets::DM20_METAL_MAMEMON_ID, 
         assets::DM20_METAL_TYRANOMON_ID, 
@@ -551,7 +544,6 @@ namespace bongocat::animation {
         assets::DM20_TANEMON_ID, 
         assets::DM20_TITAMON_ID, 
         assets::DM20_TOKOMON_ID, 
-        assets::DM20_TSUNOMON_ID, 
         assets::DM20_TUNOMON_ID, 
         assets::DM20_TUSKMON_ID, 
         assets::DM20_TYRANOMON_ID, 

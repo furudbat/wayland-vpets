@@ -6,12 +6,30 @@
 /// @NOTE: Generated evolution data dm20
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dm20_evol_data_table[] ASSETS_DM20_EVOL_DATA_SECTION = {
+      struct compact_evolution_conditions_t {
+          int32_t next_evolution_time_sec{-1};
+          int8_t min_lvl{-1};
+      };
+      struct compact_evolution_data_t {
+          compact_evolution_conditions_t conditions;
+          uint8_t num_animation_indices{0};
+          int16_t animation_indices[animation::MAX_ANIMATION_EVOLUTION_INDICIES]{};
+      };
+      static animation::animation_evolution_data_t expand_evolution_data(const compact_evolution_data_t& data) {
+          animation::animation_evolution_data_t ret;
+          ret.conditions.next_evolution_time_sec = data.conditions.next_evolution_time_sec;
+          ret.conditions.min_lvl = data.conditions.min_lvl;
+          ret.num_animation_indices = data.num_animation_indices;
+          for (size_t i = 0; i < animation::MAX_ANIMATION_EVOLUTION_INDICIES; ++i) {
+              ret.animation_indices[i] = data.animation_indices[i];
+          }
+          return ret;
+      }
+    static constexpr compact_evolution_data_t dm20_evol_data_table[] ASSETS_DM20_EVOL_DATA_SECTION = {
         // Name: Aegisdramon
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_RUST_TYRANOMON_ANIM_INDEX
@@ -21,7 +39,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_GREYMON_ANIM_INDEX ,DM20_TYRANOMON_ANIM_INDEX ,DM20_DEVIMON_ANIM_INDEX ,DM20_MERAMON_ANIM_INDEX ,DM20_NUMEMON_ANIM_INDEX
@@ -31,7 +48,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_GREYMON_ANIM_INDEX
@@ -41,7 +57,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -51,7 +66,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_HI_ANDROMON_ANIM_INDEX
@@ -61,7 +75,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_SKULL_GREYMON_ANIM_INDEX
@@ -71,7 +84,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_GRACE_NOVAMON_ANIM_INDEX
@@ -81,7 +93,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DRACOMON_ANIM_INDEX
@@ -91,7 +102,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_GIROMON_ANIM_INDEX
@@ -101,7 +111,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -111,7 +120,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_SAVIOR_HACKMON_ANIM_INDEX
@@ -121,7 +129,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_DEVIMON_ANIM_INDEX ,DM20_MERAMON_ANIM_INDEX ,DM20_AIRDRAMON_ANIM_INDEX ,DM20_SEADRAMON_ANIM_INDEX ,DM20_NUMEMON_ANIM_INDEX
@@ -131,7 +138,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_SKULL_GREYMON_ANIM_INDEX
@@ -141,7 +147,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_OMEGAMON_ALTER_S_ANIM_INDEX
@@ -151,7 +156,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_KOROMON_ANIM_INDEX
@@ -161,7 +165,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_EXAMON_ANIM_INDEX
@@ -171,7 +174,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_GIROMON_ANIM_INDEX
@@ -181,7 +183,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_PICCOLOMON_ANIM_INDEX
@@ -191,7 +192,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MEGADRAMON_ANIM_INDEX
@@ -201,7 +201,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_WINGDRAMON_ANIM_INDEX
@@ -211,7 +210,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_GROUNDRAMON_ANIM_INDEX
@@ -221,7 +219,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_FIRAMON_ANIM_INDEX
@@ -231,7 +228,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DIANAMON_ANIM_INDEX
@@ -241,7 +237,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_OMEGAMON_ALTER_S_ANIM_INDEX
@@ -251,7 +246,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_NANOMON_ANIM_INDEX
@@ -261,7 +255,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_TYRANOMON_ANIM_INDEX
@@ -271,7 +264,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_NANOMON_ANIM_INDEX
@@ -281,7 +273,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_TYRANOMON_ANIM_INDEX
@@ -291,7 +282,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_GREYMON_ANIM_INDEX
@@ -301,7 +291,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_GRACE_NOVAMON_ANIM_INDEX
@@ -311,7 +300,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_TITAMON_ANIM_INDEX
@@ -321,7 +309,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DORIMON_ANIM_INDEX
@@ -331,7 +318,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DORUMON_ANIM_INDEX
@@ -341,7 +327,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DORUGUREMON_ANIM_INDEX
@@ -351,7 +336,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_ALPHAMON_ANIM_INDEX
@@ -361,7 +345,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DORUGAMON_ANIM_INDEX
@@ -371,7 +354,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_COREDRAMON_BLUE_ANIM_INDEX ,DM20_COREDRAMON_GREEN_ANIM_INDEX
@@ -381,7 +363,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_GIROMON_ANIM_INDEX
@@ -391,7 +372,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DURANDAMON_ANIM_INDEX
@@ -401,7 +381,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -411,7 +390,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_ANGEMON_ANIM_INDEX ,DM20_YUKIDARUMON_ANIM_INDEX ,DM20_BIRDRAMON_ANIM_INDEX ,DM20_WHAMON_ANIM_INDEX ,DM20_VEGIMON_ANIM_INDEX
@@ -421,7 +399,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_KING_ETEMON_ANIM_INDEX
@@ -431,7 +408,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -441,7 +417,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_PINOCHIMON_ANIM_INDEX
@@ -451,7 +426,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_FLAREMON_ANIM_INDEX
@@ -461,7 +435,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_APOLLOMON_ANIM_INDEX
@@ -471,7 +444,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_TYRANOMON_ANIM_INDEX
@@ -481,7 +453,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_KABUTERIMON_ANIM_INDEX ,DM20_GARURUMON_ANIM_INDEX ,DM20_ANGEMON_ANIM_INDEX ,DM20_YUKIDARUMON_ANIM_INDEX ,DM20_VEGIMON_ANIM_INDEX
@@ -491,7 +462,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_MAMEMON_ANIM_INDEX
@@ -501,7 +471,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_DARK_TYRANOMON_ANIM_INDEX ,DM20_CYCLOMON_ANIM_INDEX ,DM20_DEVIDRAMON_ANIM_INDEX ,DM20_TUSKMON_ANIM_INDEX ,DM20_RAREMON_ANIM_INDEX
@@ -511,7 +480,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -521,7 +489,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_DEVIDRAMON_ANIM_INDEX ,DM20_TUSKMON_ANIM_INDEX ,DM20_FLYMON_ANIM_INDEX ,DM20_DELTAMON_ANIM_INDEX ,DM20_RAREMON_ANIM_INDEX
@@ -531,7 +498,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -541,7 +507,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_GREYMON_ANIM_INDEX
@@ -551,7 +516,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_BREAKDRAMON_ANIM_INDEX ,DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX
@@ -561,7 +525,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_BAO_HACKMON_ANIM_INDEX
@@ -571,7 +534,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -581,7 +543,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -591,7 +552,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_SKULL_GREYMON_ANIM_INDEX
@@ -601,7 +561,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -611,7 +570,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_AGUMON_ANIM_INDEX ,DM20_BETAMON_ANIM_INDEX
@@ -621,7 +579,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_OGREMON_ANIM_INDEX ,DM20_BAKEMON_ANIM_INDEX ,DM20_SHELLMON_ANIM_INDEX ,DM20_DRIMOGEMON_ANIM_INDEX ,DM20_SCUMON_ANIM_INDEX
@@ -631,7 +588,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_PICCOLOMON_ANIM_INDEX
@@ -641,7 +597,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_CRESCEMON_ANIM_INDEX
@@ -651,7 +606,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MEGADRAMON_ANIM_INDEX
@@ -661,7 +615,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_LEKISMON_ANIM_INDEX
@@ -671,7 +624,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -681,7 +633,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_AEGISDRAMON_ANIM_INDEX
@@ -691,7 +642,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MEICRACKMON_ANIM_INDEX
@@ -701,7 +651,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_RASIELMON_ANIM_INDEX
@@ -711,27 +660,15 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MAMEMON_ANIM_INDEX
-            },
-        },
-        // Name: Metal Garurumon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Metal Greymon
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -741,7 +678,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_CRES_GARURUMON_ANIM_INDEX
@@ -751,7 +687,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MUGENDRAMON_ANIM_INDEX
@@ -761,7 +696,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_PICCOLOMON_ANIM_INDEX
@@ -771,7 +705,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MEGADRAMON_ANIM_INDEX
@@ -781,7 +714,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -791,7 +723,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_RUST_TYRANOMON_ANIM_INDEX
@@ -801,7 +732,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DIGITAMAMON_ANIM_INDEX
@@ -811,7 +741,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -821,7 +750,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MONZAEMON_ANIM_INDEX
@@ -831,7 +759,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_PLOTMON_ANIM_INDEX
@@ -841,7 +768,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_ANDROMON_ANIM_INDEX
@@ -851,7 +777,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -861,7 +786,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -871,7 +795,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_GAZIMON_ANIM_INDEX ,DM20_GIZAMON_ANIM_INDEX
@@ -881,7 +804,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_LEOMON_ANIM_INDEX ,DM20_KUWAGAMON_ANIM_INDEX ,DM20_COELAMON_ANIM_INDEX ,DM20_MOJYAMON_ANIM_INDEX ,DM20_NANIMON_ANIM_INDEX
@@ -891,7 +813,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_UNIMON_ANIM_INDEX ,DM20_CENTALMON_ANIM_INDEX ,DM20_OGREMON_ANIM_INDEX ,DM20_BAKEMON_ANIM_INDEX ,DM20_SCUMON_ANIM_INDEX
@@ -901,7 +822,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_BABYDMON_ANIM_INDEX
@@ -911,7 +831,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -921,7 +840,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -931,7 +849,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_PUKAMON_ANIM_INDEX
@@ -941,7 +858,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DM20_MONOCHROMON_ANIM_INDEX ,DM20_COCKATRIMON_ANIM_INDEX ,DM20_LEOMON_ANIM_INDEX ,DM20_KUWAGAMON_ANIM_INDEX ,DM20_NANIMON_ANIM_INDEX
@@ -951,7 +867,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MEICOOMON_ANIM_INDEX
@@ -961,7 +876,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_TOKOMON_ANIM_INDEX
@@ -971,7 +885,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_CORONAMON_ANIM_INDEX ,DM20_LUNAMON_ANIM_INDEX
@@ -981,7 +894,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_TUNOMON_ANIM_INDEX
@@ -991,7 +903,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_EX_TYRANOMON_ANIM_INDEX
@@ -1001,7 +912,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1011,7 +921,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1021,7 +930,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_SAKUTTOMON_ANIM_INDEX
@@ -1031,7 +939,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_ZUBAMON_ANIM_INDEX ,DM20_HACKMON_ANIM_INDEX
@@ -1041,7 +948,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_JESMON_ANIM_INDEX
@@ -1051,7 +957,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_ETEMON_ANIM_INDEX
@@ -1061,7 +966,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MAMEMON_ANIM_INDEX
@@ -1071,7 +975,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_ANDROMON_ANIM_INDEX
@@ -1081,7 +984,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_SKULL_MAMMON_ANIM_INDEX
@@ -1091,7 +993,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1101,7 +1002,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_EXAMON_ANIM_INDEX
@@ -1111,7 +1011,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_TAICHIS_GREYMON_ANIM_INDEX
@@ -1121,7 +1020,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_TAICHIS_METAL_GREYMON_ANIM_INDEX
@@ -1131,7 +1029,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX
@@ -1141,7 +1038,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_OMEGAMON_ANIM_INDEX
@@ -1151,7 +1047,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_PIYOMON_ANIM_INDEX ,DM20_PALMON_ANIM_INDEX
@@ -1161,7 +1056,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1171,27 +1065,15 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_PATAMON_ANIM_INDEX ,DM20_KUNEMON_ANIM_INDEX
-            },
-        },
-        // Name: Tsunomon
-        {
-            // Stage: Baby II
-            .conditions = { .next_evolution_time_sec = 21600 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Tunomon
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 21600 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_GABUMON_ANIM_INDEX ,DM20_ELECMON_ANIM_INDEX
@@ -1201,7 +1083,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_NANOMON_ANIM_INDEX
@@ -1211,7 +1092,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_MAMEMON_ANIM_INDEX
@@ -1221,7 +1101,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_ANDROMON_ANIM_INDEX
@@ -1231,7 +1110,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1241,7 +1119,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_VADEMON_ANIM_INDEX
@@ -1251,7 +1128,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_MAMEMON_ANIM_INDEX
@@ -1261,7 +1137,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_SLAYERDRAMON_ANIM_INDEX ,DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX
@@ -1271,7 +1146,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_YAMATOS_GARURUMON_ANIM_INDEX
@@ -1281,7 +1155,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_YAMATOS_WERE_GARURUMON_ANIM_INDEX
@@ -1291,7 +1164,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_OMEGAMON_ANIM_INDEX
@@ -1301,7 +1173,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX
@@ -1311,7 +1182,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_METAL_MAMEMON_ANIM_INDEX
@@ -1321,7 +1191,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_NYAROMON_ANIM_INDEX
@@ -1331,7 +1200,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_TANEMON_ANIM_INDEX
@@ -1341,7 +1209,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_DURAMON_ANIM_INDEX
@@ -1351,7 +1218,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_ZUBAEAGERMON_ANIM_INDEX
@@ -1361,7 +1227,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DM20_PAGUMON_ANIM_INDEX
@@ -1373,7 +1238,7 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(dm20_evol_data_table) == DM20_ANIM_COUNT);
         assert(index < DM20_ANIM_COUNT);
-        auto result = dm20_evol_data_table[index];
+        auto result = expand_evolution_data(dm20_evol_data_table[index]);
         return result;
     }
 }

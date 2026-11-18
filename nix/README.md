@@ -3,6 +3,8 @@
 - **`NIXOS.md`** - Comprehensive installation guide for Nix/NixOS users
 - **`default.nix`** - Main package derivation
 - **`nixos-module.nix`** - NixOS system module
+- **`home-module.nix`** - Home Manager module
+- **`common.nix`** - Shared implementation of both modules (options, generated config)
 - **`shell.nix`** - Development environment
 - **`scripts/tests/test_nix_build.sh`** - Test script for validating builds
 
@@ -14,6 +16,9 @@ nix develop
 
 # Build
 nix build
+
+# Build with the audio module (PipeWire + FFTW)
+nix build .#with-audio
 
 # Build and run
 nix run ./#default

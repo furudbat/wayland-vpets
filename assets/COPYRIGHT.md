@@ -64,7 +64,10 @@ Clippy and other MS Agents are owed by Microsoft.
 - [Wikimon](https://wikimon.net/) 
 - [Airshuffler](https://www.spriters-resource.com/submitter/airshuffler/) - digimon v-pet sprites
 - [Tortoiseshel](https://withthewill.net/threads/full-color-digimon-dot-sprites.25843/) - colored digimon sprites
+- Digitama Hatchery Discord - some colored digimon sprites
 - [Siul](https://www.spriters-resource.com/pc_computer/microsoftofficexp/sheet/104487/) - MS agent sprites
 - https://github.com/msikma/pokesprite
 - [bulbagarden Wiki](https://archives.bulbagarden.net/wiki/Category:Animated_menu_sprites)
 - [pokeapi](https://pokeapi.co/)
+- [Digimon Color Sprite Database (dmc-sprite-database)](https://github.com/tero0x/dmc-sprite-database)
+- [Digimon Color Sprite Archive](https://drive.google.com/drive/folders/1AmQpM2K61naEHC2NgLXoptONekbjRdzR)

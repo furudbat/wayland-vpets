@@ -6,12 +6,30 @@
 /// @NOTE: Generated evolution data dmx
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dmx_evol_data_table[] ASSETS_DMX_EVOL_DATA_SECTION = {
+      struct compact_evolution_conditions_t {
+          int32_t next_evolution_time_sec{-1};
+          int8_t min_lvl{-1};
+      };
+      struct compact_evolution_data_t {
+          compact_evolution_conditions_t conditions;
+          uint8_t num_animation_indices{0};
+          int16_t animation_indices[animation::MAX_ANIMATION_EVOLUTION_INDICIES]{};
+      };
+      static animation::animation_evolution_data_t expand_evolution_data(const compact_evolution_data_t& data) {
+          animation::animation_evolution_data_t ret;
+          ret.conditions.next_evolution_time_sec = data.conditions.next_evolution_time_sec;
+          ret.conditions.min_lvl = data.conditions.min_lvl;
+          ret.num_animation_indices = data.num_animation_indices;
+          for (size_t i = 0; i < animation::MAX_ANIMATION_EVOLUTION_INDICIES; ++i) {
+              ret.animation_indices[i] = data.animation_indices[i];
+          }
+          return ret;
+      }
+    static constexpr compact_evolution_data_t dmx_evol_data_table[] ASSETS_DMX_EVOL_DATA_SECTION = {
         // Name: Agumon (Black) X
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_DARK_TYRANOMON_X_ANIM_INDEX ,DMX_KUWAGAMON_X_ANIM_INDEX ,DMX_NUMEMON_X_ANIM_INDEX ,DMX_ALLOMON_X_ANIM_INDEX
@@ -21,7 +39,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_TYRANOMON_X_ANIM_INDEX ,DMX_TOBUCATMON_ANIM_INDEX ,DMX_DAMEMON_ANIM_INDEX
@@ -31,7 +48,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_TRICERAMON_X_ANIM_INDEX ,DMX_METAL_FANTOMON_ANIM_INDEX ,DMX_MAMMON_X_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX
@@ -41,7 +57,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -51,7 +66,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -61,7 +75,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -71,7 +84,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_OFANIMON_X_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX
@@ -81,7 +93,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX ,DMX_PLESIOMON_X_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX
@@ -91,7 +102,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_DARKNESS_BAGRAMON_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -101,7 +111,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -111,7 +120,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_DIABLOMON_X_ANIM_INDEX
@@ -121,7 +129,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_DIABLOMON_X_ANIM_INDEX
@@ -131,7 +138,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_DIABLOMON_X_ANIM_INDEX
@@ -141,7 +147,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -151,7 +156,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_DEMON_X_ANIM_INDEX ,DMX_RASENMON_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -161,7 +165,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_RAPIDMON_X_ANIM_INDEX ,DMX_TIGER_VESPAMON_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX
@@ -171,7 +174,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_SAKUYAMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX ,DMX_BELIAL_VAMDEMON_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -181,7 +183,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_DEMON_X_ANIM_INDEX ,DMX_LUCEMON_X_ANIM_INDEX ,DMX_DIABLOMON_X_ANIM_INDEX
@@ -191,7 +192,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_BELPHEMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -201,7 +201,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX
@@ -211,7 +210,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_BEEL_STARMON_X_ANIM_INDEX ,DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_METAL_GARURUMON_X_ANIM_INDEX ,DMX_BELIAL_VAMDEMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -221,7 +219,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -231,7 +228,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_LORD_KNIGHTMON_X_ANIM_INDEX ,DMX_ALPHAMON_ANIM_INDEX
@@ -241,7 +237,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_JUSTIMON_X_ANIM_INDEX ,DMX_ALPHAMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_HEXEBLAUMON_ANIM_INDEX ,DMX_GODDRAMON_X_ANIM_INDEX ,DMX_OURYUMON_ANIM_INDEX
@@ -251,7 +246,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_JUSTIMON_X_ANIM_INDEX ,DMX_HOUOUMON_X_ANIM_INDEX ,DMX_TIGER_VESPAMON_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX
@@ -261,7 +255,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_CERBERUMON_X_ANIM_INDEX ,DMX_SKULL_BALUCHIMON_ANIM_INDEX ,DMX_MEGALO_GROWMON_X_ANIM_INDEX ,DMX_CHO_HAKKAIMON_ANIM_INDEX ,DMX_LILIMON_X_ANIM_INDEX
@@ -271,7 +264,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_LUCEMON_X_ANIM_INDEX ,DMX_DARKNESS_BAGRAMON_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -281,7 +273,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -291,7 +282,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_METAL_GREYMON_VIRUS_X_ANIM_INDEX ,DMX_MAMMON_X_ANIM_INDEX ,DMX_TRICERAMON_X_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX
@@ -301,7 +291,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -311,7 +300,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -321,7 +309,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_LEVIAMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -331,7 +318,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_LORD_KNIGHTMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX
@@ -341,7 +327,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_GARUDAMON_X_ANIM_INDEX ,DMX_CANNONBEEMON_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX
@@ -351,7 +336,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_ALPHAMON_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX
@@ -361,7 +345,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_DORUGAMON_ANIM_INDEX ,DMX_PTERANOMON_X_ANIM_INDEX ,DMX_SIESAMON_X_ANIM_INDEX ,DMX_OMEKAMON_ANIM_INDEX ,DMX_MERAMON_X_ANIM_INDEX
@@ -371,7 +354,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_GROWMON_X_ANIM_INDEX ,DMX_DAMEMON_ANIM_INDEX
@@ -381,7 +363,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -391,7 +372,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -401,7 +381,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_DARK_TYRANOMON_X_ANIM_INDEX ,DMX_OGREMON_X_ANIM_INDEX ,DMX_VELGRMON_ANIM_INDEX ,DMX_NUMEMON_X_ANIM_INDEX
@@ -411,7 +390,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -421,27 +399,15 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_GANKOOMON_X_ANIM_INDEX ,DMX_LORD_KNIGHTMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX ,DMX_EXAMON_X_ANIM_INDEX
-            },
-        },
-        // Name: Examon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Examon X
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -451,7 +417,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 7,
             .animation_indices = {
                 DMX_METAL_GREYMON_VIRUS_X_ANIM_INDEX ,DMX_TRICERAMON_X_ANIM_INDEX ,DMX_VAMDEMON_X_ANIM_INDEX ,DMX_MEGA_SEADRAMON_X_ANIM_INDEX ,DMX_STIFFILMON_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX ,DMX_KAISER_LEOMON_ANIM_INDEX
@@ -461,7 +426,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_RHINOMON_X_ANIM_INDEX ,DMX_TOBUCATMON_ANIM_INDEX ,DMX_DAMEMON_ANIM_INDEX
@@ -471,7 +435,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_ALPHAMON_OURYUKEN_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX
@@ -480,8 +443,7 @@ namespace bongocat::assets {
         // Name: Gankoomon X
         {
             // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = 259200 },
-            
+            .conditions = { .next_evolution_time_sec = 273600 },
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_JESMON_GX_ANIM_INDEX
@@ -491,7 +453,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_HOUOUMON_X_ANIM_INDEX ,DMX_TIGER_VESPAMON_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX
@@ -501,7 +462,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_LEVIAMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -511,7 +471,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_HISYARYUMON_ANIM_INDEX ,DMX_ANOMALOCARIMON_X_ANIM_INDEX ,DMX_GRADEMON_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX
@@ -521,7 +480,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_EXAMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX
@@ -531,7 +489,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_MANTARAYMON_X_ANIM_INDEX ,DMX_KUWAGAMON_X_ANIM_INDEX ,DMX_ALLOMON_X_ANIM_INDEX
@@ -541,27 +498,15 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 10,
             .animation_indices = {
                 DMX_JUSTIMON_X_ANIM_INDEX ,DMX_ALPHAMON_ANIM_INDEX ,DMX_HOUOUMON_X_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX ,DMX_NOBLE_PUMPMON_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX ,DMX_GODDRAMON_X_ANIM_INDEX ,DMX_OURYUMON_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX
-            },
-        },
-        // Name: Grand Dracumon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Grandis Kuwagamon
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_LEVIAMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -571,7 +516,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_MEGALO_GROWMON_X_ANIM_INDEX ,DMX_CHO_HAKKAIMON_ANIM_INDEX ,DMX_METAL_TYRANOMON_X_ANIM_INDEX ,DMX_YATAGARAMON_ANIM_INDEX
@@ -581,7 +525,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_TERRIERMON_X_ANIM_INDEX ,DMX_PALMON_X_ANIM_INDEX ,DMX_DORUMON_ANIM_INDEX ,DMX_JAZAMON_ANIM_INDEX
@@ -591,7 +534,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_SANGLOUPMON_ANIM_INDEX ,DMX_TYRANOMON_X_ANIM_INDEX ,DMX_DAMEMON_ANIM_INDEX
@@ -601,7 +543,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_MAGNAMON_X_ANIM_INDEX ,DMX_GANKOOMON_X_ANIM_INDEX ,DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX ,DMX_DUFTMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX
@@ -611,7 +552,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -621,7 +561,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_MAGNAMON_X_ANIM_INDEX ,DMX_LORD_KNIGHTMON_X_ANIM_INDEX ,DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX
@@ -631,7 +570,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_DYNASMON_X_ANIM_INDEX ,DMX_LORD_KNIGHTMON_X_ANIM_INDEX
@@ -641,27 +579,15 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_OGREMON_X_ANIM_INDEX ,DMX_SEADRAMON_X_ANIM_INDEX ,DMX_NUMEMON_X_ANIM_INDEX ,DMX_ALLOMON_X_ANIM_INDEX
-            },
-        },
-        // Name: Jararchimon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 144000 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Jazamon
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_PTERANOMON_X_ANIM_INDEX ,DMX_OMEKAMON_ANIM_INDEX ,DMX_PEGASMON_X_ANIM_INDEX ,DMX_JAZARDMON_ANIM_INDEX ,DMX_TYLOMON_X_ANIM_INDEX
@@ -671,7 +597,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_ANGEWOMON_X_ANIM_INDEX ,DMX_ANOMALOCARIMON_X_ANIM_INDEX ,DMX_GARUDAMON_X_ANIM_INDEX ,DMX_CANNONBEEMON_ANIM_INDEX ,DMX_JAZARICHMON_ANIM_INDEX ,DMX_PUMPMON_ANIM_INDEX
@@ -681,7 +606,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 8,
             .animation_indices = {
                 DMX_RAPIDMON_X_ANIM_INDEX ,DMX_HOUOUMON_X_ANIM_INDEX ,DMX_TIGER_VESPAMON_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX ,DMX_METALLICDRAMON_ANIM_INDEX ,DMX_OFANIMON_X_ANIM_INDEX ,DMX_PLESIOMON_X_ANIM_INDEX ,DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX
@@ -691,7 +615,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -701,7 +624,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_ALPHAMON_ANIM_INDEX
@@ -711,7 +633,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_GANKOOMON_X_ANIM_INDEX ,DMX_LORD_KNIGHTMON_X_ANIM_INDEX
@@ -721,27 +642,15 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 7,
             .animation_indices = {
                 DMX_OFANIMON_FALLDOWN_MODE_X_ANIM_INDEX ,DMX_ULTIMATE_BRACHIOMON_ANIM_INDEX ,DMX_CHERUBIMON_VICE_X_ANIM_INDEX ,DMX_DINOREXMON_ANIM_INDEX ,DMX_RAIHIMON_ANIM_INDEX ,DMX_BAGRAMON_ANIM_INDEX ,DMX_BEEL_STARMON_X_ANIM_INDEX
-            },
-        },
-        // Name: Keemon
-        {
-            // Stage: Baby I
-            .conditions = { .next_evolution_time_sec = 600 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Keramon X
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_DIABLOMON_X_ANIM_INDEX
@@ -751,7 +660,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_YAAMON_ANIM_INDEX
@@ -761,7 +669,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_KUWAGAMON_X_ANIM_INDEX ,DMX_FILMON_ANIM_INDEX ,DMX_NUMEMON_X_ANIM_INDEX ,DMX_VELGRMON_ANIM_INDEX ,DMX_ALLOMON_X_ANIM_INDEX
@@ -771,7 +678,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_OKUWAMON_X_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX ,DMX_MAMMON_X_ANIM_INDEX
@@ -781,7 +687,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_OFANIMON_FALLDOWN_MODE_X_ANIM_INDEX ,DMX_GRANDIS_KUWAGAMON_ANIM_INDEX ,DMX_ROSEMON_X_ANIM_INDEX ,DMX_BEEL_STARMON_X_ANIM_INDEX
@@ -791,7 +696,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_CERBERUMON_X_ANIM_INDEX ,DMX_METAL_GREYMON_X_ANIM_INDEX ,DMX_METAL_TYRANOMON_X_ANIM_INDEX ,DMX_YATAGARAMON_ANIM_INDEX
@@ -801,7 +705,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -811,7 +714,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_RAFFLESIMON_ANIM_INDEX ,DMX_BEEL_STARMON_X_ANIM_INDEX ,DMX_VALDURMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -821,7 +723,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -831,27 +732,15 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_WIZARMON_X_ANIM_INDEX ,DMX_GINRYUMON_ANIM_INDEX ,DMX_TYLOMON_X_ANIM_INDEX ,DMX_OMEKAMON_ANIM_INDEX
-            },
-        },
-        // Name: Lord Kightmon X
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Lord Knightmon X
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -861,17 +750,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
-        // Name: Magidramon X
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -879,9 +757,8 @@ namespace bongocat::assets {
         },
         // Name: Magnamon X
         {
-            // Stage: Adult
-            .conditions = { .next_evolution_time_sec = 115200 },
-            
+            // Stage: Ultimate
+            .conditions = { .next_evolution_time_sec = 172800 },
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -891,7 +768,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 12,
             .animation_indices = {
                 DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_JUSTIMON_X_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX ,DMX_HEXEBLAUMON_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_METALLICDRAMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_GODDRAMON_X_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX
@@ -901,7 +777,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 9,
             .animation_indices = {
                 DMX_PRINCE_MAMEMON_X_ANIM_INDEX ,DMX_BLACK_WAR_GREYMON_X_ANIM_INDEX ,DMX_DARK_KNIGHTMON_X_ANIM_INDEX ,DMX_METAL_PIRANIMON_ANIM_INDEX ,DMX_BAGRAMON_ANIM_INDEX ,DMX_RAIHIMON_ANIM_INDEX ,DMX_CHAOSDRAMON_X_ANIM_INDEX ,DMX_RASENMON_FURY_MODE_ANIM_INDEX ,DMX_ROSEMON_X_ANIM_INDEX
@@ -911,7 +786,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_GRANDIS_KUWAGAMON_ANIM_INDEX ,DMX_OFANIMON_FALLDOWN_MODE_X_ANIM_INDEX ,DMX_SKULL_MAMMON_X_ANIM_INDEX ,DMX_BEEL_STARMON_X_ANIM_INDEX ,DMX_ROSEMON_X_ANIM_INDEX
@@ -921,7 +795,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_LADY_DEVIMON_X_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX ,DMX_OKUWAMON_X_ANIM_INDEX
@@ -931,7 +804,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_MEGIDRAMON_X_ANIM_INDEX ,DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX ,DMX_BELIAL_VAMDEMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -941,7 +813,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_GIGA_SEADRAMON_ANIM_INDEX ,DMX_CHAOSDRAMON_X_ANIM_INDEX ,DMX_SKULL_MAMMON_X_ANIM_INDEX
@@ -951,7 +822,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_DUKEMON_X_ANIM_INDEX
@@ -961,7 +831,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_CHERUBIMON_VICE_X_ANIM_INDEX ,DMX_DINOREXMON_ANIM_INDEX ,DMX_ROSEMON_X_ANIM_INDEX ,DMX_BEEL_STARMON_X_ANIM_INDEX
@@ -971,7 +840,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_OMEGA_SHOUTMON_X_ANIM_INDEX ,DMX_CYBERDRAMON_X_ANIM_INDEX ,DMX_GARUDAMON_X_ANIM_INDEX ,DMX_GRADEMON_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX
@@ -981,7 +849,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_DINOREXMON_ANIM_INDEX ,DMX_CHAOSDRAMON_X_ANIM_INDEX ,DMX_SKULL_MAMMON_X_ANIM_INDEX ,DMX_METAL_PIRANIMON_ANIM_INDEX ,DMX_DARK_KNIGHTMON_X_ANIM_INDEX
@@ -991,7 +858,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_OMEGAMON_X_ANIM_INDEX
@@ -1001,7 +867,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_BLACK_WAR_GREYMON_X_ANIM_INDEX ,DMX_ULTIMATE_BRACHIOMON_ANIM_INDEX ,DMX_SKULL_MAMMON_X_ANIM_INDEX ,DMX_PRINCE_MAMEMON_X_ANIM_INDEX ,DMX_METAL_PIRANIMON_ANIM_INDEX ,DMX_CHAOSDRAMON_X_ANIM_INDEX
@@ -1011,7 +876,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_WAR_GREYMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX ,DMX_VALDURMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -1021,7 +885,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_MAGNAMON_X_ANIM_INDEX ,DMX_DYNASMON_X_ANIM_INDEX ,DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_EXAMON_X_ANIM_INDEX ,DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX
@@ -1031,7 +894,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_LILITHMON_X_ANIM_INDEX ,DMX_BELPHEMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -1041,7 +903,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 8,
             .animation_indices = {
                 DMX_BEELZEBUMON_X_ANIM_INDEX ,DMX_WAR_GREYMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX ,DMX_MEGIDRAMON_X_ANIM_INDEX ,DMX_METAL_GARURUMON_X_ANIM_INDEX ,DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_BELIAL_VAMDEMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -1051,7 +912,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1061,7 +921,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX ,DMX_OFANIMON_X_ANIM_INDEX ,DMX_PLESIOMON_X_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX
@@ -1071,7 +930,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_MEPHISMON_X_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX ,DMX_MEGA_SEADRAMON_X_ANIM_INDEX
@@ -1081,7 +939,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_DUKEMON_X_ANIM_INDEX ,DMX_LORD_KNIGHTMON_X_ANIM_INDEX ,DMX_OMEGAMON_X_ANIM_INDEX ,DMX_DUFTMON_X_ANIM_INDEX
@@ -1091,27 +948,15 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 10,
             .animation_indices = {
                 DMX_METAL_GREYMON_VIRUS_X_ANIM_INDEX ,DMX_OKUWAMON_X_ANIM_INDEX ,DMX_LADY_DEVIMON_X_ANIM_INDEX ,DMX_TRICERAMON_X_ANIM_INDEX ,DMX_VAMDEMON_X_ANIM_INDEX ,DMX_MEGA_SEADRAMON_X_ANIM_INDEX ,DMX_MEPHISMON_X_ANIM_INDEX ,DMX_METAL_FANTOMON_ANIM_INDEX ,DMX_STIFFILMON_ANIM_INDEX ,DMX_KAISER_LEOMON_ANIM_INDEX
-            },
-        },
-        // Name: Ofanimon Falldown Mode
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Ofanimon Falldown Mode X
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_LILITHMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -1121,7 +966,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_DUFTMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX
@@ -1131,7 +975,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_VAMDEMON_X_ANIM_INDEX ,DMX_MAMMON_X_ANIM_INDEX ,DMX_METAL_FANTOMON_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX
@@ -1141,7 +984,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1151,7 +993,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_GRANDIS_KUWAGAMON_ANIM_INDEX ,DMX_ROSEMON_X_ANIM_INDEX ,DMX_BEEL_STARMON_X_ANIM_INDEX ,DMX_SKULL_MAMMON_X_ANIM_INDEX
@@ -1161,7 +1002,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1171,7 +1011,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_RAPIDMON_X_ANIM_INDEX ,DMX_ALPHAMON_ANIM_INDEX ,DMX_TIGER_VESPAMON_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX
@@ -1181,7 +1020,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 11,
             .animation_indices = {
                 DMX_CRYS_PALEDRAMON_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX ,DMX_JAZARICHMON_ANIM_INDEX ,DMX_PUMPMON_ANIM_INDEX ,DMX_OMEGA_SHOUTMON_X_ANIM_INDEX ,DMX_CYBERDRAMON_X_ANIM_INDEX ,DMX_DORUGUREMON_ANIM_INDEX ,DMX_MONZAEMON_X_ANIM_INDEX ,DMX_RIZE_GREYMON_X_ANIM_INDEX ,DMX_HISYARYUMON_ANIM_INDEX ,DMX_GRADEMON_ANIM_INDEX
@@ -1191,7 +1029,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_SEADRAMON_X_ANIM_INDEX ,DMX_FILMON_ANIM_INDEX ,DMX_NUMEMON_X_ANIM_INDEX ,DMX_VELGRMON_ANIM_INDEX ,DMX_ALLOMON_X_ANIM_INDEX
@@ -1201,7 +1038,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_ALPHAMON_OURYUKEN_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX
@@ -1211,7 +1047,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_CYBERDRAMON_X_ANIM_INDEX ,DMX_DORUGUREMON_ANIM_INDEX ,DMX_CRYS_PALEDRAMON_ANIM_INDEX ,DMX_PUMPMON_ANIM_INDEX ,DMX_RIZE_GREYMON_X_ANIM_INDEX ,DMX_HISYARYUMON_ANIM_INDEX
@@ -1221,7 +1056,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_TOGEMON_X_ANIM_INDEX ,DMX_PTERANOMON_X_ANIM_INDEX ,DMX_OMEKAMON_ANIM_INDEX
@@ -1231,7 +1065,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_MONZAEMON_X_ANIM_INDEX ,DMX_ANGEWOMON_X_ANIM_INDEX ,DMX_GRADEMON_ANIM_INDEX ,DMX_HISYARYUMON_ANIM_INDEX
@@ -1241,7 +1074,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_OMEGAMON_X_ANIM_INDEX
@@ -1251,7 +1083,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_OMEGAMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX
@@ -1261,7 +1092,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_NEFERTIMON_X_ANIM_INDEX ,DMX_SEADRAMON_X_ANIM_INDEX ,DMX_ALLOMON_X_ANIM_INDEX
@@ -1271,27 +1101,15 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_DEMON_X_ANIM_INDEX ,DMX_LUCEMON_X_ANIM_INDEX ,DMX_DIABLOMON_X_ANIM_INDEX
-            },
-        },
-        // Name: Pteranmon X
-        {
-            // Stage: Adult
-            .conditions = { .next_evolution_time_sec = 115200 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Pteranomon X
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 10,
             .animation_indices = {
                 DMX_OMEGA_SHOUTMON_X_ANIM_INDEX ,DMX_CYBERDRAMON_X_ANIM_INDEX ,DMX_DORUGUREMON_ANIM_INDEX ,DMX_GARUDAMON_X_ANIM_INDEX ,DMX_CANNONBEEMON_ANIM_INDEX ,DMX_GRADEMON_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX ,DMX_CRYS_PALEDRAMON_ANIM_INDEX ,DMX_JAZARICHMON_ANIM_INDEX ,DMX_PUMPMON_ANIM_INDEX
@@ -1301,7 +1119,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_NOBLE_PUMPMON_ANIM_INDEX ,DMX_DINOTIGERMON_ANIM_INDEX ,DMX_RAPIDMON_X_ANIM_INDEX ,DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX
@@ -1311,7 +1128,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_TOKOMON_X_ANIM_INDEX
@@ -1321,7 +1137,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_MINERVAMON_X_ANIM_INDEX ,DMX_LORD_KNIGHTMON_X_ANIM_INDEX
@@ -1331,7 +1146,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_ANCIENT_SPHINXMON_ANIM_INDEX ,DMX_BEELZEBUMON_X_ANIM_INDEX
@@ -1341,7 +1155,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_MAGNAMON_X_ANIM_INDEX ,DMX_CRANIUMMON_X_ANIM_INDEX
@@ -1351,7 +1164,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_RASENMON_ANIM_INDEX ,DMX_DIABLOMON_X_ANIM_INDEX
@@ -1361,7 +1173,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1371,7 +1182,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_LEOMON_X_ANIM_INDEX ,DMX_SANGLOUPMON_ANIM_INDEX ,DMX_DAMEMON_ANIM_INDEX
@@ -1381,7 +1191,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_WERE_GARURUMON_X_ANIM_INDEX ,DMX_MEGALO_GROWMON_X_ANIM_INDEX ,DMX_YATAGARAMON_ANIM_INDEX
@@ -1391,7 +1200,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_GODDRAMON_X_ANIM_INDEX ,DMX_OURYUMON_ANIM_INDEX ,DMX_HOLYDRAMON_X_ANIM_INDEX ,DMX_PLESIOMON_X_ANIM_INDEX ,DMX_GAIOUMON_ANIM_INDEX ,DMX_EBEMON_X_ANIM_INDEX
@@ -1401,7 +1209,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_LILITHMON_X_ANIM_INDEX ,DMX_BELPHEMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -1411,7 +1218,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_GINRYUMON_ANIM_INDEX ,DMX_WIZARMON_X_ANIM_INDEX ,DMX_TYLOMON_X_ANIM_INDEX ,DMX_OMEKAMON_ANIM_INDEX ,DMX_PEGASMON_X_ANIM_INDEX
@@ -1421,7 +1227,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_DUKEMON_X_ANIM_INDEX
@@ -1431,7 +1236,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_CERBERUMON_X_ANIM_INDEX ,DMX_SKULL_BALUCHIMON_ANIM_INDEX
@@ -1441,7 +1245,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_MEGA_SEADRAMON_X_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX ,DMX_MAMMON_X_ANIM_INDEX
@@ -1451,7 +1254,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 7,
             .animation_indices = {
                 DMX_WIZARMON_X_ANIM_INDEX ,DMX_GINRYUMON_ANIM_INDEX ,DMX_TAILMON_X_ANIM_INDEX ,DMX_TYLOMON_X_ANIM_INDEX ,DMX_OMEKAMON_ANIM_INDEX ,DMX_PALEDRAMON_ANIM_INDEX ,DMX_JAZARDMON_ANIM_INDEX
@@ -1461,7 +1263,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_OMEGA_SHOUTMON_X_ANIM_INDEX ,DMX_DORUGUREMON_ANIM_INDEX ,DMX_GARUDAMON_X_ANIM_INDEX ,DMX_GRADEMON_ANIM_INDEX
@@ -1471,7 +1272,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_RHINOMON_X_ANIM_INDEX ,DMX_DAMEMON_ANIM_INDEX
@@ -1481,7 +1281,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_SAKUYAMON_X_ANIM_INDEX ,DMX_VALDURMON_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -1491,7 +1290,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_LEVIAMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -1501,7 +1299,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_MINERVAMON_X_ANIM_INDEX ,DMX_ALPHAMON_ANIM_INDEX
@@ -1511,7 +1308,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 7,
             .animation_indices = {
                 DMX_BLACK_WAR_GREYMON_X_ANIM_INDEX ,DMX_GRANDIS_KUWAGAMON_ANIM_INDEX ,DMX_DARK_KNIGHTMON_X_ANIM_INDEX ,DMX_GIGA_SEADRAMON_ANIM_INDEX ,DMX_RASENMON_FURY_MODE_ANIM_INDEX ,DMX_BAGRAMON_ANIM_INDEX ,DMX_ROSEMON_X_ANIM_INDEX
@@ -1521,7 +1317,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_ANGEWOMON_X_ANIM_INDEX ,DMX_MONZAEMON_X_ANIM_INDEX ,DMX_GRADEMON_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX
@@ -1531,7 +1326,6 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_SIESAMON_X_ANIM_INDEX ,DMX_MERAMON_X_ANIM_INDEX ,DMX_DORUGAMON_ANIM_INDEX ,DMX_TOGEMON_X_ANIM_INDEX
@@ -1541,7 +1335,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_CRANIUMMON_X_ANIM_INDEX ,DMX_DUKEMON_X_ANIM_INDEX
@@ -1551,7 +1344,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_SKULL_BALUCHIMON_ANIM_INDEX ,DMX_METAL_GREYMON_X_ANIM_INDEX ,DMX_CHO_HAKKAIMON_ANIM_INDEX ,DMX_WERE_GARURUMON_X_ANIM_INDEX ,DMX_YATAGARAMON_ANIM_INDEX
@@ -1561,7 +1353,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_CYBERDRAMON_X_ANIM_INDEX ,DMX_DORUGUREMON_ANIM_INDEX ,DMX_CANNONBEEMON_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX
@@ -1571,7 +1362,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
-            
             .num_animation_indices = 6,
             .animation_indices = {
                 DMX_RENAMON_X_ANIM_INDEX ,DMX_AGUMON_X_ANIM_INDEX ,DMX_HERISSMON_ANIM_INDEX ,DMX_DRACOMON_X_ANIM_INDEX ,DMX_GABUMON_X_ANIM_INDEX ,DMX_SISTERMON_BLANC_ANIM_INDEX
@@ -1581,7 +1371,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_ULTIMATE_BRACHIOMON_ANIM_INDEX ,DMX_CHAOSDRAMON_X_ANIM_INDEX ,DMX_PRINCE_MAMEMON_X_ANIM_INDEX ,DMX_SKULL_MAMMON_X_ANIM_INDEX ,DMX_METAL_PIRANIMON_ANIM_INDEX
@@ -1591,7 +1380,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_RIZE_GREYMON_X_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX
@@ -1601,7 +1389,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 3,
             .animation_indices = {
                 DMX_METAL_GREYMON_X_ANIM_INDEX ,DMX_METAL_TYRANOMON_X_ANIM_INDEX ,DMX_YATAGARAMON_ANIM_INDEX
@@ -1611,7 +1398,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 172800 },
-            
             .num_animation_indices = 0,
             .animation_indices = {
                 
@@ -1621,7 +1407,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMX_LEVIAMON_X_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
@@ -1631,7 +1416,6 @@ namespace bongocat::assets {
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_DUKEMON_X_ANIM_INDEX
@@ -1641,7 +1425,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_DARK_KNIGHTMON_X_ANIM_INDEX ,DMX_CHERUBIMON_VICE_X_ANIM_INDEX ,DMX_METAL_PIRANIMON_ANIM_INDEX ,DMX_PRINCE_MAMEMON_X_ANIM_INDEX ,DMX_CHAOSDRAMON_X_ANIM_INDEX
@@ -1651,27 +1434,15 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 7,
             .animation_indices = {
                 DMX_LADY_DEVIMON_X_ANIM_INDEX ,DMX_OKUWAMON_X_ANIM_INDEX ,DMX_MEPHISMON_X_ANIM_INDEX ,DMX_METAL_FANTOMON_ANIM_INDEX ,DMX_KAISER_LEOMON_ANIM_INDEX ,DMX_MAMETYRAMON_ANIM_INDEX ,DMX_STIFFILMON_ANIM_INDEX
-            },
-        },
-        // Name: Voltobautamon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: War Greymon X
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = 230400 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_OMEGAMON_X_ANIM_INDEX
@@ -1681,7 +1452,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_METAL_GARURUMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX ,DMX_VALDURMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -1691,7 +1461,6 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            
             .num_animation_indices = 4,
             .animation_indices = {
                 DMX_RIZE_GREYMON_X_ANIM_INDEX ,DMX_MONZAEMON_X_ANIM_INDEX ,DMX_ANOMALOCARIMON_X_ANIM_INDEX ,DMX_MAMEMON_X_ANIM_INDEX
@@ -1701,7 +1470,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
-            
             .num_animation_indices = 8,
             .animation_indices = {
                 DMX_GOMAMON_X_ANIM_INDEX ,DMX_KOKUWAMON_X_ANIM_INDEX ,DMX_AGUMON_BLACK_X_ANIM_INDEX ,DMX_HERISSMON_ANIM_INDEX ,DMX_DUSKMON_ANIM_INDEX ,DMX_PLOTMON_X_ANIM_INDEX ,DMX_OTAMAMON_X_ANIM_INDEX ,DMX_IMPMON_X_ANIM_INDEX
@@ -1711,7 +1479,6 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 144000 },
-            
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_SAKUYAMON_X_ANIM_INDEX ,DMX_BEEL_STARMON_X_ANIM_INDEX ,DMX_VALDURMON_ANIM_INDEX ,DMX_BELIAL_VAMDEMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
@@ -1721,7 +1488,6 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            
             .num_animation_indices = 1,
             .animation_indices = {
                 DMX_GUMMYMON_ANIM_INDEX
@@ -1733,7 +1499,7 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(dmx_evol_data_table) == DMX_ANIM_COUNT);
         assert(index < DMX_ANIM_COUNT);
-        auto result = dmx_evol_data_table[index];
+        auto result = expand_evolution_data(dmx_evol_data_table[index]);
         return result;
     }
 }
