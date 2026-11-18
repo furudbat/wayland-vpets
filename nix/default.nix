@@ -9,6 +9,10 @@
   systemd,
   libffi,
   libcap,
+  pipewire,
+  fftw,
+  # audio module: react to audio on a PipeWire sink (`audio=1`)
+  withAudio ? false,
 }:
 gcc15Stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-vpets";
@@ -31,6 +35,10 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
     # only for pkg-config
     libffi
     libcap
+  ]
+  ++ lib.optionals withAudio [
+    pipewire # libpipewire-0.3
+    fftw # fftw3
   ];
 
   cmakeFlags = [
@@ -38,8 +46,11 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
     "-DSKIP_CPM=ON"
     "-DBONGOCAT_REQUIRE_MANPAGES=ON" # fail instead of silently skipping the man pages
     "-DWAYLAND_PROTOCOLS_DIR=${wayland-protocols}/share/wayland-protocols"
+    (lib.cmakeBool "ENABLE_AUDIO_MODULE" withAudio)
     # CMAKE_INSTALL_PREFIX is set to $out by the cmake setup hook
   ];
+
+  passthru = {inherit withAudio;};
 
   # Package information
   meta = {

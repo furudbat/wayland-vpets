@@ -27,6 +27,9 @@ pkgs.mkShellNoCC {
     wayland
     wayland-protocols
     systemd
+    # optional: audio module (-DENABLE_AUDIO_MODULE=ON)
+    pipewire
+    fftw
   ];
   shellHook = ''
     export CC=clang
@@ -41,14 +44,13 @@ pkgs.mkShellNoCC {
     echo "  CMake=$(cmake --version | head -n1)"
     echo
     echo "Quick commands:"
-    echo "  nix build           -> build via flake"
-    echo "  cmake -B build      -> configure"
+    echo "  nix build            -> build via flake"
+    echo "  cmake -B build       -> configure"
     echo "  cmake --build build"
     echo
     echo ""
     echo "Helper scripts:"
-    echo "  ./scripts/find_input_devices.sh - Find input devices"
+    echo "  ./scripts/find_input_devices.sh       - Find input devices"
     echo "  ./scripts/tests/test_nix_build.sh     - Test Nix flake and package"
-    echo "  ./scripts/tests/test_toggle.sh        - Test Bongocat toggle functionality (Install Bongocat first)"
   '';
 }

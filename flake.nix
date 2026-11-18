@@ -14,6 +14,7 @@
         pkgs = inputs.nixpkgs.legacyPackages.${system};
         lib = inputs.nixpkgs.lib;
         bongocat = pkgs.callPackage ./nix/default.nix {};
+        bongocat-audio = pkgs.callPackage ./nix/default.nix {withAudio = true;};
 
         # module settings used by the checks
         testSettings = {
@@ -29,6 +30,9 @@
           layer = "overlay";
           inputDeviceNames = ["KW75 Keyboard"];
           extraConfig = "custom_idle_frames=2";
+          # audio = true builds the default package with the audio module (PipeWire + FFTW)
+          audio = true;
+          audioHappyPeak = 0.6;
         };
 
         # checks the generated bongocat.conf (only set options, fork keys)
@@ -53,6 +57,8 @@
             expect 'overlay_layer=overlay'
             expect 'keyboard_name=KW75 Keyboard'
             expect 'custom_idle_frames=2'
+            expect 'audio=1'
+            expect 'audio_happy_peak=0.6'
             # unset options are not written, no hard-coded keyboard device
             for key in layer keyboard_device fps monitor; do
               if grep -q "^$key=" "$conf"; then
@@ -82,6 +88,10 @@
             modules = [
               inputs.self.homeManagerModules.default
               {
+                options.assertions = lib.mkOption {
+                  type = lib.types.listOf lib.types.unspecified;
+                  default = [];
+                };
                 options.home.packages = lib.mkOption {
                   type = lib.types.listOf lib.types.package;
                   default = [];
@@ -100,12 +110,14 @@
       in {
         formatter = pkgs.alejandra;
         packages.default = bongocat;
+        packages.with-audio = bongocat-audio;
         devShells.default = import ./nix/shell.nix {
           inherit pkgs;
         };
 
         checks = {
           package = bongocat;
+          package-audio = bongocat-audio;
           # every installed binary has its man pages (pandoc + docs/include.lua), and they render
           manpages = pkgs.runCommand "manpages-check" {nativeBuildInputs = [pkgs.mandoc];} ''
             man=${bongocat.man}/share/man

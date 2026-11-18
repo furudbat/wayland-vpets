@@ -70,7 +70,7 @@ Download this repository wherever you desire and add this to your NixOS configur
     autostart = true;            # Start on login by creating a SystemD service
 
     executable = "bongocat-all"; # `bongocat` only contains the cat; -dm, -pkmn, -ms-agent, -all contain the v-pets
-    animationName = "Agumon";    # Pet, see `man 5 bongocat-all` for all names
+    animationName = "Agumon";    # Pet, see `man bongocat-all.conf` for all names
 
     # Position and size (in pixels)
     catXOffset = 120;
@@ -118,7 +118,7 @@ A home manager module is also provided by the repository flake. It's just like t
 
 All options live under `programs.wayland-bongocat`.
 Settings are only written to the generated `bongocat.conf` when they are set, otherwise the binary default applies
-(see `bongocat.conf.example` and `man 5 bongocat`).
+(see `bongocat.conf.example` and `man bongocat.conf`).
 
 | Option | Description |
 | --- | --- |
@@ -141,8 +141,25 @@ Settings (config key in brackets):
 - **Animation:** `idleFrame`, `idleAnimation`, `animationSpeed`, `keypressDuration`, `testAnimationDuration`, `testAnimationInterval`, `happyKpm`, `fps`, `inputFps`, `enableHandMapping`
 - **Movement:** `movementRadius`, `movementSpeed`, `movementWaitFactor`, `enableMovementDebug`
 - **CPU:** `updateRate`, `cpuThreshold`, `cpuRunningFactor`
+- **Audio:** `audio`, `audioSink`, `audioHappyPeak`, `audioFps`
 - **Sleep:** `enableScheduledSleep`, `sleepBegin`, `sleepEnd` (`HH:MM`), `idleSleepTimeout`
 - **Misc:** `hotplugScanInterval` (seconds), `enableDebug`
+
+### Audio
+
+`audio = true` builds the default `package` with the audio module (PipeWire + FFTW) and lets the pet react to
+audio playing on a PipeWire sink. A custom `package` needs it too:
+
+```nix
+programs.wayland-bongocat = {
+  audio = true;
+  audioSink = "";        # empty = default sink, see `pactl list short sinks`
+  audioHappyPeak = 0.6;
+  # package = wayland-bongocat.packages.${pkgs.system}.with-audio;  # or: pkgs.callPackage ... { withAudio = true; }
+};
+```
+
+Without flakes / modules: `nix build .#with-audio`.
 
 > [!NOTE]
 > Since 6.0.0 the module no longer writes every option with its own defaults (and no hard-coded `/dev/input/event4`).
@@ -150,13 +167,13 @@ Settings (config key in brackets):
 
 ### Man pages
 
-The package has a separate `man` output (`bongocat(1)`, `bongocat(5)`, `bongocat-all(1)`, `bongocat-all(5)`, ...,
+The package has a separate `man` output (`bongocat(1)`, `bongocat.conf(5)`, `bongocat-all(1)`, `bongocat-all.conf(5)`, ...,
 `bongocat-find-devices(1)`), installed automatically when man pages are enabled
 (`documentation.man.enable` on NixOS, `programs.man.enable` in Home Manager, both on by default).
 
 ```bash
 man bongocat-all     # usage
-man 5 bongocat-all   # config, incl. all animation names
+man bongocat-all.conf   # config, incl. all animation names
 ```
 
 ## Developing
