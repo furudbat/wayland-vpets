@@ -93,3 +93,7 @@ void nsvgRasterize(NSVGrasterizer* r,
 	nsvgRasterizeA(r, image, tx, ty, scale, dst, w, h, stride, 0);
 }
 ```
+
+---
+
+Special thanks to [waybar](https://github.com/alexays/waybar) and [hyprland](https://github.com/hyprwm/Hyprland).
