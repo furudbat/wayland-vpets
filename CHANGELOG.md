@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - replace old placeholder dmc sprites
+- add missing sprites (dmx, pen20)
 
 ### Improved
 

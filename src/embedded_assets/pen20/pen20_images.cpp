@@ -308,6 +308,14 @@ static_assert(sizeof(pen20_chicomon_png) == 853, "re-run generate_embedded_asset
 static_assert(sizeof(pen20_chicomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
+// Name: Chocomon
+const unsigned char pen20_chocomon_png[] ASSETS_PEN20_IMAGES_SECTION = {
+#embed "../../../assets/pen20/Chocomon.png"
+};
+static_assert(sizeof(pen20_chocomon_png) == 1403, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen20_chocomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
+
+
 // Name: Choromon
 const unsigned char pen20_choromon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Choromon.png"
