@@ -71,6 +71,10 @@ inline constexpr size_t dmx_belphemon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION 
 extern const unsigned char dmx_black_war_greymon_x_png[1330];
 inline constexpr size_t dmx_black_war_greymon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1330;
 
+// Name: Blucomon
+extern const unsigned char dmx_blucomon_png[1386];
+inline constexpr size_t dmx_blucomon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1386;
+
 // Name: Cannonbeemon
 extern const unsigned char dmx_cannonbeemon_png[1216];
 inline constexpr size_t dmx_cannonbeemon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1216;
@@ -90,6 +94,10 @@ inline constexpr size_t dmx_cherubimon_vice_x_png_size ASSETS_DMX_IMAGE_SIZES_SE
 // Name: Cherubimon (Virtue) X
 extern const unsigned char dmx_cherubimon_virtue_x_png[1265];
 inline constexpr size_t dmx_cherubimon_virtue_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1265;
+
+// Name: Chocomon
+extern const unsigned char dmx_chocomon_png[1403];
+inline constexpr size_t dmx_chocomon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1403;
 
 // Name: Cho-Hakkaimon
 extern const unsigned char dmx_cho_hakkaimon_png[1397];
@@ -299,6 +307,10 @@ inline constexpr size_t dmx_kiimon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 611
 extern const unsigned char dmx_kokuwamon_x_png[1320];
 inline constexpr size_t dmx_kokuwamon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1320;
 
+// Name: Kuramon
+extern const unsigned char dmx_kuramon_png[955];
+inline constexpr size_t dmx_kuramon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 955;
+
 // Name: Kuwagamon X
 extern const unsigned char dmx_kuwagamon_x_png[1365];
 inline constexpr size_t dmx_kuwagamon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1365;
@@ -330,6 +342,10 @@ inline constexpr size_t dmx_lopmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1
 // Name: Lord Knightmon X
 extern const unsigned char dmx_lord_knightmon_x_png[1332];
 inline constexpr size_t dmx_lord_knightmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1332;
+
+// Name: Lucemon Falldown Mode
+extern const unsigned char dmx_lucemon_falldown_mode_png[1508];
+inline constexpr size_t dmx_lucemon_falldown_mode_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1508;
 
 // Name: Lucemon X
 extern const unsigned char dmx_lucemon_x_png[1262];
@@ -610,6 +626,10 @@ inline constexpr size_t dmx_tokomon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 
 // Name: Triceramon X
 extern const unsigned char dmx_triceramon_x_png[1266];
 inline constexpr size_t dmx_triceramon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1266;
+
+// Name: Tsumemon
+extern const unsigned char dmx_tsumemon_png[1258];
+inline constexpr size_t dmx_tsumemon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1258;
 
 // Name: Tylomon X
 extern const unsigned char dmx_tylomon_x_png[992];

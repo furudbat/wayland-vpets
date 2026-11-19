@@ -161,6 +161,15 @@ namespace bongocat::assets {
                 DMX_DEMON_X_ANIM_INDEX ,DMX_RASENMON_ANIM_INDEX ,DMX_BARBAMON_X_ANIM_INDEX
             },
         },
+        // Name: Blucomon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            .num_animation_indices = 7,
+            .animation_indices = {
+                DMX_SIESAMON_X_ANIM_INDEX ,DMX_MERAMON_X_ANIM_INDEX ,DMX_TOGEMON_X_ANIM_INDEX ,DMX_OMEKAMON_ANIM_INDEX ,DMX_PALEDRAMON_ANIM_INDEX ,DMX_GINRYUMON_ANIM_INDEX ,DMX_WIZARMON_X_ANIM_INDEX
+            },
+        },
         // Name: Cannonbeemon
         {
             // Stage: Perfect
@@ -206,6 +215,15 @@ namespace bongocat::assets {
                 DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX
             },
         },
+        // Name: Chocomon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            .num_animation_indices = 5,
+            .animation_indices = {
+                DMX_LOPMON_X_ANIM_INDEX ,DMX_SHAKOMON_X_ANIM_INDEX ,DMX_RYUDAMON_ANIM_INDEX ,DMX_BLUCOMON_ANIM_INDEX ,DMX_JAZAMON_ANIM_INDEX
+            },
+        },
         // Name: Cho-Hakkaimon
         {
             // Stage: Perfect
@@ -219,9 +237,9 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            .num_animation_indices = 0,
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                DMX_CHOCOMON_ANIM_INDEX
             },
         },
         // Name: Craniummon X
@@ -255,9 +273,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            .num_animation_indices = 5,
+            .num_animation_indices = 6,
             .animation_indices = {
-                DMX_CERBERUMON_X_ANIM_INDEX ,DMX_SKULL_BALUCHIMON_ANIM_INDEX ,DMX_MEGALO_GROWMON_X_ANIM_INDEX ,DMX_CHO_HAKKAIMON_ANIM_INDEX ,DMX_LILIMON_X_ANIM_INDEX
+                DMX_CERBERUMON_X_ANIM_INDEX ,DMX_LUCEMON_FALLDOWN_MODE_ANIM_INDEX ,DMX_SKULL_BALUCHIMON_ANIM_INDEX ,DMX_MEGALO_GROWMON_X_ANIM_INDEX ,DMX_CHO_HAKKAIMON_ANIM_INDEX ,DMX_LILIMON_X_ANIM_INDEX
             },
         },
         // Name: Dark Knightmon X
@@ -525,9 +543,9 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
-            .num_animation_indices = 4,
+            .num_animation_indices = 5,
             .animation_indices = {
-                DMX_TERRIERMON_X_ANIM_INDEX ,DMX_PALMON_X_ANIM_INDEX ,DMX_DORUMON_ANIM_INDEX ,DMX_JAZAMON_ANIM_INDEX
+                DMX_TERRIERMON_X_ANIM_INDEX ,DMX_PALMON_X_ANIM_INDEX ,DMX_DORUMON_ANIM_INDEX ,DMX_BLUCOMON_ANIM_INDEX ,DMX_JAZAMON_ANIM_INDEX
             },
         },
         // Name: Herissmon
@@ -674,6 +692,15 @@ namespace bongocat::assets {
                 DMX_KUWAGAMON_X_ANIM_INDEX ,DMX_FILMON_ANIM_INDEX ,DMX_NUMEMON_X_ANIM_INDEX ,DMX_VELGRMON_ANIM_INDEX ,DMX_ALLOMON_X_ANIM_INDEX
             },
         },
+        // Name: Kuramon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMX_TSUMEMON_ANIM_INDEX
+            },
+        },
         // Name: Kuwagamon X
         {
             // Stage: Adult
@@ -744,6 +771,15 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Lucemon Falldown Mode
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 144000 },
+            .num_animation_indices = 5,
+            .animation_indices = {
+                DMX_BEELZEBUMON_X_ANIM_INDEX ,DMX_WAR_GREYMON_X_ANIM_INDEX ,DMX_BELIAL_VAMDEMON_ANIM_INDEX ,DMX_RAFFLESIMON_ANIM_INDEX ,DMX_PLATINUM_NUMEMON_ANIM_INDEX
             },
         },
         // Name: Lucemon X
@@ -1236,9 +1272,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 115200 },
-            .num_animation_indices = 2,
+            .num_animation_indices = 3,
             .animation_indices = {
-                DMX_CERBERUMON_X_ANIM_INDEX ,DMX_SKULL_BALUCHIMON_ANIM_INDEX
+                DMX_LUCEMON_FALLDOWN_MODE_ANIM_INDEX ,DMX_CERBERUMON_X_ANIM_INDEX ,DMX_SKULL_BALUCHIMON_ANIM_INDEX
             },
         },
         // Name: Seadramon X
@@ -1374,6 +1410,15 @@ namespace bongocat::assets {
             .num_animation_indices = 5,
             .animation_indices = {
                 DMX_ULTIMATE_BRACHIOMON_ANIM_INDEX ,DMX_CHAOSDRAMON_X_ANIM_INDEX ,DMX_PRINCE_MAMEMON_X_ANIM_INDEX ,DMX_SKULL_MAMMON_X_ANIM_INDEX ,DMX_METAL_PIRANIMON_ANIM_INDEX
+            },
+        },
+        // Name: Tsumemon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMX_KERAMON_X_ANIM_INDEX
             },
         },
         // Name: Tylomon X
