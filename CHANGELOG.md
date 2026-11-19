@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-### [6.2.0] - 2026-11-17
+### [6.2.0] - 2026-11-19
 
 ### Added
 
@@ -11,6 +11,11 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - replace old placeholder dmc sprites
+- add missing sprites (dmx, pen20)
+
+### Improved
+
+- shrink binaries
 
 ### [6.1.0] - 2026-11-14
 

@@ -163,6 +163,10 @@ inline constexpr size_t pen20_chibimon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION
 extern const unsigned char pen20_chicomon_png[853];
 inline constexpr size_t pen20_chicomon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 853;
 
+// Name: Chocomon
+extern const unsigned char pen20_chocomon_png[1403];
+inline constexpr size_t pen20_chocomon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1403;
+
 // Name: Choromon
 extern const unsigned char pen20_choromon_png[730];
 inline constexpr size_t pen20_choromon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 730;

@@ -46,6 +46,7 @@ namespace bongocat::assets {
         {pen20_cherubimon_png, pen20_cherubimon_png_size, PEN20_CHERUBIMON_ID}, 
         {pen20_chibimon_png, pen20_chibimon_png_size, PEN20_CHIBIMON_ID}, 
         {pen20_chicomon_png, pen20_chicomon_png_size, PEN20_CHICOMON_ID}, 
+        {pen20_chocomon_png, pen20_chocomon_png_size, PEN20_CHOCOMON_ID}, 
         {pen20_choromon_png, pen20_choromon_png_size, PEN20_CHOROMON_ID}, 
         {pen20_clockmon_png, pen20_clockmon_png_size, PEN20_CLOCKMON_ID}, 
         {pen20_cocomon_png, pen20_cocomon_png_size, PEN20_COCOMON_ID}, 

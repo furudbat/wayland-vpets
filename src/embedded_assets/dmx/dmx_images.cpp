@@ -124,6 +124,14 @@ static_assert(sizeof(dmx_black_war_greymon_x_png) == 1330, "re-run generate_embe
 static_assert(sizeof(dmx_black_war_greymon_x_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
+// Name: Blucomon
+const unsigned char dmx_blucomon_png[] ASSETS_DMX_IMAGES_SECTION = {
+#embed "../../../assets/dmx/Blucomon.png"
+};
+static_assert(sizeof(dmx_blucomon_png) == 1386, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dmx_blucomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
+
+
 // Name: Cannonbeemon
 const unsigned char dmx_cannonbeemon_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Cannonbeemon.png"
@@ -162,6 +170,14 @@ const unsigned char dmx_cherubimon_virtue_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 };
 static_assert(sizeof(dmx_cherubimon_virtue_x_png) == 1265, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dmx_cherubimon_virtue_x_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
+
+
+// Name: Chocomon
+const unsigned char dmx_chocomon_png[] ASSETS_DMX_IMAGES_SECTION = {
+#embed "../../../assets/dmx/Chocomon.png"
+};
+static_assert(sizeof(dmx_chocomon_png) == 1403, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dmx_chocomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
 // Name: Cho-Hakkaimon
@@ -580,6 +596,14 @@ static_assert(sizeof(dmx_kokuwamon_x_png) == 1320, "re-run generate_embedded_ass
 static_assert(sizeof(dmx_kokuwamon_x_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
+// Name: Kuramon
+const unsigned char dmx_kuramon_png[] ASSETS_DMX_IMAGES_SECTION = {
+#embed "../../../assets/dmx/Kuramon.png"
+};
+static_assert(sizeof(dmx_kuramon_png) == 955, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dmx_kuramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
+
+
 // Name: Kuwagamon X
 const unsigned char dmx_kuwagamon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Kuwagamon X.png"
@@ -642,6 +666,14 @@ const unsigned char dmx_lord_knightmon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 };
 static_assert(sizeof(dmx_lord_knightmon_x_png) == 1332, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dmx_lord_knightmon_x_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
+
+
+// Name: Lucemon Falldown Mode
+const unsigned char dmx_lucemon_falldown_mode_png[] ASSETS_DMX_IMAGES_SECTION = {
+#embed "../../../assets/dmx/Lucemon Falldown Mode.png"
+};
+static_assert(sizeof(dmx_lucemon_falldown_mode_png) == 1508, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dmx_lucemon_falldown_mode_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
 // Name: Lucemon X
@@ -1202,6 +1234,14 @@ const unsigned char dmx_triceramon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 };
 static_assert(sizeof(dmx_triceramon_x_png) == 1266, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dmx_triceramon_x_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
+
+
+// Name: Tsumemon
+const unsigned char dmx_tsumemon_png[] ASSETS_DMX_IMAGES_SECTION = {
+#embed "../../../assets/dmx/Tsumemon.png"
+};
+static_assert(sizeof(dmx_tsumemon_png) == 1258, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dmx_tsumemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
 // Name: Tylomon X

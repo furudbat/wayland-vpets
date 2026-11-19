@@ -1,20 +1,20 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-6.0.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-6.2.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A passive Wayland overlay with an animated pet that plays along with your keyboard.
 Fork of [wayland-bongocat](https://github.com/saatvik333/wayland-bongocat) with just more pets.
 
 - Pets: Bongocat, Digimon V-Pets, Pokémon, Clippy, Neko and custom sprite sheets
-- Reacts to every keyboard instantly
+- Reacts to every keyboard instantly, including keyboards plugged in later
 - Hides under fullscreen windows
 - Idle and scheduled sleep, happy animation at a KPM threshold
 - Reacts to CPU usage and audio (optional)
-- moves around
+- Moves around
 - Evolution: Digimon and Pokémon grow over time
-- Bongocat SVG artwork, sharp at any size and scale; Pixel-artwork also sales
+- Bongocat SVG artwork, sharp at any size and scale; Pixel-artwork also scales
 - Live configuration reload
 
 Requires a compositor with `wlr-layer-shell` (Sway, Hyprland, Niri, river, Wayfire and others).
@@ -54,7 +54,7 @@ Run it:
 wpets-all --watch-config --default-devices
 ```
 
-**No keyboard is used by default;** Use `--default-devices` for every keyboard.  
+**No keyboard is used by default;** use `--default-devices` for every keyboard.  
 
 `wpets-all --list-devices` shows each input device, marks keyboards, and prints `keyboard_name=` and `keyboard_device=` lines so you can paste it into the configuration or pick specific ones.
 
@@ -81,6 +81,18 @@ cat_align=center
 
 See **[docs/configuration.md](docs/configuration.md)** for every option, the sprite list, evolution and custom sprite sheets.
 
+### Fullscreen
+
+The pet hides while a fullscreen window is shown.
+`disable_fullscreen_hide=1` keeps it visible.
+
+### Reloading
+
+`--watch-config` reloads the configuration when the file is saved.
+
+`kill -USR2 <pid>` reloads the configuration,  
+`kill -USR1 <pid>` hides or shows the bar.
+
 ## Command Line
 
 ```
@@ -99,10 +111,7 @@ wpets-all [OPTIONS]
   -v, --version          Show version
 ```
 
-`kill -USR2 <pid>` reloads the configuration,  
-`kill -USR1 <pid>` hides or shows the bar.  
-
-See **[docs/usage.md](docs/usage.md)** for all flags, Hyprland  autostart and more examples.
+See **[docs/usage.md](docs/usage.md)** for all flags, Hyprland autostart and more examples.
 
 ## Troubleshooting
 
@@ -119,6 +128,7 @@ git clone https://github.com/furudbat/wayland-vpets.git
 cd wayland-vpets
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
+ctest --test-dir build   # run the tests (optional)
 sudo cmake --install build
 ```
 
@@ -133,6 +143,7 @@ sudo cmake --install build
 ```
 
 Requirements: `wayland-client`, `libudev`, `cmake` and a C23/C++23 compiler (GCC 15 or Clang 19).  
+Man pages are built when `pandoc` is installed (optional).  
 Audio support is optional: `-DENABLE_AUDIO_MODULE=ON` needs `libpipewire-0.3` and `fftw3`.
 
 A source install names the binaries `bongocat`, `bongocat-all`,

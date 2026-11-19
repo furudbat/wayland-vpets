@@ -368,6 +368,15 @@ namespace bongocat::assets {
                 PEN20_CHIBIMON_ANIM_INDEX
             },
         },
+        // Name: Chocomon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_LOPMON_ANIM_INDEX
+            },
+        },
         // Name: Choromon
         {
             // Stage: Baby I
@@ -390,9 +399,9 @@ namespace bongocat::assets {
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
-            .num_animation_indices = 0,
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                PEN20_CHOCOMON_ANIM_INDEX
             },
         },
         // Name: Coelamon

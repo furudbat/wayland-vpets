@@ -54,7 +54,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: release-${{ matrix.compiler }}
+          name: release
           path: |
             build/*.tar.gz
             build/*.zip
