@@ -22,7 +22,7 @@
 ./scripts/generate_set_doc.sh assets/dmall "Custom colored Digital Monster sprites\nMade by Fans <3" > ./docs/fragments/set-dmall.md
 
 # pkmn
-./scripts/generate_set_doc.sh assets/pkmn "Pokemon - up to Gen. 7" > ./docs/fragments/set-pkmn.md
+./scripts/generate_set_doc.sh assets/pkmn "Pokemon - up to Gen. 5" > ./docs/fragments/set-pkmn.md
 
 # pmd
 ./scripts/generate_set_doc.sh assets/pmd "Pokemon Mystery Dungeon - up to Gen. 8\nMade by Fans <3" > ./docs/fragments/set-pmd.md
