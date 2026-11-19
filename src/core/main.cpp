@@ -1251,15 +1251,6 @@ int main(int argc, char *argv[]) {
                                                                            .config_format = args.list_devices_config,
                                                                        });
       }
-
-      {
-        assert(ctx.input != BONGOCAT_NULLPTR);
-        auto privilege_result = platform::input::details::privilege_drop(*ctx.input);
-        if (privilege_result == platform::input::details::privilege_result_t::Fatal) {
-          /// @TODO: ignore error ? when exit anyway
-          return EXIT_FAILURE;
-        }
-      }
     } else {
       BONGOCAT_LOG_WARNING("Input module not supported");
     }
@@ -1302,7 +1293,7 @@ int main(int argc, char *argv[]) {
     }
     auto config_result = config::load(config_file, ctx.input.ptr, ctx.overwrite_config_parameters);
     if (ctx.input) {
-      (void)platform::input::details::privilege_drop(*ctx.input);
+      (void)platform::input::details::privilege_lower(*ctx.input);
     }
 
     if (args.check_config || args.doctor) {

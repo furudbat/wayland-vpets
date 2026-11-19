@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+### [Unreleased]
+
+### Fixed
+
+- setgid install (experimental): the input group was dropped before the devices were opened;
+  it is now kept as saved gid and only raised while opening devices (also for hotplug and config reloads)
+
 ### [6.2.0] - 2026-11-19
 
 ### Added

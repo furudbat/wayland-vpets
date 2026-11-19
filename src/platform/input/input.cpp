@@ -87,7 +87,7 @@ static void cleanup_input_thread_context(input_context_t& input) {
   release_allocated_array(input._unique_paths_indices);
   input._unique_paths_indices_capacity = 0;
   release_allocated_array(input._unique_devices);
-  (void)details::privilege_drop(input);
+  (void)details::privilege_lower(input);
   if (input._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(input._udev_mon);
     input._udev_mon = BONGOCAT_NULLPTR;
@@ -1294,11 +1294,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
   // ret._latest_kpm_update_ms = get_current_time_ms();
 
   {
-    auto privilege_result = details::privilege_drop(input);
-    if (privilege_result == details::privilege_result_t::Fatal) {
-      return bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE;
-    }
-    privilege_result = details::privilege_init(input);
+    const auto privilege_result = details::privilege_init(input);
     if (privilege_result == details::privilege_result_t::Fatal) {
       return bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE;
     }
@@ -1409,17 +1405,33 @@ void update_config(input_context_t& input, const config::config_t& config, uint6
 
 namespace details {
 
+  // Setgid install: keep the privileged group as *saved* gid for the whole run (hotplug, restart, reload)
+  // and only raise it as effective gid around open() (input_privilege_guard_t).
+  // Safe to call multiple times: after the first call the group is found in the saved gid.
   privilege_result_t privilege_init(input_context_t& input) {
     gid_t rgid{input_context_t::NONE_GID};
     gid_t egid{input_context_t::NONE_GID};
     gid_t sgid{input_context_t::NONE_GID};
-    if (getresgid(&rgid, &egid, &sgid) != 0 || egid == rgid) {
+    if (getresgid(&rgid, &egid, &sgid) != 0) {
+      BONGOCAT_LOG_VERBOSE("privilege_init: getresgid failed: %s", strerror(errno));
+      return privilege_result_t::Noop;
+    }
+    gid_t privileged_gid = input._privileged_gid;
+    if (privileged_gid == input_context_t::NONE_GID) {
+      if (egid != rgid) {
+        privileged_gid = egid;  // fresh setgid start
+      } else if (sgid != rgid) {
+        privileged_gid = sgid;  // already lowered (e.g. by an earlier privilege_init)
+      }
+    }
+    if (privileged_gid == input_context_t::NONE_GID || privileged_gid == rgid) {
       BONGOCAT_LOG_VERBOSE(
           "privilege_init: No privilege needed for input gid=0x%08x (rgid=0x%08X;egid=0x%08X;sgid=0x%08X)",
           input._privileged_gid, rgid, egid, sgid);
       return privilege_result_t::Noop;
     }
-    input._privileged_gid = egid;
+    input._privileged_gid = privileged_gid;
+    // lower effective gid, keep the saved gid
     if (setresgid(input_context_t::NONE_GID, rgid, input_context_t::NONE_GID) != 0) {
       BONGOCAT_LOG_VERBOSE("privilege_init: FATAL gid=0x%08x (rgid=0x%08X;egid=0x%08X;sgid=0x%08X)",
                            input._privileged_gid, rgid, egid, sgid);

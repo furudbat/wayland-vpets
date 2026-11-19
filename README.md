@@ -182,20 +182,37 @@ A source install names the binaries `bongocat`, `bongocat-all`,
 <details>
 <summary>Alternative permissions setup (experimental, setgid)</summary>
 
-1. Create a group for input devices: `sudo groupadd --system bongocat`
+Instead of adding your user to the `input` group, give only the binary read access to keyboards:
+
+1. Create a group: `sudo groupadd --system bongocat`
 2. Create `/etc/udev/rules.d/70-bongocat.rules`:
    ```
-   SUBSYSTEM=="input", KERNEL=="event*", GROUP="bongocat", MODE="0640"
+   SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT_KEYBOARD}=="1", GROUP="bongocat", MODE="0640"
    ```
+   To limit it to one keyboard, see [`examples/rules.d/bongocat.rules`](examples/rules.d/bongocat.rules).
 3. Reload the udev rules:
    ```bash
    sudo udevadm control --reload-rules
    sudo udevadm trigger --subsystem-match=input
    ```
-4. Set the group on the binary:
+4. Set the group on the binary you use (e.g. installed path `/usr/bin/bongocat-all`):
    ```bash
    sudo chgrp bongocat /usr/bin/wpets-all
    sudo chmod 2755 /usr/bin/wpets-all
+   ```
+5. Package upgrades reset the permissions; restore them with a pacman hook,
+   `/etc/pacman.d/hooks/wpets-setgid.hook`:
+   ```ini
+   [Trigger]
+   Operation = Install
+   Operation = Upgrade
+   Type = Path
+   Target = usr/bin/wpets-all
+
+   [Action]
+   Description = Restoring setgid bongocat on wpets-all...
+   When = PostTransaction
+   Exec = /usr/bin/sh -c 'chgrp bongocat /usr/bin/wpets-all && chmod 2755 /usr/bin/wpets-all'
    ```
 
 </details>
