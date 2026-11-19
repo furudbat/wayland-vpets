@@ -42,6 +42,34 @@ yay -S wpets-git    # latest commits
 
 For other distros, see [Building](#building).
 
+<details>
+<summary>Arch Linux with the audio module (experimental)</summary>
+
+The AUR packages build without audio support by default.
+Set `_with_audio=true` to build the audio module (adds `libpipewire` and `fftw` as dependencies):
+
+```bash
+git clone https://aur.archlinux.org/wpets.git     # or wpets-git.git
+cd wpets
+_with_audio=true makepkg -si
+```
+
+With an AUR helper, pass the option through the environment:
+
+```bash
+_with_audio=true yay -S wpets   # or wpets-git
+```
+
+To keep audio across upgrades (`yay -Syu`), set it once in `~/.config/pacman/makepkg.conf`:
+
+```bash
+echo '_with_audio=true' >> ~/.config/pacman/makepkg.conf
+```
+
+After installation, enable audio in the configuration with `audio=1`, see [Audio](docs/configuration.md#audio-audio).
+
+</details>
+
 Reading keyboards needs access to `/dev/input`:
 
 ```bash
