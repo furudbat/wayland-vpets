@@ -8,7 +8,7 @@
 const unsigned char dm20_aegisdramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Aegisdramon.png"
 };
-static_assert(sizeof(dm20_aegisdramon_png) == 1191, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_aegisdramon_png) == 1167, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_aegisdramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -16,7 +16,7 @@ static_assert(sizeof(dm20_aegisdramon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_agumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Agumon.png"
 };
-static_assert(sizeof(dm20_agumon_png) == 842, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_agumon_png) == 812, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_agumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -24,7 +24,7 @@ static_assert(sizeof(dm20_agumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_airdramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Airdramon.png"
 };
-static_assert(sizeof(dm20_airdramon_png) == 998, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_airdramon_png) == 960, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_airdramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -32,7 +32,7 @@ static_assert(sizeof(dm20_airdramon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_alphamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Alphamon.png"
 };
-static_assert(sizeof(dm20_alphamon_png) == 1308, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_alphamon_png) == 1252, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_alphamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -40,7 +40,7 @@ static_assert(sizeof(dm20_alphamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_andromon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Andromon.png"
 };
-static_assert(sizeof(dm20_andromon_png) == 970, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_andromon_png) == 903, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_andromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -48,7 +48,7 @@ static_assert(sizeof(dm20_andromon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_angemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Angemon.png"
 };
-static_assert(sizeof(dm20_angemon_png) == 1171, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_angemon_png) == 1142, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_angemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -56,7 +56,7 @@ static_assert(sizeof(dm20_angemon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_apollomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Apollomon.png"
 };
-static_assert(sizeof(dm20_apollomon_png) == 1313, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_apollomon_png) == 1268, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_apollomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -64,7 +64,7 @@ static_assert(sizeof(dm20_apollomon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_babydmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Babydmon.png"
 };
-static_assert(sizeof(dm20_babydmon_png) == 1221, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_babydmon_png) == 1204, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_babydmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -72,7 +72,7 @@ static_assert(sizeof(dm20_babydmon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_bakemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Bakemon.png"
 };
-static_assert(sizeof(dm20_bakemon_png) == 872, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_bakemon_png) == 855, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_bakemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -80,7 +80,7 @@ static_assert(sizeof(dm20_bakemon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_bancho_mamemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Bancho Mamemon.png"
 };
-static_assert(sizeof(dm20_bancho_mamemon_png) == 976, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_bancho_mamemon_png) == 983, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_bancho_mamemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -96,7 +96,7 @@ static_assert(sizeof(dm20_bao_hackmon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_betamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Betamon.png"
 };
-static_assert(sizeof(dm20_betamon_png) == 932, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_betamon_png) == 899, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_betamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -104,7 +104,7 @@ static_assert(sizeof(dm20_betamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_birdramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Birdramon.png"
 };
-static_assert(sizeof(dm20_birdramon_png) == 896, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_birdramon_png) == 872, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_birdramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -112,7 +112,7 @@ static_assert(sizeof(dm20_birdramon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_blitz_greymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Blitz Greymon.png"
 };
-static_assert(sizeof(dm20_blitz_greymon_png) == 1088, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_blitz_greymon_png) == 1079, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_blitz_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -120,7 +120,7 @@ static_assert(sizeof(dm20_blitz_greymon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char dm20_botamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Botamon.png"
 };
-static_assert(sizeof(dm20_botamon_png) == 476, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_botamon_png) == 543, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_botamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -128,7 +128,7 @@ static_assert(sizeof(dm20_botamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_breakdramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Breakdramon.png"
 };
-static_assert(sizeof(dm20_breakdramon_png) == 1385, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_breakdramon_png) == 1352, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_breakdramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -136,7 +136,7 @@ static_assert(sizeof(dm20_breakdramon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_centalmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Centalmon.png"
 };
-static_assert(sizeof(dm20_centalmon_png) == 1073, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_centalmon_png) == 977, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_centalmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -144,7 +144,7 @@ static_assert(sizeof(dm20_centalmon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_cockatrimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Cockatrimon.png"
 };
-static_assert(sizeof(dm20_cockatrimon_png) == 1015, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_cockatrimon_png) == 941, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_cockatrimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -152,7 +152,7 @@ static_assert(sizeof(dm20_cockatrimon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_coelamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Coelamon.png"
 };
-static_assert(sizeof(dm20_coelamon_png) == 892, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_coelamon_png) == 873, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_coelamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -160,7 +160,7 @@ static_assert(sizeof(dm20_coelamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_coredramon_blue_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Coredramon (Blue).png"
 };
-static_assert(sizeof(dm20_coredramon_blue_png) == 1356, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_coredramon_blue_png) == 1348, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_coredramon_blue_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -168,7 +168,7 @@ static_assert(sizeof(dm20_coredramon_blue_png) <= UINT32_MAX, "image size <= 4GB
 const unsigned char dm20_coredramon_green_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Coredramon (Green).png"
 };
-static_assert(sizeof(dm20_coredramon_green_png) == 1310, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_coredramon_green_png) == 1300, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_coredramon_green_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -176,7 +176,7 @@ static_assert(sizeof(dm20_coredramon_green_png) <= UINT32_MAX, "image size <= 4G
 const unsigned char dm20_coronamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Coronamon.png"
 };
-static_assert(sizeof(dm20_coronamon_png) == 1355, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_coronamon_png) == 1325, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_coronamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -184,7 +184,7 @@ static_assert(sizeof(dm20_coronamon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_crescemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Crescemon.png"
 };
-static_assert(sizeof(dm20_crescemon_png) == 1320, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_crescemon_png) == 1290, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_crescemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -200,7 +200,7 @@ static_assert(sizeof(dm20_cres_garurumon_png) <= UINT32_MAX, "image size <= 4GB 
 const unsigned char dm20_cyclomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Cyclomon.png"
 };
-static_assert(sizeof(dm20_cyclomon_png) == 900, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_cyclomon_png) == 829, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_cyclomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -208,7 +208,7 @@ static_assert(sizeof(dm20_cyclomon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_dark_tyranomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Dark Tyranomon.png"
 };
-static_assert(sizeof(dm20_dark_tyranomon_png) == 901, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_dark_tyranomon_png) == 830, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_dark_tyranomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -216,7 +216,7 @@ static_assert(sizeof(dm20_dark_tyranomon_png) <= UINT32_MAX, "image size <= 4GB 
 const unsigned char dm20_deltamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Deltamon.png"
 };
-static_assert(sizeof(dm20_deltamon_png) == 1010, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_deltamon_png) == 934, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_deltamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -224,7 +224,7 @@ static_assert(sizeof(dm20_deltamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_devidramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Devidramon.png"
 };
-static_assert(sizeof(dm20_devidramon_png) == 922, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_devidramon_png) == 838, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_devidramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -232,7 +232,7 @@ static_assert(sizeof(dm20_devidramon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char dm20_devimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Devimon.png"
 };
-static_assert(sizeof(dm20_devimon_png) == 931, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_devimon_png) == 925, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_devimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -248,7 +248,7 @@ static_assert(sizeof(dm20_dianamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_digitamamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Digitamamon.png"
 };
-static_assert(sizeof(dm20_digitamamon_png) == 963, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_digitamamon_png) == 920, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_digitamamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -256,7 +256,7 @@ static_assert(sizeof(dm20_digitamamon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_dodomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Dodomon.png"
 };
-static_assert(sizeof(dm20_dodomon_png) == 903, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_dodomon_png) == 939, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_dodomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -264,7 +264,7 @@ static_assert(sizeof(dm20_dodomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_dorimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Dorimon.png"
 };
-static_assert(sizeof(dm20_dorimon_png) == 995, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_dorimon_png) == 1000, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_dorimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -272,7 +272,7 @@ static_assert(sizeof(dm20_dorimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_dorugamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/DORUgamon.png"
 };
-static_assert(sizeof(dm20_dorugamon_png) == 1344, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_dorugamon_png) == 1306, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_dorugamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -296,7 +296,7 @@ static_assert(sizeof(dm20_dorumon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_dracomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Dracomon.png"
 };
-static_assert(sizeof(dm20_dracomon_png) == 1401, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_dracomon_png) == 1394, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_dracomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -304,7 +304,7 @@ static_assert(sizeof(dm20_dracomon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_drimogemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Drimogemon.png"
 };
-static_assert(sizeof(dm20_drimogemon_png) == 863, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_drimogemon_png) == 830, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_drimogemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -328,7 +328,7 @@ static_assert(sizeof(dm20_durandamon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char dm20_elecmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Elecmon.png"
 };
-static_assert(sizeof(dm20_elecmon_png) == 925, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_elecmon_png) == 912, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_elecmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -336,7 +336,7 @@ static_assert(sizeof(dm20_elecmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_etemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Etemon.png"
 };
-static_assert(sizeof(dm20_etemon_png) == 1063, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_etemon_png) == 1005, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_etemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -344,7 +344,7 @@ static_assert(sizeof(dm20_etemon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_examon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Examon.png"
 };
-static_assert(sizeof(dm20_examon_png) == 1351, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_examon_png) == 1310, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_examon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -352,7 +352,7 @@ static_assert(sizeof(dm20_examon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_ex_tyranomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Ex-Tyranomon.png"
 };
-static_assert(sizeof(dm20_ex_tyranomon_png) == 984, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_ex_tyranomon_png) == 926, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_ex_tyranomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -360,7 +360,7 @@ static_assert(sizeof(dm20_ex_tyranomon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char dm20_firamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Firamon.png"
 };
-static_assert(sizeof(dm20_firamon_png) == 1367, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_firamon_png) == 1331, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_firamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -368,7 +368,7 @@ static_assert(sizeof(dm20_firamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_flaremon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Flaremon.png"
 };
-static_assert(sizeof(dm20_flaremon_png) == 1429, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_flaremon_png) == 1384, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_flaremon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -376,7 +376,7 @@ static_assert(sizeof(dm20_flaremon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_flymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Flymon.png"
 };
-static_assert(sizeof(dm20_flymon_png) == 1018, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_flymon_png) == 895, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_flymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -384,7 +384,7 @@ static_assert(sizeof(dm20_flymon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_gabumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Gabumon.png"
 };
-static_assert(sizeof(dm20_gabumon_png) == 938, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_gabumon_png) == 921, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_gabumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -392,7 +392,7 @@ static_assert(sizeof(dm20_gabumon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_garurumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Garurumon.png"
 };
-static_assert(sizeof(dm20_garurumon_png) == 1075, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_garurumon_png) == 1036, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -400,7 +400,7 @@ static_assert(sizeof(dm20_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_gazimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Gazimon.png"
 };
-static_assert(sizeof(dm20_gazimon_png) == 978, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_gazimon_png) == 883, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_gazimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -408,7 +408,7 @@ static_assert(sizeof(dm20_gazimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_giromon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Giromon.png"
 };
-static_assert(sizeof(dm20_giromon_png) == 589, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_giromon_png) == 567, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_giromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -416,7 +416,7 @@ static_assert(sizeof(dm20_giromon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_gizamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Gizamon.png"
 };
-static_assert(sizeof(dm20_gizamon_png) == 958, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_gizamon_png) == 855, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_gizamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -432,7 +432,7 @@ static_assert(sizeof(dm20_grace_novamon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char dm20_greymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Greymon.png"
 };
-static_assert(sizeof(dm20_greymon_png) == 948, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_greymon_png) == 906, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -440,7 +440,7 @@ static_assert(sizeof(dm20_greymon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_groundramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Groundramon.png"
 };
-static_assert(sizeof(dm20_groundramon_png) == 1329, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_groundramon_png) == 1306, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_groundramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -448,7 +448,7 @@ static_assert(sizeof(dm20_groundramon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_hackmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Hackmon.png"
 };
-static_assert(sizeof(dm20_hackmon_png) == 1291, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_hackmon_png) == 1235, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_hackmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -472,7 +472,7 @@ static_assert(sizeof(dm20_jesmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_kabuterimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Kabuterimon.png"
 };
-static_assert(sizeof(dm20_kabuterimon_png) == 834, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_kabuterimon_png) == 827, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_kabuterimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -488,7 +488,7 @@ static_assert(sizeof(dm20_king_etemon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_koromon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Koromon.png"
 };
-static_assert(sizeof(dm20_koromon_png) == 699, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_koromon_png) == 708, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_koromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -496,7 +496,7 @@ static_assert(sizeof(dm20_koromon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_kunemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Kunemon.png"
 };
-static_assert(sizeof(dm20_kunemon_png) == 992, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_kunemon_png) == 959, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_kunemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -504,7 +504,7 @@ static_assert(sizeof(dm20_kunemon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_kuwagamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Kuwagamon.png"
 };
-static_assert(sizeof(dm20_kuwagamon_png) == 1048, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_kuwagamon_png) == 994, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_kuwagamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -512,7 +512,7 @@ static_assert(sizeof(dm20_kuwagamon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_lekismon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Lekismon.png"
 };
-static_assert(sizeof(dm20_lekismon_png) == 1225, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_lekismon_png) == 1195, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_lekismon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -520,7 +520,7 @@ static_assert(sizeof(dm20_lekismon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_leomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Leomon.png"
 };
-static_assert(sizeof(dm20_leomon_png) == 1058, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_leomon_png) == 1002, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_leomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -528,7 +528,7 @@ static_assert(sizeof(dm20_leomon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_lunamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Lunamon.png"
 };
-static_assert(sizeof(dm20_lunamon_png) == 1245, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_lunamon_png) == 1228, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_lunamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -536,7 +536,7 @@ static_assert(sizeof(dm20_lunamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_mamemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Mamemon.png"
 };
-static_assert(sizeof(dm20_mamemon_png) == 594, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_mamemon_png) == 587, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_mamemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -544,7 +544,7 @@ static_assert(sizeof(dm20_mamemon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_megadramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Megadramon.png"
 };
-static_assert(sizeof(dm20_megadramon_png) == 1035, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_megadramon_png) == 981, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_megadramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -552,7 +552,7 @@ static_assert(sizeof(dm20_megadramon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char dm20_meicoomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Meicoomon.png"
 };
-static_assert(sizeof(dm20_meicoomon_png) == 1273, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_meicoomon_png) == 1249, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_meicoomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -560,7 +560,7 @@ static_assert(sizeof(dm20_meicoomon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_meicrackmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Meicrackmon.png"
 };
-static_assert(sizeof(dm20_meicrackmon_png) == 1221, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_meicrackmon_png) == 1241, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_meicrackmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -568,7 +568,7 @@ static_assert(sizeof(dm20_meicrackmon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_meramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Meramon.png"
 };
-static_assert(sizeof(dm20_meramon_png) == 1059, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_meramon_png) == 1036, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_meramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -576,7 +576,7 @@ static_assert(sizeof(dm20_meramon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_metal_greymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Metal Greymon.png"
 };
-static_assert(sizeof(dm20_metal_greymon_png) == 869, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_metal_greymon_png) == 842, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_metal_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -584,7 +584,7 @@ static_assert(sizeof(dm20_metal_greymon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char dm20_metal_mamemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Metal Mamemon.png"
 };
-static_assert(sizeof(dm20_metal_mamemon_png) == 605, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_metal_mamemon_png) == 589, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_metal_mamemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -592,7 +592,7 @@ static_assert(sizeof(dm20_metal_mamemon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char dm20_metal_tyranomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Metal Tyranomon.png"
 };
-static_assert(sizeof(dm20_metal_tyranomon_png) == 947, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_metal_tyranomon_png) == 859, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_metal_tyranomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -600,7 +600,7 @@ static_assert(sizeof(dm20_metal_tyranomon_png) <= UINT32_MAX, "image size <= 4GB
 const unsigned char dm20_mojyamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Mojyamon.png"
 };
-static_assert(sizeof(dm20_mojyamon_png) == 997, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_mojyamon_png) == 946, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_mojyamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -608,7 +608,7 @@ static_assert(sizeof(dm20_mojyamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_monochromon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Monochromon.png"
 };
-static_assert(sizeof(dm20_monochromon_png) == 890, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_monochromon_png) == 849, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_monochromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -616,7 +616,7 @@ static_assert(sizeof(dm20_monochromon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_monzaemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Monzaemon.png"
 };
-static_assert(sizeof(dm20_monzaemon_png) == 1027, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_monzaemon_png) == 1002, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_monzaemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -624,7 +624,7 @@ static_assert(sizeof(dm20_monzaemon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_mugendramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Mugendramon.png"
 };
-static_assert(sizeof(dm20_mugendramon_png) == 1355, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_mugendramon_png) == 1335, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_mugendramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -632,7 +632,7 @@ static_assert(sizeof(dm20_mugendramon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_nanimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Nanimon.png"
 };
-static_assert(sizeof(dm20_nanimon_png) == 949, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_nanimon_png) == 887, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_nanimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -640,7 +640,7 @@ static_assert(sizeof(dm20_nanimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_nanomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Nanomon.png"
 };
-static_assert(sizeof(dm20_nanomon_png) == 587, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_nanomon_png) == 545, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_nanomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -648,7 +648,7 @@ static_assert(sizeof(dm20_nanomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_numemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Numemon.png"
 };
-static_assert(sizeof(dm20_numemon_png) == 864, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_numemon_png) == 834, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_numemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -664,7 +664,7 @@ static_assert(sizeof(dm20_nyaromon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_ogremon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Ogremon.png"
 };
-static_assert(sizeof(dm20_ogremon_png) == 1003, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_ogremon_png) == 962, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_ogremon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -672,7 +672,7 @@ static_assert(sizeof(dm20_ogremon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_omegamon_alter_s_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Omegamon Alter S.png"
 };
-static_assert(sizeof(dm20_omegamon_alter_s_png) == 1468, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_omegamon_alter_s_png) == 1433, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_omegamon_alter_s_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -680,7 +680,7 @@ static_assert(sizeof(dm20_omegamon_alter_s_png) <= UINT32_MAX, "image size <= 4G
 const unsigned char dm20_omegamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Omegamon.png"
 };
-static_assert(sizeof(dm20_omegamon_png) == 1430, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_omegamon_png) == 1406, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_omegamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -688,7 +688,7 @@ static_assert(sizeof(dm20_omegamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_pagumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Pagumon.png"
 };
-static_assert(sizeof(dm20_pagumon_png) == 891, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_pagumon_png) == 784, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_pagumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -696,7 +696,7 @@ static_assert(sizeof(dm20_pagumon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_palmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Palmon.png"
 };
-static_assert(sizeof(dm20_palmon_png) == 932, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_palmon_png) == 846, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_palmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -704,7 +704,7 @@ static_assert(sizeof(dm20_palmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_patamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Patamon.png"
 };
-static_assert(sizeof(dm20_patamon_png) == 854, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_patamon_png) == 769, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_patamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -712,7 +712,7 @@ static_assert(sizeof(dm20_patamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_petitmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Petitmon.png"
 };
-static_assert(sizeof(dm20_petitmon_png) == 972, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_petitmon_png) == 969, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_petitmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -720,7 +720,7 @@ static_assert(sizeof(dm20_petitmon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_piccolomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Piccolomon.png"
 };
-static_assert(sizeof(dm20_piccolomon_png) == 584, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_piccolomon_png) == 566, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_piccolomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -728,7 +728,7 @@ static_assert(sizeof(dm20_piccolomon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char dm20_pinochimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Pinochimon.png"
 };
-static_assert(sizeof(dm20_pinochimon_png) == 1390, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_pinochimon_png) == 1364, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_pinochimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -736,7 +736,7 @@ static_assert(sizeof(dm20_pinochimon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char dm20_pitchmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Pitchmon.png"
 };
-static_assert(sizeof(dm20_pitchmon_png) == 793, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_pitchmon_png) == 811, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_pitchmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -744,7 +744,7 @@ static_assert(sizeof(dm20_pitchmon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_piyomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Piyomon.png"
 };
-static_assert(sizeof(dm20_piyomon_png) == 937, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_piyomon_png) == 869, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_piyomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -752,7 +752,7 @@ static_assert(sizeof(dm20_piyomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_plotmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Plotmon.png"
 };
-static_assert(sizeof(dm20_plotmon_png) == 1273, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_plotmon_png) == 1235, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_plotmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -760,7 +760,7 @@ static_assert(sizeof(dm20_plotmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_poyomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Poyomon.png"
 };
-static_assert(sizeof(dm20_poyomon_png) == 429, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_poyomon_png) == 476, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_poyomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -776,7 +776,7 @@ static_assert(sizeof(dm20_pukamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_punimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Punimon.png"
 };
-static_assert(sizeof(dm20_punimon_png) == 434, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_punimon_png) == 472, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_punimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -784,7 +784,7 @@ static_assert(sizeof(dm20_punimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_raremon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Raremon.png"
 };
-static_assert(sizeof(dm20_raremon_png) == 971, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_raremon_png) == 885, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_raremon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -792,7 +792,7 @@ static_assert(sizeof(dm20_raremon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_rasielmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Rasielmon.png"
 };
-static_assert(sizeof(dm20_rasielmon_png) == 1307, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_rasielmon_png) == 1253, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_rasielmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -808,7 +808,7 @@ static_assert(sizeof(dm20_rust_tyranomon_png) <= UINT32_MAX, "image size <= 4GB 
 const unsigned char dm20_sakumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Sakumon.png"
 };
-static_assert(sizeof(dm20_sakumon_png) == 807, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_sakumon_png) == 838, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_sakumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -816,7 +816,7 @@ static_assert(sizeof(dm20_sakumon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_sakuttomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Sakuttomon.png"
 };
-static_assert(sizeof(dm20_sakuttomon_png) == 911, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_sakuttomon_png) == 917, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_sakuttomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -832,7 +832,7 @@ static_assert(sizeof(dm20_savior_hackmon_png) <= UINT32_MAX, "image size <= 4GB 
 const unsigned char dm20_scumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Scumon.png"
 };
-static_assert(sizeof(dm20_scumon_png) == 937, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_scumon_png) == 874, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_scumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -840,7 +840,7 @@ static_assert(sizeof(dm20_scumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_seadramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Seadramon.png"
 };
-static_assert(sizeof(dm20_seadramon_png) == 834, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_seadramon_png) == 813, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_seadramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -848,7 +848,7 @@ static_assert(sizeof(dm20_seadramon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_shellmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Shellmon.png"
 };
-static_assert(sizeof(dm20_shellmon_png) == 880, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_shellmon_png) == 860, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_shellmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -856,7 +856,7 @@ static_assert(sizeof(dm20_shellmon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char dm20_skull_greymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Skull Greymon.png"
 };
-static_assert(sizeof(dm20_skull_greymon_png) == 771, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_skull_greymon_png) == 761, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_skull_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -872,7 +872,7 @@ static_assert(sizeof(dm20_skull_mammon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char dm20_slayerdramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Slayerdramon.png"
 };
-static_assert(sizeof(dm20_slayerdramon_png) == 1428, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_slayerdramon_png) == 1395, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_slayerdramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -896,7 +896,7 @@ static_assert(sizeof(dm20_taichis_greymon_png) <= UINT32_MAX, "image size <= 4GB
 const unsigned char dm20_taichis_metal_greymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Taichis Metal Greymon.png"
 };
-static_assert(sizeof(dm20_taichis_metal_greymon_png) == 1187, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_taichis_metal_greymon_png) == 1190, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_taichis_metal_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -904,7 +904,7 @@ static_assert(sizeof(dm20_taichis_metal_greymon_png) <= UINT32_MAX, "image size 
 const unsigned char dm20_taichis_war_greymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Taichis War Greymon.png"
 };
-static_assert(sizeof(dm20_taichis_war_greymon_png) == 1343, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_taichis_war_greymon_png) == 1321, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_taichis_war_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -912,7 +912,7 @@ static_assert(sizeof(dm20_taichis_war_greymon_png) <= UINT32_MAX, "image size <=
 const unsigned char dm20_tanemon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Tanemon.png"
 };
-static_assert(sizeof(dm20_tanemon_png) == 860, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_tanemon_png) == 795, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_tanemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -920,7 +920,7 @@ static_assert(sizeof(dm20_tanemon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_titamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Titamon.png"
 };
-static_assert(sizeof(dm20_titamon_png) == 1273, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_titamon_png) == 1232, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_titamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -928,7 +928,7 @@ static_assert(sizeof(dm20_titamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_tokomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Tokomon.png"
 };
-static_assert(sizeof(dm20_tokomon_png) == 862, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_tokomon_png) == 823, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_tokomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -936,7 +936,7 @@ static_assert(sizeof(dm20_tokomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_tunomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Tunomon.png"
 };
-static_assert(sizeof(dm20_tunomon_png) == 822, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_tunomon_png) == 790, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_tunomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -944,7 +944,7 @@ static_assert(sizeof(dm20_tunomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_tuskmon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Tuskmon.png"
 };
-static_assert(sizeof(dm20_tuskmon_png) == 945, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_tuskmon_png) == 875, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_tuskmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -952,7 +952,7 @@ static_assert(sizeof(dm20_tuskmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_tyranomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Tyranomon.png"
 };
-static_assert(sizeof(dm20_tyranomon_png) == 869, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_tyranomon_png) == 848, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_tyranomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -960,7 +960,7 @@ static_assert(sizeof(dm20_tyranomon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char dm20_unimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Unimon.png"
 };
-static_assert(sizeof(dm20_unimon_png) == 1044, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_unimon_png) == 1002, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_unimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -968,7 +968,7 @@ static_assert(sizeof(dm20_unimon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char dm20_vademon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Vademon.png"
 };
-static_assert(sizeof(dm20_vademon_png) == 912, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_vademon_png) == 772, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_vademon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -976,7 +976,7 @@ static_assert(sizeof(dm20_vademon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_vegimon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Vegimon.png"
 };
-static_assert(sizeof(dm20_vegimon_png) == 928, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_vegimon_png) == 880, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_vegimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -984,7 +984,7 @@ static_assert(sizeof(dm20_vegimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_whamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Whamon.png"
 };
-static_assert(sizeof(dm20_whamon_png) == 875, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_whamon_png) == 827, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_whamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1008,7 +1008,7 @@ static_assert(sizeof(dm20_yamatos_gabumon_png) <= UINT32_MAX, "image size <= 4GB
 const unsigned char dm20_yamatos_garurumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Yamatos Garurumon.png"
 };
-static_assert(sizeof(dm20_yamatos_garurumon_png) == 1075, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_yamatos_garurumon_png) == 1036, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_yamatos_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1016,7 +1016,7 @@ static_assert(sizeof(dm20_yamatos_garurumon_png) <= UINT32_MAX, "image size <= 4
 const unsigned char dm20_yamatos_metal_garurumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Yamatos Metal Garurumon.png"
 };
-static_assert(sizeof(dm20_yamatos_metal_garurumon_png) == 1344, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_yamatos_metal_garurumon_png) == 1334, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_yamatos_metal_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1032,7 +1032,7 @@ static_assert(sizeof(dm20_yamatos_were_garurumon_png) <= UINT32_MAX, "image size
 const unsigned char dm20_yukidarumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Yukidarumon.png"
 };
-static_assert(sizeof(dm20_yukidarumon_png) == 928, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_yukidarumon_png) == 881, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_yukidarumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1040,7 +1040,7 @@ static_assert(sizeof(dm20_yukidarumon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char dm20_yukimibotamon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Yukimibotamon.png"
 };
-static_assert(sizeof(dm20_yukimibotamon_png) == 784, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_yukimibotamon_png) == 831, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_yukimibotamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1048,7 +1048,7 @@ static_assert(sizeof(dm20_yukimibotamon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char dm20_yuramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Yuramon.png"
 };
-static_assert(sizeof(dm20_yuramon_png) == 434, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_yuramon_png) == 468, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_yuramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1056,7 +1056,7 @@ static_assert(sizeof(dm20_yuramon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_zubaeagermon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Zubaeagermon.png"
 };
-static_assert(sizeof(dm20_zubaeagermon_png) == 1310, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_zubaeagermon_png) == 1261, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_zubaeagermon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1072,7 +1072,7 @@ static_assert(sizeof(dm20_zubamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char dm20_zurumon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Zurumon.png"
 };
-static_assert(sizeof(dm20_zurumon_png) == 393, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dm20_zurumon_png) == 443, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(dm20_zurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 

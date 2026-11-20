@@ -4,14 +4,16 @@
 #./scripts/generate_embedded_assets_min_dm_evol.sh assets/min_dm assets/input/dm-2 src/embedded_assets/min_dm/min_dm_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm
 
 # dm
+#./scripts/optimize_dm_sprite_sheet.sh --output assets --set dm --output-input assets/input/dm-2 --unify-size auto
 ./scripts/generate_embedded_assets.sh assets/dm assets/input/dm-2 include/embedded_assets/dm/dm_images.h src/embedded_assets/dm/dm_images.cpp include/embedded_assets/dm/dm.hpp include/embedded_assets/dm/dm_sprite.h src/embedded_assets/dm/dm_get_sprite_sheet.cpp src/image_loader/dm/dm_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dm --load-function "load_base_dm_anim"
 ./scripts/generate_init_anim.sh assets/dm src/embedded_assets/dm ./include/embedded_assets/dm/dm_images.h dm --layout Dm --set dm
 ./scripts/generate_embedded_assets_dm_evol.sh assets/dm assets/input/dm-2 src/embedded_assets/dm/dm_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm
 
 # dm20
-./scripts/generate_embedded_assets.sh assets/dm20 assets/input/dm20 include/embedded_assets/dm20/dm20_images.h src/embedded_assets/dm20/dm20_images.cpp include/embedded_assets/dm20/dm20.hpp include/embedded_assets/dm20/dm20_sprite.h src/embedded_assets/dm20/dm20_get_sprite_sheet.cpp src/image_loader/dm20/dm20_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dm20 --load-function "load_base_dm_anim"
+#./scripts/optimize_dm_sprite_sheet.sh --output assets --set dm20 --output-input assets/input/dm20-2 --unify-size auto
+./scripts/generate_embedded_assets.sh assets/dm20 assets/input/dm20-2 include/embedded_assets/dm20/dm20_images.h src/embedded_assets/dm20/dm20_images.cpp include/embedded_assets/dm20/dm20.hpp include/embedded_assets/dm20/dm20_sprite.h src/embedded_assets/dm20/dm20_get_sprite_sheet.cpp src/image_loader/dm20/dm20_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dm20 --load-function "load_base_dm_anim"
 ./scripts/generate_init_anim.sh assets/dm20 src/embedded_assets/dm20 ./include/embedded_assets/dm20/dm20_images.h dm20 --layout Dm --alt dm --set dm20
-./scripts/generate_embedded_assets_dm_evol.sh assets/dm20 assets/input/dm20 src/embedded_assets/dm20/dm20_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm20
+./scripts/generate_embedded_assets_dm_evol.sh assets/dm20 assets/input/dm20-2 src/embedded_assets/dm20/dm20_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm20
 
 # pen
 ./scripts/generate_embedded_assets.sh assets/pen assets/input/pen include/embedded_assets/pen/pen_images.h src/embedded_assets/pen/pen_images.cpp include/embedded_assets/pen/pen.hpp include/embedded_assets/pen/pen_sprite.h src/embedded_assets/pen/pen_get_sprite_sheet.cpp src/image_loader/pen/pen_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set pen --load-function "load_base_dm_anim"
