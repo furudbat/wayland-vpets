@@ -1066,9 +1066,9 @@ namespace bongocat::assets {
     inline static constexpr char DMX_HERISSMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmx:Herissmon";
     inline static constexpr const char* DMX_HERISSMON_FQNAME = DMX_HERISSMON_FQNAME_ARR;
     inline static constexpr size_t DMX_HERISSMON_FQNAME_LEN = sizeof(DMX_HERISSMON_FQNAME_ARR)-1;
-    inline static constexpr int DMX_HERISSMON_SPRITE_SHEET_COLS ASSETS_DMX_DIMS_SECTION = 4;
+    inline static constexpr int DMX_HERISSMON_SPRITE_SHEET_COLS ASSETS_DMX_DIMS_SECTION = 5;
     inline static constexpr int DMX_HERISSMON_SPRITE_SHEET_ROWS ASSETS_DMX_DIMS_SECTION = 1;
-    inline static constexpr size_t DMX_HERISSMON_SPRITE_SHEET_FRAMES_COUNT = 4;
+    inline static constexpr size_t DMX_HERISSMON_SPRITE_SHEET_FRAMES_COUNT = 5;
     inline static constexpr size_t DMX_HERISSMON_ANIM_INDEX = 58;
 
     // Name: Hexeblaumon

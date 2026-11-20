@@ -28,9 +28,10 @@
 ./scripts/generate_embedded_assets_dm_evol.sh assets/pen20 assets/input/pen20-3 src/embedded_assets/pen20/pen20_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen20
 
 # dmx
-./scripts/generate_embedded_assets.sh assets/dmx assets/input/dmx-2 include/embedded_assets/dmx/dmx_images.h src/embedded_assets/dmx/dmx_images.cpp include/embedded_assets/dmx/dmx.hpp include/embedded_assets/dmx/dmx_sprite.h src/embedded_assets/dmx/dmx_get_sprite_sheet.cpp src/image_loader/dmx/dmx_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmx --load-function "load_base_dm_anim"
+#./scripts/optimize_dm_sprite_sheet.sh --output assets --set dmx --output-input assets/input/dmx-3 --unify-size auto
+./scripts/generate_embedded_assets.sh assets/dmx assets/input/dmx-3 include/embedded_assets/dmx/dmx_images.h src/embedded_assets/dmx/dmx_images.cpp include/embedded_assets/dmx/dmx.hpp include/embedded_assets/dmx/dmx_sprite.h src/embedded_assets/dmx/dmx_get_sprite_sheet.cpp src/image_loader/dmx/dmx_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmx --load-function "load_base_dm_anim"
 ./scripts/generate_init_anim.sh assets/dmx src/embedded_assets/dmx ./include/embedded_assets/dmx/dmx_images.h dmx --layout Dm --set dmx
-./scripts/generate_embedded_assets_dm_evol.sh assets/dmx assets/input/dmx-2 src/embedded_assets/dmx/dmx_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmx
+./scripts/generate_embedded_assets_dm_evol.sh assets/dmx assets/input/dmx-3 src/embedded_assets/dmx/dmx_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmx
 
 # dmc
 #bash ./scripts/convert_sprite_sheet.sh --dmc15 --set dmc --output assets --output-input assets/input/dmc-fixed-2 -r assets/input/_source/dmc-frames
