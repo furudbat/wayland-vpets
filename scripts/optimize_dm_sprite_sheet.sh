@@ -34,6 +34,11 @@
 #   OUTPUT_INPUT_DIR/<name>.png   input sprite sheet with fixed frame size (--frame-size, default 128),
 #                                 used to calculate the frame count (cols), see generate_embedded_assets.sh
 # A frame is only blanked/trimmed when it is identical in both sheets.
+#
+# Optional (--unify-size): give all final sprite sheets the same frame size (OUTPUT_DIR only, cols stay the same).
+#   auto   = biggest frame width and height of all processed sprite sheets
+#   N, WxH = fixed size (sheets with bigger frames are skipped)
+# Every frame is placed bottom-aligned (feet stay on the same level) and centered horizontally.
 
 set -u
 
@@ -43,6 +48,8 @@ SET_NAME=""
 RECURSIVE=0
 FRAME_SIZE=128
 DRY_RUN=0
+UNIFY_SIZE=""
+ONLY_UNIFY=0
 
 MIN_COLS=4       # loader requires idle1 idle2 angry down1
 MIN_TRIM_COLS=9  # never trim below the 9 base frames
@@ -63,6 +70,9 @@ Usage: $0 --output OUTPUT_DIR --output-input OUTPUT_INPUT_DIR [--set SET] [-r] [
   -r                    process all *.png in ASSETS_DIR (default: OUTPUT_DIR[/SET])
   --frame-size N        frame size of the OUTPUT_INPUT_DIR sheets (default: $FRAME_SIZE)
   --dry-run             only print what would be changed
+  --unify-size SIZE     unify the frame size of all final sprite sheets: auto | N | WxH
+                        (bottom-aligned, centered horizontally)
+  --only-unify          skip the duplicate frame optimization, only unify the frame size
   ASSETS_DIR | FILE...  directory with final sprite sheets (-r) or single sprite sheets (names are matched)
 
 Overwrites the files in OUTPUT_DIR and OUTPUT_INPUT_DIR.
@@ -79,6 +89,8 @@ while [[ $# -gt 0 ]]; do
         -r|--recursive) RECURSIVE=1; shift ;;
         --frame-size) FRAME_SIZE="${2:-}"; shift 2 ;;
         --dry-run) DRY_RUN=1; shift ;;
+        --unify-size) UNIFY_SIZE="${2:-}"; shift 2 ;;
+        --only-unify) ONLY_UNIFY=1; shift ;;
         -h|--help) usage; exit 0 ;;
         --) shift; INPUTS+=("$@"); break ;;
         -*) echo "Unknown option $1"; usage; exit 1 ;;
@@ -92,6 +104,21 @@ done
 [[ -n "$SET_NAME" ]] && OUTPUT_DIR="$OUTPUT_DIR/$SET_NAME"
 [[ -d "$OUTPUT_DIR" ]] || { echo "ERROR: output directory not found: $OUTPUT_DIR"; exit 1; }
 [[ -d "$OUTPUT_INPUT_DIR" ]] || { echo "ERROR: output-input directory not found: $OUTPUT_INPUT_DIR"; exit 1; }
+UNIFY_W=0
+UNIFY_H=0
+if [[ -n "$UNIFY_SIZE" ]]; then
+    if [[ "$UNIFY_SIZE" == "auto" ]]; then
+        :
+    elif [[ "$UNIFY_SIZE" =~ ^([1-9][0-9]*)$ ]]; then
+        UNIFY_W=${BASH_REMATCH[1]}; UNIFY_H=${BASH_REMATCH[1]}
+    elif [[ "$UNIFY_SIZE" =~ ^([1-9][0-9]*)[xX]([1-9][0-9]*)$ ]]; then
+        UNIFY_W=${BASH_REMATCH[1]}; UNIFY_H=${BASH_REMATCH[2]}
+    else
+        echo "ERROR: invalid --unify-size '$UNIFY_SIZE' (expected auto, N or WxH)"; exit 1
+    fi
+elif (( ONLY_UNIFY )); then
+    echo "ERROR: --only-unify requires --unify-size"; exit 1
+fi
 
 if ! command -v magick &>/dev/null; then
     echo "ImageMagick v7+ (magick command) is required."
@@ -138,11 +165,17 @@ optimize_png() {
 # Frames are compared as normalized 8-bit RGBA bytes, independent of the PNG color type (gray, palette, rgba):
 # the color of fully transparent pixels is cleared (-alpha background), so invisible differences are ignored.
 # Frames are stacked vertically (-append), so every frame is one contiguous block of FW*FH*4 bytes.
+# frame_info FILE FW FH [SW SH SX SY]: optional, only use the region SWxSH+SX+SY of every frame
 frame_info() {
     local file="$1" fw="$2" fh="$3" raw="$WORKDIR/frames.rgba" size total n i s zero
-    magick "$file[0]" -crop "${fw}x${fh}" +repage -background none -alpha background -append \
+    local SUB=() rw="$fw" rh="$fh"
+    if (( $# >= 7 )); then
+        rw="$4"; rh="$5"
+        SUB=(-crop "${4}x${5}+${6}+${7}" +repage)
+    fi
+    magick "$file[0]" -crop "${fw}x${fh}" +repage "${SUB[@]}" -background none -alpha background -append \
         -depth 8 "RGBA:$raw" 2>/dev/null || return 1
-    size=$((fw * fh * 4))
+    size=$((rw * rh * 4))
     total=$(file_size "$raw")
     (( size > 0 && total % size == 0 )) || return 1
     n=$((total / size))
@@ -325,6 +358,93 @@ process() {
     optimized=$((optimized + 1))
 }
 
+# === Unify frame size ===
+unified=0
+unify_unchanged=0
+unify_skipped=0
+
+# sheet_dims NAME -> "cols fw fh" of the final sheet (cols from the input sheet)
+sheet_dims() {
+    local name="$1" final="$OUTPUT_DIR/$1.png" input="$OUTPUT_INPUT_DIR/$1.png" IW IH W H cols
+    [[ -f "$final" && -f "$input" ]] || return 1
+    read -r IW IH < <(magick identify -format "%w %h" "$input[0]" 2>/dev/null)
+    read -r W H < <(magick identify -format "%w %h" "$final[0]" 2>/dev/null)
+    [[ -n "${IW:-}" && -n "${W:-}" ]] || return 1
+    (( IW % FRAME_SIZE == 0 )) || return 1
+    cols=$((IW / FRAME_SIZE))
+    (( cols > 0 && W % cols == 0 )) || return 1
+    echo "$cols $((W / cols)) $H"
+}
+
+# unify NAME TW TH
+unify() {
+    local name="$1" tw="$2" th="$3" final="$OUTPUT_DIR/$1.png" dims cols fw fh
+    if ! dims=$(sheet_dims "$name"); then
+        echo "WARN: unify skip '$name': can not read sprite sheet size"; unify_skipped=$((unify_skipped + 1)); return
+    fi
+    read -r cols fw fh <<< "$dims"
+    if (( fw == tw && fh == th )); then
+        unify_unchanged=$((unify_unchanged + 1)); return
+    fi
+    if (( fw > tw || fh > th )); then
+        echo "WARN: unify skip '$name': frame ${fw}x${fh} is bigger than ${tw}x${th}"
+        unify_skipped=$((unify_skipped + 1)); return
+    fi
+    # bottom-aligned (feet on the same level), centered horizontally
+    local x=$(((tw - fw) / 2)) y=$((th - fh))
+    if (( DRY_RUN )); then
+        echo "Would unify: $name frame ${fw}x${fh} -> ${tw}x${th} (offset +$x+$y)"
+        unified=$((unified + 1)); return
+    fi
+
+    local tmp="$WORKDIR/unified.png" before after
+    if ! magick -background none "$final[0]" -crop "${fw}x${fh}" +repage \
+        -gravity NorthWest -extent "${tw}x${th}-${x}-${y}" +append +repage \
+        -define png:exclude-chunks=date,time "PNG:$tmp" 2>/dev/null; then
+        echo "ERROR: '$name': failed to unify frame size"; failed=$((failed + 1)); return
+    fi
+    optimize_png "$tmp"
+
+    # verify: same frame count, every original frame unchanged at its new position
+    local W H
+    read -r W H < <(magick identify -format "%w %h" "$tmp" 2>/dev/null)
+    if [[ "${W:-}x${H:-}" != "$((cols * tw))x${th}" ]]; then
+        echo "ERROR: '$name': unify verify failed: size ${W:-?}x${H:-?}, expected $((cols * tw))x${th} (not written)"
+        failed=$((failed + 1)); return
+    fi
+    local orig new
+    orig=$(frame_info "$final" "$fw" "$fh" | cut -d' ' -f2)
+    new=$(frame_info "$tmp" "$tw" "$th" "$fw" "$fh" "$x" "$y" | cut -d' ' -f2)
+    if [[ -z "$orig" || "$orig" != "$new" ]]; then
+        echo "ERROR: '$name': unify verify failed: frames changed (not written)"; failed=$((failed + 1)); return
+    fi
+
+    before=$(file_size "$final"); after=$(file_size "$tmp")
+    mv -f "$tmp" "$final" || { echo "ERROR: '$name': failed to overwrite '$final'"; failed=$((failed + 1)); return; }
+    echo "Unified: $name frame ${fw}x${fh} -> ${tw}x${th} ${before}B->${after}B"
+    unified=$((unified + 1))
+}
+
+# unify_all NAME...
+unify_all() {
+    local tw=$UNIFY_W th=$UNIFY_H name dims cols fw fh
+    if [[ "$UNIFY_SIZE" == "auto" ]]; then
+        for name in "$@"; do
+            dims=$(sheet_dims "$name") || continue
+            read -r cols fw fh <<< "$dims"
+            (( fw > tw )) && tw=$fw
+            (( fh > th )) && th=$fh
+        done
+        (( tw > 0 && th > 0 )) || { echo "ERROR: unify: no sprite sheet sizes found"; failed=$((failed + 1)); return; }
+        echo "Unify frame size (biggest frame): ${tw}x${th}"
+    else
+        echo "Unify frame size: ${tw}x${th}"
+    fi
+    for name in "$@"; do
+        unify "$name" "$tw" "$th"
+    done
+}
+
 # === Collect names ===
 NAMES=()
 add_dir() {
@@ -347,12 +467,21 @@ else
 fi
 (( ${#NAMES[@]} > 0 )) || { echo "ERROR: no sprite sheets found"; exit 1; }
 
-for name in "${NAMES[@]}"; do
-    process "$name"
-done
+if (( ! ONLY_UNIFY )); then
+    for name in "${NAMES[@]}"; do
+        process "$name"
+    done
+fi
+# unify after the optimization (trimming changes cols, not the frame size)
+[[ -n "$UNIFY_SIZE" ]] && unify_all "${NAMES[@]}"
 
-summary="Done: optimized=$optimized unchanged=$unchanged skipped=$skipped failed=$failed"
-summary+=" frames trimmed (end)=$total_trimmed duplicates removed (blanked)=$total_blanked"
+summary="Done:"
+if (( ! ONLY_UNIFY )); then
+    summary+=" optimized=$optimized unchanged=$unchanged skipped=$skipped"
+    summary+=" frames trimmed (end)=$total_trimmed duplicates removed (blanked)=$total_blanked"
+fi
+[[ -n "$UNIFY_SIZE" ]] && summary+=" unified=$unified unify-unchanged=$unify_unchanged unify-skipped=$unify_skipped"
+summary+=" failed=$failed"
 (( ! DRY_RUN )) && summary+=" final bytes $bytes_before->$bytes_after (optimized files)"
 echo "$summary"
 [[ $failed -eq 0 ]]
