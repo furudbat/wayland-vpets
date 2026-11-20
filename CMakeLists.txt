@@ -299,7 +299,7 @@ if(FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
   )
     target_link_libraries(
       bongocat_loaders
-      INTERFACE assets_min_dm_loader assets_min_dm_feature assets_min_dm_interface -Wl,--whole-archive assets_dm -Wl,--no-whole-archive
+      INTERFACE assets_min_dm_loader assets_min_dm_feature assets_min_dm_interface -Wl,--whole-archive assets_min_dm -Wl,--no-whole-archive
     )
     message(STATUS "Include min_dm assets")
   else()
