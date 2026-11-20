@@ -16,14 +16,16 @@
 ./scripts/generate_embedded_assets_dm_evol.sh assets/dm20 assets/input/dm20-2 src/embedded_assets/dm20/dm20_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm20
 
 # pen
-./scripts/generate_embedded_assets.sh assets/pen assets/input/pen include/embedded_assets/pen/pen_images.h src/embedded_assets/pen/pen_images.cpp include/embedded_assets/pen/pen.hpp include/embedded_assets/pen/pen_sprite.h src/embedded_assets/pen/pen_get_sprite_sheet.cpp src/image_loader/pen/pen_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set pen --load-function "load_base_dm_anim"
+#./scripts/optimize_dm_sprite_sheet.sh --output assets --set pen --output-input assets/input/pen-2 --unify-size auto
+./scripts/generate_embedded_assets.sh assets/pen assets/input/pen-2 include/embedded_assets/pen/pen_images.h src/embedded_assets/pen/pen_images.cpp include/embedded_assets/pen/pen.hpp include/embedded_assets/pen/pen_sprite.h src/embedded_assets/pen/pen_get_sprite_sheet.cpp src/image_loader/pen/pen_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set pen --load-function "load_base_dm_anim"
 ./scripts/generate_init_anim.sh assets/pen src/embedded_assets/pen ./include/embedded_assets/pen/pen_images.h pen --layout Dm --set pen
-./scripts/generate_embedded_assets_dm_evol.sh assets/pen assets/input/pen src/embedded_assets/pen/pen_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen
+./scripts/generate_embedded_assets_dm_evol.sh assets/pen assets/input/pen-2 src/embedded_assets/pen/pen_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen
 
 # pen20
-./scripts/generate_embedded_assets.sh assets/pen20 assets/input/pen20-2 include/embedded_assets/pen20/pen20_images.h src/embedded_assets/pen20/pen20_images.cpp include/embedded_assets/pen20/pen20.hpp include/embedded_assets/pen20/pen20_sprite.h src/embedded_assets/pen20/pen20_get_sprite_sheet.cpp src/image_loader/pen20/pen20_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set pen20 --load-function "load_base_dm_anim"
+#./scripts/optimize_dm_sprite_sheet.sh --output assets --set pen20 --output-input assets/input/pen20-3 --unify-size auto
+./scripts/generate_embedded_assets.sh assets/pen20 assets/input/pen20-3 include/embedded_assets/pen20/pen20_images.h src/embedded_assets/pen20/pen20_images.cpp include/embedded_assets/pen20/pen20.hpp include/embedded_assets/pen20/pen20_sprite.h src/embedded_assets/pen20/pen20_get_sprite_sheet.cpp src/image_loader/pen20/pen20_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set pen20 --load-function "load_base_dm_anim"
 ./scripts/generate_init_anim.sh assets/pen20 src/embedded_assets/pen20 ./include/embedded_assets/pen20/pen20_images.h pen20 --layout Dm --alt pen --set pen20
-./scripts/generate_embedded_assets_dm_evol.sh assets/pen20 assets/input/pen20-2 src/embedded_assets/pen20/pen20_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen20
+./scripts/generate_embedded_assets_dm_evol.sh assets/pen20 assets/input/pen20-3 src/embedded_assets/pen20/pen20_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen20
 
 # dmx
 ./scripts/generate_embedded_assets.sh assets/dmx assets/input/dmx-2 include/embedded_assets/dmx/dmx_images.h src/embedded_assets/dmx/dmx_images.cpp include/embedded_assets/dmx/dmx.hpp include/embedded_assets/dmx/dmx_sprite.h src/embedded_assets/dmx/dmx_get_sprite_sheet.cpp src/image_loader/dmx/dmx_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmx --load-function "load_base_dm_anim"
