@@ -61,4 +61,16 @@
 #define CONFIG_STRING_SECTION(name) BONGOCAT_SECTION(".config.str." #name)
 #define CONFIG_LOCAL_STRING_SECTION BONGOCAT_SECTION(".config.str.local")
 
+#ifdef __cplusplus
+namespace bongocat::assets::details {
+constexpr bool cstr_equal(const char *a, const char *b) {
+  while (*a != '\0' && *a == *b) {
+    ++a;
+    ++b;
+  }
+  return *a == *b;
+}
+}  // namespace bongocat::assets::details
+#endif
+
 #endif  // BONGOCAT_ASSETS_MACROS_IMAGE_H

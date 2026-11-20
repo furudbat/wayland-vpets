@@ -2,212 +2,129 @@
 #include "embedded_assets/dmc/dmc.hpp"
 #include "dmc_config_parse_animation_name.h"
 #include "utils/memory.h"
+#include <cstdint>
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t dmc_animation_table[] = {
-        { DMC_AGUMON_NAME, DMC_AGUMON_ID, DMC_AGUMON_FQID, DMC_AGUMON_FQNAME, DMC_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_AIRDRAMON_NAME, DMC_AIRDRAMON_ID, DMC_AIRDRAMON_FQID, DMC_AIRDRAMON_FQNAME, DMC_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_ANDROMON_NAME, DMC_ANDROMON_ID, DMC_ANDROMON_FQID, DMC_ANDROMON_FQNAME, DMC_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_ANGEMON_NAME, DMC_ANGEMON_ID, DMC_ANGEMON_FQID, DMC_ANGEMON_FQNAME, DMC_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BAKEMON_NAME, DMC_BAKEMON_ID, DMC_BAKEMON_FQID, DMC_BAKEMON_FQNAME, DMC_BAKEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BANCHO_LEOMON_NAME, DMC_BANCHO_LEOMON_ID, DMC_BANCHO_LEOMON_FQID, DMC_BANCHO_LEOMON_FQNAME, DMC_BANCHO_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BANCHO_MAMEMON_NAME, DMC_BANCHO_MAMEMON_ID, DMC_BANCHO_MAMEMON_FQID, DMC_BANCHO_MAMEMON_FQNAME, DMC_BANCHO_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BETAMON_NAME, DMC_BETAMON_ID, DMC_BETAMON_FQID, DMC_BETAMON_FQNAME, DMC_BETAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BIRDRAMON_NAME, DMC_BIRDRAMON_ID, DMC_BIRDRAMON_FQID, DMC_BIRDRAMON_FQNAME, DMC_BIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BLITZ_GREYMON_NAME, DMC_BLITZ_GREYMON_ID, DMC_BLITZ_GREYMON_FQID, DMC_BLITZ_GREYMON_FQNAME, DMC_BLITZ_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BLOOM_LORDMON_NAME, DMC_BLOOM_LORDMON_ID, DMC_BLOOM_LORDMON_FQID, DMC_BLOOM_LORDMON_FQNAME, DMC_BLOOM_LORDMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_BOTAMON_NAME, DMC_BOTAMON_ID, DMC_BOTAMON_FQID, DMC_BOTAMON_FQNAME, DMC_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_CENTAURMON_NAME, DMC_CENTAURMON_ID, DMC_CENTAURMON_FQID, DMC_CENTAURMON_FQNAME, DMC_CENTAURMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_CHAOSDRAMON_NAME, DMC_CHAOSDRAMON_ID, DMC_CHAOSDRAMON_FQID, DMC_CHAOSDRAMON_FQNAME, DMC_CHAOSDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_CHAOSMON_NAME, DMC_CHAOSMON_ID, DMC_CHAOSMON_FQID, DMC_CHAOSMON_FQNAME, DMC_CHAOSMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_CHIMAIRAMON_NAME, DMC_CHIMAIRAMON_ID, DMC_CHIMAIRAMON_FQID, DMC_CHIMAIRAMON_FQNAME, DMC_CHIMAIRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_COCKATRIMON_NAME, DMC_COCKATRIMON_ID, DMC_COCKATRIMON_FQID, DMC_COCKATRIMON_FQNAME, DMC_COCKATRIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_COELAMON_NAME, DMC_COELAMON_ID, DMC_COELAMON_FQID, DMC_COELAMON_FQNAME, DMC_COELAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_CRES_GARURUMON_NAME, DMC_CRES_GARURUMON_ID, DMC_CRES_GARURUMON_FQID, DMC_CRES_GARURUMON_FQNAME, DMC_CRES_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_CYCLOMON_NAME, DMC_CYCLOMON_ID, DMC_CYCLOMON_FQID, DMC_CYCLOMON_FQNAME, DMC_CYCLOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_DARKDRAMON_NAME, DMC_DARKDRAMON_ID, DMC_DARKDRAMON_FQID, DMC_DARKDRAMON_FQNAME, DMC_DARKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_DARK_TYRANOMON_NAME, DMC_DARK_TYRANOMON_ID, DMC_DARK_TYRANOMON_FQID, DMC_DARK_TYRANOMON_FQNAME, DMC_DARK_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_DELTAMON_NAME, DMC_DELTAMON_ID, DMC_DELTAMON_FQID, DMC_DELTAMON_FQNAME, DMC_DELTAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_DEVIDRAMON_NAME, DMC_DEVIDRAMON_ID, DMC_DEVIDRAMON_FQID, DMC_DEVIDRAMON_FQNAME, DMC_DEVIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_DEVIMON_NAME, DMC_DEVIMON_ID, DMC_DEVIMON_FQID, DMC_DEVIMON_FQNAME, DMC_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_DIGITAMAMON_NAME, DMC_DIGITAMAMON_ID, DMC_DIGITAMAMON_FQID, DMC_DIGITAMAMON_FQNAME, DMC_DIGITAMAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_DRIMOGEMON_NAME, DMC_DRIMOGEMON_ID, DMC_DRIMOGEMON_FQID, DMC_DRIMOGEMON_FQNAME, DMC_DRIMOGEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_EBEMON_NAME, DMC_EBEMON_ID, DMC_EBEMON_FQID, DMC_EBEMON_FQNAME, DMC_EBEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_ELECMON_NAME, DMC_ELECMON_ID, DMC_ELECMON_FQID, DMC_ELECMON_FQNAME, DMC_ELECMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_ETEMON_NAME, DMC_ETEMON_ID, DMC_ETEMON_FQID, DMC_ETEMON_FQNAME, DMC_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_EX_TYRANOMON_NAME, DMC_EX_TYRANOMON_ID, DMC_EX_TYRANOMON_FQID, DMC_EX_TYRANOMON_FQNAME, DMC_EX_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_FLYMON_NAME, DMC_FLYMON_ID, DMC_FLYMON_FQID, DMC_FLYMON_FQNAME, DMC_FLYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GABUMON_NAME, DMC_GABUMON_ID, DMC_GABUMON_FQID, DMC_GABUMON_FQNAME, DMC_GABUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GAIOUMON_NAME, DMC_GAIOUMON_ID, DMC_GAIOUMON_FQID, DMC_GAIOUMON_FQNAME, DMC_GAIOUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GANKOOMON_NAME, DMC_GANKOOMON_ID, DMC_GANKOOMON_FQID, DMC_GANKOOMON_FQNAME, DMC_GANKOOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GARURUMON_NAME, DMC_GARURUMON_ID, DMC_GARURUMON_FQID, DMC_GARURUMON_FQNAME, DMC_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GAZIMON_NAME, DMC_GAZIMON_ID, DMC_GAZIMON_FQID, DMC_GAZIMON_FQNAME, DMC_GAZIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GIROMON_NAME, DMC_GIROMON_ID, DMC_GIROMON_FQID, DMC_GIROMON_FQNAME, DMC_GIROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GIZAMON_NAME, DMC_GIZAMON_ID, DMC_GIZAMON_FQID, DMC_GIZAMON_FQNAME, DMC_GIZAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GOKUMON_NAME, DMC_GOKUMON_ID, DMC_GOKUMON_FQID, DMC_GOKUMON_FQNAME, DMC_GOKUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_GREYMON_NAME, DMC_GREYMON_ID, DMC_GREYMON_FQID, DMC_GREYMON_FQNAME, DMC_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_HI_ANDROMON_NAME, DMC_HI_ANDROMON_ID, DMC_HI_ANDROMON_FQID, DMC_HI_ANDROMON_FQNAME, DMC_HI_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_KABUTERIMON_NAME, DMC_KABUTERIMON_ID, DMC_KABUTERIMON_FQID, DMC_KABUTERIMON_FQNAME, DMC_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_KOROMON_NAME, DMC_KOROMON_ID, DMC_KOROMON_FQID, DMC_KOROMON_FQNAME, DMC_KOROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_KUNEMON_NAME, DMC_KUNEMON_ID, DMC_KUNEMON_FQID, DMC_KUNEMON_FQNAME, DMC_KUNEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_KUWAGAMON_NAME, DMC_KUWAGAMON_ID, DMC_KUWAGAMON_FQID, DMC_KUWAGAMON_FQNAME, DMC_KUWAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_LEOMON_NAME, DMC_LEOMON_ID, DMC_LEOMON_FQID, DMC_LEOMON_FQNAME, DMC_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MAMEMON_NAME, DMC_MAMEMON_ID, DMC_MAMEMON_FQID, DMC_MAMEMON_FQNAME, DMC_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MEGADRAMON_NAME, DMC_MEGADRAMON_ID, DMC_MEGADRAMON_FQID, DMC_MEGADRAMON_FQNAME, DMC_MEGADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MERAMON_NAME, DMC_MERAMON_ID, DMC_MERAMON_FQID, DMC_MERAMON_FQNAME, DMC_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_METAL_GREYMON_VIRUS_NAME, DMC_METAL_GREYMON_VIRUS_ID, DMC_METAL_GREYMON_VIRUS_FQID, DMC_METAL_GREYMON_VIRUS_FQNAME, DMC_METAL_GREYMON_VIRUS_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_METAL_MAMEMON_NAME, DMC_METAL_MAMEMON_ID, DMC_METAL_MAMEMON_FQID, DMC_METAL_MAMEMON_FQNAME, DMC_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_METAL_TYRANOMON_NAME, DMC_METAL_TYRANOMON_ID, DMC_METAL_TYRANOMON_FQID, DMC_METAL_TYRANOMON_FQNAME, DMC_METAL_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MILLENNIUMON_NAME, DMC_MILLENNIUMON_ID, DMC_MILLENNIUMON_FQID, DMC_MILLENNIUMON_FQNAME, DMC_MILLENNIUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MOJYAMON_NAME, DMC_MOJYAMON_ID, DMC_MOJYAMON_FQID, DMC_MOJYAMON_FQNAME, DMC_MOJYAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MONOCHROMON_NAME, DMC_MONOCHROMON_ID, DMC_MONOCHROMON_FQID, DMC_MONOCHROMON_FQNAME, DMC_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MONZAEMON_NAME, DMC_MONZAEMON_ID, DMC_MONZAEMON_FQID, DMC_MONZAEMON_FQNAME, DMC_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MUGENDRAMON_NAME, DMC_MUGENDRAMON_ID, DMC_MUGENDRAMON_FQID, DMC_MUGENDRAMON_FQNAME, DMC_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_NANIMON_NAME, DMC_NANIMON_ID, DMC_NANIMON_FQID, DMC_NANIMON_FQNAME, DMC_NANIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_NANOMON_NAME, DMC_NANOMON_ID, DMC_NANOMON_FQID, DMC_NANOMON_FQNAME, DMC_NANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_NUMEMON_NAME, DMC_NUMEMON_ID, DMC_NUMEMON_FQID, DMC_NUMEMON_FQNAME, DMC_NUMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_OGREMON_NAME, DMC_OGREMON_ID, DMC_OGREMON_FQID, DMC_OGREMON_FQNAME, DMC_OGREMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_OMEGAMON_ALTER_S_NAME, DMC_OMEGAMON_ALTER_S_ID, DMC_OMEGAMON_ALTER_S_FQID, DMC_OMEGAMON_ALTER_S_FQNAME, DMC_OMEGAMON_ALTER_S_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_PAGUMON_NAME, DMC_PAGUMON_ID, DMC_PAGUMON_FQID, DMC_PAGUMON_FQNAME, DMC_PAGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_PALMON_NAME, DMC_PALMON_ID, DMC_PALMON_FQID, DMC_PALMON_FQNAME, DMC_PALMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_PATAMON_NAME, DMC_PATAMON_ID, DMC_PATAMON_FQID, DMC_PATAMON_FQNAME, DMC_PATAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_PICCOLOMON_NAME, DMC_PICCOLOMON_ID, DMC_PICCOLOMON_FQID, DMC_PICCOLOMON_FQNAME, DMC_PICCOLOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_PIYOMON_NAME, DMC_PIYOMON_ID, DMC_PIYOMON_FQID, DMC_PIYOMON_FQNAME, DMC_PIYOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_POYOMON_NAME, DMC_POYOMON_ID, DMC_POYOMON_FQID, DMC_POYOMON_FQNAME, DMC_POYOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_PUNIMON_NAME, DMC_PUNIMON_ID, DMC_PUNIMON_FQID, DMC_PUNIMON_FQNAME, DMC_PUNIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_RAIDENMON_NAME, DMC_RAIDENMON_ID, DMC_RAIDENMON_FQID, DMC_RAIDENMON_FQNAME, DMC_RAIDENMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_RAREMON_NAME, DMC_RAREMON_ID, DMC_RAREMON_FQID, DMC_RAREMON_FQNAME, DMC_RAREMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_SCUMON_NAME, DMC_SCUMON_ID, DMC_SCUMON_FQID, DMC_SCUMON_FQNAME, DMC_SCUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_SEADRAMON_NAME, DMC_SEADRAMON_ID, DMC_SEADRAMON_FQID, DMC_SEADRAMON_FQNAME, DMC_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_SHELLMON_NAME, DMC_SHELLMON_ID, DMC_SHELLMON_FQID, DMC_SHELLMON_FQNAME, DMC_SHELLMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_SHIN_MONZAEMON_NAME, DMC_SHIN_MONZAEMON_ID, DMC_SHIN_MONZAEMON_FQID, DMC_SHIN_MONZAEMON_FQNAME, DMC_SHIN_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_SKULL_GREYMON_NAME, DMC_SKULL_GREYMON_ID, DMC_SKULL_GREYMON_FQID, DMC_SKULL_GREYMON_FQNAME, DMC_SKULL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_SKULL_MAMMON_NAME, DMC_SKULL_MAMMON_ID, DMC_SKULL_MAMMON_FQID, DMC_SKULL_MAMMON_FQNAME, DMC_SKULL_MAMMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_TANEMON_NAME, DMC_TANEMON_ID, DMC_TANEMON_FQID, DMC_TANEMON_FQNAME, DMC_TANEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_TOKOMON_NAME, DMC_TOKOMON_ID, DMC_TOKOMON_FQID, DMC_TOKOMON_FQNAME, DMC_TOKOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_TSUNOMON_NAME, DMC_TSUNOMON_ID, DMC_TSUNOMON_FQID, DMC_TSUNOMON_FQNAME, DMC_TSUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_TUSKMON_NAME, DMC_TUSKMON_ID, DMC_TUSKMON_FQID, DMC_TUSKMON_FQNAME, DMC_TUSKMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_TYRANOMON_NAME, DMC_TYRANOMON_ID, DMC_TYRANOMON_FQID, DMC_TYRANOMON_FQNAME, DMC_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_UNIMON_NAME, DMC_UNIMON_ID, DMC_UNIMON_FQID, DMC_UNIMON_FQNAME, DMC_UNIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_VADEMON_NAME, DMC_VADEMON_ID, DMC_VADEMON_FQID, DMC_VADEMON_FQNAME, DMC_VADEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_VEGIMON_NAME, DMC_VEGIMON_ID, DMC_VEGIMON_FQID, DMC_VEGIMON_FQNAME, DMC_VEGIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_WHAMON_NAME, DMC_WHAMON_ID, DMC_WHAMON_FQID, DMC_WHAMON_FQNAME, DMC_WHAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_YUKIDARUMON_NAME, DMC_YUKIDARUMON_ID, DMC_YUKIDARUMON_FQID, DMC_YUKIDARUMON_FQNAME, DMC_YUKIDARUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_YURAMON_NAME, DMC_YURAMON_ID, DMC_YURAMON_FQID, DMC_YURAMON_FQNAME, DMC_YURAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_ZURUMON_NAME, DMC_ZURUMON_ID, DMC_ZURUMON_FQID, DMC_ZURUMON_FQNAME, DMC_ZURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
+    struct dmc_animation_table_entry_t {
+        // offsets into DMC_STRINGS
+        uint32_t name;
+        uint32_t id;
+        uint32_t fqid;
+        uint32_t fqname;
+        int32_t anim_index;
+        config::config_animation_dm_set_t set;
+        config::config_animation_sprite_sheet_layout_t layout;
+    };
+    static constexpr dmc_animation_table_entry_t dmc_animation_table[] CONFIG_LOCAL_STRING_SECTION = {
+        { DMC_AGUMON_NAME_OFF, DMC_AGUMON_ID_OFF, DMC_AGUMON_FQID_OFF, DMC_AGUMON_FQNAME_OFF, DMC_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Agumon
+        { DMC_AIRDRAMON_NAME_OFF, DMC_AIRDRAMON_ID_OFF, DMC_AIRDRAMON_FQID_OFF, DMC_AIRDRAMON_FQNAME_OFF, DMC_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Airdramon
+        { DMC_ANDROMON_NAME_OFF, DMC_ANDROMON_ID_OFF, DMC_ANDROMON_FQID_OFF, DMC_ANDROMON_FQNAME_OFF, DMC_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Andromon
+        { DMC_ANGEMON_NAME_OFF, DMC_ANGEMON_ID_OFF, DMC_ANGEMON_FQID_OFF, DMC_ANGEMON_FQNAME_OFF, DMC_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Angemon
+        { DMC_BAKEMON_NAME_OFF, DMC_BAKEMON_ID_OFF, DMC_BAKEMON_FQID_OFF, DMC_BAKEMON_FQNAME_OFF, DMC_BAKEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Bakemon
+        { DMC_BANCHO_LEOMON_NAME_OFF, DMC_BANCHO_LEOMON_ID_OFF, DMC_BANCHO_LEOMON_FQID_OFF, DMC_BANCHO_LEOMON_FQNAME_OFF, DMC_BANCHO_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Bancho Leomon
+        { DMC_BANCHO_MAMEMON_NAME_OFF, DMC_BANCHO_MAMEMON_ID_OFF, DMC_BANCHO_MAMEMON_FQID_OFF, DMC_BANCHO_MAMEMON_FQNAME_OFF, DMC_BANCHO_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Bancho Mamemon
+        { DMC_BETAMON_NAME_OFF, DMC_BETAMON_ID_OFF, DMC_BETAMON_FQID_OFF, DMC_BETAMON_FQNAME_OFF, DMC_BETAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Betamon
+        { DMC_BIRDRAMON_NAME_OFF, DMC_BIRDRAMON_ID_OFF, DMC_BIRDRAMON_FQID_OFF, DMC_BIRDRAMON_FQNAME_OFF, DMC_BIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Birdramon
+        { DMC_BLITZ_GREYMON_NAME_OFF, DMC_BLITZ_GREYMON_ID_OFF, DMC_BLITZ_GREYMON_FQID_OFF, DMC_BLITZ_GREYMON_FQNAME_OFF, DMC_BLITZ_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Blitz Greymon
+        { DMC_BLOOM_LORDMON_NAME_OFF, DMC_BLOOM_LORDMON_ID_OFF, DMC_BLOOM_LORDMON_FQID_OFF, DMC_BLOOM_LORDMON_FQNAME_OFF, DMC_BLOOM_LORDMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Bloom Lordmon
+        { DMC_BOTAMON_NAME_OFF, DMC_BOTAMON_ID_OFF, DMC_BOTAMON_FQID_OFF, DMC_BOTAMON_FQNAME_OFF, DMC_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Botamon
+        { DMC_CENTAURMON_NAME_OFF, DMC_CENTAURMON_ID_OFF, DMC_CENTAURMON_FQID_OFF, DMC_CENTAURMON_FQNAME_OFF, DMC_CENTAURMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Centaurmon
+        { DMC_CHAOSDRAMON_NAME_OFF, DMC_CHAOSDRAMON_ID_OFF, DMC_CHAOSDRAMON_FQID_OFF, DMC_CHAOSDRAMON_FQNAME_OFF, DMC_CHAOSDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Chaosdramon
+        { DMC_CHAOSMON_NAME_OFF, DMC_CHAOSMON_ID_OFF, DMC_CHAOSMON_FQID_OFF, DMC_CHAOSMON_FQNAME_OFF, DMC_CHAOSMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Chaosmon
+        { DMC_CHIMAIRAMON_NAME_OFF, DMC_CHIMAIRAMON_ID_OFF, DMC_CHIMAIRAMON_FQID_OFF, DMC_CHIMAIRAMON_FQNAME_OFF, DMC_CHIMAIRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Chimairamon
+        { DMC_COCKATRIMON_NAME_OFF, DMC_COCKATRIMON_ID_OFF, DMC_COCKATRIMON_FQID_OFF, DMC_COCKATRIMON_FQNAME_OFF, DMC_COCKATRIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Cockatrimon
+        { DMC_COELAMON_NAME_OFF, DMC_COELAMON_ID_OFF, DMC_COELAMON_FQID_OFF, DMC_COELAMON_FQNAME_OFF, DMC_COELAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Coelamon
+        { DMC_CRES_GARURUMON_NAME_OFF, DMC_CRES_GARURUMON_ID_OFF, DMC_CRES_GARURUMON_FQID_OFF, DMC_CRES_GARURUMON_FQNAME_OFF, DMC_CRES_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Cres Garurumon
+        { DMC_CYCLOMON_NAME_OFF, DMC_CYCLOMON_ID_OFF, DMC_CYCLOMON_FQID_OFF, DMC_CYCLOMON_FQNAME_OFF, DMC_CYCLOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Cyclomon
+        { DMC_DARKDRAMON_NAME_OFF, DMC_DARKDRAMON_ID_OFF, DMC_DARKDRAMON_FQID_OFF, DMC_DARKDRAMON_FQNAME_OFF, DMC_DARKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Darkdramon
+        { DMC_DARK_TYRANOMON_NAME_OFF, DMC_DARK_TYRANOMON_ID_OFF, DMC_DARK_TYRANOMON_FQID_OFF, DMC_DARK_TYRANOMON_FQNAME_OFF, DMC_DARK_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Dark Tyranomon
+        { DMC_DELTAMON_NAME_OFF, DMC_DELTAMON_ID_OFF, DMC_DELTAMON_FQID_OFF, DMC_DELTAMON_FQNAME_OFF, DMC_DELTAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Deltamon
+        { DMC_DEVIDRAMON_NAME_OFF, DMC_DEVIDRAMON_ID_OFF, DMC_DEVIDRAMON_FQID_OFF, DMC_DEVIDRAMON_FQNAME_OFF, DMC_DEVIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Devidramon
+        { DMC_DEVIMON_NAME_OFF, DMC_DEVIMON_ID_OFF, DMC_DEVIMON_FQID_OFF, DMC_DEVIMON_FQNAME_OFF, DMC_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Devimon
+        { DMC_DIGITAMAMON_NAME_OFF, DMC_DIGITAMAMON_ID_OFF, DMC_DIGITAMAMON_FQID_OFF, DMC_DIGITAMAMON_FQNAME_OFF, DMC_DIGITAMAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Digitamamon
+        { DMC_DRIMOGEMON_NAME_OFF, DMC_DRIMOGEMON_ID_OFF, DMC_DRIMOGEMON_FQID_OFF, DMC_DRIMOGEMON_FQNAME_OFF, DMC_DRIMOGEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Drimogemon
+        { DMC_EBEMON_NAME_OFF, DMC_EBEMON_ID_OFF, DMC_EBEMON_FQID_OFF, DMC_EBEMON_FQNAME_OFF, DMC_EBEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Ebemon
+        { DMC_ELECMON_NAME_OFF, DMC_ELECMON_ID_OFF, DMC_ELECMON_FQID_OFF, DMC_ELECMON_FQNAME_OFF, DMC_ELECMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Elecmon
+        { DMC_ETEMON_NAME_OFF, DMC_ETEMON_ID_OFF, DMC_ETEMON_FQID_OFF, DMC_ETEMON_FQNAME_OFF, DMC_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Etemon
+        { DMC_EX_TYRANOMON_NAME_OFF, DMC_EX_TYRANOMON_ID_OFF, DMC_EX_TYRANOMON_FQID_OFF, DMC_EX_TYRANOMON_FQNAME_OFF, DMC_EX_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Ex-Tyranomon
+        { DMC_FLYMON_NAME_OFF, DMC_FLYMON_ID_OFF, DMC_FLYMON_FQID_OFF, DMC_FLYMON_FQNAME_OFF, DMC_FLYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Flymon
+        { DMC_GABUMON_NAME_OFF, DMC_GABUMON_ID_OFF, DMC_GABUMON_FQID_OFF, DMC_GABUMON_FQNAME_OFF, DMC_GABUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Gabumon
+        { DMC_GAIOUMON_NAME_OFF, DMC_GAIOUMON_ID_OFF, DMC_GAIOUMON_FQID_OFF, DMC_GAIOUMON_FQNAME_OFF, DMC_GAIOUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Gaioumon
+        { DMC_GANKOOMON_NAME_OFF, DMC_GANKOOMON_ID_OFF, DMC_GANKOOMON_FQID_OFF, DMC_GANKOOMON_FQNAME_OFF, DMC_GANKOOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Gankoomon
+        { DMC_GARURUMON_NAME_OFF, DMC_GARURUMON_ID_OFF, DMC_GARURUMON_FQID_OFF, DMC_GARURUMON_FQNAME_OFF, DMC_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Garurumon
+        { DMC_GAZIMON_NAME_OFF, DMC_GAZIMON_ID_OFF, DMC_GAZIMON_FQID_OFF, DMC_GAZIMON_FQNAME_OFF, DMC_GAZIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Gazimon
+        { DMC_GIROMON_NAME_OFF, DMC_GIROMON_ID_OFF, DMC_GIROMON_FQID_OFF, DMC_GIROMON_FQNAME_OFF, DMC_GIROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Giromon
+        { DMC_GIZAMON_NAME_OFF, DMC_GIZAMON_ID_OFF, DMC_GIZAMON_FQID_OFF, DMC_GIZAMON_FQNAME_OFF, DMC_GIZAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Gizamon
+        { DMC_GOKUMON_NAME_OFF, DMC_GOKUMON_ID_OFF, DMC_GOKUMON_FQID_OFF, DMC_GOKUMON_FQNAME_OFF, DMC_GOKUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Gokumon
+        { DMC_GREYMON_NAME_OFF, DMC_GREYMON_ID_OFF, DMC_GREYMON_FQID_OFF, DMC_GREYMON_FQNAME_OFF, DMC_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Greymon
+        { DMC_HI_ANDROMON_NAME_OFF, DMC_HI_ANDROMON_ID_OFF, DMC_HI_ANDROMON_FQID_OFF, DMC_HI_ANDROMON_FQNAME_OFF, DMC_HI_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Hi Andromon
+        { DMC_KABUTERIMON_NAME_OFF, DMC_KABUTERIMON_ID_OFF, DMC_KABUTERIMON_FQID_OFF, DMC_KABUTERIMON_FQNAME_OFF, DMC_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Kabuterimon
+        { DMC_KOROMON_NAME_OFF, DMC_KOROMON_ID_OFF, DMC_KOROMON_FQID_OFF, DMC_KOROMON_FQNAME_OFF, DMC_KOROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Koromon
+        { DMC_KUNEMON_NAME_OFF, DMC_KUNEMON_ID_OFF, DMC_KUNEMON_FQID_OFF, DMC_KUNEMON_FQNAME_OFF, DMC_KUNEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Kunemon
+        { DMC_KUWAGAMON_NAME_OFF, DMC_KUWAGAMON_ID_OFF, DMC_KUWAGAMON_FQID_OFF, DMC_KUWAGAMON_FQNAME_OFF, DMC_KUWAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Kuwagamon
+        { DMC_LEOMON_NAME_OFF, DMC_LEOMON_ID_OFF, DMC_LEOMON_FQID_OFF, DMC_LEOMON_FQNAME_OFF, DMC_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Leomon
+        { DMC_MAMEMON_NAME_OFF, DMC_MAMEMON_ID_OFF, DMC_MAMEMON_FQID_OFF, DMC_MAMEMON_FQNAME_OFF, DMC_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Mamemon
+        { DMC_MEGADRAMON_NAME_OFF, DMC_MEGADRAMON_ID_OFF, DMC_MEGADRAMON_FQID_OFF, DMC_MEGADRAMON_FQNAME_OFF, DMC_MEGADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Megadramon
+        { DMC_MERAMON_NAME_OFF, DMC_MERAMON_ID_OFF, DMC_MERAMON_FQID_OFF, DMC_MERAMON_FQNAME_OFF, DMC_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Meramon
+        { DMC_METAL_GREYMON_VIRUS_NAME_OFF, DMC_METAL_GREYMON_VIRUS_ID_OFF, DMC_METAL_GREYMON_VIRUS_FQID_OFF, DMC_METAL_GREYMON_VIRUS_FQNAME_OFF, DMC_METAL_GREYMON_VIRUS_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Metal Greymon (Virus)
+        { DMC_METAL_MAMEMON_NAME_OFF, DMC_METAL_MAMEMON_ID_OFF, DMC_METAL_MAMEMON_FQID_OFF, DMC_METAL_MAMEMON_FQNAME_OFF, DMC_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Metal Mamemon
+        { DMC_METAL_TYRANOMON_NAME_OFF, DMC_METAL_TYRANOMON_ID_OFF, DMC_METAL_TYRANOMON_FQID_OFF, DMC_METAL_TYRANOMON_FQNAME_OFF, DMC_METAL_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Metal Tyranomon
+        { DMC_MILLENNIUMON_NAME_OFF, DMC_MILLENNIUMON_ID_OFF, DMC_MILLENNIUMON_FQID_OFF, DMC_MILLENNIUMON_FQNAME_OFF, DMC_MILLENNIUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Millenniumon
+        { DMC_MOJYAMON_NAME_OFF, DMC_MOJYAMON_ID_OFF, DMC_MOJYAMON_FQID_OFF, DMC_MOJYAMON_FQNAME_OFF, DMC_MOJYAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Mojyamon
+        { DMC_MONOCHROMON_NAME_OFF, DMC_MONOCHROMON_ID_OFF, DMC_MONOCHROMON_FQID_OFF, DMC_MONOCHROMON_FQNAME_OFF, DMC_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Monochromon
+        { DMC_MONZAEMON_NAME_OFF, DMC_MONZAEMON_ID_OFF, DMC_MONZAEMON_FQID_OFF, DMC_MONZAEMON_FQNAME_OFF, DMC_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Monzaemon
+        { DMC_MUGENDRAMON_NAME_OFF, DMC_MUGENDRAMON_ID_OFF, DMC_MUGENDRAMON_FQID_OFF, DMC_MUGENDRAMON_FQNAME_OFF, DMC_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Mugendramon
+        { DMC_NANIMON_NAME_OFF, DMC_NANIMON_ID_OFF, DMC_NANIMON_FQID_OFF, DMC_NANIMON_FQNAME_OFF, DMC_NANIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Nanimon
+        { DMC_NANOMON_NAME_OFF, DMC_NANOMON_ID_OFF, DMC_NANOMON_FQID_OFF, DMC_NANOMON_FQNAME_OFF, DMC_NANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Nanomon
+        { DMC_NUMEMON_NAME_OFF, DMC_NUMEMON_ID_OFF, DMC_NUMEMON_FQID_OFF, DMC_NUMEMON_FQNAME_OFF, DMC_NUMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Numemon
+        { DMC_OGREMON_NAME_OFF, DMC_OGREMON_ID_OFF, DMC_OGREMON_FQID_OFF, DMC_OGREMON_FQNAME_OFF, DMC_OGREMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Ogremon
+        { DMC_OMEGAMON_ALTER_S_NAME_OFF, DMC_OMEGAMON_ALTER_S_ID_OFF, DMC_OMEGAMON_ALTER_S_FQID_OFF, DMC_OMEGAMON_ALTER_S_FQNAME_OFF, DMC_OMEGAMON_ALTER_S_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Omegamon Alter-S
+        { DMC_PAGUMON_NAME_OFF, DMC_PAGUMON_ID_OFF, DMC_PAGUMON_FQID_OFF, DMC_PAGUMON_FQNAME_OFF, DMC_PAGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Pagumon
+        { DMC_PALMON_NAME_OFF, DMC_PALMON_ID_OFF, DMC_PALMON_FQID_OFF, DMC_PALMON_FQNAME_OFF, DMC_PALMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Palmon
+        { DMC_PATAMON_NAME_OFF, DMC_PATAMON_ID_OFF, DMC_PATAMON_FQID_OFF, DMC_PATAMON_FQNAME_OFF, DMC_PATAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Patamon
+        { DMC_PICCOLOMON_NAME_OFF, DMC_PICCOLOMON_ID_OFF, DMC_PICCOLOMON_FQID_OFF, DMC_PICCOLOMON_FQNAME_OFF, DMC_PICCOLOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Piccolomon
+        { DMC_PIYOMON_NAME_OFF, DMC_PIYOMON_ID_OFF, DMC_PIYOMON_FQID_OFF, DMC_PIYOMON_FQNAME_OFF, DMC_PIYOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Piyomon
+        { DMC_POYOMON_NAME_OFF, DMC_POYOMON_ID_OFF, DMC_POYOMON_FQID_OFF, DMC_POYOMON_FQNAME_OFF, DMC_POYOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Poyomon
+        { DMC_PUNIMON_NAME_OFF, DMC_PUNIMON_ID_OFF, DMC_PUNIMON_FQID_OFF, DMC_PUNIMON_FQNAME_OFF, DMC_PUNIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Punimon
+        { DMC_RAIDENMON_NAME_OFF, DMC_RAIDENMON_ID_OFF, DMC_RAIDENMON_FQID_OFF, DMC_RAIDENMON_FQNAME_OFF, DMC_RAIDENMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Raidenmon
+        { DMC_RAREMON_NAME_OFF, DMC_RAREMON_ID_OFF, DMC_RAREMON_FQID_OFF, DMC_RAREMON_FQNAME_OFF, DMC_RAREMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Raremon
+        { DMC_SCUMON_NAME_OFF, DMC_SCUMON_ID_OFF, DMC_SCUMON_FQID_OFF, DMC_SCUMON_FQNAME_OFF, DMC_SCUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Scumon
+        { DMC_SEADRAMON_NAME_OFF, DMC_SEADRAMON_ID_OFF, DMC_SEADRAMON_FQID_OFF, DMC_SEADRAMON_FQNAME_OFF, DMC_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Seadramon
+        { DMC_SHELLMON_NAME_OFF, DMC_SHELLMON_ID_OFF, DMC_SHELLMON_FQID_OFF, DMC_SHELLMON_FQNAME_OFF, DMC_SHELLMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Shellmon
+        { DMC_SHIN_MONZAEMON_NAME_OFF, DMC_SHIN_MONZAEMON_ID_OFF, DMC_SHIN_MONZAEMON_FQID_OFF, DMC_SHIN_MONZAEMON_FQNAME_OFF, DMC_SHIN_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Shin Monzaemon
+        { DMC_SKULL_GREYMON_NAME_OFF, DMC_SKULL_GREYMON_ID_OFF, DMC_SKULL_GREYMON_FQID_OFF, DMC_SKULL_GREYMON_FQNAME_OFF, DMC_SKULL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Skull Greymon
+        { DMC_SKULL_MAMMON_NAME_OFF, DMC_SKULL_MAMMON_ID_OFF, DMC_SKULL_MAMMON_FQID_OFF, DMC_SKULL_MAMMON_FQNAME_OFF, DMC_SKULL_MAMMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Skull Mammon
+        { DMC_TANEMON_NAME_OFF, DMC_TANEMON_ID_OFF, DMC_TANEMON_FQID_OFF, DMC_TANEMON_FQNAME_OFF, DMC_TANEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Tanemon
+        { DMC_TOKOMON_NAME_OFF, DMC_TOKOMON_ID_OFF, DMC_TOKOMON_FQID_OFF, DMC_TOKOMON_FQNAME_OFF, DMC_TOKOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Tokomon
+        { DMC_TSUNOMON_NAME_OFF, DMC_TSUNOMON_ID_OFF, DMC_TSUNOMON_FQID_OFF, DMC_TSUNOMON_FQNAME_OFF, DMC_TSUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Tsunomon
+        { DMC_TUSKMON_NAME_OFF, DMC_TUSKMON_ID_OFF, DMC_TUSKMON_FQID_OFF, DMC_TUSKMON_FQNAME_OFF, DMC_TUSKMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Tuskmon
+        { DMC_TYRANOMON_NAME_OFF, DMC_TYRANOMON_ID_OFF, DMC_TYRANOMON_FQID_OFF, DMC_TYRANOMON_FQNAME_OFF, DMC_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Tyranomon
+        { DMC_UNIMON_NAME_OFF, DMC_UNIMON_ID_OFF, DMC_UNIMON_FQID_OFF, DMC_UNIMON_FQNAME_OFF, DMC_UNIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Unimon
+        { DMC_VADEMON_NAME_OFF, DMC_VADEMON_ID_OFF, DMC_VADEMON_FQID_OFF, DMC_VADEMON_FQNAME_OFF, DMC_VADEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Vademon
+        { DMC_VEGIMON_NAME_OFF, DMC_VEGIMON_ID_OFF, DMC_VEGIMON_FQID_OFF, DMC_VEGIMON_FQNAME_OFF, DMC_VEGIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Vegimon
+        { DMC_WHAMON_NAME_OFF, DMC_WHAMON_ID_OFF, DMC_WHAMON_FQID_OFF, DMC_WHAMON_FQNAME_OFF, DMC_WHAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Whamon
+        { DMC_YUKIDARUMON_NAME_OFF, DMC_YUKIDARUMON_ID_OFF, DMC_YUKIDARUMON_FQID_OFF, DMC_YUKIDARUMON_FQNAME_OFF, DMC_YUKIDARUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Yukidarumon
+        { DMC_YURAMON_NAME_OFF, DMC_YURAMON_ID_OFF, DMC_YURAMON_FQID_OFF, DMC_YURAMON_FQNAME_OFF, DMC_YURAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Yuramon
+        { DMC_ZURUMON_NAME_OFF, DMC_ZURUMON_ID_OFF, DMC_ZURUMON_FQID_OFF, DMC_ZURUMON_FQNAME_OFF, DMC_ZURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },  // Zurumon
         
     };
-    static const config_animation_names_entry_t dmc_animation_names_table[] = {
-        { DMC_AGUMON_NAME, DMC_AGUMON_NAME_LEN, DMC_AGUMON_ID, DMC_AGUMON_ID_LEN, DMC_AGUMON_FQID, DMC_AGUMON_FQID_LEN, DMC_AGUMON_FQNAME, DMC_AGUMON_FQNAME_LEN },
-        { DMC_AIRDRAMON_NAME, DMC_AIRDRAMON_NAME_LEN, DMC_AIRDRAMON_ID, DMC_AIRDRAMON_ID_LEN, DMC_AIRDRAMON_FQID, DMC_AIRDRAMON_FQID_LEN, DMC_AIRDRAMON_FQNAME, DMC_AIRDRAMON_FQNAME_LEN },
-        { DMC_ANDROMON_NAME, DMC_ANDROMON_NAME_LEN, DMC_ANDROMON_ID, DMC_ANDROMON_ID_LEN, DMC_ANDROMON_FQID, DMC_ANDROMON_FQID_LEN, DMC_ANDROMON_FQNAME, DMC_ANDROMON_FQNAME_LEN },
-        { DMC_ANGEMON_NAME, DMC_ANGEMON_NAME_LEN, DMC_ANGEMON_ID, DMC_ANGEMON_ID_LEN, DMC_ANGEMON_FQID, DMC_ANGEMON_FQID_LEN, DMC_ANGEMON_FQNAME, DMC_ANGEMON_FQNAME_LEN },
-        { DMC_BAKEMON_NAME, DMC_BAKEMON_NAME_LEN, DMC_BAKEMON_ID, DMC_BAKEMON_ID_LEN, DMC_BAKEMON_FQID, DMC_BAKEMON_FQID_LEN, DMC_BAKEMON_FQNAME, DMC_BAKEMON_FQNAME_LEN },
-        { DMC_BANCHO_LEOMON_NAME, DMC_BANCHO_LEOMON_NAME_LEN, DMC_BANCHO_LEOMON_ID, DMC_BANCHO_LEOMON_ID_LEN, DMC_BANCHO_LEOMON_FQID, DMC_BANCHO_LEOMON_FQID_LEN, DMC_BANCHO_LEOMON_FQNAME, DMC_BANCHO_LEOMON_FQNAME_LEN },
-        { DMC_BANCHO_MAMEMON_NAME, DMC_BANCHO_MAMEMON_NAME_LEN, DMC_BANCHO_MAMEMON_ID, DMC_BANCHO_MAMEMON_ID_LEN, DMC_BANCHO_MAMEMON_FQID, DMC_BANCHO_MAMEMON_FQID_LEN, DMC_BANCHO_MAMEMON_FQNAME, DMC_BANCHO_MAMEMON_FQNAME_LEN },
-        { DMC_BETAMON_NAME, DMC_BETAMON_NAME_LEN, DMC_BETAMON_ID, DMC_BETAMON_ID_LEN, DMC_BETAMON_FQID, DMC_BETAMON_FQID_LEN, DMC_BETAMON_FQNAME, DMC_BETAMON_FQNAME_LEN },
-        { DMC_BIRDRAMON_NAME, DMC_BIRDRAMON_NAME_LEN, DMC_BIRDRAMON_ID, DMC_BIRDRAMON_ID_LEN, DMC_BIRDRAMON_FQID, DMC_BIRDRAMON_FQID_LEN, DMC_BIRDRAMON_FQNAME, DMC_BIRDRAMON_FQNAME_LEN },
-        { DMC_BLITZ_GREYMON_NAME, DMC_BLITZ_GREYMON_NAME_LEN, DMC_BLITZ_GREYMON_ID, DMC_BLITZ_GREYMON_ID_LEN, DMC_BLITZ_GREYMON_FQID, DMC_BLITZ_GREYMON_FQID_LEN, DMC_BLITZ_GREYMON_FQNAME, DMC_BLITZ_GREYMON_FQNAME_LEN },
-        { DMC_BLOOM_LORDMON_NAME, DMC_BLOOM_LORDMON_NAME_LEN, DMC_BLOOM_LORDMON_ID, DMC_BLOOM_LORDMON_ID_LEN, DMC_BLOOM_LORDMON_FQID, DMC_BLOOM_LORDMON_FQID_LEN, DMC_BLOOM_LORDMON_FQNAME, DMC_BLOOM_LORDMON_FQNAME_LEN },
-        { DMC_BOTAMON_NAME, DMC_BOTAMON_NAME_LEN, DMC_BOTAMON_ID, DMC_BOTAMON_ID_LEN, DMC_BOTAMON_FQID, DMC_BOTAMON_FQID_LEN, DMC_BOTAMON_FQNAME, DMC_BOTAMON_FQNAME_LEN },
-        { DMC_CENTAURMON_NAME, DMC_CENTAURMON_NAME_LEN, DMC_CENTAURMON_ID, DMC_CENTAURMON_ID_LEN, DMC_CENTAURMON_FQID, DMC_CENTAURMON_FQID_LEN, DMC_CENTAURMON_FQNAME, DMC_CENTAURMON_FQNAME_LEN },
-        { DMC_CHAOSDRAMON_NAME, DMC_CHAOSDRAMON_NAME_LEN, DMC_CHAOSDRAMON_ID, DMC_CHAOSDRAMON_ID_LEN, DMC_CHAOSDRAMON_FQID, DMC_CHAOSDRAMON_FQID_LEN, DMC_CHAOSDRAMON_FQNAME, DMC_CHAOSDRAMON_FQNAME_LEN },
-        { DMC_CHAOSMON_NAME, DMC_CHAOSMON_NAME_LEN, DMC_CHAOSMON_ID, DMC_CHAOSMON_ID_LEN, DMC_CHAOSMON_FQID, DMC_CHAOSMON_FQID_LEN, DMC_CHAOSMON_FQNAME, DMC_CHAOSMON_FQNAME_LEN },
-        { DMC_CHIMAIRAMON_NAME, DMC_CHIMAIRAMON_NAME_LEN, DMC_CHIMAIRAMON_ID, DMC_CHIMAIRAMON_ID_LEN, DMC_CHIMAIRAMON_FQID, DMC_CHIMAIRAMON_FQID_LEN, DMC_CHIMAIRAMON_FQNAME, DMC_CHIMAIRAMON_FQNAME_LEN },
-        { DMC_COCKATRIMON_NAME, DMC_COCKATRIMON_NAME_LEN, DMC_COCKATRIMON_ID, DMC_COCKATRIMON_ID_LEN, DMC_COCKATRIMON_FQID, DMC_COCKATRIMON_FQID_LEN, DMC_COCKATRIMON_FQNAME, DMC_COCKATRIMON_FQNAME_LEN },
-        { DMC_COELAMON_NAME, DMC_COELAMON_NAME_LEN, DMC_COELAMON_ID, DMC_COELAMON_ID_LEN, DMC_COELAMON_FQID, DMC_COELAMON_FQID_LEN, DMC_COELAMON_FQNAME, DMC_COELAMON_FQNAME_LEN },
-        { DMC_CRES_GARURUMON_NAME, DMC_CRES_GARURUMON_NAME_LEN, DMC_CRES_GARURUMON_ID, DMC_CRES_GARURUMON_ID_LEN, DMC_CRES_GARURUMON_FQID, DMC_CRES_GARURUMON_FQID_LEN, DMC_CRES_GARURUMON_FQNAME, DMC_CRES_GARURUMON_FQNAME_LEN },
-        { DMC_CYCLOMON_NAME, DMC_CYCLOMON_NAME_LEN, DMC_CYCLOMON_ID, DMC_CYCLOMON_ID_LEN, DMC_CYCLOMON_FQID, DMC_CYCLOMON_FQID_LEN, DMC_CYCLOMON_FQNAME, DMC_CYCLOMON_FQNAME_LEN },
-        { DMC_DARKDRAMON_NAME, DMC_DARKDRAMON_NAME_LEN, DMC_DARKDRAMON_ID, DMC_DARKDRAMON_ID_LEN, DMC_DARKDRAMON_FQID, DMC_DARKDRAMON_FQID_LEN, DMC_DARKDRAMON_FQNAME, DMC_DARKDRAMON_FQNAME_LEN },
-        { DMC_DARK_TYRANOMON_NAME, DMC_DARK_TYRANOMON_NAME_LEN, DMC_DARK_TYRANOMON_ID, DMC_DARK_TYRANOMON_ID_LEN, DMC_DARK_TYRANOMON_FQID, DMC_DARK_TYRANOMON_FQID_LEN, DMC_DARK_TYRANOMON_FQNAME, DMC_DARK_TYRANOMON_FQNAME_LEN },
-        { DMC_DELTAMON_NAME, DMC_DELTAMON_NAME_LEN, DMC_DELTAMON_ID, DMC_DELTAMON_ID_LEN, DMC_DELTAMON_FQID, DMC_DELTAMON_FQID_LEN, DMC_DELTAMON_FQNAME, DMC_DELTAMON_FQNAME_LEN },
-        { DMC_DEVIDRAMON_NAME, DMC_DEVIDRAMON_NAME_LEN, DMC_DEVIDRAMON_ID, DMC_DEVIDRAMON_ID_LEN, DMC_DEVIDRAMON_FQID, DMC_DEVIDRAMON_FQID_LEN, DMC_DEVIDRAMON_FQNAME, DMC_DEVIDRAMON_FQNAME_LEN },
-        { DMC_DEVIMON_NAME, DMC_DEVIMON_NAME_LEN, DMC_DEVIMON_ID, DMC_DEVIMON_ID_LEN, DMC_DEVIMON_FQID, DMC_DEVIMON_FQID_LEN, DMC_DEVIMON_FQNAME, DMC_DEVIMON_FQNAME_LEN },
-        { DMC_DIGITAMAMON_NAME, DMC_DIGITAMAMON_NAME_LEN, DMC_DIGITAMAMON_ID, DMC_DIGITAMAMON_ID_LEN, DMC_DIGITAMAMON_FQID, DMC_DIGITAMAMON_FQID_LEN, DMC_DIGITAMAMON_FQNAME, DMC_DIGITAMAMON_FQNAME_LEN },
-        { DMC_DRIMOGEMON_NAME, DMC_DRIMOGEMON_NAME_LEN, DMC_DRIMOGEMON_ID, DMC_DRIMOGEMON_ID_LEN, DMC_DRIMOGEMON_FQID, DMC_DRIMOGEMON_FQID_LEN, DMC_DRIMOGEMON_FQNAME, DMC_DRIMOGEMON_FQNAME_LEN },
-        { DMC_EBEMON_NAME, DMC_EBEMON_NAME_LEN, DMC_EBEMON_ID, DMC_EBEMON_ID_LEN, DMC_EBEMON_FQID, DMC_EBEMON_FQID_LEN, DMC_EBEMON_FQNAME, DMC_EBEMON_FQNAME_LEN },
-        { DMC_ELECMON_NAME, DMC_ELECMON_NAME_LEN, DMC_ELECMON_ID, DMC_ELECMON_ID_LEN, DMC_ELECMON_FQID, DMC_ELECMON_FQID_LEN, DMC_ELECMON_FQNAME, DMC_ELECMON_FQNAME_LEN },
-        { DMC_ETEMON_NAME, DMC_ETEMON_NAME_LEN, DMC_ETEMON_ID, DMC_ETEMON_ID_LEN, DMC_ETEMON_FQID, DMC_ETEMON_FQID_LEN, DMC_ETEMON_FQNAME, DMC_ETEMON_FQNAME_LEN },
-        { DMC_EX_TYRANOMON_NAME, DMC_EX_TYRANOMON_NAME_LEN, DMC_EX_TYRANOMON_ID, DMC_EX_TYRANOMON_ID_LEN, DMC_EX_TYRANOMON_FQID, DMC_EX_TYRANOMON_FQID_LEN, DMC_EX_TYRANOMON_FQNAME, DMC_EX_TYRANOMON_FQNAME_LEN },
-        { DMC_FLYMON_NAME, DMC_FLYMON_NAME_LEN, DMC_FLYMON_ID, DMC_FLYMON_ID_LEN, DMC_FLYMON_FQID, DMC_FLYMON_FQID_LEN, DMC_FLYMON_FQNAME, DMC_FLYMON_FQNAME_LEN },
-        { DMC_GABUMON_NAME, DMC_GABUMON_NAME_LEN, DMC_GABUMON_ID, DMC_GABUMON_ID_LEN, DMC_GABUMON_FQID, DMC_GABUMON_FQID_LEN, DMC_GABUMON_FQNAME, DMC_GABUMON_FQNAME_LEN },
-        { DMC_GAIOUMON_NAME, DMC_GAIOUMON_NAME_LEN, DMC_GAIOUMON_ID, DMC_GAIOUMON_ID_LEN, DMC_GAIOUMON_FQID, DMC_GAIOUMON_FQID_LEN, DMC_GAIOUMON_FQNAME, DMC_GAIOUMON_FQNAME_LEN },
-        { DMC_GANKOOMON_NAME, DMC_GANKOOMON_NAME_LEN, DMC_GANKOOMON_ID, DMC_GANKOOMON_ID_LEN, DMC_GANKOOMON_FQID, DMC_GANKOOMON_FQID_LEN, DMC_GANKOOMON_FQNAME, DMC_GANKOOMON_FQNAME_LEN },
-        { DMC_GARURUMON_NAME, DMC_GARURUMON_NAME_LEN, DMC_GARURUMON_ID, DMC_GARURUMON_ID_LEN, DMC_GARURUMON_FQID, DMC_GARURUMON_FQID_LEN, DMC_GARURUMON_FQNAME, DMC_GARURUMON_FQNAME_LEN },
-        { DMC_GAZIMON_NAME, DMC_GAZIMON_NAME_LEN, DMC_GAZIMON_ID, DMC_GAZIMON_ID_LEN, DMC_GAZIMON_FQID, DMC_GAZIMON_FQID_LEN, DMC_GAZIMON_FQNAME, DMC_GAZIMON_FQNAME_LEN },
-        { DMC_GIROMON_NAME, DMC_GIROMON_NAME_LEN, DMC_GIROMON_ID, DMC_GIROMON_ID_LEN, DMC_GIROMON_FQID, DMC_GIROMON_FQID_LEN, DMC_GIROMON_FQNAME, DMC_GIROMON_FQNAME_LEN },
-        { DMC_GIZAMON_NAME, DMC_GIZAMON_NAME_LEN, DMC_GIZAMON_ID, DMC_GIZAMON_ID_LEN, DMC_GIZAMON_FQID, DMC_GIZAMON_FQID_LEN, DMC_GIZAMON_FQNAME, DMC_GIZAMON_FQNAME_LEN },
-        { DMC_GOKUMON_NAME, DMC_GOKUMON_NAME_LEN, DMC_GOKUMON_ID, DMC_GOKUMON_ID_LEN, DMC_GOKUMON_FQID, DMC_GOKUMON_FQID_LEN, DMC_GOKUMON_FQNAME, DMC_GOKUMON_FQNAME_LEN },
-        { DMC_GREYMON_NAME, DMC_GREYMON_NAME_LEN, DMC_GREYMON_ID, DMC_GREYMON_ID_LEN, DMC_GREYMON_FQID, DMC_GREYMON_FQID_LEN, DMC_GREYMON_FQNAME, DMC_GREYMON_FQNAME_LEN },
-        { DMC_HI_ANDROMON_NAME, DMC_HI_ANDROMON_NAME_LEN, DMC_HI_ANDROMON_ID, DMC_HI_ANDROMON_ID_LEN, DMC_HI_ANDROMON_FQID, DMC_HI_ANDROMON_FQID_LEN, DMC_HI_ANDROMON_FQNAME, DMC_HI_ANDROMON_FQNAME_LEN },
-        { DMC_KABUTERIMON_NAME, DMC_KABUTERIMON_NAME_LEN, DMC_KABUTERIMON_ID, DMC_KABUTERIMON_ID_LEN, DMC_KABUTERIMON_FQID, DMC_KABUTERIMON_FQID_LEN, DMC_KABUTERIMON_FQNAME, DMC_KABUTERIMON_FQNAME_LEN },
-        { DMC_KOROMON_NAME, DMC_KOROMON_NAME_LEN, DMC_KOROMON_ID, DMC_KOROMON_ID_LEN, DMC_KOROMON_FQID, DMC_KOROMON_FQID_LEN, DMC_KOROMON_FQNAME, DMC_KOROMON_FQNAME_LEN },
-        { DMC_KUNEMON_NAME, DMC_KUNEMON_NAME_LEN, DMC_KUNEMON_ID, DMC_KUNEMON_ID_LEN, DMC_KUNEMON_FQID, DMC_KUNEMON_FQID_LEN, DMC_KUNEMON_FQNAME, DMC_KUNEMON_FQNAME_LEN },
-        { DMC_KUWAGAMON_NAME, DMC_KUWAGAMON_NAME_LEN, DMC_KUWAGAMON_ID, DMC_KUWAGAMON_ID_LEN, DMC_KUWAGAMON_FQID, DMC_KUWAGAMON_FQID_LEN, DMC_KUWAGAMON_FQNAME, DMC_KUWAGAMON_FQNAME_LEN },
-        { DMC_LEOMON_NAME, DMC_LEOMON_NAME_LEN, DMC_LEOMON_ID, DMC_LEOMON_ID_LEN, DMC_LEOMON_FQID, DMC_LEOMON_FQID_LEN, DMC_LEOMON_FQNAME, DMC_LEOMON_FQNAME_LEN },
-        { DMC_MAMEMON_NAME, DMC_MAMEMON_NAME_LEN, DMC_MAMEMON_ID, DMC_MAMEMON_ID_LEN, DMC_MAMEMON_FQID, DMC_MAMEMON_FQID_LEN, DMC_MAMEMON_FQNAME, DMC_MAMEMON_FQNAME_LEN },
-        { DMC_MEGADRAMON_NAME, DMC_MEGADRAMON_NAME_LEN, DMC_MEGADRAMON_ID, DMC_MEGADRAMON_ID_LEN, DMC_MEGADRAMON_FQID, DMC_MEGADRAMON_FQID_LEN, DMC_MEGADRAMON_FQNAME, DMC_MEGADRAMON_FQNAME_LEN },
-        { DMC_MERAMON_NAME, DMC_MERAMON_NAME_LEN, DMC_MERAMON_ID, DMC_MERAMON_ID_LEN, DMC_MERAMON_FQID, DMC_MERAMON_FQID_LEN, DMC_MERAMON_FQNAME, DMC_MERAMON_FQNAME_LEN },
-        { DMC_METAL_GREYMON_VIRUS_NAME, DMC_METAL_GREYMON_VIRUS_NAME_LEN, DMC_METAL_GREYMON_VIRUS_ID, DMC_METAL_GREYMON_VIRUS_ID_LEN, DMC_METAL_GREYMON_VIRUS_FQID, DMC_METAL_GREYMON_VIRUS_FQID_LEN, DMC_METAL_GREYMON_VIRUS_FQNAME, DMC_METAL_GREYMON_VIRUS_FQNAME_LEN },
-        { DMC_METAL_MAMEMON_NAME, DMC_METAL_MAMEMON_NAME_LEN, DMC_METAL_MAMEMON_ID, DMC_METAL_MAMEMON_ID_LEN, DMC_METAL_MAMEMON_FQID, DMC_METAL_MAMEMON_FQID_LEN, DMC_METAL_MAMEMON_FQNAME, DMC_METAL_MAMEMON_FQNAME_LEN },
-        { DMC_METAL_TYRANOMON_NAME, DMC_METAL_TYRANOMON_NAME_LEN, DMC_METAL_TYRANOMON_ID, DMC_METAL_TYRANOMON_ID_LEN, DMC_METAL_TYRANOMON_FQID, DMC_METAL_TYRANOMON_FQID_LEN, DMC_METAL_TYRANOMON_FQNAME, DMC_METAL_TYRANOMON_FQNAME_LEN },
-        { DMC_MILLENNIUMON_NAME, DMC_MILLENNIUMON_NAME_LEN, DMC_MILLENNIUMON_ID, DMC_MILLENNIUMON_ID_LEN, DMC_MILLENNIUMON_FQID, DMC_MILLENNIUMON_FQID_LEN, DMC_MILLENNIUMON_FQNAME, DMC_MILLENNIUMON_FQNAME_LEN },
-        { DMC_MOJYAMON_NAME, DMC_MOJYAMON_NAME_LEN, DMC_MOJYAMON_ID, DMC_MOJYAMON_ID_LEN, DMC_MOJYAMON_FQID, DMC_MOJYAMON_FQID_LEN, DMC_MOJYAMON_FQNAME, DMC_MOJYAMON_FQNAME_LEN },
-        { DMC_MONOCHROMON_NAME, DMC_MONOCHROMON_NAME_LEN, DMC_MONOCHROMON_ID, DMC_MONOCHROMON_ID_LEN, DMC_MONOCHROMON_FQID, DMC_MONOCHROMON_FQID_LEN, DMC_MONOCHROMON_FQNAME, DMC_MONOCHROMON_FQNAME_LEN },
-        { DMC_MONZAEMON_NAME, DMC_MONZAEMON_NAME_LEN, DMC_MONZAEMON_ID, DMC_MONZAEMON_ID_LEN, DMC_MONZAEMON_FQID, DMC_MONZAEMON_FQID_LEN, DMC_MONZAEMON_FQNAME, DMC_MONZAEMON_FQNAME_LEN },
-        { DMC_MUGENDRAMON_NAME, DMC_MUGENDRAMON_NAME_LEN, DMC_MUGENDRAMON_ID, DMC_MUGENDRAMON_ID_LEN, DMC_MUGENDRAMON_FQID, DMC_MUGENDRAMON_FQID_LEN, DMC_MUGENDRAMON_FQNAME, DMC_MUGENDRAMON_FQNAME_LEN },
-        { DMC_NANIMON_NAME, DMC_NANIMON_NAME_LEN, DMC_NANIMON_ID, DMC_NANIMON_ID_LEN, DMC_NANIMON_FQID, DMC_NANIMON_FQID_LEN, DMC_NANIMON_FQNAME, DMC_NANIMON_FQNAME_LEN },
-        { DMC_NANOMON_NAME, DMC_NANOMON_NAME_LEN, DMC_NANOMON_ID, DMC_NANOMON_ID_LEN, DMC_NANOMON_FQID, DMC_NANOMON_FQID_LEN, DMC_NANOMON_FQNAME, DMC_NANOMON_FQNAME_LEN },
-        { DMC_NUMEMON_NAME, DMC_NUMEMON_NAME_LEN, DMC_NUMEMON_ID, DMC_NUMEMON_ID_LEN, DMC_NUMEMON_FQID, DMC_NUMEMON_FQID_LEN, DMC_NUMEMON_FQNAME, DMC_NUMEMON_FQNAME_LEN },
-        { DMC_OGREMON_NAME, DMC_OGREMON_NAME_LEN, DMC_OGREMON_ID, DMC_OGREMON_ID_LEN, DMC_OGREMON_FQID, DMC_OGREMON_FQID_LEN, DMC_OGREMON_FQNAME, DMC_OGREMON_FQNAME_LEN },
-        { DMC_OMEGAMON_ALTER_S_NAME, DMC_OMEGAMON_ALTER_S_NAME_LEN, DMC_OMEGAMON_ALTER_S_ID, DMC_OMEGAMON_ALTER_S_ID_LEN, DMC_OMEGAMON_ALTER_S_FQID, DMC_OMEGAMON_ALTER_S_FQID_LEN, DMC_OMEGAMON_ALTER_S_FQNAME, DMC_OMEGAMON_ALTER_S_FQNAME_LEN },
-        { DMC_PAGUMON_NAME, DMC_PAGUMON_NAME_LEN, DMC_PAGUMON_ID, DMC_PAGUMON_ID_LEN, DMC_PAGUMON_FQID, DMC_PAGUMON_FQID_LEN, DMC_PAGUMON_FQNAME, DMC_PAGUMON_FQNAME_LEN },
-        { DMC_PALMON_NAME, DMC_PALMON_NAME_LEN, DMC_PALMON_ID, DMC_PALMON_ID_LEN, DMC_PALMON_FQID, DMC_PALMON_FQID_LEN, DMC_PALMON_FQNAME, DMC_PALMON_FQNAME_LEN },
-        { DMC_PATAMON_NAME, DMC_PATAMON_NAME_LEN, DMC_PATAMON_ID, DMC_PATAMON_ID_LEN, DMC_PATAMON_FQID, DMC_PATAMON_FQID_LEN, DMC_PATAMON_FQNAME, DMC_PATAMON_FQNAME_LEN },
-        { DMC_PICCOLOMON_NAME, DMC_PICCOLOMON_NAME_LEN, DMC_PICCOLOMON_ID, DMC_PICCOLOMON_ID_LEN, DMC_PICCOLOMON_FQID, DMC_PICCOLOMON_FQID_LEN, DMC_PICCOLOMON_FQNAME, DMC_PICCOLOMON_FQNAME_LEN },
-        { DMC_PIYOMON_NAME, DMC_PIYOMON_NAME_LEN, DMC_PIYOMON_ID, DMC_PIYOMON_ID_LEN, DMC_PIYOMON_FQID, DMC_PIYOMON_FQID_LEN, DMC_PIYOMON_FQNAME, DMC_PIYOMON_FQNAME_LEN },
-        { DMC_POYOMON_NAME, DMC_POYOMON_NAME_LEN, DMC_POYOMON_ID, DMC_POYOMON_ID_LEN, DMC_POYOMON_FQID, DMC_POYOMON_FQID_LEN, DMC_POYOMON_FQNAME, DMC_POYOMON_FQNAME_LEN },
-        { DMC_PUNIMON_NAME, DMC_PUNIMON_NAME_LEN, DMC_PUNIMON_ID, DMC_PUNIMON_ID_LEN, DMC_PUNIMON_FQID, DMC_PUNIMON_FQID_LEN, DMC_PUNIMON_FQNAME, DMC_PUNIMON_FQNAME_LEN },
-        { DMC_RAIDENMON_NAME, DMC_RAIDENMON_NAME_LEN, DMC_RAIDENMON_ID, DMC_RAIDENMON_ID_LEN, DMC_RAIDENMON_FQID, DMC_RAIDENMON_FQID_LEN, DMC_RAIDENMON_FQNAME, DMC_RAIDENMON_FQNAME_LEN },
-        { DMC_RAREMON_NAME, DMC_RAREMON_NAME_LEN, DMC_RAREMON_ID, DMC_RAREMON_ID_LEN, DMC_RAREMON_FQID, DMC_RAREMON_FQID_LEN, DMC_RAREMON_FQNAME, DMC_RAREMON_FQNAME_LEN },
-        { DMC_SCUMON_NAME, DMC_SCUMON_NAME_LEN, DMC_SCUMON_ID, DMC_SCUMON_ID_LEN, DMC_SCUMON_FQID, DMC_SCUMON_FQID_LEN, DMC_SCUMON_FQNAME, DMC_SCUMON_FQNAME_LEN },
-        { DMC_SEADRAMON_NAME, DMC_SEADRAMON_NAME_LEN, DMC_SEADRAMON_ID, DMC_SEADRAMON_ID_LEN, DMC_SEADRAMON_FQID, DMC_SEADRAMON_FQID_LEN, DMC_SEADRAMON_FQNAME, DMC_SEADRAMON_FQNAME_LEN },
-        { DMC_SHELLMON_NAME, DMC_SHELLMON_NAME_LEN, DMC_SHELLMON_ID, DMC_SHELLMON_ID_LEN, DMC_SHELLMON_FQID, DMC_SHELLMON_FQID_LEN, DMC_SHELLMON_FQNAME, DMC_SHELLMON_FQNAME_LEN },
-        { DMC_SHIN_MONZAEMON_NAME, DMC_SHIN_MONZAEMON_NAME_LEN, DMC_SHIN_MONZAEMON_ID, DMC_SHIN_MONZAEMON_ID_LEN, DMC_SHIN_MONZAEMON_FQID, DMC_SHIN_MONZAEMON_FQID_LEN, DMC_SHIN_MONZAEMON_FQNAME, DMC_SHIN_MONZAEMON_FQNAME_LEN },
-        { DMC_SKULL_GREYMON_NAME, DMC_SKULL_GREYMON_NAME_LEN, DMC_SKULL_GREYMON_ID, DMC_SKULL_GREYMON_ID_LEN, DMC_SKULL_GREYMON_FQID, DMC_SKULL_GREYMON_FQID_LEN, DMC_SKULL_GREYMON_FQNAME, DMC_SKULL_GREYMON_FQNAME_LEN },
-        { DMC_SKULL_MAMMON_NAME, DMC_SKULL_MAMMON_NAME_LEN, DMC_SKULL_MAMMON_ID, DMC_SKULL_MAMMON_ID_LEN, DMC_SKULL_MAMMON_FQID, DMC_SKULL_MAMMON_FQID_LEN, DMC_SKULL_MAMMON_FQNAME, DMC_SKULL_MAMMON_FQNAME_LEN },
-        { DMC_TANEMON_NAME, DMC_TANEMON_NAME_LEN, DMC_TANEMON_ID, DMC_TANEMON_ID_LEN, DMC_TANEMON_FQID, DMC_TANEMON_FQID_LEN, DMC_TANEMON_FQNAME, DMC_TANEMON_FQNAME_LEN },
-        { DMC_TOKOMON_NAME, DMC_TOKOMON_NAME_LEN, DMC_TOKOMON_ID, DMC_TOKOMON_ID_LEN, DMC_TOKOMON_FQID, DMC_TOKOMON_FQID_LEN, DMC_TOKOMON_FQNAME, DMC_TOKOMON_FQNAME_LEN },
-        { DMC_TSUNOMON_NAME, DMC_TSUNOMON_NAME_LEN, DMC_TSUNOMON_ID, DMC_TSUNOMON_ID_LEN, DMC_TSUNOMON_FQID, DMC_TSUNOMON_FQID_LEN, DMC_TSUNOMON_FQNAME, DMC_TSUNOMON_FQNAME_LEN },
-        { DMC_TUSKMON_NAME, DMC_TUSKMON_NAME_LEN, DMC_TUSKMON_ID, DMC_TUSKMON_ID_LEN, DMC_TUSKMON_FQID, DMC_TUSKMON_FQID_LEN, DMC_TUSKMON_FQNAME, DMC_TUSKMON_FQNAME_LEN },
-        { DMC_TYRANOMON_NAME, DMC_TYRANOMON_NAME_LEN, DMC_TYRANOMON_ID, DMC_TYRANOMON_ID_LEN, DMC_TYRANOMON_FQID, DMC_TYRANOMON_FQID_LEN, DMC_TYRANOMON_FQNAME, DMC_TYRANOMON_FQNAME_LEN },
-        { DMC_UNIMON_NAME, DMC_UNIMON_NAME_LEN, DMC_UNIMON_ID, DMC_UNIMON_ID_LEN, DMC_UNIMON_FQID, DMC_UNIMON_FQID_LEN, DMC_UNIMON_FQNAME, DMC_UNIMON_FQNAME_LEN },
-        { DMC_VADEMON_NAME, DMC_VADEMON_NAME_LEN, DMC_VADEMON_ID, DMC_VADEMON_ID_LEN, DMC_VADEMON_FQID, DMC_VADEMON_FQID_LEN, DMC_VADEMON_FQNAME, DMC_VADEMON_FQNAME_LEN },
-        { DMC_VEGIMON_NAME, DMC_VEGIMON_NAME_LEN, DMC_VEGIMON_ID, DMC_VEGIMON_ID_LEN, DMC_VEGIMON_FQID, DMC_VEGIMON_FQID_LEN, DMC_VEGIMON_FQNAME, DMC_VEGIMON_FQNAME_LEN },
-        { DMC_WHAMON_NAME, DMC_WHAMON_NAME_LEN, DMC_WHAMON_ID, DMC_WHAMON_ID_LEN, DMC_WHAMON_FQID, DMC_WHAMON_FQID_LEN, DMC_WHAMON_FQNAME, DMC_WHAMON_FQNAME_LEN },
-        { DMC_YUKIDARUMON_NAME, DMC_YUKIDARUMON_NAME_LEN, DMC_YUKIDARUMON_ID, DMC_YUKIDARUMON_ID_LEN, DMC_YUKIDARUMON_FQID, DMC_YUKIDARUMON_FQID_LEN, DMC_YUKIDARUMON_FQNAME, DMC_YUKIDARUMON_FQNAME_LEN },
-        { DMC_YURAMON_NAME, DMC_YURAMON_NAME_LEN, DMC_YURAMON_ID, DMC_YURAMON_ID_LEN, DMC_YURAMON_FQID, DMC_YURAMON_FQID_LEN, DMC_YURAMON_FQNAME, DMC_YURAMON_FQNAME_LEN },
-        { DMC_ZURUMON_NAME, DMC_ZURUMON_NAME_LEN, DMC_ZURUMON_ID, DMC_ZURUMON_ID_LEN, DMC_ZURUMON_FQID, DMC_ZURUMON_FQID_LEN, DMC_ZURUMON_FQNAME, DMC_ZURUMON_FQNAME_LEN },
-        
-    };
-    static const size_t dmc_animation_names_table_size = LEN_ARRAY(dmc_animation_names_table);
+    static_assert(LEN_ARRAY(dmc_animation_table) == DMC_ANIM_COUNT);
 
     config_animation_entry_t get_config_animation_name_dmc(size_t index) {
-        assert(LEN_ARRAY(dmc_animation_table) == DMC_ANIM_COUNT);
         assert(index < DMC_ANIM_COUNT);
-        return dmc_animation_table[index];
+        const auto& entry = dmc_animation_table[index];
+        return { DMC_STRINGS + entry.name, DMC_STRINGS + entry.id, DMC_STRINGS + entry.fqid, DMC_STRINGS + entry.fqname, entry.anim_index, entry.set, entry.layout };
     }
 
     int config_parse_animation_name_dmc(config::config_t& config, const char *value) {
-        assert(LEN_ARRAY(dmc_animation_table) == DMC_ANIM_COUNT);
         int ret = -1;
         for (size_t i = 0;ret < 0 && i < DMC_ANIM_COUNT;++i) {
             const auto& entry = dmc_animation_table[i];
-            if (strcmp(value, entry.name) == 0 ||
-                strcmp(value, entry.id) == 0 ||
-                strcmp(value, entry.fqid) == 0 ||
-                strcmp(value, entry.fqname) == 0) {
+            if (strcmp(value, DMC_STRINGS + entry.name) == 0 ||
+                strcmp(value, DMC_STRINGS + entry.id) == 0 ||
+                strcmp(value, DMC_STRINGS + entry.fqid) == 0 ||
+                strcmp(value, DMC_STRINGS + entry.fqname) == 0) {
                 config.animation_index = entry.anim_index;
                 config.animation_dm_set = entry.set;
                 config.animation_sprite_sheet_layout = entry.layout;
@@ -218,4 +135,3 @@ namespace bongocat::assets {
         return ret;
     }
 }
-

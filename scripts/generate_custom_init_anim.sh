@@ -86,7 +86,6 @@ OUTPUT_FILE_3_IMAGES_TABLE=""
 OUTPUT_FILE_5_ANIMATION_TABLE=""
 OUTPUT_FILE_5_ALT_ANIMATIONS=""
 OUTPUT_FILE_5_NORMAL_ENTRY=""
-OUTPUT_FILE_5_ANIMATION_NAMES_TABLE=""
 
 # === Process all PNGs ===
 for FILE in "$INPUT_DIR"/*.png; do
@@ -114,9 +113,9 @@ for FILE in "$INPUT_DIR"/*.png; do
     OUTPUT_FILE_3_IMAGES_TABLE="${OUTPUT_FILE_3_IMAGES_TABLE}{${EMBED_SYMBOL}, ${SIZE_SYMBOL}, ${MACRO_PREFIX}_ID}, \n        "
 
     #echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_custom_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} }," >> "$OUTPUT_FILE_5"
-    OUTPUT_FILE_5_NORMAL_ENTRY="{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_custom_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} }"
+    # offsets into ${ASSETS_PREFIX_UPPER}_STRINGS (written by scripts/build_string_blobs.sh)
+    OUTPUT_FILE_5_NORMAL_ENTRY="${MACRO_PREFIX}_NAME_OFF, ${MACRO_PREFIX}_ID_OFF, ${MACRO_PREFIX}_FQID_OFF, ${MACRO_PREFIX}_FQNAME_OFF, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_custom_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT}"
 
-    OUTPUT_FILE_5_ANIMATION_NAMES_TABLE="${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_NAME_LEN, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_ID_LEN, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQID_LEN, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_FQNAME_LEN },\n        "
 
     if [[ -n $ALT ]]; then
       ALT_LOWER=$(echo "$ALT" | tr '[:upper:]' '[:lower:]')
@@ -128,18 +127,13 @@ for FILE in "$INPUT_DIR"/*.png; do
       ALT_MACRO_PREFIX=$(echo "${ALT_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
 
       OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    static constexpr char ALT_${MACRO_PREFIX}_FQID_ARR[] CONFIG_LOCAL_STRING_SECTION = \"${ALT_FQID}\";\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    static constexpr const char* ALT_${MACRO_PREFIX}_FQID = ALT_${MACRO_PREFIX}_FQID_ARR;\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    static constexpr size_t ALT_${MACRO_PREFIX}_FQID_LEN = sizeof(ALT_${MACRO_PREFIX}_FQID_ARR)-1;\n"
       OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    static constexpr char ALT_${MACRO_PREFIX}_FQNAME_ARR[] CONFIG_LOCAL_STRING_SECTION = \"${ALT_FQNAME}\";\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    static constexpr const char* ALT_${MACRO_PREFIX}_FQNAME = ALT_${MACRO_PREFIX}_FQNAME_ARR;\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    static constexpr size_t ALT_${MACRO_PREFIX}_FQNAME_LEN = sizeof(ALT_${MACRO_PREFIX}_FQNAME_ARR)-1;\n"
 
-      # one row per animation: { .normal = full entry, .alt = { alt fqid, alt fqname } }
-      OUTPUT_FILE_5_ANIMATION_TABLE="${OUTPUT_FILE_5_ANIMATION_TABLE}{ ${OUTPUT_FILE_5_NORMAL_ENTRY}, { ALT_${MACRO_PREFIX}_FQID, ALT_${MACRO_PREFIX}_FQNAME } },  // ${NAME_NO_EXT}\n        "
+      # one row per animation: normal offsets + alt fqid/fqname offsets (into ALT_${ASSETS_PREFIX_UPPER}_STRINGS)
+      OUTPUT_FILE_5_ANIMATION_TABLE="${OUTPUT_FILE_5_ANIMATION_TABLE}{ ${OUTPUT_FILE_5_NORMAL_ENTRY}, ALT_${MACRO_PREFIX}_FQID_OFF, ALT_${MACRO_PREFIX}_FQNAME_OFF },  // ${NAME_NO_EXT}\n        "
 
-      OUTPUT_FILE_5_ANIMATION_NAMES_TABLE="${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_NAME_LEN, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_ID_LEN, ALT_${MACRO_PREFIX}_FQID, ALT_${MACRO_PREFIX}_FQID_LEN, ALT_${MACRO_PREFIX}_FQNAME, ALT_${MACRO_PREFIX}_FQNAME_LEN },\n        "
     else
-      OUTPUT_FILE_5_ANIMATION_TABLE="${OUTPUT_FILE_5_ANIMATION_TABLE}${OUTPUT_FILE_5_NORMAL_ENTRY},\n        "
+      OUTPUT_FILE_5_ANIMATION_TABLE="${OUTPUT_FILE_5_ANIMATION_TABLE}{ ${OUTPUT_FILE_5_NORMAL_ENTRY} },  // ${NAME_NO_EXT}\n        "
     fi
 
     echo "Add $IDENTIFIER"
@@ -154,68 +148,57 @@ echo "#include \"embedded_assets/embedded_image.h\"" >> "$OUTPUT_FILE_5"
 echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$OUTPUT_FILE_5"
 echo "#include \"${ASSETS_PREFIX_LOWER}_config_parse_animation_name.h\"" >> "$OUTPUT_FILE_5"
 echo "#include \"utils/memory.h\"" >> "$OUTPUT_FILE_5"
+echo "#include <cstdint>" >> "$OUTPUT_FILE_5"
 echo "#include \"utils/system_memory.h\"" >> "$OUTPUT_FILE_5"
 echo "" >> "$OUTPUT_FILE_5"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_5"
+STRINGS="${ASSETS_PREFIX_UPPER}_STRINGS"
+ALT_STRINGS="ALT_${ASSETS_PREFIX_UPPER}_STRINGS"
+OUTPUT_FILE_5_ENTRY_TYPE="${ASSETS_PREFIX_LOWER}_animation_table_entry_t"
 if [[ -n $ALT ]]; then
-  # alt entries only differ in fqid/fqname, so store just those next to the normal entry (one table, one loop)
-  OUTPUT_FILE_5_ENTRY_TYPE="${ASSETS_PREFIX_LOWER}_animation_table_entry_t"
-  OUTPUT_FILE_5_NORMAL_MEMBER=".normal"
+  # alt strings, turned into ${ALT_STRINGS} + *_OFF by scripts/build_string_blobs.sh
   echo -e "${OUTPUT_FILE_5_ALT_ANIMATIONS}" >> "$OUTPUT_FILE_5"
-  echo "    struct ${OUTPUT_FILE_5_ENTRY_TYPE} {" >> "$OUTPUT_FILE_5"
-  echo "        config_custom_animation_entry_t normal;" >> "$OUTPUT_FILE_5"
-  echo "        struct {" >> "$OUTPUT_FILE_5"
-  echo "            const char *fqid{\"\"};" >> "$OUTPUT_FILE_5"
-  echo "            const char *fqname{\"\"};" >> "$OUTPUT_FILE_5"
-  echo "        } alt;" >> "$OUTPUT_FILE_5"
-  echo "    };" >> "$OUTPUT_FILE_5"
-else
-  OUTPUT_FILE_5_ENTRY_TYPE="config_custom_animation_entry_t"
-  OUTPUT_FILE_5_NORMAL_MEMBER=""
 fi
-echo "    static const ${OUTPUT_FILE_5_ENTRY_TYPE} ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
+# offsets instead of pointers: no relocations, the table stays read-only (and evictable with the config section)
+echo "    struct ${OUTPUT_FILE_5_ENTRY_TYPE} {" >> "$OUTPUT_FILE_5"
+echo "        // offsets into ${STRINGS}" >> "$OUTPUT_FILE_5"
+echo "        uint32_t name;" >> "$OUTPUT_FILE_5"
+echo "        uint32_t id;" >> "$OUTPUT_FILE_5"
+echo "        uint32_t fqid;" >> "$OUTPUT_FILE_5"
+echo "        uint32_t fqname;" >> "$OUTPUT_FILE_5"
+echo "        int32_t anim_index;" >> "$OUTPUT_FILE_5"
+echo "        config::config_animation_custom_set_t set;" >> "$OUTPUT_FILE_5"
+echo "        config::config_animation_sprite_sheet_layout_t layout;" >> "$OUTPUT_FILE_5"
+if [[ -n $ALT ]]; then
+  echo "        // offsets into ${ALT_STRINGS}" >> "$OUTPUT_FILE_5"
+  echo "        uint32_t alt_fqid;" >> "$OUTPUT_FILE_5"
+  echo "        uint32_t alt_fqname;" >> "$OUTPUT_FILE_5"
+fi
+echo "    };" >> "$OUTPUT_FILE_5"
+echo "    static constexpr ${OUTPUT_FILE_5_ENTRY_TYPE} ${ASSETS_PREFIX_LOWER}_animation_table[] CONFIG_LOCAL_STRING_SECTION = {" >> "$OUTPUT_FILE_5"
 echo -e "        ${OUTPUT_FILE_5_ANIMATION_TABLE}" >> "$OUTPUT_FILE_5"
 echo '    };' >> "$OUTPUT_FILE_5"
-echo "    static const config_animation_names_entry_t ${ASSETS_PREFIX_LOWER}_animation_names_table[] = {" >> "$OUTPUT_FILE_5"
-echo -e "        ${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}" >> "$OUTPUT_FILE_5"
-echo '    };' >> "$OUTPUT_FILE_5"
-echo "    static const size_t ${ASSETS_PREFIX_LOWER}_animation_names_table_size = LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_names_table);" >> "$OUTPUT_FILE_5"
+echo "    static_assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$OUTPUT_FILE_5"
 echo >> "$OUTPUT_FILE_5"
 echo "    config_custom_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_5"
-#echo "        for (const auto& entry : ${ASSETS_PREFIX_LOWER}_animation_table) {" >> "$OUTPUT_FILE_5"
-#echo "            assert(entry.anim_index >= 0);" >> "$OUTPUT_FILE_5"
-#echo "            if (static_cast<size_t>(entry.anim_index) == index) return entry;" >> "$OUTPUT_FILE_5"
-#echo "        }" >> "$OUTPUT_FILE_5"
-echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$OUTPUT_FILE_5"
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$OUTPUT_FILE_5"
-echo "        return ${ASSETS_PREFIX_LOWER}_animation_table[index]${OUTPUT_FILE_5_NORMAL_MEMBER};" >> "$OUTPUT_FILE_5"
+echo "        const auto& entry = ${ASSETS_PREFIX_LOWER}_animation_table[index];" >> "$OUTPUT_FILE_5"
+echo "        return { ${STRINGS} + entry.name, ${STRINGS} + entry.id, ${STRINGS} + entry.fqid, ${STRINGS} + entry.fqname, entry.anim_index, entry.set, entry.layout };" >> "$OUTPUT_FILE_5"
 echo '    }' >> "$OUTPUT_FILE_5"
 echo >> "$OUTPUT_FILE_5"
-#echo "    static void ${UNLOAD_CONFIG_PARSE_NAMES_FUNC_NAME}() {" >> "$OUTPUT_FILE_5"
-#echo "        for (const auto& entry : ${ASSETS_PREFIX_LOWER}_animation_names_table) {" >> "$OUTPUT_FILE_5"
-#echo "            platform::details::asset_unload_cstr(entry.name,   entry.name_len);" >> "$OUTPUT_FILE_5"
-#echo "            platform::details::asset_unload_cstr(entry.id,     entry.id_len);" >> "$OUTPUT_FILE_5"
-#echo "            platform::details::asset_unload_cstr(entry.fqid,   entry.fqid_len);" >> "$OUTPUT_FILE_5"
-#echo "            platform::details::asset_unload_cstr(entry.fqname, entry.fqname_len);" >> "$OUTPUT_FILE_5"
-#echo "        }" >> "$OUTPUT_FILE_5"
-#echo "    }" >> "$OUTPUT_FILE_5"
 echo "    int ${CONFIG_PARSE_FUNC_NAME}(config::config_t& config, const char *value) {" >> "$OUTPUT_FILE_5"
-echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$OUTPUT_FILE_5"
 echo "        int ret = -1;" >> "$OUTPUT_FILE_5"
 echo "        for (size_t i = 0;ret < 0 && i < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT;++i) {" >> "$OUTPUT_FILE_5"
-echo "            const auto& entry = ${ASSETS_PREFIX_LOWER}_animation_table[i]${OUTPUT_FILE_5_NORMAL_MEMBER};" >> "$OUTPUT_FILE_5"
+echo "            const auto& entry = ${ASSETS_PREFIX_LOWER}_animation_table[i];" >> "$OUTPUT_FILE_5"
+echo "            if (strcmp(value, ${STRINGS} + entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
+echo "                strcmp(value, ${STRINGS} + entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
+echo "                strcmp(value, ${STRINGS} + entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
 if [[ -n $ALT ]]; then
-  echo "            const auto& alt = ${ASSETS_PREFIX_LOWER}_animation_table[i].alt;" >> "$OUTPUT_FILE_5"
-fi
-echo "            if (strcmp(value, entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
-echo "                strcmp(value, entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
-echo "                strcmp(value, entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
-if [[ -n $ALT ]]; then
-  echo "                strcmp(value, entry.fqname) == 0 ||" >> "$OUTPUT_FILE_5"
-  echo "                strcmp(value, alt.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
-  echo "                strcmp(value, alt.fqname) == 0) {" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, ${STRINGS} + entry.fqname) == 0 ||" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, ${ALT_STRINGS} + entry.alt_fqid) == 0 ||" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, ${ALT_STRINGS} + entry.alt_fqname) == 0) {" >> "$OUTPUT_FILE_5"
 else
-  echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, ${STRINGS} + entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
 fi
 echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
 echo "                config.animation_custom_set = entry.set;" >> "$OUTPUT_FILE_5"
@@ -224,8 +207,11 @@ echo '                ret = entry.anim_index;' >> "$OUTPUT_FILE_5"
 echo '                break;' >> "$OUTPUT_FILE_5"
 echo '            }' >> "$OUTPUT_FILE_5"
 echo '        }' >> "$OUTPUT_FILE_5"
-#echo "        ${UNLOAD_CONFIG_PARSE_NAMES_FUNC_NAME}();" >> "$OUTPUT_FILE_5"
 echo '        return ret;' >> "$OUTPUT_FILE_5"
 echo '    }' >> "$OUTPUT_FILE_5"
 echo '}' >> "$OUTPUT_FILE_5"
-echo >> "$OUTPUT_FILE_5"
+
+if [[ -n $ALT ]]; then
+  # alt strings -> ALT_<SET>_STRINGS blob + offsets (the main <SET>_STRINGS blob is built in <set>.hpp, see all_generate_embedded_assets.sh)
+  bash "$(dirname "$0")/build_string_blobs.sh" --blob "${ALT_STRINGS}" "$OUTPUT_FILE_5"
+fi
