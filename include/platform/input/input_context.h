@@ -16,8 +16,8 @@ namespace bongocat::platform::input {
 
 BONGOCAT_STUBS_BEGIN
 
-inline static constexpr size_t MAX_ACTIVE_DEVICES{32};
-inline static constexpr size_t INPUT_HOTPLUG_EVENTS{64};
+inline constexpr size_t MAX_ACTIVE_DEVICES{32};
+inline constexpr size_t INPUT_HOTPLUG_EVENTS{64};
 
 enum class input_unique_file_type_t : uint8_t {
   NONE,
@@ -82,7 +82,7 @@ void cleanup(input_context_t& ctx);
 // =============================================================================
 
 struct input_context_t {
-  inline static constexpr gid_t NONE_GID{static_cast<gid_t>(-1)};
+  static constexpr gid_t NONE_GID{static_cast<gid_t>(-1)};
 
   // local copy from other thread, update after reload (shared memory)
   MMapMemory<config::config_t> _local_copy_config;

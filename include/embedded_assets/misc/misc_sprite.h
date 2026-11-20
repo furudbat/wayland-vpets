@@ -4,8 +4,8 @@
 #include "embedded_assets/embedded_image.h"
 
 namespace bongocat::assets {
-inline static constexpr size_t MISC_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 1;
-inline static constexpr size_t MISC_ANIMATIONS_COUNT = 1;
+inline constexpr size_t MISC_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 1;
+inline constexpr size_t MISC_ANIMATIONS_COUNT = 1;
 
 BONGOCAT_NODISCARD extern embedded_image_t get_misc_sprite_sheet(size_t i);
 BONGOCAT_NODISCARD extern custom_animation_settings_t get_misc_sprite_sheet_columns(size_t i);

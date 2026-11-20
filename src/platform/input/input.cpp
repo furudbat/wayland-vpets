@@ -19,28 +19,28 @@
 #include <unistd.h>
 
 namespace bongocat::platform::input {
-static inline constexpr size_t INPUT_EVENT_BUF = 128;
-static inline constexpr size_t MAX_DEVICE_FDS = 256;
-static inline constexpr size_t MAX_ACTIVE_DEVICE_FDS = 32;
-inline static constexpr int MAX_ATTEMPTS = 2048;
+static constexpr size_t INPUT_EVENT_BUF = 128;
+static constexpr size_t MAX_DEVICE_FDS = 256;
+static constexpr size_t MAX_ACTIVE_DEVICE_FDS = 32;
+static constexpr int MAX_ATTEMPTS = 2048;
 
-static inline constexpr auto INPUT_POOL_TIMEOUT_MS = 10;
+static constexpr auto INPUT_POOL_TIMEOUT_MS = 10;
 
-static inline constexpr time_sec_t START_ADAPTIVE_CHECK_INTERVAL_SEC = 5;
-static inline constexpr time_sec_t MID_ADAPTIVE_CHECK_INTERVAL_SEC = 15;
-static inline constexpr time_sec_t MAX_ADAPTIVE_CHECK_INTERVAL_SEC = 30;
+static constexpr time_sec_t START_ADAPTIVE_CHECK_INTERVAL_SEC = 5;
+static constexpr time_sec_t MID_ADAPTIVE_CHECK_INTERVAL_SEC = 15;
+static constexpr time_sec_t MAX_ADAPTIVE_CHECK_INTERVAL_SEC = 30;
 
-static inline constexpr time_ms_t RESET_KPM_TIMEOUT_MS = 5 * 1000;
+static constexpr time_ms_t RESET_KPM_TIMEOUT_MS = 5 * 1000;
 
-inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
-inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
+static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
+static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
-inline static constexpr size_t TEST_STDIN_BUF_LEN = 256;
+static constexpr size_t TEST_STDIN_BUF_LEN = 256;
 
 // Uses Linux input keycodes from <linux/input-event-codes.h>
 // Left-hand keys on QWERTY keyboard
 // clang-format off
-inline static constexpr int INPUT_LEFT_KEYS[] = {
+static constexpr int INPUT_LEFT_KEYS[] = {
   // Number row left half (1-6)
   2, 3, 4, 5, 6, 7,           // KEY_1 to KEY_6
   // QWERTY row left half

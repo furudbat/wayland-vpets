@@ -39,19 +39,19 @@
 // =============================================================================
 
 namespace bongocat {
-static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_MS = 5000;
-static inline constexpr platform::time_ms_t SLEEP_WAIT_FOR_SHUTDOWN_MS = 100;
+static constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_MS = 5000;
+static constexpr platform::time_ms_t SLEEP_WAIT_FOR_SHUTDOWN_MS = 100;
 static_assert(SLEEP_WAIT_FOR_SHUTDOWN_MS > 0);
 
-static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS = 5000;
-static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_INPUT_THREAD_MS = 2000;
-static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS = 5000;
-static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_AUDIO_THREAD_MS = 7500;
-static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS = 1000;
-inline static constexpr platform::time_ms_t COND_RELOAD_CONFIG_TIMEOUT_MS = 5000;
-inline static constexpr platform::time_ms_t COND_INIT_TIMEOUT_MS = 5000;
+static constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS = 5000;
+static constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_INPUT_THREAD_MS = 2000;
+static constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS = 5000;
+static constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_AUDIO_THREAD_MS = 7500;
+static constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS = 1000;
+static constexpr platform::time_ms_t COND_RELOAD_CONFIG_TIMEOUT_MS = 5000;
+static constexpr platform::time_ms_t COND_INIT_TIMEOUT_MS = 5000;
 
-inline static constexpr platform::time_ms_t WAIT_FOR_FLUSH_BEFORE_EXIT_MS = 100;
+static constexpr platform::time_ms_t WAIT_FOR_FLUSH_BEFORE_EXIT_MS = 100;
 
 struct main_context_t;
 void stop_threads(main_context_t& context);
@@ -237,7 +237,7 @@ struct cli_args_t {
 // PROCESS MANAGEMENT MODULE
 // =============================================================================
 
-inline static constexpr size_t PID_STR_BUF = 64;
+static constexpr size_t PID_STR_BUF = 64;
 
 /*
 inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
@@ -246,12 +246,12 @@ inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE = "/tmp/bongoca
 inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_TEMPLATE = "/tmp/bongocat-%" PRId64 ".pid";
 */
 
-inline static constexpr auto DEFAULT_PID_FILE_PATH_TEMPLATE = "%s/bongocat.pid";
-inline static constexpr auto PID_FILE_WITH_SUFFIX_PATH_TEMPLATE = "%s/bongocat-%s.pid";
-inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_PATH_TEMPLATE = "%s/bongocat-%s.%" PRIu32 ".pid";
-inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_PATH_TEMPLATE = "%s/bongocat-%" PRId64 ".pid";
+static constexpr auto DEFAULT_PID_FILE_PATH_TEMPLATE = "%s/bongocat.pid";
+static constexpr auto PID_FILE_WITH_SUFFIX_PATH_TEMPLATE = "%s/bongocat-%s.pid";
+static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_PATH_TEMPLATE = "%s/bongocat-%s.%" PRIu32 ".pid";
+static constexpr auto PID_FILE_WITH_SUFFIX_NR_PATH_TEMPLATE = "%s/bongocat-%" PRId64 ".pid";
 
-inline static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
+static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
 
 static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
   platform::FileDescriptor fd =

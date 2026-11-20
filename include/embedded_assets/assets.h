@@ -20,6 +20,11 @@
 // ".assets.<set>.<kind>", the linker script groups them per set (_bongocat_start/stop_assets_<set>)
 // -----------------------------------------------------------------------------
 #define BONGOCAT_ASSETS_SET_SECTION(set, kind) BONGOCAT_SECTION(".assets." #set "." kind)
+// one section per object (".assets.<set>.<kind>.<name>"): REQUIRED for `inline` (COMDAT) variables in headers.
+// GCC puts all inline variables of one TU that share a named section into a single COMDAT group
+// (keyed by the first one) -> "multiple definition" at link time when another TU emits a different subset.
+// A unique section name per variable gives each its own group, so the linker keeps exactly one copy.
+#define BONGOCAT_ASSETS_SET_SECTION_FOR(set, kind, name) BONGOCAT_SECTION(".assets." #set "." kind "." #name)
 
 /// @NOTE(assets): 0. add the set sections (and the set to BONGOCAT_ASSET_SETS in cmake/EmbeddedAssets.cmake)
 
@@ -48,6 +53,12 @@
 // config load/reload block (.config)
 // =============================================================================
 
-#define CONFIG_STRING_SECTION BONGOCAT_SECTION(".config.str")
+// All collected into .bongocat.config (see cmake/EmbeddedAssets.cmake, KEEP(*(.config.str .config.str.*))):
+//   CONFIG_STRING_SECTION(name)  for `inline constexpr` strings in headers: own section per variable
+//                                (COMDAT, one copy per binary), see BONGOCAT_ASSETS_SET_SECTION_FOR
+//   CONFIG_LOCAL_STRING_SECTION  for `static constexpr` strings in .cpp files (internal linkage, shared section);
+//                                GCC can't mix COMDAT and non-COMDAT objects in one section ("section type conflict")
+#define CONFIG_STRING_SECTION(name) BONGOCAT_SECTION(".config.str." #name)
+#define CONFIG_LOCAL_STRING_SECTION BONGOCAT_SECTION(".config.str.local")
 
 #endif  // BONGOCAT_ASSETS_MACROS_IMAGE_H

@@ -11,8 +11,8 @@ namespace bongocat::platform::update {
 
 BONGOCAT_STUBS_BEGIN
 
-inline static constexpr size_t MaxCpus = 256;
-inline static constexpr size_t CpuSnapshotRingBufferMaxHistory = 8;
+inline constexpr size_t MaxCpus = 256;
+inline constexpr size_t CpuSnapshotRingBufferMaxHistory = 8;
 
 struct cpu_stat_t {
   size_t idle_time{0};

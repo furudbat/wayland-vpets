@@ -54,7 +54,7 @@ namespace bongocat::animation {
 //inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 1812zu;
 //inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 1859zu;
 //inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 145zu;
-inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 393zu;  // after profiling and testing
+static constexpr size_t HybridImageBackendPngleThresholdBytes = 393zu;  // after profiling and testing
 
 struct decode_state_t {
   Image *image{BONGOCAT_NULLPTR};

@@ -126,7 +126,7 @@ void silence_logs(bool disable_logs);
 #endif
 namespace features {
 #if defined(BONGOCAT_LOG_LEVEL)
-  inline static constexpr int LogLevel = BONGOCAT_LOG_LEVEL;
+  static constexpr int LogLevel = BONGOCAT_LOG_LEVEL;
 #endif
 }  // namespace features
 

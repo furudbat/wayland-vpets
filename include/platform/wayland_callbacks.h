@@ -22,12 +22,11 @@ extern void handle_xdg_output_done(void *data, zxdg_output_v1 *xdg_output);
 extern void handle_xdg_output_description(void *data, zxdg_output_v1 *xdg_output, const char *description);
 
 /// @NOTE: xdg_output_listeners MUST pass data as output_ref_t, see zxdg_output_v1_add_listener
-inline static constexpr zxdg_output_v1_listener xdg_output_listener = {.logical_position =
-                                                                           handle_xdg_output_logical_position,
-                                                                       .logical_size = handle_xdg_output_logical_size,
-                                                                       .done = handle_xdg_output_done,
-                                                                       .name = handle_xdg_output_name,
-                                                                       .description = handle_xdg_output_description};
+inline constexpr zxdg_output_v1_listener xdg_output_listener = {.logical_position = handle_xdg_output_logical_position,
+                                                                .logical_size = handle_xdg_output_logical_size,
+                                                                .done = handle_xdg_output_done,
+                                                                .name = handle_xdg_output_name,
+                                                                .description = handle_xdg_output_description};
 
 // =============================================================================
 // FULLSCREEN DETECTION IMPLEMENTATION
@@ -48,7 +47,7 @@ extern void fs_handle_parent(void *data, zwlr_foreign_toplevel_handle_v1 *handle
                              zwlr_foreign_toplevel_handle_v1 *parent);
 
 /// @NOTE: fs_toplevel_listener MUST pass data as toplevel_data_t, see zxdg_output_v1_add_listener
-inline static constexpr zwlr_foreign_toplevel_handle_v1_listener fs_toplevel_listener = {
+inline constexpr zwlr_foreign_toplevel_handle_v1_listener fs_toplevel_listener = {
     .title = fs_handle_title,
     .app_id = fs_handle_app_id,
     .output_enter = fs_handle_output_enter,
@@ -66,7 +65,7 @@ extern void fs_handle_manager_toplevel(void *data, zwlr_foreign_toplevel_manager
 extern void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *manager);
 
 /// @NOTE: fs_manager_listener MUST pass data as wayland_context_t, see zwlr_foreign_toplevel_manager_v1_add_listener
-inline static constexpr zwlr_foreign_toplevel_manager_v1_listener fs_manager_listener = {
+inline constexpr zwlr_foreign_toplevel_manager_v1_listener fs_manager_listener = {
     .toplevel = fs_handle_manager_toplevel,
     .finished = fs_handle_manager_finished,
 };
@@ -79,7 +78,7 @@ extern void layer_surface_configure(void *data, zwlr_layer_surface_v1 *ls, uint3
 extern void layer_surface_closed(void *data, zwlr_layer_surface_v1 *ls);
 
 /// @NOTE: layer_listener MUST pass data as wayland_context_t, see zwlr_layer_surface_v1_add_listener
-inline static constexpr zwlr_layer_surface_v1_listener layer_listener = {
+inline constexpr zwlr_layer_surface_v1_listener layer_listener = {
     .configure = layer_surface_configure,
     .closed = layer_surface_closed,
 };
@@ -87,7 +86,7 @@ inline static constexpr zwlr_layer_surface_v1_listener layer_listener = {
 extern void xdg_wm_base_ping(void *data, xdg_wm_base *wm_base, uint32_t serial);
 
 /// @NOTE: xdg_wm_base_listener MUST pass data as wayland_context_t, see xdg_wm_base_add_listener
-inline static constexpr xdg_wm_base_listener xdg_wm_base_listener = {
+inline constexpr xdg_wm_base_listener xdg_wm_base_listener = {
     .ping = xdg_wm_base_ping,
 };
 
@@ -102,7 +101,7 @@ extern void output_name(void *data, wl_output *wl_output, const char *name);
 extern void output_description(void *data, wl_output *wl_output, const char *name);
 
 /// @NOTE: output_listener MUST pass data as wayland_context_t, see wl_output_add_listener
-inline static constexpr wl_output_listener output_listener = {
+inline constexpr wl_output_listener output_listener = {
     .geometry = output_geometry,
     .mode = output_mode,
     .done = output_done,
@@ -119,8 +118,7 @@ extern void registry_global(void *data, wl_registry *reg, uint32_t name, const c
 extern void registry_remove(void *data, wl_registry *registry, uint32_t name);
 
 /// @NOTE: reg_listeners MUST pass data as wayland_listeners_context_t, see zxdg_output_v1_add_listener
-inline static constexpr wl_registry_listener reg_listener = {.global = registry_global,
-                                                             .global_remove = registry_remove};
+inline constexpr wl_registry_listener reg_listener = {.global = registry_global, .global_remove = registry_remove};
 
 // =============================================================================
 // FRAME DRAWING HANDLER
@@ -129,14 +127,14 @@ inline static constexpr wl_registry_listener reg_listener = {.global = registry_
 extern void buffer_release(void *data, wl_buffer *buffer);
 
 /// @NOTE: buffer_listeners MUST pass data as wayland_shm_buffer_t, see wl_buffer_add_listener
-inline static constexpr wl_buffer_listener buffer_listener = {
+inline constexpr wl_buffer_listener buffer_listener = {
     .release = buffer_release,
 };
 
 extern void frame_done(void *data, wl_callback *cb, uint32_t time);
 
 /// @NOTE: frame_listeners MUST pass data as wayland_listeners_context_t, see wl_callback_add_listener
-inline static constexpr wl_callback_listener frame_listener = {.done = frame_done};
+inline constexpr wl_callback_listener frame_listener = {.done = frame_done};
 
 void wayland_handle_output_reconnect(struct wl_output *new_output, uint32_t registry_name, const char *output_name);
 
@@ -147,7 +145,7 @@ void wayland_handle_output_reconnect(struct wl_output *new_output, uint32_t regi
 extern void fractional_scale_preferred_scale(void *data, struct wp_fractional_scale_v1 *fs, uint32_t scale);
 
 /// @NOTE: preferred_scale MUST pass data as wayland_listeners_context_t, see wl_callback_add_listener
-inline static constexpr wp_fractional_scale_v1_listener fractional_scale_listener = {
+inline constexpr wp_fractional_scale_v1_listener fractional_scale_listener = {
     .preferred_scale = fractional_scale_preferred_scale,
 };
 

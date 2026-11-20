@@ -11,8 +11,8 @@ struct zwlr_layer_surface_v1;
 #include <wayland-client.h>
 
 namespace bongocat::platform::wayland {
-inline static constexpr int MAX_ATTEMPTS = 4096;
-inline static constexpr int DEFAULT_PREFER_SCALE120 = 120;
+inline constexpr int MAX_ATTEMPTS = 4096;
+inline constexpr int DEFAULT_PREFER_SCALE120 = 120;
 
 struct wayland_thread_context;
 // Cleanup Wayland resources

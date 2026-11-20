@@ -9,17 +9,17 @@
 
 namespace bongocat::assets {
 // custom sprite sheet (at run time); < 1 is reserved for misc, see misc.hpp and MISC_ANIM_COUNT, so misc is also custom but everything after that is user-custom
-inline static constexpr std::size_t CUSTOM_ANIM_INDEX = MISC_ANIM_COUNT;
+inline constexpr std::size_t CUSTOM_ANIM_INDEX = MISC_ANIM_COUNT;
 
 // custom (sprite sheet)
-inline static constexpr char CUSTOM_ID_ARR[] CONFIG_STRING_SECTION = "custom";
-inline static constexpr const char *CUSTOM_ID = CUSTOM_ID_ARR;
-inline static constexpr std::size_t CUSTOM_ID_LEN = sizeof(CUSTOM_ID_ARR) - 1;
-inline static constexpr char CUSTOM_NAME_ARR[] CONFIG_STRING_SECTION = "custom";
-inline static constexpr const char *CUSTOM_NAME = CUSTOM_NAME_ARR;
-inline static constexpr std::size_t CUSTOM_NAME_LEN = sizeof(CUSTOM_NAME_ARR) - 1;
+inline constexpr char CUSTOM_ID_ARR[] CONFIG_STRING_SECTION(CUSTOM_ID_ARR) = "custom";
+inline constexpr const char *CUSTOM_ID = CUSTOM_ID_ARR;
+inline constexpr std::size_t CUSTOM_ID_LEN = sizeof(CUSTOM_ID_ARR) - 1;
+inline constexpr char CUSTOM_NAME_ARR[] CONFIG_STRING_SECTION(CUSTOM_NAME_ARR) = "custom";
+inline constexpr const char *CUSTOM_NAME = CUSTOM_NAME_ARR;
+inline constexpr std::size_t CUSTOM_NAME_LEN = sizeof(CUSTOM_NAME_ARR) - 1;
 
-static inline constexpr int CUSTOM_HAPPY_CHANCE_PERCENT = 60;
+inline constexpr int CUSTOM_HAPPY_CHANCE_PERCENT = 60;
 
 inline int get_custom_animation_settings_rows_count(const custom_animation_settings_t& sprite_sheet_settings) {
   if (sprite_sheet_settings.rows >= 1) {

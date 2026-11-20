@@ -9,21 +9,21 @@
 
 namespace bongocat::platform::audio::details {
 
-inline static constexpr size_t PEAK_DETECTOR_MAX_BARS = 64;
+inline constexpr size_t PEAK_DETECTOR_MAX_BARS = 64;
 
-inline static constexpr double PEAK_CAP_FALL_TAU_MS = 4000.0;  // peak cap falls slowly (exponential)
-inline static constexpr double PEAK_BAR_TOP_RATIO = 0.9;       // bar >= 90% of its peak cap: "at the top"
-inline static constexpr double PEAK_BAR_MIN = 0.15;            // ignore (almost) empty bars (noise)
-inline static constexpr time_ms_t PEAK_WARMUP_MS = 4000;       // autosens settling: every bar reaches new tops
-inline static constexpr time_ms_t PEAK_COOLDOWN_MS = 2000;     // min. time between peaks (rate limit)
-inline static constexpr double PEAK_REARM_RATIO = 0.75;        // re-arm below threshold * ratio ...
+inline constexpr double PEAK_CAP_FALL_TAU_MS = 4000.0;  // peak cap falls slowly (exponential)
+inline constexpr double PEAK_BAR_TOP_RATIO = 0.9;       // bar >= 90% of its peak cap: "at the top"
+inline constexpr double PEAK_BAR_MIN = 0.15;            // ignore (almost) empty bars (noise)
+inline constexpr time_ms_t PEAK_WARMUP_MS = 4000;       // autosens settling: every bar reaches new tops
+inline constexpr time_ms_t PEAK_COOLDOWN_MS = 2000;     // min. time between peaks (rate limit)
+inline constexpr double PEAK_REARM_RATIO = 0.75;        // re-arm below threshold * ratio ...
 // ... for this long: a short dip between two hits is enough (heavy music: happy on hits, limited by cooldown)
-inline static constexpr time_ms_t PEAK_REARM_HOLD_MS = 150;
+inline constexpr time_ms_t PEAK_REARM_HOLD_MS = 150;
 // sustained sound: the mean of all bars must not have dropped to (almost) silence within the last window,
 // sparse transients (e.g. slow metronome clicks) briefly saturate all bars because of cava's autosens
-inline static constexpr size_t PEAK_SUSTAIN_BLOCKS = 10;
-inline static constexpr time_ms_t PEAK_SUSTAIN_BLOCK_MS = 100;  // window = 10 * 100 ms = 1 s
-inline static constexpr double PEAK_SUSTAIN_MIN_MEAN = 0.02;
+inline constexpr size_t PEAK_SUSTAIN_BLOCKS = 10;
+inline constexpr time_ms_t PEAK_SUSTAIN_BLOCK_MS = 100;  // window = 10 * 100 ms = 1 s
+inline constexpr double PEAK_SUSTAIN_MIN_MEAN = 0.02;
 static_assert(PEAK_SUSTAIN_BLOCKS > 0);
 
 struct peak_detector_t {

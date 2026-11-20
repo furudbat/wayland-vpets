@@ -28,13 +28,13 @@ namespace bongocat::platform::wayland::details {
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
-static inline constexpr int CREATE_SHM_MAX_ATTEMPTS = 100;
+static constexpr int CREATE_SHM_MAX_ATTEMPTS = 100;
 
-static inline constexpr auto WAYLAND_LAYER_NAMESPACE = "bongocat-overlay";
+static constexpr auto WAYLAND_LAYER_NAMESPACE = "bongocat-overlay";
 
-static inline constexpr size_t CREATE_SHM_NAME_SUFFIX_LEN = 8;
-static inline constexpr char CREATE_SHM_NAME_TEMPLATE[] = "/bongocat-bar-shm-XXXXXXXX";
-static inline constexpr size_t CREATE_SHM_NAME_PREFIX_LEN =
+static constexpr size_t CREATE_SHM_NAME_SUFFIX_LEN = 8;
+static constexpr char CREATE_SHM_NAME_TEMPLATE[] = "/bongocat-bar-shm-XXXXXXXX";
+static constexpr size_t CREATE_SHM_NAME_PREFIX_LEN =
     LEN_ARRAY(CREATE_SHM_NAME_TEMPLATE) - 1 - CREATE_SHM_NAME_SUFFIX_LEN;
 static_assert((CREATE_SHM_NAME_PREFIX_LEN + CREATE_SHM_NAME_SUFFIX_LEN) == LEN_ARRAY(CREATE_SHM_NAME_TEMPLATE) - 1);
 

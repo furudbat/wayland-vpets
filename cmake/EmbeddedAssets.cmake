@@ -89,9 +89,9 @@ SECTIONS
       "    . = ALIGN(CONSTANT(MAXPAGESIZE));\n"
       "    _bongocat_start_assets_${asset_set} = .;\n"
       "    KEEP(*(.assets.${asset_set}.images))\n"
-      "    KEEP(*(.assets.${asset_set}.image_sizes))\n"
-      "    KEEP(*(.assets.${asset_set}.dims))\n"
-      "    KEEP(*(.assets.${asset_set}.sprite_settings))\n"
+      "    KEEP(*(.assets.${asset_set}.image_sizes .assets.${asset_set}.image_sizes.*))\n"
+      "    KEEP(*(.assets.${asset_set}.dims .assets.${asset_set}.dims.*))\n"
+      "    KEEP(*(.assets.${asset_set}.sprite_settings .assets.${asset_set}.sprite_settings.*))\n"
     )
     # @NOTE(10): sets without evolution data get no evol sub range
     if(NOT asset_set MATCHES "^(bongocat|misc|ms_agent)$")
@@ -110,9 +110,9 @@ SECTIONS
         APPEND ld
         "    /* not listed sets (linked transitively), keep them inside the evicted block */\n"
         "    KEEP(*(.assets.*.images))\n"
-        "    KEEP(*(.assets.*.image_sizes))\n"
-        "    KEEP(*(.assets.*.dims))\n"
-        "    KEEP(*(.assets.*.sprite_settings))\n"
+        "    KEEP(*(.assets.*.image_sizes .assets.*.image_sizes.*))\n"
+        "    KEEP(*(.assets.*.dims .assets.*.dims.*))\n"
+        "    KEEP(*(.assets.*.sprite_settings .assets.*.sprite_settings.*))\n"
       )
       # @NOTE(10): sets without evolution data get no evol sub range
       if(NOT asset_set MATCHES "^(bongocat|misc|ms_agent)$")
@@ -141,7 +141,7 @@ SECTIONS
   .bongocat.config :
   {
     _bongocat_start_config = .;
-    KEEP(*(.config.str))
+    KEEP(*(.config.str .config.str.*))
     . = ALIGN(CONSTANT(MAXPAGESIZE));
     _bongocat_stop_config = .;
   }

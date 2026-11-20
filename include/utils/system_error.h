@@ -10,7 +10,7 @@
 
 namespace bongocat {
 
-inline static constexpr size_t STRERROR_BUFLEN = 256;
+inline constexpr size_t STRERROR_BUFLEN = 256;
 
 inline AllocatedString get_strerror(int errnum) {
   auto ret = make_allocated_string(STRERROR_BUFLEN);

@@ -34,89 +34,89 @@ extern "C" {
 namespace bongocat::platform::audio {
 
 // Audio format
-inline static constexpr size_t SAMPLE_RATE_HZ = 24000;
-inline static constexpr size_t SAMPLE_SIZE_BYTES = sizeof(sample_buffer_bytes_t);  // 8 bytes
+static constexpr size_t SAMPLE_RATE_HZ = 24000;
+static constexpr size_t SAMPLE_SIZE_BYTES = sizeof(sample_buffer_bytes_t);  // 8 bytes
 
-inline static constexpr size_t SAMPLE_BUFFER_FRAMES = 4096;
+static constexpr size_t SAMPLE_BUFFER_FRAMES = 4096;
 
 static_assert(SAMPLE_RATE_HZ > 0);
-inline static constexpr size_t SAMPLE_BUFFER_SIZE = SAMPLE_BUFFER_FRAMES * MAX_CHANNELS;
-inline static constexpr size_t SAMPLE_BUFFER_BYTES = SAMPLE_BUFFER_SIZE * SAMPLE_SIZE_BYTES;
-inline static constexpr double SAMPLE_BUFFER_MS =
+static constexpr size_t SAMPLE_BUFFER_SIZE = SAMPLE_BUFFER_FRAMES * MAX_CHANNELS;
+static constexpr size_t SAMPLE_BUFFER_BYTES = SAMPLE_BUFFER_SIZE * SAMPLE_SIZE_BYTES;
+static constexpr double SAMPLE_BUFFER_MS =
     1000.0 * static_cast<double>(SAMPLE_BUFFER_FRAMES) / SAMPLE_RATE_HZ;  // ~170.7 ms
 static_assert(SAMPLE_BUFFER_MS >= 170.0);
 static_assert(SAMPLE_BUFFER_BYTES == 32 * 1024);
 static_assert(SAMPLE_BUFFER_SIZE > 0);
 
-inline static constexpr int MAX_ATTEMPTS = 2048;
+static constexpr int MAX_ATTEMPTS = 2048;
 
-static inline constexpr time_ms_t AUDIO_POOL_TIMEOUT_MS = 1000;
-static inline constexpr time_ms_t COND_STORED_TIMEOUT_MS = 1000;
-static inline constexpr time_ms_t THREAD_SLEEP_MS = 1000;
+static constexpr time_ms_t AUDIO_POOL_TIMEOUT_MS = 1000;
+static constexpr time_ms_t COND_STORED_TIMEOUT_MS = 1000;
+static constexpr time_ms_t THREAD_SLEEP_MS = 1000;
 
-inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
-inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
+static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
+static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
-inline static constexpr int CAVA_AUTOSENS = 1;
+static constexpr int CAVA_AUTOSENS = 1;
 // spectrum + beat detection run on fixed hops of the audio stream (independent of poll/wakeup timing),
 // onsets are timestamped on the audio sample timeline -> precise BPM (up to 300 BPM)
-inline static constexpr time_ms_t ANALYSIS_HOP_MS = 10;
+static constexpr time_ms_t ANALYSIS_HOP_MS = 10;
 // smoothing (0..1): low = fast reaction
-inline static constexpr double CAVA_NOISE_REDUCTION = 0.3;
-inline static constexpr int CAVA_LOW_CUT_OFF_HZ = 50;
-inline static constexpr int CAVA_HIGH_CUT_OFF_HZ = 10000;
-inline static constexpr int CAVA_SCALING_MODE = CAVA_SCALING_LINEAR;
-inline static constexpr double CAVA_INPUT_SCALE = 32768.0;  // F32 (-1..1) -> 16-bit range (cava input convention)
+static constexpr double CAVA_NOISE_REDUCTION = 0.3;
+static constexpr int CAVA_LOW_CUT_OFF_HZ = 50;
+static constexpr int CAVA_HIGH_CUT_OFF_HZ = 10000;
+static constexpr int CAVA_SCALING_MODE = CAVA_SCALING_LINEAR;
+static constexpr double CAVA_INPUT_SCALE = 32768.0;  // F32 (-1..1) -> 16-bit range (cava input convention)
 
 static_assert(SAMPLE_RATE_HZ <= UINT32_MAX);
 static_assert(MAX_CHANNELS <= UINT32_MAX);
-inline static constexpr uint32_t STREAM_RATE_HZ = static_cast<uint32_t>(SAMPLE_RATE_HZ);
-inline static constexpr uint32_t STREAM_CHANNELS = static_cast<uint32_t>(MAX_CHANNELS);
+static constexpr uint32_t STREAM_RATE_HZ = static_cast<uint32_t>(SAMPLE_RATE_HZ);
+static constexpr uint32_t STREAM_CHANNELS = static_cast<uint32_t>(MAX_CHANNELS);
 static_assert(STREAM_RATE_HZ / 2 > static_cast<uint32_t>(CAVA_HIGH_CUT_OFF_HZ),
               "Nyquist must be above the high cut-off");
 
 // silence: RMS below ~-80 dBFS for a while
 // tempo unknown: SILENCE_HOLD_MS; tempo known: a bit longer than one beat (no beat expected anymore), stop fast
-inline static constexpr double SILENCE_RMS = 1e-4;
-inline static constexpr time_ms_t SILENCE_HOLD_MS = 1500;
-inline static constexpr time_ms_t SILENCE_MIN_HOLD_MS = 400;
+static constexpr double SILENCE_RMS = 1e-4;
+static constexpr time_ms_t SILENCE_HOLD_MS = 1500;
+static constexpr time_ms_t SILENCE_MIN_HOLD_MS = 400;
 // keep the tempo over short pauses (resume reacts immediately), forget it after a longer silence (next song)
 // (same as the beat detector forgets old onsets)
-inline static constexpr time_ms_t BEAT_MEMORY_MS = details::ONSET_MAX_INTERVAL_MS * 2;
+static constexpr time_ms_t BEAT_MEMORY_MS = details::ONSET_MAX_INTERVAL_MS * 2;
 
 // peak (happy): see audio_peak_detector.h; shm.peak is cleared after this time
-inline static constexpr time_ms_t PEAK_COOLDOWN_MS = details::PEAK_COOLDOWN_MS;
-inline static constexpr double LEVEL_EMA_ALPHA = 0.4;
+static constexpr time_ms_t PEAK_COOLDOWN_MS = details::PEAK_COOLDOWN_MS;
+static constexpr double LEVEL_EMA_ALPHA = 0.4;
 
 // beat/onset detection + BPM: see audio_beat_detector.h
 // speed factor = animation frame time / beat interval -> one (dance) frame per beat
-inline static constexpr double MIN_SPEED_FACTOR = 0.05;
-inline static constexpr double MAX_SPEED_FACTOR = 20.0;
+static constexpr double MIN_SPEED_FACTOR = 0.05;
+static constexpr double MAX_SPEED_FACTOR = 20.0;
 // beat clock: onsets within +-BEAT_WINDOW (of the beat interval) around the predicted beat re-sync the beat phase,
 // onsets outside (off-beat) are ignored; missed beats are triggered at the predicted time.
 // two consecutive off-beat onsets one beat interval apart (+-BEAT_WINDOW) mean the phase is wrong (e.g. after a tempo
 // change): re-lock the beat clock to the onsets
-inline static constexpr double BEAT_WINDOW = 0.25;
+static constexpr double BEAT_WINDOW = 0.25;
 
-inline static constexpr double BEAT_LEAD_MS = 100.0;
-inline static constexpr double BEAT_LEAD_MAX_RATIO = 0.4;
+static constexpr double BEAT_LEAD_MS = 100.0;
+static constexpr double BEAT_LEAD_MAX_RATIO = 0.4;
 static_assert(BEAT_LEAD_MAX_RATIO < 1.0 - BEAT_WINDOW);
 static_assert(MAX_SPEED_FACTOR >= MIN_SPEED_FACTOR);
 
-inline static constexpr time_ms_t MIN_IDLE_TRIGGER_INTERVAL_MS = 100;
-inline static constexpr time_ms_t MIN_ANALYSIS_MS = 5;
-inline static constexpr double LOW_BPM_INTERVAL = 60000.0;
+static constexpr time_ms_t MIN_IDLE_TRIGGER_INTERVAL_MS = 100;
+static constexpr time_ms_t MIN_ANALYSIS_MS = 5;
+static constexpr double LOW_BPM_INTERVAL = 60000.0;
 
-inline static constexpr time_ms_t RECONNECT_DELAY_MS = 2000;
+static constexpr time_ms_t RECONNECT_DELAY_MS = 2000;
 
-inline static constexpr size_t POD_BUFFER_SIZE = 1024;
+static constexpr size_t POD_BUFFER_SIZE = 1024;
 
-inline static constexpr const char *PW_PROP_MEDIA_TYPE_VALUE = "Audio";
-inline static constexpr const char *PW_PROP_MEDIA_CATEGORY_VALUE = "Capture";
-inline static constexpr const char *PW_PROP_MEDIA_MEDIA_ROLE = "Music";
-inline static constexpr const char *PW_PROP_NODE_NAME_VALUE = "bongocat-audio";
-inline static constexpr const char *PW_PROP_APP_NAME_VALUE = "bongocat";
-inline static constexpr const char *PW_PROP_STREAM_MEDIA_NAME_VALUE = "bongocat-audio";
+static constexpr const char *PW_PROP_MEDIA_TYPE_VALUE = "Audio";
+static constexpr const char *PW_PROP_MEDIA_CATEGORY_VALUE = "Capture";
+static constexpr const char *PW_PROP_MEDIA_MEDIA_ROLE = "Music";
+static constexpr const char *PW_PROP_NODE_NAME_VALUE = "bongocat-audio";
+static constexpr const char *PW_PROP_APP_NAME_VALUE = "bongocat";
+static constexpr const char *PW_PROP_STREAM_MEDIA_NAME_VALUE = "bongocat-audio";
 
 struct audio_analysis_state_t {
   timestamp_ms_t last_analysis{0};
@@ -310,7 +310,7 @@ namespace details {
     pw_stream_queue_buffer(backend.stream, b);
   }
 
-  inline static constexpr pw_stream_events stream_events = {
+  static constexpr pw_stream_events stream_events = {
       .version = PW_VERSION_STREAM_EVENTS,
       .destroy = BONGOCAT_NULLPTR,
       .state_changed = on_state_changed,

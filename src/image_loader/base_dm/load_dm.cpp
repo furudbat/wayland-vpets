@@ -6,9 +6,9 @@
 namespace bongocat::animation {
 
 // BLANK_TARGET see scripts/optimize_dm_sprite_sheet.sh: idle1 idle2 angry down1 happy eat1 sleep1 refuse sad down2 eat2 sleep2 attack movement1 movement2
-inline static constexpr int32_t DM_BLANK_FALLBACK[] = {-1, -1, 0, 1, 2, 2, 3, 2, 3, 3, 5, 6, 2, 0, 1};
+static constexpr int32_t DM_BLANK_FALLBACK[] = {-1, -1, 0, 1, 2, 2, 3, 2, 3, 3, 5, 6, 2, 0, 1};
 static_assert(LEN_ARRAY(DM_BLANK_FALLBACK) <= INT32_MAX);
-inline static constexpr int32_t DM_BLANK_FALLBACK_COUNT = LEN_ARRAY(DM_BLANK_FALLBACK);
+static constexpr int32_t DM_BLANK_FALLBACK_COUNT = LEN_ARRAY(DM_BLANK_FALLBACK);
 
 static bool is_blank_frame(const generic_sprite_sheet_image_t& image, int32_t frame_width, int32_t frame_height,
                     const sprite_sheet_animation_frame_t& frame) {

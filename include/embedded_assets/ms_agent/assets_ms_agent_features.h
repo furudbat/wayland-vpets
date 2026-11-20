@@ -5,9 +5,9 @@
 namespace bongocat::features {
 
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-inline static constexpr bool EnableMsAgentEmbeddedAssets = true;
+static constexpr bool EnableMsAgentEmbeddedAssets = true;
 #else
-inline static constexpr bool EnableMsAgentEmbeddedAssets = false;
+static constexpr bool EnableMsAgentEmbeddedAssets = false;
 #endif
 
 }  // namespace features

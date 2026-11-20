@@ -128,30 +128,30 @@ inline void bongocat_auto_pool_impl(struct memory_pool **pool) {
 template <typename T>
 struct is_trivially_copyable {
 #if defined(__clang__)
-  inline static constexpr bool value = __is_trivially_copyable(T);
+  static constexpr bool value = __is_trivially_copyable(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
-  inline static constexpr bool value = __is_trivially_copyable(T);
+  static constexpr bool value = __is_trivially_copyable(T);
 #elif defined(_MSC_VER)
-  inline static constexpr bool value = __is_trivially_copyable(T);
+  static constexpr bool value = __is_trivially_copyable(T);
 #else
-  inline static constexpr bool value = false;
+  static constexpr bool value = false;
 #endif
 };
 
 template <typename T>
 struct is_trivially_destructible {
 #if defined(__clang__)
-  inline static constexpr bool value = __is_trivially_destructible(T);
+  static constexpr bool value = __is_trivially_destructible(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
   // GCC requires `typename T` to be fully resolved
   // static constexpr bool value = __is_trivially_destructible(T);
   /// @FIXME: expected nested-name-specifier before »T« [-Wtemplate-body]
   /// Fallback: use STL
-  inline static constexpr bool value = std::is_trivially_destructible_v<T>;
+  static constexpr bool value = std::is_trivially_destructible_v<T>;
 #elif defined(_MSC_VER)
-  inline static constexpr bool value = __is_trivially_destructible(T);
+  static constexpr bool value = __is_trivially_destructible(T);
 #else
-  inline static constexpr bool value = false;
+  static constexpr bool value = false;
 #endif
 };
 

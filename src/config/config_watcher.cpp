@@ -16,12 +16,12 @@
 #include <unistd.h>
 
 namespace bongocat::config {
-static inline constexpr int MAX_ATTEMPTS = 2048;
-static inline constexpr int RECREATE_MAX_ATTEMPTS = 10;
-static inline constexpr platform::time_ms_t RELOAD_DEBOUNCE_MS = 1000;
-static inline constexpr platform::time_ms_t RELOAD_DELAY_MS = 100;
-static inline constexpr platform::time_ms_t RECREATE_SLEEP_ATTEMPT_MS = 100;
-static inline constexpr platform::time_ms_t TIMEOUT_MS = 100;
+static constexpr int MAX_ATTEMPTS = 2048;
+static constexpr int RECREATE_MAX_ATTEMPTS = 10;
+static constexpr platform::time_ms_t RELOAD_DEBOUNCE_MS = 1000;
+static constexpr platform::time_ms_t RELOAD_DELAY_MS = 100;
+static constexpr platform::time_ms_t RECREATE_SLEEP_ATTEMPT_MS = 100;
+static constexpr platform::time_ms_t TIMEOUT_MS = 100;
 
 static constexpr uint32_t FILE_MASK =
     IN_CLOSE_WRITE | IN_MODIFY | IN_MOVED_TO | IN_ATTRIB | IN_MOVE_SELF | IN_DELETE_SELF;

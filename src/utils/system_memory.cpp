@@ -8,9 +8,9 @@
 #include <pthread.h>
 
 namespace bongocat::platform {
-static inline constexpr time_ms_t THREAD_JOIN_TIMEOUT_MS = 5000;  // maximum wait for graceful exit
-static inline constexpr time_ms_t THREAD_SlEEP_WHEN_WAITING_FOR_THREAD_MS = 100;
-static inline constexpr int THREAD_SLEEP_MAX_ATTEMPTS = 2048;
+static constexpr time_ms_t THREAD_JOIN_TIMEOUT_MS = 5000;  // maximum wait for graceful exit
+static constexpr time_ms_t THREAD_SlEEP_WHEN_WAITING_FOR_THREAD_MS = 100;
+static constexpr int THREAD_SLEEP_MAX_ATTEMPTS = 2048;
 
 int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms) {
   if (thread == 0) {

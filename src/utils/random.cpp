@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 namespace bongocat::platform {
-static inline constexpr int MAX_ATTEMPTS = 2048;
+static constexpr int MAX_ATTEMPTS = 2048;
 
 uint32_t slow_rand() {
   constexpr const char *random_device_filename = "/dev/urandom";

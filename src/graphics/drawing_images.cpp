@@ -9,9 +9,9 @@ namespace bongocat::animation {
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
-static inline constexpr uint8_t THRESHOLD_ALPHA = 120;
-static inline constexpr unsigned int FIXED_SHIFT = 16;
-static inline constexpr unsigned int FIXED_ONE = (1u << FIXED_SHIFT);
+static constexpr uint8_t THRESHOLD_ALPHA = 120;
+static constexpr unsigned int FIXED_SHIFT = 16;
+static constexpr unsigned int FIXED_ONE = (1u << FIXED_SHIFT);
 
 // =============================================================================
 // DRAWING OPERATIONS MODULE
