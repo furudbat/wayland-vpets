@@ -7,7 +7,7 @@
 set -euo pipefail
 trap 'exit 0' PIPE
 
-VERSION="6.2.0"
+VERSION="6.2.1"
 SCRIPT_NAME="wpets-find-devices"
 
 # Colors

@@ -2,12 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
-### [Unreleased]
+### [6.2.1] - 2026-11-21
 
 ### Fixed
 
-- setgid install (experimental): the input group was dropped before the devices were opened;
-  it is now kept as saved gid and only raised while opening devices (also for hotplug and config reloads)
+- **fix silence logs**
+- fix some sprite sheets
+- setgid install (experimental): the input group was dropped before the devices were opened
+
+### Improved
+
+- optimize all dms sprite sheets
+- reduce binary size
 
 ### [6.2.0] - 2026-11-19
 
