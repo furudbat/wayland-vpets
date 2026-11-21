@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.2.1] - 2026-11-21
+
+### Fixed
+
+- **fix silence logs**
+- fix some sprite sheets
+- setgid install (experimental): the input group was dropped before the devices were opened
+
+### Improved
+
+- optimize all dms sprite sheets
+- reduce binary size
+
 ### [6.2.0] - 2026-11-19
 
 ### Added
@@ -23,7 +36,7 @@ All notable changes to this project will be documented in this file.
 
 - **Audio Visualizer** - let pet 'dance' to music (optional) (beta)
     - react to BPM, stop in silence
-    - show Happy animation at loude sounds
+    - show Happy animation at loud sounds
 
 ### [6.0.0] - 2026-11-06
 

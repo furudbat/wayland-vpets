@@ -16,7 +16,7 @@
 }:
 gcc15Stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-vpets";
-  version = "6.2.0";
+  version = "6.2.1";
   src = ../.;
 
   # man pages go into their own output (installed by NixOS/Home Manager when man pages are enabled);

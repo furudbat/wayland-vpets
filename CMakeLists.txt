@@ -25,7 +25,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
 endif()
 
-project(bongocat LANGUAGES C CXX VERSION 6.2.0)
+project(bongocat LANGUAGES C CXX VERSION 6.2.1)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -299,7 +299,7 @@ if(FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
   )
     target_link_libraries(
       bongocat_loaders
-      INTERFACE assets_min_dm_loader assets_min_dm_feature assets_min_dm_interface -Wl,--whole-archive assets_dm -Wl,--no-whole-archive
+      INTERFACE assets_min_dm_loader assets_min_dm_feature assets_min_dm_interface -Wl,--whole-archive assets_min_dm -Wl,--no-whole-archive
     )
     message(STATUS "Include min_dm assets")
   else()

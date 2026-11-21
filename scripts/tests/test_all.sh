@@ -4,6 +4,9 @@ set -euo pipefail
 
 ctest --test-dir cmake-build-debug --output-on-failure
 
+echo "--- ctest done ---"
+
+
 echo "--- Test 1 ---"
 ./scripts/tests/test_bongocat.sh
 echo "--- Test 2 ---"
@@ -55,8 +58,18 @@ echo "--- Test 30 ---"
 
 echo "--- Integration Test done ---"
 
+
 echo "--- Test NixOS --"
 ./scripts/tests/test_nix_build_docker.sh
 
-echo "--- Test RAM --"
+echo "--- Test setgid ---"
+./scripts/tests/test_setgid_docker.sh
+
+echo "--- System Integration Test done ---"
+
+
+echo "--- Test RAM Usage --"
 ./scripts/tests/test_ram.sh
+
+
+echo "--- ALL Tests done ---"

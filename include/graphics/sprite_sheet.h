@@ -7,16 +7,16 @@
 
 namespace bongocat::animation {
 // bongocat: both-up, left-down, right-down, both-down
-inline static constexpr size_t BONGOCAT_NUM_FRAMES = 5;
+inline constexpr size_t BONGOCAT_NUM_FRAMES = 5;
 // dm: Idle 1, Idle 2, Angry, Down1, Happy, Eat1, Sleep1, Refuse, Down2 ~~, Eat2, Sleep2, Attack~~
-inline static constexpr size_t MAX_DIGIMON_FRAMES = 16;
+inline constexpr size_t MAX_DIGIMON_FRAMES = 16;
 // pkmn: Idle 1, Idle 2
-inline static constexpr size_t MAX_PKMN_FRAMES = 2;
+inline constexpr size_t MAX_PKMN_FRAMES = 2;
 // @NOTE: MS agents can have more frames and are more custom
 
-inline static constexpr size_t MAX_NUM_FRAMES = 16;
+inline constexpr size_t MAX_NUM_FRAMES = 16;
 
-inline static constexpr size_t MAX_ANIMATION_FRAMES = 4;
+inline constexpr size_t MAX_ANIMATION_FRAMES = 4;
 // @NOTE: MS agents and custom sprite sheets can have more frames per row, this is only the default for embedded sprite
 // sheets
 

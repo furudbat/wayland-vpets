@@ -1,0 +1,8 @@
+# vim: ft=Dockerfile
+# Image for scripts/tests/test_setgid_docker.sh (setgid input privilege test)
+
+FROM archlinux:base-devel
+
+RUN pacman -Syu --noconfirm && \
+    pacman -S --noconfirm --needed git cmake wayland systemd-libs && \
+    pacman -Scc --noconfirm

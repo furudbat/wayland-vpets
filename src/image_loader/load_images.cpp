@@ -22,6 +22,16 @@ namespace details {
   sprite_sheet_layout_mapper_t make_sprite_sheet_layout_mapper(int32_t src_width, int32_t src_height,
                                                                sprite_sheet_layout_t layout) {
     sprite_sheet_layout_mapper_t ret;
+#if defined(FEATURE_PRELOAD_ASSETS) && !defined(NDENUG)
+    constexpr bool strict_sprite_sheet = true;
+#else
+    constexpr bool strict_sprite_sheet = false;
+#endif
+    if constexpr (strict_sprite_sheet) {
+      assert(!(src_width <= 0 || src_height <= 0 || layout.frame_columns <= 0 || layout.frame_rows <= 0 ||
+        layout.padding_x < 0 || layout.padding_y < 0 || src_width % layout.frame_columns != 0 ||
+        src_height % layout.frame_rows != 0));
+    }
     if (src_width <= 0 || src_height <= 0 || layout.frame_columns <= 0 || layout.frame_rows <= 0 ||
         layout.padding_x < 0 || layout.padding_y < 0 || src_width % layout.frame_columns != 0 ||
         src_height % layout.frame_rows != 0) {

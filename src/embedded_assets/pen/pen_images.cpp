@@ -8,7 +8,7 @@
 const unsigned char pen_aero_v_dramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Aero V-dramon.png"
 };
-static_assert(sizeof(pen_aero_v_dramon_png) == 1404, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_aero_v_dramon_png) == 1388, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_aero_v_dramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -16,7 +16,7 @@ static_assert(sizeof(pen_aero_v_dramon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char pen_agumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Agumon.png"
 };
-static_assert(sizeof(pen_agumon_png) == 842, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_agumon_png) == 812, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_agumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -24,7 +24,7 @@ static_assert(sizeof(pen_agumon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_andromon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Andromon.png"
 };
-static_assert(sizeof(pen_andromon_png) == 970, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_andromon_png) == 903, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_andromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -32,7 +32,7 @@ static_assert(sizeof(pen_andromon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_angemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Angemon.png"
 };
-static_assert(sizeof(pen_angemon_png) == 1171, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_angemon_png) == 1142, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_angemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -40,7 +40,7 @@ static_assert(sizeof(pen_angemon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_angewomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Angewomon.png"
 };
-static_assert(sizeof(pen_angewomon_png) == 1508, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_angewomon_png) == 1461, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_angewomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -48,7 +48,7 @@ static_assert(sizeof(pen_angewomon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_anomalocarimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Anomalocarimon.png"
 };
-static_assert(sizeof(pen_anomalocarimon_png) == 1350, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_anomalocarimon_png) == 1324, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_anomalocarimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -56,7 +56,7 @@ static_assert(sizeof(pen_anomalocarimon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char pen_asuramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Asuramon.png"
 };
-static_assert(sizeof(pen_asuramon_png) == 1383, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_asuramon_png) == 1357, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_asuramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -64,7 +64,7 @@ static_assert(sizeof(pen_asuramon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_atlur_kabuterimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Atlur Kabuterimon.png"
 };
-static_assert(sizeof(pen_atlur_kabuterimon_png) == 1358, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_atlur_kabuterimon_png) == 1304, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_atlur_kabuterimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -72,7 +72,7 @@ static_assert(sizeof(pen_atlur_kabuterimon_png) <= UINT32_MAX, "image size <= 4G
 const unsigned char pen_bakemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Bakemon.png"
 };
-static_assert(sizeof(pen_bakemon_png) == 872, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_bakemon_png) == 855, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_bakemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -80,7 +80,7 @@ static_assert(sizeof(pen_bakemon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_bakumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Bakumon.png"
 };
-static_assert(sizeof(pen_bakumon_png) == 1313, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_bakumon_png) == 1280, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_bakumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -88,7 +88,7 @@ static_assert(sizeof(pen_bakumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_big_mamemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Big Mamemon.png"
 };
-static_assert(sizeof(pen_big_mamemon_png) == 993, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_big_mamemon_png) == 964, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_big_mamemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -96,7 +96,7 @@ static_assert(sizeof(pen_big_mamemon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char pen_birdramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Birdramon.png"
 };
-static_assert(sizeof(pen_birdramon_png) == 896, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_birdramon_png) == 872, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_birdramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -104,7 +104,7 @@ static_assert(sizeof(pen_birdramon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_blossomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Blossomon.png"
 };
-static_assert(sizeof(pen_blossomon_png) == 1408, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_blossomon_png) == 1360, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_blossomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -112,7 +112,7 @@ static_assert(sizeof(pen_blossomon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_boltmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Boltmon.png"
 };
-static_assert(sizeof(pen_boltmon_png) == 1463, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_boltmon_png) == 1422, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_boltmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -120,7 +120,7 @@ static_assert(sizeof(pen_boltmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_bubbmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Bubbmon.png"
 };
-static_assert(sizeof(pen_bubbmon_png) == 739, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_bubbmon_png) == 761, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_bubbmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -128,7 +128,7 @@ static_assert(sizeof(pen_bubbmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_candmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Candmon.png"
 };
-static_assert(sizeof(pen_candmon_png) == 1216, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_candmon_png) == 1181, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_candmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -136,7 +136,7 @@ static_assert(sizeof(pen_candmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_caprimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Caprimon.png"
 };
-static_assert(sizeof(pen_caprimon_png) == 1221, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_caprimon_png) == 1208, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_caprimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -144,7 +144,7 @@ static_assert(sizeof(pen_caprimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_choromon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Choromon.png"
 };
-static_assert(sizeof(pen_choromon_png) == 730, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_choromon_png) == 780, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_choromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -152,7 +152,7 @@ static_assert(sizeof(pen_choromon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_clockmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Clockmon.png"
 };
-static_assert(sizeof(pen_clockmon_png) == 1297, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_clockmon_png) == 1264, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_clockmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -160,7 +160,7 @@ static_assert(sizeof(pen_clockmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_coelamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Coelamon.png"
 };
-static_assert(sizeof(pen_coelamon_png) == 892, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_coelamon_png) == 873, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_coelamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -168,7 +168,7 @@ static_assert(sizeof(pen_coelamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_cyberdramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Cyberdramon.png"
 };
-static_assert(sizeof(pen_cyberdramon_png) == 1492, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_cyberdramon_png) == 1456, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_cyberdramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -176,7 +176,7 @@ static_assert(sizeof(pen_cyberdramon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char pen_dagomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Dagomon.png"
 };
-static_assert(sizeof(pen_dagomon_png) == 1390, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_dagomon_png) == 1355, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_dagomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -184,7 +184,7 @@ static_assert(sizeof(pen_dagomon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_death_meramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Death Meramon.png"
 };
-static_assert(sizeof(pen_death_meramon_png) == 1468, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_death_meramon_png) == 1423, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_death_meramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -192,7 +192,7 @@ static_assert(sizeof(pen_death_meramon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char pen_delumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Delumon.png"
 };
-static_assert(sizeof(pen_delumon_png) == 1444, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_delumon_png) == 1422, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_delumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -200,7 +200,7 @@ static_assert(sizeof(pen_delumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_devimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Devimon.png"
 };
-static_assert(sizeof(pen_devimon_png) == 931, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_devimon_png) == 925, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_devimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -208,7 +208,7 @@ static_assert(sizeof(pen_devimon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_dokugumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Dokugumon.png"
 };
-static_assert(sizeof(pen_dokugumon_png) == 1407, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_dokugumon_png) == 1367, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_dokugumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -216,7 +216,7 @@ static_assert(sizeof(pen_dokugumon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_ebidramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Ebidramon.png"
 };
-static_assert(sizeof(pen_ebidramon_png) == 1508, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_ebidramon_png) == 1458, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_ebidramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -224,7 +224,7 @@ static_assert(sizeof(pen_ebidramon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_fantomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Fantomon.png"
 };
-static_assert(sizeof(pen_fantomon_png) == 1396, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_fantomon_png) == 1366, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_fantomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -232,7 +232,7 @@ static_assert(sizeof(pen_fantomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_floramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Floramon.png"
 };
-static_assert(sizeof(pen_floramon_png) == 1320, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_floramon_png) == 1296, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_floramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -240,7 +240,7 @@ static_assert(sizeof(pen_floramon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_gabumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Gabumon.png"
 };
-static_assert(sizeof(pen_gabumon_png) == 938, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_gabumon_png) == 921, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_gabumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -248,7 +248,7 @@ static_assert(sizeof(pen_gabumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_ganimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Ganimon.png"
 };
-static_assert(sizeof(pen_ganimon_png) == 1417, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_ganimon_png) == 1395, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_ganimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -256,7 +256,7 @@ static_assert(sizeof(pen_ganimon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_garudamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Garudamon.png"
 };
-static_assert(sizeof(pen_garudamon_png) == 1420, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_garudamon_png) == 1382, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_garudamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -264,7 +264,7 @@ static_assert(sizeof(pen_garudamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_garurumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Garurumon.png"
 };
-static_assert(sizeof(pen_garurumon_png) == 1075, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_garurumon_png) == 1036, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -272,7 +272,7 @@ static_assert(sizeof(pen_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_gekomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Gekomon.png"
 };
-static_assert(sizeof(pen_gekomon_png) == 1084, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_gekomon_png) == 1071, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_gekomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -280,7 +280,7 @@ static_assert(sizeof(pen_gekomon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_gerbemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Gerbemon.png"
 };
-static_assert(sizeof(pen_gerbemon_png) == 1275, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_gerbemon_png) == 1234, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_gerbemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -288,7 +288,7 @@ static_assert(sizeof(pen_gerbemon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_gesomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Gesomon.png"
 };
-static_assert(sizeof(pen_gesomon_png) == 1002, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_gesomon_png) == 1004, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_gesomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -296,7 +296,7 @@ static_assert(sizeof(pen_gesomon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_gomamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Gomamon.png"
 };
-static_assert(sizeof(pen_gomamon_png) == 858, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_gomamon_png) == 838, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_gomamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -304,7 +304,7 @@ static_assert(sizeof(pen_gomamon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_gottsumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Gottsumon.png"
 };
-static_assert(sizeof(pen_gottsumon_png) == 1292, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_gottsumon_png) == 1259, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_gottsumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -312,7 +312,7 @@ static_assert(sizeof(pen_gottsumon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_greymon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Greymon.png"
 };
-static_assert(sizeof(pen_greymon_png) == 948, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_greymon_png) == 906, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -320,7 +320,7 @@ static_assert(sizeof(pen_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_griffomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Griffomon.png"
 };
-static_assert(sizeof(pen_griffomon_png) == 1380, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_griffomon_png) == 1340, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_griffomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -328,7 +328,7 @@ static_assert(sizeof(pen_griffomon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_guardromon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Guardromon.png"
 };
-static_assert(sizeof(pen_guardromon_png) == 1247, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_guardromon_png) == 1226, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_guardromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -336,7 +336,7 @@ static_assert(sizeof(pen_guardromon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char pen_hagurumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Hagurumon.png"
 };
-static_assert(sizeof(pen_hagurumon_png) == 1225, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_hagurumon_png) == 1227, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_hagurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -344,7 +344,7 @@ static_assert(sizeof(pen_hagurumon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_hangyomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Hangyomon.png"
 };
-static_assert(sizeof(pen_hangyomon_png) == 1426, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_hangyomon_png) == 1390, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_hangyomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -352,7 +352,7 @@ static_assert(sizeof(pen_hangyomon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_hanumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Hanumon.png"
 };
-static_assert(sizeof(pen_hanumon_png) == 1488, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_hanumon_png) == 1459, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_hanumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -360,7 +360,7 @@ static_assert(sizeof(pen_hanumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_herakle_kabuterimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Herakle Kabuterimon.png"
 };
-static_assert(sizeof(pen_herakle_kabuterimon_png) == 1277, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_herakle_kabuterimon_png) == 1251, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_herakle_kabuterimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -368,7 +368,7 @@ static_assert(sizeof(pen_herakle_kabuterimon_png) <= UINT32_MAX, "image size <= 
 const unsigned char pen_holy_angemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Holy Angemon.png"
 };
-static_assert(sizeof(pen_holy_angemon_png) == 1491, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_holy_angemon_png) == 1452, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_holy_angemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -376,7 +376,7 @@ static_assert(sizeof(pen_holy_angemon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_holydramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Holydramon.png"
 };
-static_assert(sizeof(pen_holydramon_png) == 1258, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_holydramon_png) == 1230, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_holydramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -384,7 +384,7 @@ static_assert(sizeof(pen_holydramon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char pen_hououmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Hououmon.png"
 };
-static_assert(sizeof(pen_hououmon_png) == 1441, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_hououmon_png) == 1431, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_hououmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -392,7 +392,7 @@ static_assert(sizeof(pen_hououmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_igamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Igamon.png"
 };
-static_assert(sizeof(pen_igamon_png) == 1327, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_igamon_png) == 1310, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_igamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -400,7 +400,7 @@ static_assert(sizeof(pen_igamon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_ikkakumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Ikkakumon.png"
 };
-static_assert(sizeof(pen_ikkakumon_png) == 1229, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_ikkakumon_png) == 1184, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_ikkakumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -408,7 +408,7 @@ static_assert(sizeof(pen_ikkakumon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_jyagamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Jyagamon.png"
 };
-static_assert(sizeof(pen_jyagamon_png) == 1384, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_jyagamon_png) == 1352, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_jyagamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -424,7 +424,7 @@ static_assert(sizeof(pen_jyureimon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_kabuterimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Kabuterimon.png"
 };
-static_assert(sizeof(pen_kabuterimon_png) == 834, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_kabuterimon_png) == 827, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_kabuterimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -432,7 +432,7 @@ static_assert(sizeof(pen_kabuterimon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char pen_kiwimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Kiwimon.png"
 };
-static_assert(sizeof(pen_kiwimon_png) == 1329, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_kiwimon_png) == 1309, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_kiwimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -440,7 +440,7 @@ static_assert(sizeof(pen_kiwimon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_knightmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Knightmon.png"
 };
-static_assert(sizeof(pen_knightmon_png) == 1344, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_knightmon_png) == 1298, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_knightmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -448,7 +448,7 @@ static_assert(sizeof(pen_knightmon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_kokuwamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Kokuwamon.png"
 };
-static_assert(sizeof(pen_kokuwamon_png) == 1266, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_kokuwamon_png) == 1246, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_kokuwamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -456,7 +456,7 @@ static_assert(sizeof(pen_kokuwamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_kuwagamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Kuwagamon.png"
 };
-static_assert(sizeof(pen_kuwagamon_png) == 1048, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_kuwagamon_png) == 994, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_kuwagamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -464,7 +464,7 @@ static_assert(sizeof(pen_kuwagamon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_lady_devimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Lady Devimon.png"
 };
-static_assert(sizeof(pen_lady_devimon_png) == 1530, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_lady_devimon_png) == 1496, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_lady_devimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -472,7 +472,7 @@ static_assert(sizeof(pen_lady_devimon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_leomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Leomon.png"
 };
-static_assert(sizeof(pen_leomon_png) == 1058, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_leomon_png) == 1002, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_leomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -480,7 +480,7 @@ static_assert(sizeof(pen_leomon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_lilimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Lilimon.png"
 };
-static_assert(sizeof(pen_lilimon_png) == 1480, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_lilimon_png) == 1442, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_lilimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -488,7 +488,7 @@ static_assert(sizeof(pen_lilimon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_mammon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Mammon.png"
 };
-static_assert(sizeof(pen_mammon_png) == 1397, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_mammon_png) == 1349, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_mammon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -496,7 +496,7 @@ static_assert(sizeof(pen_mammon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_marin_angemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Marin Angemon.png"
 };
-static_assert(sizeof(pen_marin_angemon_png) == 1346, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_marin_angemon_png) == 1309, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_marin_angemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -504,7 +504,7 @@ static_assert(sizeof(pen_marin_angemon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char pen_marin_devimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Marin Devimon.png"
 };
-static_assert(sizeof(pen_marin_devimon_png) == 1371, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_marin_devimon_png) == 1335, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_marin_devimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -512,7 +512,7 @@ static_assert(sizeof(pen_marin_devimon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char pen_mechanorimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Mechanorimon.png"
 };
-static_assert(sizeof(pen_mechanorimon_png) == 1380, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_mechanorimon_png) == 1358, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_mechanorimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -520,7 +520,7 @@ static_assert(sizeof(pen_mechanorimon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_megadramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Megadramon.png"
 };
-static_assert(sizeof(pen_megadramon_png) == 1035, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_megadramon_png) == 981, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_megadramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -528,7 +528,7 @@ static_assert(sizeof(pen_megadramon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char pen_mega_seadramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Mega Seadramon.png"
 };
-static_assert(sizeof(pen_mega_seadramon_png) == 937, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_mega_seadramon_png) == 930, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_mega_seadramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -536,7 +536,7 @@ static_assert(sizeof(pen_mega_seadramon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char pen_meramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Meramon.png"
 };
-static_assert(sizeof(pen_meramon_png) == 1059, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_meramon_png) == 1036, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_meramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -544,7 +544,7 @@ static_assert(sizeof(pen_meramon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_metal_etemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Metal Etemon.png"
 };
-static_assert(sizeof(pen_metal_etemon_png) == 1348, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_metal_etemon_png) == 1324, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_metal_etemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -552,7 +552,7 @@ static_assert(sizeof(pen_metal_etemon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_metal_garurumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Metal Garurumon.png"
 };
-static_assert(sizeof(pen_metal_garurumon_png) == 1254, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_metal_garurumon_png) == 1222, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_metal_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -560,7 +560,7 @@ static_assert(sizeof(pen_metal_garurumon_png) <= UINT32_MAX, "image size <= 4GB 
 const unsigned char pen_metal_greymon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Metal Greymon.png"
 };
-static_assert(sizeof(pen_metal_greymon_png) == 869, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_metal_greymon_png) == 842, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_metal_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -568,7 +568,7 @@ static_assert(sizeof(pen_metal_greymon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char pen_metal_mamemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Metal Mamemon.png"
 };
-static_assert(sizeof(pen_metal_mamemon_png) == 605, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_metal_mamemon_png) == 589, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_metal_mamemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -576,7 +576,7 @@ static_assert(sizeof(pen_metal_mamemon_png) <= UINT32_MAX, "image size <= 4GB fo
 const unsigned char pen_metal_seadramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Metal Seadramon.png"
 };
-static_assert(sizeof(pen_metal_seadramon_png) == 1250, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_metal_seadramon_png) == 1219, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_metal_seadramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -584,7 +584,7 @@ static_assert(sizeof(pen_metal_seadramon_png) <= UINT32_MAX, "image size <= 4GB 
 const unsigned char pen_mochimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Mochimon.png"
 };
-static_assert(sizeof(pen_mochimon_png) == 931, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_mochimon_png) == 917, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_mochimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -592,7 +592,7 @@ static_assert(sizeof(pen_mochimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_mokumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Mokumon.png"
 };
-static_assert(sizeof(pen_mokumon_png) == 724, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_mokumon_png) == 731, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_mokumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -600,7 +600,7 @@ static_assert(sizeof(pen_mokumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_monochromon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Monochromon.png"
 };
-static_assert(sizeof(pen_monochromon_png) == 890, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_monochromon_png) == 849, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_monochromon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -608,7 +608,7 @@ static_assert(sizeof(pen_monochromon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char pen_mugendramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Mugendramon.png"
 };
-static_assert(sizeof(pen_mugendramon_png) == 1355, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_mugendramon_png) == 1335, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_mugendramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -616,7 +616,7 @@ static_assert(sizeof(pen_mugendramon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char pen_mushmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Mushmon.png"
 };
-static_assert(sizeof(pen_mushmon_png) == 1390, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_mushmon_png) == 1355, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_mushmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -632,7 +632,7 @@ static_assert(sizeof(pen_nyaromon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_nyokimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Nyokimon.png"
 };
-static_assert(sizeof(pen_nyokimon_png) == 607, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_nyokimon_png) == 676, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_nyokimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -640,7 +640,7 @@ static_assert(sizeof(pen_nyokimon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_octmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Octmon.png"
 };
-static_assert(sizeof(pen_octmon_png) == 1272, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_octmon_png) == 1246, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_octmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -648,7 +648,7 @@ static_assert(sizeof(pen_octmon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_okuwamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Okuwamon.png"
 };
-static_assert(sizeof(pen_okuwamon_png) == 1393, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_okuwamon_png) == 1346, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_okuwamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -656,7 +656,7 @@ static_assert(sizeof(pen_okuwamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_omegamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Omegamon.png"
 };
-static_assert(sizeof(pen_omegamon_png) == 1430, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_omegamon_png) == 1406, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_omegamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -664,7 +664,7 @@ static_assert(sizeof(pen_omegamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_otamamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Otamamon.png"
 };
-static_assert(sizeof(pen_otamamon_png) == 922, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_otamamon_png) == 933, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_otamamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -672,7 +672,7 @@ static_assert(sizeof(pen_otamamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_palmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Palmon.png"
 };
-static_assert(sizeof(pen_palmon_png) == 932, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_palmon_png) == 846, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_palmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -680,7 +680,7 @@ static_assert(sizeof(pen_palmon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_peti_meramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Peti Meramon.png"
 };
-static_assert(sizeof(pen_peti_meramon_png) == 1096, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_peti_meramon_png) == 1076, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_peti_meramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -688,7 +688,7 @@ static_assert(sizeof(pen_peti_meramon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_piccolomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Piccolomon.png"
 };
-static_assert(sizeof(pen_piccolomon_png) == 584, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_piccolomon_png) == 566, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_piccolomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -696,7 +696,7 @@ static_assert(sizeof(pen_piccolomon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char pen_pico_devimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Pico Devimon.png"
 };
-static_assert(sizeof(pen_pico_devimon_png) == 1311, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_pico_devimon_png) == 1270, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_pico_devimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -704,7 +704,7 @@ static_assert(sizeof(pen_pico_devimon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_piemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Piemon.png"
 };
-static_assert(sizeof(pen_piemon_png) == 1418, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_piemon_png) == 1382, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_piemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -712,7 +712,7 @@ static_assert(sizeof(pen_piemon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_pinochimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Pinochimon.png"
 };
-static_assert(sizeof(pen_pinochimon_png) == 1390, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_pinochimon_png) == 1364, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_pinochimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -720,7 +720,7 @@ static_assert(sizeof(pen_pinochimon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char pen_pitchmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Pitchmon.png"
 };
-static_assert(sizeof(pen_pitchmon_png) == 793, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_pitchmon_png) == 811, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_pitchmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -728,7 +728,7 @@ static_assert(sizeof(pen_pitchmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_piyomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Piyomon.png"
 };
-static_assert(sizeof(pen_piyomon_png) == 937, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_piyomon_png) == 869, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_piyomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -736,7 +736,7 @@ static_assert(sizeof(pen_piyomon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_plesiomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Plesiomon.png"
 };
-static_assert(sizeof(pen_plesiomon_png) == 1337, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_plesiomon_png) == 1305, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_plesiomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -744,7 +744,7 @@ static_assert(sizeof(pen_plesiomon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_plotmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Plotmon.png"
 };
-static_assert(sizeof(pen_plotmon_png) == 1273, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_plotmon_png) == 1235, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_plotmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -760,7 +760,7 @@ static_assert(sizeof(pen_pukamon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_pukumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Pukumon.png"
 };
-static_assert(sizeof(pen_pukumon_png) == 1409, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_pukumon_png) == 1355, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_pukumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -768,7 +768,7 @@ static_assert(sizeof(pen_pukumon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_pumpmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Pumpmon.png"
 };
-static_assert(sizeof(pen_pumpmon_png) == 1302, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_pumpmon_png) == 1279, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_pumpmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -776,7 +776,7 @@ static_assert(sizeof(pen_pumpmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_pyocomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Pyocomon.png"
 };
-static_assert(sizeof(pen_pyocomon_png) == 1118, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_pyocomon_png) == 1106, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_pyocomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -784,7 +784,7 @@ static_assert(sizeof(pen_pyocomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_red_vegimon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Red Vegimon.png"
 };
-static_assert(sizeof(pen_red_vegimon_png) == 1344, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_red_vegimon_png) == 1313, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_red_vegimon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -792,7 +792,7 @@ static_assert(sizeof(pen_red_vegimon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char pen_revolmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Revolmon.png"
 };
-static_assert(sizeof(pen_revolmon_png) == 1234, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_revolmon_png) == 1212, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_revolmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -800,7 +800,7 @@ static_assert(sizeof(pen_revolmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_rosemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Rosemon.png"
 };
-static_assert(sizeof(pen_rosemon_png) == 1274, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_rosemon_png) == 1239, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_rosemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -808,7 +808,7 @@ static_assert(sizeof(pen_rosemon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_rukamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Rukamon.png"
 };
-static_assert(sizeof(pen_rukamon_png) == 956, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_rukamon_png) == 941, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_rukamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -816,7 +816,7 @@ static_assert(sizeof(pen_rukamon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_saber_leomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Saber Leomon.png"
 };
-static_assert(sizeof(pen_saber_leomon_png) == 1373, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_saber_leomon_png) == 1353, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_saber_leomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -824,7 +824,7 @@ static_assert(sizeof(pen_saber_leomon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_seadramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Seadramon.png"
 };
-static_assert(sizeof(pen_seadramon_png) == 834, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_seadramon_png) == 813, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_seadramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -832,7 +832,7 @@ static_assert(sizeof(pen_seadramon_png) <= UINT32_MAX, "image size <= 4GB for _p
 const unsigned char pen_shakomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Shakomon.png"
 };
-static_assert(sizeof(pen_shakomon_png) == 1071, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_shakomon_png) == 1069, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_shakomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -848,7 +848,7 @@ static_assert(sizeof(pen_skull_mammon_png) <= UINT32_MAX, "image size <= 4GB for
 const unsigned char pen_starmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Starmon.png"
 };
-static_assert(sizeof(pen_starmon_png) == 1326, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_starmon_png) == 1272, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_starmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -856,7 +856,7 @@ static_assert(sizeof(pen_starmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_tailmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Tailmon.png"
 };
-static_assert(sizeof(pen_tailmon_png) == 1310, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_tailmon_png) == 1311, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_tailmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -864,7 +864,7 @@ static_assert(sizeof(pen_tailmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_tankmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Tankmon.png"
 };
-static_assert(sizeof(pen_tankmon_png) == 1270, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_tankmon_png) == 1253, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_tankmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -872,7 +872,7 @@ static_assert(sizeof(pen_tankmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_tentomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Tentomon.png"
 };
-static_assert(sizeof(pen_tentomon_png) == 1358, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_tentomon_png) == 1331, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_tentomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -880,7 +880,7 @@ static_assert(sizeof(pen_tentomon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_thunderballmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Thunderballmon.png"
 };
-static_assert(sizeof(pen_thunderballmon_png) == 1358, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_thunderballmon_png) == 1334, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_thunderballmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -888,7 +888,7 @@ static_assert(sizeof(pen_thunderballmon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char pen_togemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Togemon.png"
 };
-static_assert(sizeof(pen_togemon_png) == 1282, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_togemon_png) == 1250, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_togemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -896,7 +896,7 @@ static_assert(sizeof(pen_togemon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_tonosama_gekomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Tonosama Gekomon.png"
 };
-static_assert(sizeof(pen_tonosama_gekomon_png) == 1327, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_tonosama_gekomon_png) == 1314, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_tonosama_gekomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -904,7 +904,7 @@ static_assert(sizeof(pen_tonosama_gekomon_png) <= UINT32_MAX, "image size <= 4GB
 const unsigned char pen_tortamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Tortamon.png"
 };
-static_assert(sizeof(pen_tortamon_png) == 1351, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_tortamon_png) == 1314, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_tortamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -912,7 +912,7 @@ static_assert(sizeof(pen_tortamon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_toy_agumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Toy Agumon.png"
 };
-static_assert(sizeof(pen_toy_agumon_png) == 1200, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_toy_agumon_png) == 1179, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_toy_agumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -920,7 +920,7 @@ static_assert(sizeof(pen_toy_agumon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char pen_triceramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Triceramon.png"
 };
-static_assert(sizeof(pen_triceramon_png) == 1322, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_triceramon_png) == 1295, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_triceramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -928,7 +928,7 @@ static_assert(sizeof(pen_triceramon_png) <= UINT32_MAX, "image size <= 4GB for _
 const unsigned char pen_vamdemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Vamdemon.png"
 };
-static_assert(sizeof(pen_vamdemon_png) == 965, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_vamdemon_png) == 955, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_vamdemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -936,7 +936,7 @@ static_assert(sizeof(pen_vamdemon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_v_dramon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/V-dramon.png"
 };
-static_assert(sizeof(pen_v_dramon_png) == 1319, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_v_dramon_png) == 1310, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_v_dramon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -944,7 +944,7 @@ static_assert(sizeof(pen_v_dramon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_venom_vamdemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Venom Vamdemon.png"
 };
-static_assert(sizeof(pen_venom_vamdemon_png) == 1436, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_venom_vamdemon_png) == 1386, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_venom_vamdemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -952,7 +952,7 @@ static_assert(sizeof(pen_venom_vamdemon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char pen_war_greymon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/War Greymon.png"
 };
-static_assert(sizeof(pen_war_greymon_png) == 1230, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_war_greymon_png) == 1184, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_war_greymon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -960,7 +960,7 @@ static_assert(sizeof(pen_war_greymon_png) <= UINT32_MAX, "image size <= 4GB for 
 const unsigned char pen_waru_monzaemon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Waru Monzaemon.png"
 };
-static_assert(sizeof(pen_waru_monzaemon_png) == 1280, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_waru_monzaemon_png) == 1237, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_waru_monzaemon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -968,7 +968,7 @@ static_assert(sizeof(pen_waru_monzaemon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char pen_were_garurumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Were Garurumon.png"
 };
-static_assert(sizeof(pen_were_garurumon_png) == 1242, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_were_garurumon_png) == 1210, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_were_garurumon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -976,7 +976,7 @@ static_assert(sizeof(pen_were_garurumon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char pen_whamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Whamon.png"
 };
-static_assert(sizeof(pen_whamon_png) == 875, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_whamon_png) == 827, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_whamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -984,7 +984,7 @@ static_assert(sizeof(pen_whamon_png) <= UINT32_MAX, "image size <= 4GB for _png_
 const unsigned char pen_wizarmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Wizarmon.png"
 };
-static_assert(sizeof(pen_wizarmon_png) == 1289, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_wizarmon_png) == 1266, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_wizarmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -992,7 +992,7 @@ static_assert(sizeof(pen_wizarmon_png) <= UINT32_MAX, "image size <= 4GB for _pn
 const unsigned char pen_woodmon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Woodmon.png"
 };
-static_assert(sizeof(pen_woodmon_png) == 1331, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_woodmon_png) == 1311, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_woodmon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1000,7 +1000,7 @@ static_assert(sizeof(pen_woodmon_png) <= UINT32_MAX, "image size <= 4GB for _png
 const unsigned char pen_yukimi_botamon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Yukimi Botamon.png"
 };
-static_assert(sizeof(pen_yukimi_botamon_png) == 784, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_yukimi_botamon_png) == 831, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_yukimi_botamon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 
@@ -1008,7 +1008,7 @@ static_assert(sizeof(pen_yukimi_botamon_png) <= UINT32_MAX, "image size <= 4GB f
 const unsigned char pen_zudomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Zudomon.png"
 };
-static_assert(sizeof(pen_zudomon_png) == 857, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen_zudomon_png) == 870, "re-run generate_embedded_assets.sh");
 static_assert(sizeof(pen_zudomon_png) <= UINT32_MAX, "image size <= 4GB for _png_sizes_table");
 
 

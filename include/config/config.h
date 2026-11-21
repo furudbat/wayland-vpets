@@ -26,8 +26,8 @@ enum class overlay_position_t : uint8_t {
   POSITION_BOTTOM_RIGHT,
   */
 };
-inline static constexpr const char *POSITION_TOP_STR = "top";
-inline static constexpr const char *POSITION_BOTTOM_STR = "bottom";
+inline constexpr const char *POSITION_TOP_STR = "top";
+inline constexpr const char *POSITION_BOTTOM_STR = "bottom";
 BONGOCAT_NODISCARD constexpr const char *to_string(overlay_position_t position) noexcept {
   switch (position) {
   case overlay_position_t::POSITION_TOP:
@@ -45,10 +45,10 @@ enum class layer_type_t : int8_t {
   LAYER_TOP = 2,
   LAYER_OVERLAY = 3,
 };
-inline static constexpr const char *LAYER_BACKGROUND_STR = "background";
-inline static constexpr const char *LAYER_BOTTOM_STR = "bottom";
-inline static constexpr const char *LAYER_TOP_STR = "top";
-inline static constexpr const char *LAYER_OVERLAY_STR = "overlay";
+inline constexpr const char *LAYER_BACKGROUND_STR = "background";
+inline constexpr const char *LAYER_BOTTOM_STR = "bottom";
+inline constexpr const char *LAYER_TOP_STR = "top";
+inline constexpr const char *LAYER_OVERLAY_STR = "overlay";
 BONGOCAT_NODISCARD constexpr const char *to_string(layer_type_t layer) noexcept {
   switch (layer) {
   case layer_type_t::LAYER_BACKGROUND:
@@ -69,9 +69,9 @@ enum class align_type_t : int8_t {
   ALIGN_LEFT = -1,
   ALIGN_RIGHT = 1,
 };
-inline static constexpr const char *ALIGN_CENTER_STR = "center";
-inline static constexpr const char *ALIGN_LEFT_STR = "left";
-inline static constexpr const char *ALIGN_RIGHT_STR = "right";
+inline constexpr const char *ALIGN_CENTER_STR = "center";
+inline constexpr const char *ALIGN_LEFT_STR = "left";
+inline constexpr const char *ALIGN_RIGHT_STR = "right";
 BONGOCAT_NODISCARD constexpr const char *to_string(align_type_t align) noexcept {
   switch (align) {
   case align_type_t::ALIGN_CENTER:
@@ -91,10 +91,10 @@ enum class evolution_time_mode_t : uint8_t {
   PROGRAM_START,
   UPTIME,
 };
-inline static constexpr const char *EVOLUTION_TIME_MODE_NONE_STR = "none";
-inline static constexpr const char *EVOLUTION_TIME_MODE_NORMAL_STR = "normal";
-inline static constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_STR = "program";
-inline static constexpr const char *EVOLUTION_TIME_MODE_UPTIME_STR = "uptime";
+inline constexpr const char *EVOLUTION_TIME_MODE_NONE_STR = "none";
+inline constexpr const char *EVOLUTION_TIME_MODE_NORMAL_STR = "normal";
+inline constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_STR = "program";
+inline constexpr const char *EVOLUTION_TIME_MODE_UPTIME_STR = "uptime";
 BONGOCAT_NODISCARD constexpr const char *to_string(evolution_time_mode_t position) noexcept {
   switch (position) {
   case evolution_time_mode_t::NONE:

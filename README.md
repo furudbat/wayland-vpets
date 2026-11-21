@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-6.2.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-6.2.1-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A passive Wayland overlay with an animated pet that plays along with your keyboard.
@@ -41,6 +41,34 @@ yay -S wpets-git    # latest commits
 ```
 
 For other distros, see [Building](#building).
+
+<details>
+<summary>Arch Linux with the audio module (experimental)</summary>
+
+The AUR packages build without audio support by default.
+Set `_with_audio=true` to build the audio module (adds `libpipewire` and `fftw` as dependencies):
+
+```bash
+git clone https://aur.archlinux.org/wpets.git     # or wpets-git.git
+cd wpets
+_with_audio=true makepkg -si
+```
+
+With an AUR helper, pass the option through the environment:
+
+```bash
+_with_audio=true yay -S wpets   # or wpets-git
+```
+
+To keep audio across upgrades (`yay -Syu`), set it once in `~/.config/pacman/makepkg.conf`:
+
+```bash
+echo '_with_audio=true' >> ~/.config/pacman/makepkg.conf
+```
+
+After installation, enable audio in the configuration with `audio=1`, see [Audio](docs/configuration.md#audio-audio).
+
+</details>
 
 Reading keyboards needs access to `/dev/input`:
 
@@ -154,20 +182,37 @@ A source install names the binaries `bongocat`, `bongocat-all`,
 <details>
 <summary>Alternative permissions setup (experimental, setgid)</summary>
 
-1. Create a group for input devices: `sudo groupadd --system bongocat`
+Instead of adding your user to the `input` group, give only the binary read access to keyboards:
+
+1. Create a group: `sudo groupadd --system bongocat`
 2. Create `/etc/udev/rules.d/70-bongocat.rules`:
    ```
-   SUBSYSTEM=="input", KERNEL=="event*", GROUP="bongocat", MODE="0640"
+   SUBSYSTEM=="input", KERNEL=="event*", ENV{ID_INPUT_KEYBOARD}=="1", GROUP="bongocat", MODE="0640"
    ```
+   To limit it to one keyboard, see [`examples/rules.d/bongocat.rules`](examples/rules.d/bongocat.rules).
 3. Reload the udev rules:
    ```bash
    sudo udevadm control --reload-rules
    sudo udevadm trigger --subsystem-match=input
    ```
-4. Set the group on the binary:
+4. Set the group on the binary you use (e.g. installed path `/usr/bin/bongocat-all`):
    ```bash
    sudo chgrp bongocat /usr/bin/wpets-all
    sudo chmod 2755 /usr/bin/wpets-all
+   ```
+5. Package upgrades reset the permissions; restore them with a pacman hook,
+   `/etc/pacman.d/hooks/wpets-setgid.hook`:
+   ```ini
+   [Trigger]
+   Operation = Install
+   Operation = Upgrade
+   Type = Path
+   Target = usr/bin/wpets-all
+
+   [Action]
+   Description = Restoring setgid bongocat on wpets-all...
+   When = PostTransaction
+   Exec = /usr/bin/sh -c 'chgrp bongocat /usr/bin/wpets-all && chmod 2755 /usr/bin/wpets-all'
    ```
 
 </details>

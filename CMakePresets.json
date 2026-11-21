@@ -135,6 +135,30 @@
       }
     },
     {
+      "name": "release_min_dm",
+      "displayName": "Release (Only min_dm)",
+      "description": "Release build with optimizations",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-min-dm",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_PEN_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_PEN20_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_PMD_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_MISC_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_USE_BONGOCAT_SVG": "ON"
+      }
+    },
+    {
       "name": "release_pngle",
       "displayName": "Release (pngle image loader)",
       "description": "Release build with optimizations and pngle loader",
@@ -499,6 +523,42 @@
         "ENABLE_INPUT_MODULE": "ON",
         "ENABLE_UPDATE_MODULE": "ON",
         "ENABLE_AUDIO_MODULE": "ON"
+      }
+    },
+    {
+      "name": "relwithdebinfo_all_features_preload",
+      "displayName": "RelWithDebInfo (All Features, assets preloaded)",
+      "description": "Release build with Debug Info + all sorts of features, pre-loaded at start  (for testing)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-features-preload",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SKIP_CPM": "OFF",
+        "GENERATE_PROTOCOLS": "OFF",
+        "BUILD_TESTING": "ON",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PMD_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON",
+        "FEATURE_USE_BONGOCAT_SVG": "ON",
+        "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
+        "FEATURE_EVOLUTION": "ON",
+        "ENABLE_INPUT_MODULE": "ON",
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON",
+        "FEATURE_PRELOAD_ASSETS": "ON",
+        "FEATURE_LAZY_LOAD_ASSETS": "OFF"
       }
     },
     {

@@ -45,20 +45,20 @@ struct ms_agent_animation_indices_t {
   int32_t end_index_frame_happy{0};
 };
 
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_IDLE = 0;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_BORING = 0;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_START_WRITING = 1;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_WRITING = 2;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_END_WRITING = 3;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_SLEEP = 4;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_WAKE_UP = 5;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_START_WORKING = 6;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_WORKING = 7;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_END_WORKING = 8;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_START_MOVING = 9;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_MOVING = 10;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_END_MOVING = 11;
-inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_HAPPY = 12;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_IDLE = 0;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_BORING = 0;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_START_WRITING = 1;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_WRITING = 2;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_END_WRITING = 3;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_SLEEP = 4;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_WAKE_UP = 5;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_START_WORKING = 6;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_WORKING = 7;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_END_WORKING = 8;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_START_MOVING = 9;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_MOVING = 10;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_END_MOVING = 11;
+inline constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_HAPPY = 12;
 enum class ClippyAnimations : uint8_t {
   Idle = MS_AGENT_SPRITE_SHEET_ROW_IDLE,
   Boring = MS_AGENT_SPRITE_SHEET_ROW_BORING,
@@ -78,11 +78,11 @@ enum class ClippyAnimations : uint8_t {
 };
 
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-inline static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 4;
-inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 4;
+static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 4;
+static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 4;
 #else
-inline static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 1;
-inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 1;
+static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 1;
+static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 1;
 #endif
 
 BONGOCAT_NODISCARD embedded_sprite_sheet_dims_t get_ms_agent_sprite_sheet_dims(size_t index);

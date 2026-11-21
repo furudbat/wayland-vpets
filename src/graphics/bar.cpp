@@ -21,8 +21,8 @@
 #include <wayland-client.h>
 
 namespace bongocat::animation {
-inline static constexpr uint32_t DEFAULT_FILL_COLOR = 0x00000000;        // ARGB
-inline static constexpr uint32_t DEBUG_MOVEMENT_BAR_COLOR = 0xFFFF0000;  // ARGB
+static constexpr uint32_t DEFAULT_FILL_COLOR = 0x00000000;        // ARGB
+static constexpr uint32_t DEBUG_MOVEMENT_BAR_COLOR = 0xFFFF0000;  // ARGB
 
 // =============================================================================
 // DRAWING MANAGEMENT

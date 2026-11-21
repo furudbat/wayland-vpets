@@ -11,22 +11,20 @@
 
 namespace bongocat::animation {
     static constexpr assets::embedded_sprite_sheet_dims_t min_dm_dims_table[] = {
-      {assets::MIN_DM_BOTAMON_SPRITE_SHEET_COLS,       assets::MIN_DM_BOTAMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_KOROMON_SPRITE_SHEET_COLS,       assets::MIN_DM_KOROMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_AGUMON_SPRITE_SHEET_COLS,        assets::MIN_DM_AGUMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_BETAMON_SPRITE_SHEET_COLS,       assets::MIN_DM_BETAMON_SPRITE_SHEET_ROWS},
-
-      {assets::MIN_DM_GREYMON_SPRITE_SHEET_COLS,       assets::MIN_DM_GREYMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_TYRANOMON_SPRITE_SHEET_COLS,     assets::MIN_DM_TYRANOMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_DEVIMON_SPRITE_SHEET_COLS,       assets::MIN_DM_DEVIMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_MERAMON_SPRITE_SHEET_COLS,       assets::MIN_DM_MERAMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_AIRDRAMON_SPRITE_SHEET_COLS,     assets::MIN_DM_AIRDRAMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_SEADRAMON_SPRITE_SHEET_COLS,     assets::MIN_DM_SEADRAMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_NUMEMON_SPRITE_SHEET_COLS,       assets::MIN_DM_NUMEMON_SPRITE_SHEET_ROWS},
-
+      {assets::MIN_DM_BOTAMON_SPRITE_SHEET_COLS, assets::MIN_DM_BOTAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_KOROMON_SPRITE_SHEET_COLS, assets::MIN_DM_KOROMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_AGUMON_SPRITE_SHEET_COLS, assets::MIN_DM_AGUMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_BETAMON_SPRITE_SHEET_COLS, assets::MIN_DM_BETAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_GREYMON_SPRITE_SHEET_COLS, assets::MIN_DM_GREYMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_TYRANOMON_SPRITE_SHEET_COLS, assets::MIN_DM_TYRANOMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_DEVIMON_SPRITE_SHEET_COLS, assets::MIN_DM_DEVIMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_MERAMON_SPRITE_SHEET_COLS, assets::MIN_DM_MERAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_AIRDRAMON_SPRITE_SHEET_COLS, assets::MIN_DM_AIRDRAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_SEADRAMON_SPRITE_SHEET_COLS, assets::MIN_DM_SEADRAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_NUMEMON_SPRITE_SHEET_COLS, assets::MIN_DM_NUMEMON_SPRITE_SHEET_ROWS},
       {assets::MIN_DM_METAL_GREYMON_SPRITE_SHEET_COLS, assets::MIN_DM_METAL_GREYMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_MAMEMON_SPRITE_SHEET_COLS,       assets::MIN_DM_MAMEMON_SPRITE_SHEET_ROWS},
-      {assets::MIN_DM_MONZAEMON_SPRITE_SHEET_COLS,     assets::MIN_DM_MONZAEMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_MAMEMON_SPRITE_SHEET_COLS, assets::MIN_DM_MAMEMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_MONZAEMON_SPRITE_SHEET_COLS, assets::MIN_DM_MONZAEMON_SPRITE_SHEET_ROWS},
     };
     static const unsigned char* min_dm_pngs_table[] = {
         min_dm_botamon_png,
@@ -47,22 +45,22 @@ namespace bongocat::animation {
         min_dm_monzaemon_png,
     };
     static const size_t min_dm_png_sizes_table[] = {
-      min_dm_botamon_png_size,
-      min_dm_koromon_png_size,
-      min_dm_agumon_png_size,
-      min_dm_betamon_png_size,
+        min_dm_botamon_png_size,
+        min_dm_koromon_png_size,
+        min_dm_agumon_png_size,
+        min_dm_betamon_png_size,
 
-      min_dm_greymon_png_size,
-      min_dm_tyranomon_png_size,
-      min_dm_devimon_png_size,
-      min_dm_meramon_png_size,
-      min_dm_airdramon_png_size,
-      min_dm_seadramon_png_size,
-      min_dm_numemon_png_size,
+        min_dm_greymon_png_size,
+        min_dm_tyranomon_png_size,
+        min_dm_devimon_png_size,
+        min_dm_meramon_png_size,
+        min_dm_airdramon_png_size,
+        min_dm_seadramon_png_size,
+        min_dm_numemon_png_size,
 
-      min_dm_metal_greymon_png_size,
-      min_dm_mamemon_png_size,
-      min_dm_monzaemon_png_size,
+        min_dm_metal_greymon_png_size,
+        min_dm_mamemon_png_size,
+        min_dm_monzaemon_png_size,
     };
     static const char* min_dm_names_table[] = {
         "botamon",

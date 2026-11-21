@@ -5,9 +5,9 @@
 namespace bongocat::features {
 
 #ifdef FEATURE_MISC_EMBEDDED_ASSETS
-inline static constexpr bool EnableMiscEmbeddedAssets = true;
+static constexpr bool EnableMiscEmbeddedAssets = true;
 #else
-inline static constexpr bool EnableMiscEmbeddedAssets = false;
+static constexpr bool EnableMiscEmbeddedAssets = false;
 #endif
 
 }  // namespace features

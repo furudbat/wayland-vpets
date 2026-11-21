@@ -15,20 +15,20 @@
 namespace features {
 
 #ifdef FEATURE_USE_HYBRID_IMAGE_BACKEND
-inline static constexpr bool UseHybridImageBackend = true;
+static constexpr bool UseHybridImageBackend = true;
 #else
-inline static constexpr bool UseHybridImageBackend = false;
+static constexpr bool UseHybridImageBackend = false;
 
 #  ifdef FEATURE_USE_PNGLE
-inline static constexpr bool UsePngleImageBackend = true;
+static constexpr bool UsePngleImageBackend = true;
 #  else
-inline static constexpr bool UsePngleImageBackend = false;
+static constexpr bool UsePngleImageBackend = false;
 #  endif
 
 #  ifdef FEATURE_USE_STB_IMAGE
-inline static constexpr bool UseStbImageBackend = true;
+static constexpr bool UseStbImageBackend = true;
 #  else
-inline static constexpr bool UseStbImageBackend = false;
+static constexpr bool UseStbImageBackend = false;
 #  endif
 #endif
 

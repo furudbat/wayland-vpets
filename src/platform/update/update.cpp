@@ -21,20 +21,20 @@
 #include <unistd.h>
 
 namespace bongocat::platform::update {
-inline static constexpr int MAX_ATTEMPTS = 2048;
-inline static constexpr size_t GET_CPU_PRESENT_LAST_BUF = 256;
-inline static constexpr size_t CPU_INFO_BUF = 8192;
+static constexpr int MAX_ATTEMPTS = 2048;
+static constexpr size_t GET_CPU_PRESENT_LAST_BUF = 256;
+static constexpr size_t CPU_INFO_BUF = 8192;
 
-static inline constexpr time_ms_t UPDATE_POOL_TIMEOUT_MS = 1000;
-static inline constexpr time_ms_t COND_STORED_TIMEOUT_MS = 1000;
-static inline constexpr time_sec_t EVOLUTION_TIMEOUT_SEC = 1;
-static inline constexpr time_ms_t THREAD_SLEEP_MS = 1000;
+static constexpr time_ms_t UPDATE_POOL_TIMEOUT_MS = 1000;
+static constexpr time_ms_t COND_STORED_TIMEOUT_MS = 1000;
+static constexpr time_sec_t EVOLUTION_TIMEOUT_SEC = 1;
+static constexpr time_ms_t THREAD_SLEEP_MS = 1000;
 
-inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
-inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
+static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
+static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
-inline static constexpr const char *FILENAME_CPU_PRESET = "/sys/devices/system/cpu/present";
-inline static constexpr const char *FILENAME_PROC_STAT = "/proc/stat";
+static constexpr const char *FILENAME_CPU_PRESET = "/sys/devices/system/cpu/present";
+static constexpr const char *FILENAME_PROC_STAT = "/proc/stat";
 
 static time_sec_t get_boottime() {
   struct timespec uptime;

@@ -6,12 +6,12 @@ namespace bongocat::features {
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 #  ifdef FEATURE_PEN_EMBEDDED_ASSETS
-  inline static constexpr bool EnablePenEmbeddedAssets = true;
+  static constexpr bool EnablePenEmbeddedAssets = true;
 #  else
-  inline static constexpr bool EnablePenEmbeddedAssets = false;
+  static constexpr bool EnablePenEmbeddedAssets = false;
 #  endif
 #else
-  inline static constexpr bool EnablePenEmbeddedAssets = false;
+  static constexpr bool EnablePenEmbeddedAssets = false;
 #endif
 
 }  // namespace features

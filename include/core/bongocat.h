@@ -12,18 +12,18 @@
 // =============================================================================
 
 // Version
-inline static constexpr const char *BONGOCAT_VERSION = "6.2.0";
+inline constexpr const char *BONGOCAT_VERSION = "6.2.1";
 
 // =============================================================================
 // COMPILE-TIME CONSTANTS
 // =============================================================================
 
 // Common constants
-inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
-inline static constexpr int32_t DEFAULT_BAR_HEIGHT = 40;
-static inline constexpr int32_t DEFAULT_FPS = 60;
-inline static constexpr int32_t RGBA_CHANNELS = 4;
-inline static constexpr int32_t BGRA_CHANNELS = 4;
+inline constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
+inline constexpr int32_t DEFAULT_BAR_HEIGHT = 40;
+inline constexpr int32_t DEFAULT_FPS = 60;
+inline constexpr int32_t RGBA_CHANNELS = 4;
+inline constexpr int32_t BGRA_CHANNELS = 4;
 
 namespace bongocat {
 template <typename T>
@@ -39,76 +39,76 @@ struct created_result_t {
 // feature flags
 namespace features {
   // experimental
-  inline static constexpr bool BongocatIdleAnimation = false;
-  inline static constexpr bool BongocatBoringAnimation = false;
+  inline constexpr bool BongocatIdleAnimation = false;
+  inline constexpr bool BongocatBoringAnimation = false;
 
 #ifndef NDEBUG
-  inline static constexpr bool Debug = true;
+  static constexpr bool Debug = true;
 #else
-  inline static constexpr bool Debug = false;
+  static constexpr bool Debug = false;
 #endif
 
 #ifndef TEST_BUILD
-  inline static constexpr bool Testing = true;
+  static constexpr bool Testing = true;
 #else
-  inline static constexpr bool Testing = false;
+  static constexpr bool Testing = false;
 #endif
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
-  inline static constexpr bool EnableMemoryStatistics = true;
+  static constexpr bool EnableMemoryStatistics = true;
 #else
-  inline static constexpr bool EnableMemoryStatistics = false;
+  static constexpr bool EnableMemoryStatistics = false;
 #endif
 
 #if !defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)
-  inline static constexpr bool EnableLogger = true;
+  static constexpr bool EnableLogger = true;
 #else
-  inline static constexpr bool EnableLogger = false;
+  static constexpr bool EnableLogger = false;
 #endif
 
 #ifdef FEATURE_PRELOAD_ASSETS
-  inline static constexpr bool EnablePreloadAssets = true;
+  static constexpr bool EnablePreloadAssets = true;
 #else
-  inline static constexpr bool EnablePreloadAssets = false;
+  static constexpr bool EnablePreloadAssets = false;
 #endif
 
 #ifdef FEATURE_LAZY_LOAD_ASSETS
-  inline static constexpr bool EnableLazyLoadAssets = true;
+  static constexpr bool EnableLazyLoadAssets = true;
 #else
-  inline static constexpr bool EnableLazyLoadAssets = false;
+  static constexpr bool EnableLazyLoadAssets = false;
 #endif
 
 #ifdef FEATURE_EVOLUTION
-  inline static constexpr bool EnableEvolution = true;
+  static constexpr bool EnableEvolution = true;
 #else
-  inline static constexpr bool EnableEvolution = false;
+  static constexpr bool EnableEvolution = false;
 #endif
 
 #ifdef BONGOCAT_ENABLE_INPUT_MODULE
-  inline static constexpr bool EnableInputModule = true;
+  static constexpr bool EnableInputModule = true;
 #else
-  inline static constexpr bool EnableInputModule = false;
+  static constexpr bool EnableInputModule = false;
 #endif
 #ifdef BONGOCAT_ENABLE_UPDATE_MODULE
-  inline static constexpr bool EnableUpdateModule = true;
+  static constexpr bool EnableUpdateModule = true;
 #else
-  inline static constexpr bool EnableUpdateModule = false;
+  static constexpr bool EnableUpdateModule = false;
 #endif
 #ifdef BONGOCAT_ENABLE_AUDIO_MODULE
-  inline static constexpr bool EnableAudioModule = true;
+  static constexpr bool EnableAudioModule = true;
 #else
-  inline static constexpr bool EnableAudioModule = false;
+  static constexpr bool EnableAudioModule = false;
 #endif
 }  // namespace features
 
 // Global constants
 namespace input {
-  inline static constexpr size_t MAX_INPUT_DEVICES = 256;
+  inline constexpr size_t MAX_INPUT_DEVICES = 256;
   static_assert(MAX_INPUT_DEVICES <= INT32_MAX);
 }  // namespace input
 namespace platform {
-  inline static constexpr double ENABLED_MIN_CPU_PERCENT = 1.0;             // in percent
-  inline static constexpr double TRIGGER_ANIMATION_CPU_DIFF_PERCENT = 1.0;  // in percent
+  inline constexpr double ENABLED_MIN_CPU_PERCENT = 1.0;             // in percent
+  inline constexpr double TRIGGER_ANIMATION_CPU_DIFF_PERCENT = 1.0;  // in percent
 }  // namespace platform
 
 template <typename Enum>

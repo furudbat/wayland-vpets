@@ -119,7 +119,7 @@ private:
 
      The state must be seeded so that it is not everywhere zero. */
 
-  static inline constexpr uint32_t rotl(const uint32_t x, int k) {
+  static constexpr uint32_t rotl(const uint32_t x, int k) {
     return (x << k) | (x >> (32 - k));
   }
 

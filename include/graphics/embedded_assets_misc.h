@@ -11,9 +11,9 @@
 #  include "embedded_assets/misc/misc.hpp"
 #else
 namespace bongocat::assets {
-inline static constexpr std::size_t MISC_ANIM_COUNT = 0;
-inline static constexpr std::size_t MAX_MISC_ANIM_INDEX = 0;
-inline static constexpr std::size_t MISC_MAX_SPRITE_SHEET_COL_FRAMES = 0;
+static constexpr std::size_t MISC_ANIM_COUNT = 0;
+static constexpr std::size_t MAX_MISC_ANIM_INDEX = 0;
+static constexpr std::size_t MISC_MAX_SPRITE_SHEET_COL_FRAMES = 0;
 }  // namespace bongocat::assets
 #endif
 

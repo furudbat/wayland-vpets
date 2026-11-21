@@ -2,2140 +2,1678 @@
 #include "embedded_assets/pen20/pen20.hpp"
 #include "pen20_config_parse_animation_name.h"
 #include "utils/memory.h"
+#include <cstdint>
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    inline static constexpr char ALT_PEN20_AERO_V_DRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:aero_v_dramon";
-    inline static constexpr const char* ALT_PEN20_AERO_V_DRAMON_FQID = ALT_PEN20_AERO_V_DRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_AERO_V_DRAMON_FQID_LEN = sizeof(ALT_PEN20_AERO_V_DRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_AERO_V_DRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Aero V-dramon";
-    inline static constexpr const char* ALT_PEN20_AERO_V_DRAMON_FQNAME = ALT_PEN20_AERO_V_DRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_AERO_V_DRAMON_FQNAME_LEN = sizeof(ALT_PEN20_AERO_V_DRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_AGUMON_HAKASE_FQID_ARR[] CONFIG_STRING_SECTION = "pen:agumon_hakase";
-    inline static constexpr const char* ALT_PEN20_AGUMON_HAKASE_FQID = ALT_PEN20_AGUMON_HAKASE_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_AGUMON_HAKASE_FQID_LEN = sizeof(ALT_PEN20_AGUMON_HAKASE_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_AGUMON_HAKASE_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Agumon Hakase";
-    inline static constexpr const char* ALT_PEN20_AGUMON_HAKASE_FQNAME = ALT_PEN20_AGUMON_HAKASE_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_AGUMON_HAKASE_FQNAME_LEN = sizeof(ALT_PEN20_AGUMON_HAKASE_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_AGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:agumon";
-    inline static constexpr const char* ALT_PEN20_AGUMON_FQID = ALT_PEN20_AGUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_AGUMON_FQID_LEN = sizeof(ALT_PEN20_AGUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_AGUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Agumon";
-    inline static constexpr const char* ALT_PEN20_AGUMON_FQNAME = ALT_PEN20_AGUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_AGUMON_FQNAME_LEN = sizeof(ALT_PEN20_AGUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ALPHAMON_OURYUKEN_FQID_ARR[] CONFIG_STRING_SECTION = "pen:alphamon_ouryuken";
-    inline static constexpr const char* ALT_PEN20_ALPHAMON_OURYUKEN_FQID = ALT_PEN20_ALPHAMON_OURYUKEN_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ALPHAMON_OURYUKEN_FQID_LEN = sizeof(ALT_PEN20_ALPHAMON_OURYUKEN_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Alphamon Ouryuken";
-    inline static constexpr const char* ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME = ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_LEN = sizeof(ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ALPHAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:alphamon";
-    inline static constexpr const char* ALT_PEN20_ALPHAMON_FQID = ALT_PEN20_ALPHAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ALPHAMON_FQID_LEN = sizeof(ALT_PEN20_ALPHAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ALPHAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Alphamon";
-    inline static constexpr const char* ALT_PEN20_ALPHAMON_FQNAME = ALT_PEN20_ALPHAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ALPHAMON_FQNAME_LEN = sizeof(ALT_PEN20_ALPHAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANDIRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:andiramon";
-    inline static constexpr const char* ALT_PEN20_ANDIRAMON_FQID = ALT_PEN20_ANDIRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ANDIRAMON_FQID_LEN = sizeof(ALT_PEN20_ANDIRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANDIRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Andiramon";
-    inline static constexpr const char* ALT_PEN20_ANDIRAMON_FQNAME = ALT_PEN20_ANDIRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ANDIRAMON_FQNAME_LEN = sizeof(ALT_PEN20_ANDIRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANDROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:andromon";
-    inline static constexpr const char* ALT_PEN20_ANDROMON_FQID = ALT_PEN20_ANDROMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ANDROMON_FQID_LEN = sizeof(ALT_PEN20_ANDROMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANDROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Andromon";
-    inline static constexpr const char* ALT_PEN20_ANDROMON_FQNAME = ALT_PEN20_ANDROMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ANDROMON_FQNAME_LEN = sizeof(ALT_PEN20_ANDROMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:angemon";
-    inline static constexpr const char* ALT_PEN20_ANGEMON_FQID = ALT_PEN20_ANGEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ANGEMON_FQID_LEN = sizeof(ALT_PEN20_ANGEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANGEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Angemon";
-    inline static constexpr const char* ALT_PEN20_ANGEMON_FQNAME = ALT_PEN20_ANGEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ANGEMON_FQNAME_LEN = sizeof(ALT_PEN20_ANGEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANGEWOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:angewomon";
-    inline static constexpr const char* ALT_PEN20_ANGEWOMON_FQID = ALT_PEN20_ANGEWOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ANGEWOMON_FQID_LEN = sizeof(ALT_PEN20_ANGEWOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANGEWOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Angewomon";
-    inline static constexpr const char* ALT_PEN20_ANGEWOMON_FQNAME = ALT_PEN20_ANGEWOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ANGEWOMON_FQNAME_LEN = sizeof(ALT_PEN20_ANGEWOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANOMALOCARIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:anomalocarimon";
-    inline static constexpr const char* ALT_PEN20_ANOMALOCARIMON_FQID = ALT_PEN20_ANOMALOCARIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ANOMALOCARIMON_FQID_LEN = sizeof(ALT_PEN20_ANOMALOCARIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ANOMALOCARIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Anomalocarimon";
-    inline static constexpr const char* ALT_PEN20_ANOMALOCARIMON_FQNAME = ALT_PEN20_ANOMALOCARIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ANOMALOCARIMON_FQNAME_LEN = sizeof(ALT_PEN20_ANOMALOCARIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ARRESTERDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:arresterdramon";
-    inline static constexpr const char* ALT_PEN20_ARRESTERDRAMON_FQID = ALT_PEN20_ARRESTERDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ARRESTERDRAMON_FQID_LEN = sizeof(ALT_PEN20_ARRESTERDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ARRESTERDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Arresterdramon";
-    inline static constexpr const char* ALT_PEN20_ARRESTERDRAMON_FQNAME = ALT_PEN20_ARRESTERDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ARRESTERDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_ARRESTERDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ASTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:astamon";
-    inline static constexpr const char* ALT_PEN20_ASTAMON_FQID = ALT_PEN20_ASTAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ASTAMON_FQID_LEN = sizeof(ALT_PEN20_ASTAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ASTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Astamon";
-    inline static constexpr const char* ALT_PEN20_ASTAMON_FQNAME = ALT_PEN20_ASTAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ASTAMON_FQNAME_LEN = sizeof(ALT_PEN20_ASTAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ASURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:asuramon";
-    inline static constexpr const char* ALT_PEN20_ASURAMON_FQID = ALT_PEN20_ASURAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ASURAMON_FQID_LEN = sizeof(ALT_PEN20_ASURAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ASURAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Asuramon";
-    inline static constexpr const char* ALT_PEN20_ASURAMON_FQNAME = ALT_PEN20_ASURAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ASURAMON_FQNAME_LEN = sizeof(ALT_PEN20_ASURAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ATLUR_KABUTERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:atlur_kabuterimon";
-    inline static constexpr const char* ALT_PEN20_ATLUR_KABUTERIMON_FQID = ALT_PEN20_ATLUR_KABUTERIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ATLUR_KABUTERIMON_FQID_LEN = sizeof(ALT_PEN20_ATLUR_KABUTERIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Atlur Kabuterimon";
-    inline static constexpr const char* ALT_PEN20_ATLUR_KABUTERIMON_FQNAME = ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_LEN = sizeof(ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAALMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:baalmon";
-    inline static constexpr const char* ALT_PEN20_BAALMON_FQID = ALT_PEN20_BAALMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BAALMON_FQID_LEN = sizeof(ALT_PEN20_BAALMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAALMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Baalmon";
-    inline static constexpr const char* ALT_PEN20_BAALMON_FQNAME = ALT_PEN20_BAALMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BAALMON_FQNAME_LEN = sizeof(ALT_PEN20_BAALMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BABYDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:babydmon";
-    inline static constexpr const char* ALT_PEN20_BABYDMON_FQID = ALT_PEN20_BABYDMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BABYDMON_FQID_LEN = sizeof(ALT_PEN20_BABYDMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BABYDMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Babydmon";
-    inline static constexpr const char* ALT_PEN20_BABYDMON_FQNAME = ALT_PEN20_BABYDMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BABYDMON_FQNAME_LEN = sizeof(ALT_PEN20_BABYDMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAKEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:bakemon";
-    inline static constexpr const char* ALT_PEN20_BAKEMON_FQID = ALT_PEN20_BAKEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BAKEMON_FQID_LEN = sizeof(ALT_PEN20_BAKEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAKEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Bakemon";
-    inline static constexpr const char* ALT_PEN20_BAKEMON_FQNAME = ALT_PEN20_BAKEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BAKEMON_FQNAME_LEN = sizeof(ALT_PEN20_BAKEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:bakumon";
-    inline static constexpr const char* ALT_PEN20_BAKUMON_FQID = ALT_PEN20_BAKUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BAKUMON_FQID_LEN = sizeof(ALT_PEN20_BAKUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAKUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Bakumon";
-    inline static constexpr const char* ALT_PEN20_BAKUMON_FQNAME = ALT_PEN20_BAKUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BAKUMON_FQNAME_LEN = sizeof(ALT_PEN20_BAKUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BANCHO_LEOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:bancho_leomon";
-    inline static constexpr const char* ALT_PEN20_BANCHO_LEOMON_FQID = ALT_PEN20_BANCHO_LEOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BANCHO_LEOMON_FQID_LEN = sizeof(ALT_PEN20_BANCHO_LEOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BANCHO_LEOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Bancho Leomon";
-    inline static constexpr const char* ALT_PEN20_BANCHO_LEOMON_FQNAME = ALT_PEN20_BANCHO_LEOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BANCHO_LEOMON_FQNAME_LEN = sizeof(ALT_PEN20_BANCHO_LEOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAO_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:bao_hackmon";
-    inline static constexpr const char* ALT_PEN20_BAO_HACKMON_FQID = ALT_PEN20_BAO_HACKMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BAO_HACKMON_FQID_LEN = sizeof(ALT_PEN20_BAO_HACKMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BAO_HACKMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Bao Hackmon";
-    inline static constexpr const char* ALT_PEN20_BAO_HACKMON_FQNAME = ALT_PEN20_BAO_HACKMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BAO_HACKMON_FQNAME_LEN = sizeof(ALT_PEN20_BAO_HACKMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "pen:beelzebumon_blast_mode";
-    inline static constexpr const char* ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID = ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_LEN = sizeof(ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Beelzebumon Blast Mode";
-    inline static constexpr const char* ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME = ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_LEN = sizeof(ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BEOWOLFMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:beowolfmon";
-    inline static constexpr const char* ALT_PEN20_BEOWOLFMON_FQID = ALT_PEN20_BEOWOLFMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BEOWOLFMON_FQID_LEN = sizeof(ALT_PEN20_BEOWOLFMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BEOWOLFMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Beowolfmon";
-    inline static constexpr const char* ALT_PEN20_BEOWOLFMON_FQNAME = ALT_PEN20_BEOWOLFMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BEOWOLFMON_FQNAME_LEN = sizeof(ALT_PEN20_BEOWOLFMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BIG_MAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:big_mamemon";
-    inline static constexpr const char* ALT_PEN20_BIG_MAMEMON_FQID = ALT_PEN20_BIG_MAMEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BIG_MAMEMON_FQID_LEN = sizeof(ALT_PEN20_BIG_MAMEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BIG_MAMEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Big Mamemon";
-    inline static constexpr const char* ALT_PEN20_BIG_MAMEMON_FQNAME = ALT_PEN20_BIG_MAMEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BIG_MAMEMON_FQNAME_LEN = sizeof(ALT_PEN20_BIG_MAMEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BIRDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:birdramon";
-    inline static constexpr const char* ALT_PEN20_BIRDRAMON_FQID = ALT_PEN20_BIRDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BIRDRAMON_FQID_LEN = sizeof(ALT_PEN20_BIRDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BIRDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Birdramon";
-    inline static constexpr const char* ALT_PEN20_BIRDRAMON_FQNAME = ALT_PEN20_BIRDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BIRDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_BIRDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BLOSSOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:blossomon";
-    inline static constexpr const char* ALT_PEN20_BLOSSOMON_FQID = ALT_PEN20_BLOSSOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BLOSSOMON_FQID_LEN = sizeof(ALT_PEN20_BLOSSOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BLOSSOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Blossomon";
-    inline static constexpr const char* ALT_PEN20_BLOSSOMON_FQNAME = ALT_PEN20_BLOSSOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BLOSSOMON_FQNAME_LEN = sizeof(ALT_PEN20_BLOSSOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BOLTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:boltmon";
-    inline static constexpr const char* ALT_PEN20_BOLTMON_FQID = ALT_PEN20_BOLTMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BOLTMON_FQID_LEN = sizeof(ALT_PEN20_BOLTMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BOLTMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Boltmon";
-    inline static constexpr const char* ALT_PEN20_BOLTMON_FQNAME = ALT_PEN20_BOLTMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BOLTMON_FQNAME_LEN = sizeof(ALT_PEN20_BOLTMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BOTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:botamon";
-    inline static constexpr const char* ALT_PEN20_BOTAMON_FQID = ALT_PEN20_BOTAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BOTAMON_FQID_LEN = sizeof(ALT_PEN20_BOTAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BOTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Botamon";
-    inline static constexpr const char* ALT_PEN20_BOTAMON_FQNAME = ALT_PEN20_BOTAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BOTAMON_FQNAME_LEN = sizeof(ALT_PEN20_BOTAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BREAKDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:breakdramon";
-    inline static constexpr const char* ALT_PEN20_BREAKDRAMON_FQID = ALT_PEN20_BREAKDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BREAKDRAMON_FQID_LEN = sizeof(ALT_PEN20_BREAKDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BREAKDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Breakdramon";
-    inline static constexpr const char* ALT_PEN20_BREAKDRAMON_FQNAME = ALT_PEN20_BREAKDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BREAKDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_BREAKDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BRYWELUDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:bryweludramon";
-    inline static constexpr const char* ALT_PEN20_BRYWELUDRAMON_FQID = ALT_PEN20_BRYWELUDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BRYWELUDRAMON_FQID_LEN = sizeof(ALT_PEN20_BRYWELUDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BRYWELUDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Bryweludramon";
-    inline static constexpr const char* ALT_PEN20_BRYWELUDRAMON_FQNAME = ALT_PEN20_BRYWELUDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BRYWELUDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_BRYWELUDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BUBBMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:bubbmon";
-    inline static constexpr const char* ALT_PEN20_BUBBMON_FQID = ALT_PEN20_BUBBMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BUBBMON_FQID_LEN = sizeof(ALT_PEN20_BUBBMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BUBBMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Bubbmon";
-    inline static constexpr const char* ALT_PEN20_BUBBMON_FQNAME = ALT_PEN20_BUBBMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BUBBMON_FQNAME_LEN = sizeof(ALT_PEN20_BUBBMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BUDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:budmon";
-    inline static constexpr const char* ALT_PEN20_BUDMON_FQID = ALT_PEN20_BUDMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BUDMON_FQID_LEN = sizeof(ALT_PEN20_BUDMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BUDMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Budmon";
-    inline static constexpr const char* ALT_PEN20_BUDMON_FQNAME = ALT_PEN20_BUDMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BUDMON_FQNAME_LEN = sizeof(ALT_PEN20_BUDMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_BUSHI_AGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:bushi_agumon";
-    inline static constexpr const char* ALT_PEN20_BUSHI_AGUMON_FQID = ALT_PEN20_BUSHI_AGUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_BUSHI_AGUMON_FQID_LEN = sizeof(ALT_PEN20_BUSHI_AGUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_BUSHI_AGUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Bushi Agumon";
-    inline static constexpr const char* ALT_PEN20_BUSHI_AGUMON_FQNAME = ALT_PEN20_BUSHI_AGUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_BUSHI_AGUMON_FQNAME_LEN = sizeof(ALT_PEN20_BUSHI_AGUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CANDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:candmon";
-    inline static constexpr const char* ALT_PEN20_CANDMON_FQID = ALT_PEN20_CANDMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CANDMON_FQID_LEN = sizeof(ALT_PEN20_CANDMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CANDMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Candmon";
-    inline static constexpr const char* ALT_PEN20_CANDMON_FQNAME = ALT_PEN20_CANDMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CANDMON_FQNAME_LEN = sizeof(ALT_PEN20_CANDMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CAPRIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:caprimon";
-    inline static constexpr const char* ALT_PEN20_CAPRIMON_FQID = ALT_PEN20_CAPRIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CAPRIMON_FQID_LEN = sizeof(ALT_PEN20_CAPRIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CAPRIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Caprimon";
-    inline static constexpr const char* ALT_PEN20_CAPRIMON_FQNAME = ALT_PEN20_CAPRIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CAPRIMON_FQNAME_LEN = sizeof(ALT_PEN20_CAPRIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHAOSMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:chaosmon";
-    inline static constexpr const char* ALT_PEN20_CHAOSMON_FQID = ALT_PEN20_CHAOSMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CHAOSMON_FQID_LEN = sizeof(ALT_PEN20_CHAOSMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHAOSMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Chaosmon";
-    inline static constexpr const char* ALT_PEN20_CHAOSMON_FQNAME = ALT_PEN20_CHAOSMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CHAOSMON_FQNAME_LEN = sizeof(ALT_PEN20_CHAOSMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHERUBIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:cherubimon";
-    inline static constexpr const char* ALT_PEN20_CHERUBIMON_FQID = ALT_PEN20_CHERUBIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CHERUBIMON_FQID_LEN = sizeof(ALT_PEN20_CHERUBIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHERUBIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Cherubimon";
-    inline static constexpr const char* ALT_PEN20_CHERUBIMON_FQNAME = ALT_PEN20_CHERUBIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CHERUBIMON_FQNAME_LEN = sizeof(ALT_PEN20_CHERUBIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHIBIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:chibimon";
-    inline static constexpr const char* ALT_PEN20_CHIBIMON_FQID = ALT_PEN20_CHIBIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CHIBIMON_FQID_LEN = sizeof(ALT_PEN20_CHIBIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHIBIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Chibimon";
-    inline static constexpr const char* ALT_PEN20_CHIBIMON_FQNAME = ALT_PEN20_CHIBIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CHIBIMON_FQNAME_LEN = sizeof(ALT_PEN20_CHIBIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHICOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:chicomon";
-    inline static constexpr const char* ALT_PEN20_CHICOMON_FQID = ALT_PEN20_CHICOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CHICOMON_FQID_LEN = sizeof(ALT_PEN20_CHICOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHICOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Chicomon";
-    inline static constexpr const char* ALT_PEN20_CHICOMON_FQNAME = ALT_PEN20_CHICOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CHICOMON_FQNAME_LEN = sizeof(ALT_PEN20_CHICOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHOCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:chocomon";
-    inline static constexpr const char* ALT_PEN20_CHOCOMON_FQID = ALT_PEN20_CHOCOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CHOCOMON_FQID_LEN = sizeof(ALT_PEN20_CHOCOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHOCOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Chocomon";
-    inline static constexpr const char* ALT_PEN20_CHOCOMON_FQNAME = ALT_PEN20_CHOCOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CHOCOMON_FQNAME_LEN = sizeof(ALT_PEN20_CHOCOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHOROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:choromon";
-    inline static constexpr const char* ALT_PEN20_CHOROMON_FQID = ALT_PEN20_CHOROMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CHOROMON_FQID_LEN = sizeof(ALT_PEN20_CHOROMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CHOROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Choromon";
-    inline static constexpr const char* ALT_PEN20_CHOROMON_FQNAME = ALT_PEN20_CHOROMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CHOROMON_FQNAME_LEN = sizeof(ALT_PEN20_CHOROMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CLOCKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:clockmon";
-    inline static constexpr const char* ALT_PEN20_CLOCKMON_FQID = ALT_PEN20_CLOCKMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CLOCKMON_FQID_LEN = sizeof(ALT_PEN20_CLOCKMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CLOCKMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Clockmon";
-    inline static constexpr const char* ALT_PEN20_CLOCKMON_FQNAME = ALT_PEN20_CLOCKMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CLOCKMON_FQNAME_LEN = sizeof(ALT_PEN20_CLOCKMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_COCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:cocomon";
-    inline static constexpr const char* ALT_PEN20_COCOMON_FQID = ALT_PEN20_COCOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_COCOMON_FQID_LEN = sizeof(ALT_PEN20_COCOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_COCOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Cocomon";
-    inline static constexpr const char* ALT_PEN20_COCOMON_FQNAME = ALT_PEN20_COCOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_COCOMON_FQNAME_LEN = sizeof(ALT_PEN20_COCOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_COELAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:coelamon";
-    inline static constexpr const char* ALT_PEN20_COELAMON_FQID = ALT_PEN20_COELAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_COELAMON_FQID_LEN = sizeof(ALT_PEN20_COELAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_COELAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Coelamon";
-    inline static constexpr const char* ALT_PEN20_COELAMON_FQNAME = ALT_PEN20_COELAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_COELAMON_FQNAME_LEN = sizeof(ALT_PEN20_COELAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_COREDRAMON_BLUE_FQID_ARR[] CONFIG_STRING_SECTION = "pen:coredramon_blue";
-    inline static constexpr const char* ALT_PEN20_COREDRAMON_BLUE_FQID = ALT_PEN20_COREDRAMON_BLUE_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_COREDRAMON_BLUE_FQID_LEN = sizeof(ALT_PEN20_COREDRAMON_BLUE_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_COREDRAMON_BLUE_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Coredramon (Blue)";
-    inline static constexpr const char* ALT_PEN20_COREDRAMON_BLUE_FQNAME = ALT_PEN20_COREDRAMON_BLUE_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_COREDRAMON_BLUE_FQNAME_LEN = sizeof(ALT_PEN20_COREDRAMON_BLUE_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_COREDRAMON_GREEN_FQID_ARR[] CONFIG_STRING_SECTION = "pen:coredramon_green";
-    inline static constexpr const char* ALT_PEN20_COREDRAMON_GREEN_FQID = ALT_PEN20_COREDRAMON_GREEN_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_COREDRAMON_GREEN_FQID_LEN = sizeof(ALT_PEN20_COREDRAMON_GREEN_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_COREDRAMON_GREEN_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Coredramon (Green)";
-    inline static constexpr const char* ALT_PEN20_COREDRAMON_GREEN_FQNAME = ALT_PEN20_COREDRAMON_GREEN_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_COREDRAMON_GREEN_FQNAME_LEN = sizeof(ALT_PEN20_COREDRAMON_GREEN_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_COTSUCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:cotsucomon";
-    inline static constexpr const char* ALT_PEN20_COTSUCOMON_FQID = ALT_PEN20_COTSUCOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_COTSUCOMON_FQID_LEN = sizeof(ALT_PEN20_COTSUCOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_COTSUCOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Cotsucomon";
-    inline static constexpr const char* ALT_PEN20_COTSUCOMON_FQNAME = ALT_PEN20_COTSUCOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_COTSUCOMON_FQNAME_LEN = sizeof(ALT_PEN20_COTSUCOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_CYBERDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:cyberdramon";
-    inline static constexpr const char* ALT_PEN20_CYBERDRAMON_FQID = ALT_PEN20_CYBERDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_CYBERDRAMON_FQID_LEN = sizeof(ALT_PEN20_CYBERDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_CYBERDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Cyberdramon";
-    inline static constexpr const char* ALT_PEN20_CYBERDRAMON_FQNAME = ALT_PEN20_CYBERDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_CYBERDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_CYBERDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DAGOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dagomon";
-    inline static constexpr const char* ALT_PEN20_DAGOMON_FQID = ALT_PEN20_DAGOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DAGOMON_FQID_LEN = sizeof(ALT_PEN20_DAGOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DAGOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Dagomon";
-    inline static constexpr const char* ALT_PEN20_DAGOMON_FQNAME = ALT_PEN20_DAGOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DAGOMON_FQNAME_LEN = sizeof(ALT_PEN20_DAGOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DARKDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:darkdramon";
-    inline static constexpr const char* ALT_PEN20_DARKDRAMON_FQID = ALT_PEN20_DARKDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DARKDRAMON_FQID_LEN = sizeof(ALT_PEN20_DARKDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DARKDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Darkdramon";
-    inline static constexpr const char* ALT_PEN20_DARKDRAMON_FQNAME = ALT_PEN20_DARKDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DARKDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_DARKDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DARK_KNIGHTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dark_knightmon";
-    inline static constexpr const char* ALT_PEN20_DARK_KNIGHTMON_FQID = ALT_PEN20_DARK_KNIGHTMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DARK_KNIGHTMON_FQID_LEN = sizeof(ALT_PEN20_DARK_KNIGHTMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DARK_KNIGHTMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Dark Knightmon";
-    inline static constexpr const char* ALT_PEN20_DARK_KNIGHTMON_FQNAME = ALT_PEN20_DARK_KNIGHTMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DARK_KNIGHTMON_FQNAME_LEN = sizeof(ALT_PEN20_DARK_KNIGHTMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DEATH_MERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:death_meramon";
-    inline static constexpr const char* ALT_PEN20_DEATH_MERAMON_FQID = ALT_PEN20_DEATH_MERAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DEATH_MERAMON_FQID_LEN = sizeof(ALT_PEN20_DEATH_MERAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DEATH_MERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Death Meramon";
-    inline static constexpr const char* ALT_PEN20_DEATH_MERAMON_FQNAME = ALT_PEN20_DEATH_MERAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DEATH_MERAMON_FQNAME_LEN = sizeof(ALT_PEN20_DEATH_MERAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DELUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:delumon";
-    inline static constexpr const char* ALT_PEN20_DELUMON_FQID = ALT_PEN20_DELUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DELUMON_FQID_LEN = sizeof(ALT_PEN20_DELUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DELUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Delumon";
-    inline static constexpr const char* ALT_PEN20_DELUMON_FQNAME = ALT_PEN20_DELUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DELUMON_FQNAME_LEN = sizeof(ALT_PEN20_DELUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DEVIDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:devidramon";
-    inline static constexpr const char* ALT_PEN20_DEVIDRAMON_FQID = ALT_PEN20_DEVIDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DEVIDRAMON_FQID_LEN = sizeof(ALT_PEN20_DEVIDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DEVIDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Devidramon";
-    inline static constexpr const char* ALT_PEN20_DEVIDRAMON_FQNAME = ALT_PEN20_DEVIDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DEVIDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_DEVIDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DEVIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:devimon";
-    inline static constexpr const char* ALT_PEN20_DEVIMON_FQID = ALT_PEN20_DEVIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DEVIMON_FQID_LEN = sizeof(ALT_PEN20_DEVIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DEVIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Devimon";
-    inline static constexpr const char* ALT_PEN20_DEVIMON_FQNAME = ALT_PEN20_DEVIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DEVIMON_FQNAME_LEN = sizeof(ALT_PEN20_DEVIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DODOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dodomon";
-    inline static constexpr const char* ALT_PEN20_DODOMON_FQID = ALT_PEN20_DODOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DODOMON_FQID_LEN = sizeof(ALT_PEN20_DODOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DODOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Dodomon";
-    inline static constexpr const char* ALT_PEN20_DODOMON_FQNAME = ALT_PEN20_DODOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DODOMON_FQNAME_LEN = sizeof(ALT_PEN20_DODOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DOKUGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dokugumon";
-    inline static constexpr const char* ALT_PEN20_DOKUGUMON_FQID = ALT_PEN20_DOKUGUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DOKUGUMON_FQID_LEN = sizeof(ALT_PEN20_DOKUGUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DOKUGUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Dokugumon";
-    inline static constexpr const char* ALT_PEN20_DOKUGUMON_FQNAME = ALT_PEN20_DOKUGUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DOKUGUMON_FQNAME_LEN = sizeof(ALT_PEN20_DOKUGUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dorimon";
-    inline static constexpr const char* ALT_PEN20_DORIMON_FQID = ALT_PEN20_DORIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DORIMON_FQID_LEN = sizeof(ALT_PEN20_DORIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Dorimon";
-    inline static constexpr const char* ALT_PEN20_DORIMON_FQNAME = ALT_PEN20_DORIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DORIMON_FQNAME_LEN = sizeof(ALT_PEN20_DORIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dorugamon";
-    inline static constexpr const char* ALT_PEN20_DORUGAMON_FQID = ALT_PEN20_DORUGAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUGAMON_FQID_LEN = sizeof(ALT_PEN20_DORUGAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUGAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:DORUgamon";
-    inline static constexpr const char* ALT_PEN20_DORUGAMON_FQNAME = ALT_PEN20_DORUGAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUGAMON_FQNAME_LEN = sizeof(ALT_PEN20_DORUGAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUGORAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dorugoramon";
-    inline static constexpr const char* ALT_PEN20_DORUGORAMON_FQID = ALT_PEN20_DORUGORAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUGORAMON_FQID_LEN = sizeof(ALT_PEN20_DORUGORAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUGORAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:DORUgoramon";
-    inline static constexpr const char* ALT_PEN20_DORUGORAMON_FQNAME = ALT_PEN20_DORUGORAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUGORAMON_FQNAME_LEN = sizeof(ALT_PEN20_DORUGORAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUGUREMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:doruguremon";
-    inline static constexpr const char* ALT_PEN20_DORUGUREMON_FQID = ALT_PEN20_DORUGUREMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUGUREMON_FQID_LEN = sizeof(ALT_PEN20_DORUGUREMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUGUREMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:DORUguremon";
-    inline static constexpr const char* ALT_PEN20_DORUGUREMON_FQNAME = ALT_PEN20_DORUGUREMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUGUREMON_FQNAME_LEN = sizeof(ALT_PEN20_DORUGUREMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dorumon";
-    inline static constexpr const char* ALT_PEN20_DORUMON_FQID = ALT_PEN20_DORUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUMON_FQID_LEN = sizeof(ALT_PEN20_DORUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DORUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:DORUmon";
-    inline static constexpr const char* ALT_PEN20_DORUMON_FQNAME = ALT_PEN20_DORUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DORUMON_FQNAME_LEN = sizeof(ALT_PEN20_DORUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DRACOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:dracomon";
-    inline static constexpr const char* ALT_PEN20_DRACOMON_FQID = ALT_PEN20_DRACOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DRACOMON_FQID_LEN = sizeof(ALT_PEN20_DRACOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DRACOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Dracomon";
-    inline static constexpr const char* ALT_PEN20_DRACOMON_FQNAME = ALT_PEN20_DRACOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DRACOMON_FQNAME_LEN = sizeof(ALT_PEN20_DRACOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:duramon";
-    inline static constexpr const char* ALT_PEN20_DURAMON_FQID = ALT_PEN20_DURAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DURAMON_FQID_LEN = sizeof(ALT_PEN20_DURAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DURAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Duramon";
-    inline static constexpr const char* ALT_PEN20_DURAMON_FQNAME = ALT_PEN20_DURAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DURAMON_FQNAME_LEN = sizeof(ALT_PEN20_DURAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_DURANDAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:durandamon";
-    inline static constexpr const char* ALT_PEN20_DURANDAMON_FQID = ALT_PEN20_DURANDAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_DURANDAMON_FQID_LEN = sizeof(ALT_PEN20_DURANDAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_DURANDAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Durandamon";
-    inline static constexpr const char* ALT_PEN20_DURANDAMON_FQNAME = ALT_PEN20_DURANDAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_DURANDAMON_FQNAME_LEN = sizeof(ALT_PEN20_DURANDAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_EBIDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ebidramon";
-    inline static constexpr const char* ALT_PEN20_EBIDRAMON_FQID = ALT_PEN20_EBIDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_EBIDRAMON_FQID_LEN = sizeof(ALT_PEN20_EBIDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_EBIDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ebidramon";
-    inline static constexpr const char* ALT_PEN20_EBIDRAMON_FQNAME = ALT_PEN20_EBIDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_EBIDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_EBIDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ETEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:etemon";
-    inline static constexpr const char* ALT_PEN20_ETEMON_FQID = ALT_PEN20_ETEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ETEMON_FQID_LEN = sizeof(ALT_PEN20_ETEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ETEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Etemon";
-    inline static constexpr const char* ALT_PEN20_ETEMON_FQNAME = ALT_PEN20_ETEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ETEMON_FQNAME_LEN = sizeof(ALT_PEN20_ETEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_EXAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:examon";
-    inline static constexpr const char* ALT_PEN20_EXAMON_FQID = ALT_PEN20_EXAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_EXAMON_FQID_LEN = sizeof(ALT_PEN20_EXAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_EXAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Examon";
-    inline static constexpr const char* ALT_PEN20_EXAMON_FQNAME = ALT_PEN20_EXAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_EXAMON_FQNAME_LEN = sizeof(ALT_PEN20_EXAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_FANTOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:fantomon";
-    inline static constexpr const char* ALT_PEN20_FANTOMON_FQID = ALT_PEN20_FANTOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_FANTOMON_FQID_LEN = sizeof(ALT_PEN20_FANTOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_FANTOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Fantomon";
-    inline static constexpr const char* ALT_PEN20_FANTOMON_FQNAME = ALT_PEN20_FANTOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_FANTOMON_FQNAME_LEN = sizeof(ALT_PEN20_FANTOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_FLORAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:floramon";
-    inline static constexpr const char* ALT_PEN20_FLORAMON_FQID = ALT_PEN20_FLORAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_FLORAMON_FQID_LEN = sizeof(ALT_PEN20_FLORAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_FLORAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Floramon";
-    inline static constexpr const char* ALT_PEN20_FLORAMON_FQNAME = ALT_PEN20_FLORAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_FLORAMON_FQNAME_LEN = sizeof(ALT_PEN20_FLORAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_FUFUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:fufumon";
-    inline static constexpr const char* ALT_PEN20_FUFUMON_FQID = ALT_PEN20_FUFUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_FUFUMON_FQID_LEN = sizeof(ALT_PEN20_FUFUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_FUFUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Fufumon";
-    inline static constexpr const char* ALT_PEN20_FUFUMON_FQNAME = ALT_PEN20_FUFUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_FUFUMON_FQNAME_LEN = sizeof(ALT_PEN20_FUFUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GABUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:gabumon";
-    inline static constexpr const char* ALT_PEN20_GABUMON_FQID = ALT_PEN20_GABUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GABUMON_FQID_LEN = sizeof(ALT_PEN20_GABUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GABUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Gabumon";
-    inline static constexpr const char* ALT_PEN20_GABUMON_FQNAME = ALT_PEN20_GABUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GABUMON_FQNAME_LEN = sizeof(ALT_PEN20_GABUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GALGOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:galgomon";
-    inline static constexpr const char* ALT_PEN20_GALGOMON_FQID = ALT_PEN20_GALGOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GALGOMON_FQID_LEN = sizeof(ALT_PEN20_GALGOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GALGOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Galgomon";
-    inline static constexpr const char* ALT_PEN20_GALGOMON_FQNAME = ALT_PEN20_GALGOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GALGOMON_FQNAME_LEN = sizeof(ALT_PEN20_GALGOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GANIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ganimon";
-    inline static constexpr const char* ALT_PEN20_GANIMON_FQID = ALT_PEN20_GANIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GANIMON_FQID_LEN = sizeof(ALT_PEN20_GANIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GANIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ganimon";
-    inline static constexpr const char* ALT_PEN20_GANIMON_FQNAME = ALT_PEN20_GANIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GANIMON_FQNAME_LEN = sizeof(ALT_PEN20_GANIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GARUDAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:garudamon";
-    inline static constexpr const char* ALT_PEN20_GARUDAMON_FQID = ALT_PEN20_GARUDAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GARUDAMON_FQID_LEN = sizeof(ALT_PEN20_GARUDAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GARUDAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Garudamon";
-    inline static constexpr const char* ALT_PEN20_GARUDAMON_FQNAME = ALT_PEN20_GARUDAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GARUDAMON_FQNAME_LEN = sizeof(ALT_PEN20_GARUDAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:garurumon";
-    inline static constexpr const char* ALT_PEN20_GARURUMON_FQID = ALT_PEN20_GARURUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GARURUMON_FQID_LEN = sizeof(ALT_PEN20_GARURUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GARURUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Garurumon";
-    inline static constexpr const char* ALT_PEN20_GARURUMON_FQNAME = ALT_PEN20_GARURUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GARURUMON_FQNAME_LEN = sizeof(ALT_PEN20_GARURUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GEKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:gekomon";
-    inline static constexpr const char* ALT_PEN20_GEKOMON_FQID = ALT_PEN20_GEKOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GEKOMON_FQID_LEN = sizeof(ALT_PEN20_GEKOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GEKOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Gekomon";
-    inline static constexpr const char* ALT_PEN20_GEKOMON_FQNAME = ALT_PEN20_GEKOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GEKOMON_FQNAME_LEN = sizeof(ALT_PEN20_GEKOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GERBEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:gerbemon";
-    inline static constexpr const char* ALT_PEN20_GERBEMON_FQID = ALT_PEN20_GERBEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GERBEMON_FQID_LEN = sizeof(ALT_PEN20_GERBEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GERBEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Gerbemon";
-    inline static constexpr const char* ALT_PEN20_GERBEMON_FQNAME = ALT_PEN20_GERBEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GERBEMON_FQNAME_LEN = sizeof(ALT_PEN20_GERBEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GESOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:gesomon";
-    inline static constexpr const char* ALT_PEN20_GESOMON_FQID = ALT_PEN20_GESOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GESOMON_FQID_LEN = sizeof(ALT_PEN20_GESOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GESOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Gesomon";
-    inline static constexpr const char* ALT_PEN20_GESOMON_FQNAME = ALT_PEN20_GESOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GESOMON_FQNAME_LEN = sizeof(ALT_PEN20_GESOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GINRYUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ginryumon";
-    inline static constexpr const char* ALT_PEN20_GINRYUMON_FQID = ALT_PEN20_GINRYUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GINRYUMON_FQID_LEN = sizeof(ALT_PEN20_GINRYUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GINRYUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ginryumon";
-    inline static constexpr const char* ALT_PEN20_GINRYUMON_FQNAME = ALT_PEN20_GINRYUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GINRYUMON_FQNAME_LEN = sizeof(ALT_PEN20_GINRYUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GOMAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:gomamon";
-    inline static constexpr const char* ALT_PEN20_GOMAMON_FQID = ALT_PEN20_GOMAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GOMAMON_FQID_LEN = sizeof(ALT_PEN20_GOMAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GOMAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Gomamon";
-    inline static constexpr const char* ALT_PEN20_GOMAMON_FQNAME = ALT_PEN20_GOMAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GOMAMON_FQNAME_LEN = sizeof(ALT_PEN20_GOMAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GOTTSUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:gottsumon";
-    inline static constexpr const char* ALT_PEN20_GOTTSUMON_FQID = ALT_PEN20_GOTTSUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GOTTSUMON_FQID_LEN = sizeof(ALT_PEN20_GOTTSUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GOTTSUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Gottsumon";
-    inline static constexpr const char* ALT_PEN20_GOTTSUMON_FQNAME = ALT_PEN20_GOTTSUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GOTTSUMON_FQNAME_LEN = sizeof(ALT_PEN20_GOTTSUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:greymon";
-    inline static constexpr const char* ALT_PEN20_GREYMON_FQID = ALT_PEN20_GREYMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GREYMON_FQID_LEN = sizeof(ALT_PEN20_GREYMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GREYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Greymon";
-    inline static constexpr const char* ALT_PEN20_GREYMON_FQNAME = ALT_PEN20_GREYMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GREYMON_FQNAME_LEN = sizeof(ALT_PEN20_GREYMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GRIFFOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:griffomon";
-    inline static constexpr const char* ALT_PEN20_GRIFFOMON_FQID = ALT_PEN20_GRIFFOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GRIFFOMON_FQID_LEN = sizeof(ALT_PEN20_GRIFFOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GRIFFOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Griffomon";
-    inline static constexpr const char* ALT_PEN20_GRIFFOMON_FQNAME = ALT_PEN20_GRIFFOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GRIFFOMON_FQNAME_LEN = sizeof(ALT_PEN20_GRIFFOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GROUNDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:groundramon";
-    inline static constexpr const char* ALT_PEN20_GROUNDRAMON_FQID = ALT_PEN20_GROUNDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GROUNDRAMON_FQID_LEN = sizeof(ALT_PEN20_GROUNDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GROUNDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Groundramon";
-    inline static constexpr const char* ALT_PEN20_GROUNDRAMON_FQNAME = ALT_PEN20_GROUNDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GROUNDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_GROUNDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GROWMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:growmon";
-    inline static constexpr const char* ALT_PEN20_GROWMON_FQID = ALT_PEN20_GROWMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GROWMON_FQID_LEN = sizeof(ALT_PEN20_GROWMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GROWMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Growmon";
-    inline static constexpr const char* ALT_PEN20_GROWMON_FQNAME = ALT_PEN20_GROWMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GROWMON_FQNAME_LEN = sizeof(ALT_PEN20_GROWMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GUARDROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:guardromon";
-    inline static constexpr const char* ALT_PEN20_GUARDROMON_FQID = ALT_PEN20_GUARDROMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GUARDROMON_FQID_LEN = sizeof(ALT_PEN20_GUARDROMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GUARDROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Guardromon";
-    inline static constexpr const char* ALT_PEN20_GUARDROMON_FQNAME = ALT_PEN20_GUARDROMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GUARDROMON_FQNAME_LEN = sizeof(ALT_PEN20_GUARDROMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GUILMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:guilmon";
-    inline static constexpr const char* ALT_PEN20_GUILMON_FQID = ALT_PEN20_GUILMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GUILMON_FQID_LEN = sizeof(ALT_PEN20_GUILMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GUILMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Guilmon";
-    inline static constexpr const char* ALT_PEN20_GUILMON_FQNAME = ALT_PEN20_GUILMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GUILMON_FQNAME_LEN = sizeof(ALT_PEN20_GUILMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_GUMMYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:gummymon";
-    inline static constexpr const char* ALT_PEN20_GUMMYMON_FQID = ALT_PEN20_GUMMYMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_GUMMYMON_FQID_LEN = sizeof(ALT_PEN20_GUMMYMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_GUMMYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Gummymon";
-    inline static constexpr const char* ALT_PEN20_GUMMYMON_FQNAME = ALT_PEN20_GUMMYMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_GUMMYMON_FQNAME_LEN = sizeof(ALT_PEN20_GUMMYMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:hackmon";
-    inline static constexpr const char* ALT_PEN20_HACKMON_FQID = ALT_PEN20_HACKMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HACKMON_FQID_LEN = sizeof(ALT_PEN20_HACKMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HACKMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Hackmon";
-    inline static constexpr const char* ALT_PEN20_HACKMON_FQNAME = ALT_PEN20_HACKMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HACKMON_FQNAME_LEN = sizeof(ALT_PEN20_HACKMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HAGURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:hagurumon";
-    inline static constexpr const char* ALT_PEN20_HAGURUMON_FQID = ALT_PEN20_HAGURUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HAGURUMON_FQID_LEN = sizeof(ALT_PEN20_HAGURUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HAGURUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Hagurumon";
-    inline static constexpr const char* ALT_PEN20_HAGURUMON_FQNAME = ALT_PEN20_HAGURUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HAGURUMON_FQNAME_LEN = sizeof(ALT_PEN20_HAGURUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HANGYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:hangyomon";
-    inline static constexpr const char* ALT_PEN20_HANGYOMON_FQID = ALT_PEN20_HANGYOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HANGYOMON_FQID_LEN = sizeof(ALT_PEN20_HANGYOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HANGYOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Hangyomon";
-    inline static constexpr const char* ALT_PEN20_HANGYOMON_FQNAME = ALT_PEN20_HANGYOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HANGYOMON_FQNAME_LEN = sizeof(ALT_PEN20_HANGYOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HANUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:hanumon";
-    inline static constexpr const char* ALT_PEN20_HANUMON_FQID = ALT_PEN20_HANUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HANUMON_FQID_LEN = sizeof(ALT_PEN20_HANUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HANUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Hanumon";
-    inline static constexpr const char* ALT_PEN20_HANUMON_FQNAME = ALT_PEN20_HANUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HANUMON_FQNAME_LEN = sizeof(ALT_PEN20_HANUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HERAKLE_KABUTERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:herakle_kabuterimon";
-    inline static constexpr const char* ALT_PEN20_HERAKLE_KABUTERIMON_FQID = ALT_PEN20_HERAKLE_KABUTERIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HERAKLE_KABUTERIMON_FQID_LEN = sizeof(ALT_PEN20_HERAKLE_KABUTERIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Herakle Kabuterimon";
-    inline static constexpr const char* ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME = ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_LEN = sizeof(ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HISYARYUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:hisyaryumon";
-    inline static constexpr const char* ALT_PEN20_HISYARYUMON_FQID = ALT_PEN20_HISYARYUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HISYARYUMON_FQID_LEN = sizeof(ALT_PEN20_HISYARYUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HISYARYUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Hisyaryumon";
-    inline static constexpr const char* ALT_PEN20_HISYARYUMON_FQNAME = ALT_PEN20_HISYARYUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HISYARYUMON_FQNAME_LEN = sizeof(ALT_PEN20_HISYARYUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HOLY_ANGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:holy_angemon";
-    inline static constexpr const char* ALT_PEN20_HOLY_ANGEMON_FQID = ALT_PEN20_HOLY_ANGEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HOLY_ANGEMON_FQID_LEN = sizeof(ALT_PEN20_HOLY_ANGEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HOLY_ANGEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Holy Angemon";
-    inline static constexpr const char* ALT_PEN20_HOLY_ANGEMON_FQNAME = ALT_PEN20_HOLY_ANGEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HOLY_ANGEMON_FQNAME_LEN = sizeof(ALT_PEN20_HOLY_ANGEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HOLYDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:holydramon";
-    inline static constexpr const char* ALT_PEN20_HOLYDRAMON_FQID = ALT_PEN20_HOLYDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HOLYDRAMON_FQID_LEN = sizeof(ALT_PEN20_HOLYDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HOLYDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Holydramon";
-    inline static constexpr const char* ALT_PEN20_HOLYDRAMON_FQNAME = ALT_PEN20_HOLYDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HOLYDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_HOLYDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HOUOUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:hououmon";
-    inline static constexpr const char* ALT_PEN20_HOUOUMON_FQID = ALT_PEN20_HOUOUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HOUOUMON_FQID_LEN = sizeof(ALT_PEN20_HOUOUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HOUOUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Hououmon";
-    inline static constexpr const char* ALT_PEN20_HOUOUMON_FQNAME = ALT_PEN20_HOUOUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HOUOUMON_FQNAME_LEN = sizeof(ALT_PEN20_HOUOUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_IGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:igamon";
-    inline static constexpr const char* ALT_PEN20_IGAMON_FQID = ALT_PEN20_IGAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_IGAMON_FQID_LEN = sizeof(ALT_PEN20_IGAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_IGAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Igamon";
-    inline static constexpr const char* ALT_PEN20_IGAMON_FQNAME = ALT_PEN20_IGAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_IGAMON_FQNAME_LEN = sizeof(ALT_PEN20_IGAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_IKKAKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ikkakumon";
-    inline static constexpr const char* ALT_PEN20_IKKAKUMON_FQID = ALT_PEN20_IKKAKUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_IKKAKUMON_FQID_LEN = sizeof(ALT_PEN20_IKKAKUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_IKKAKUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ikkakumon";
-    inline static constexpr const char* ALT_PEN20_IKKAKUMON_FQNAME = ALT_PEN20_IKKAKUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_IKKAKUMON_FQNAME_LEN = sizeof(ALT_PEN20_IKKAKUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "pen:imperialdramon_fighter_mode";
-    inline static constexpr const char* ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID = ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_LEN = sizeof(ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Imperialdramon Fighter Mode";
-    inline static constexpr const char* ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME = ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_LEN = sizeof(ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_IMPMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:impmon";
-    inline static constexpr const char* ALT_PEN20_IMPMON_FQID = ALT_PEN20_IMPMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_IMPMON_FQID_LEN = sizeof(ALT_PEN20_IMPMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_IMPMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Impmon";
-    inline static constexpr const char* ALT_PEN20_IMPMON_FQNAME = ALT_PEN20_IMPMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_IMPMON_FQNAME_LEN = sizeof(ALT_PEN20_IMPMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_JESMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:jesmon";
-    inline static constexpr const char* ALT_PEN20_JESMON_FQID = ALT_PEN20_JESMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_JESMON_FQID_LEN = sizeof(ALT_PEN20_JESMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_JESMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Jesmon";
-    inline static constexpr const char* ALT_PEN20_JESMON_FQNAME = ALT_PEN20_JESMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_JESMON_FQNAME_LEN = sizeof(ALT_PEN20_JESMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_JESMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "pen:jesmon_x";
-    inline static constexpr const char* ALT_PEN20_JESMON_X_FQID = ALT_PEN20_JESMON_X_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_JESMON_X_FQID_LEN = sizeof(ALT_PEN20_JESMON_X_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_JESMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Jesmon X";
-    inline static constexpr const char* ALT_PEN20_JESMON_X_FQNAME = ALT_PEN20_JESMON_X_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_JESMON_X_FQNAME_LEN = sizeof(ALT_PEN20_JESMON_X_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_JYAGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:jyagamon";
-    inline static constexpr const char* ALT_PEN20_JYAGAMON_FQID = ALT_PEN20_JYAGAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_JYAGAMON_FQID_LEN = sizeof(ALT_PEN20_JYAGAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_JYAGAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Jyagamon";
-    inline static constexpr const char* ALT_PEN20_JYAGAMON_FQNAME = ALT_PEN20_JYAGAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_JYAGAMON_FQNAME_LEN = sizeof(ALT_PEN20_JYAGAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_JYUREIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:jyureimon";
-    inline static constexpr const char* ALT_PEN20_JYUREIMON_FQID = ALT_PEN20_JYUREIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_JYUREIMON_FQID_LEN = sizeof(ALT_PEN20_JYUREIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_JYUREIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Jyureimon";
-    inline static constexpr const char* ALT_PEN20_JYUREIMON_FQNAME = ALT_PEN20_JYUREIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_JYUREIMON_FQNAME_LEN = sizeof(ALT_PEN20_JYUREIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KABUTERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:kabuterimon";
-    inline static constexpr const char* ALT_PEN20_KABUTERIMON_FQID = ALT_PEN20_KABUTERIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KABUTERIMON_FQID_LEN = sizeof(ALT_PEN20_KABUTERIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KABUTERIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Kabuterimon";
-    inline static constexpr const char* ALT_PEN20_KABUTERIMON_FQNAME = ALT_PEN20_KABUTERIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KABUTERIMON_FQNAME_LEN = sizeof(ALT_PEN20_KABUTERIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KAKKINMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:kakkinmon";
-    inline static constexpr const char* ALT_PEN20_KAKKINMON_FQID = ALT_PEN20_KAKKINMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KAKKINMON_FQID_LEN = sizeof(ALT_PEN20_KAKKINMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KAKKINMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Kakkinmon";
-    inline static constexpr const char* ALT_PEN20_KAKKINMON_FQNAME = ALT_PEN20_KAKKINMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KAKKINMON_FQNAME_LEN = sizeof(ALT_PEN20_KAKKINMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KIWIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:kiwimon";
-    inline static constexpr const char* ALT_PEN20_KIWIMON_FQID = ALT_PEN20_KIWIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KIWIMON_FQID_LEN = sizeof(ALT_PEN20_KIWIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KIWIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Kiwimon";
-    inline static constexpr const char* ALT_PEN20_KIWIMON_FQNAME = ALT_PEN20_KIWIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KIWIMON_FQNAME_LEN = sizeof(ALT_PEN20_KIWIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KNIGHTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:knightmon";
-    inline static constexpr const char* ALT_PEN20_KNIGHTMON_FQID = ALT_PEN20_KNIGHTMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KNIGHTMON_FQID_LEN = sizeof(ALT_PEN20_KNIGHTMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KNIGHTMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Knightmon";
-    inline static constexpr const char* ALT_PEN20_KNIGHTMON_FQNAME = ALT_PEN20_KNIGHTMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KNIGHTMON_FQNAME_LEN = sizeof(ALT_PEN20_KNIGHTMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KOKUWAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:kokuwamon";
-    inline static constexpr const char* ALT_PEN20_KOKUWAMON_FQID = ALT_PEN20_KOKUWAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KOKUWAMON_FQID_LEN = sizeof(ALT_PEN20_KOKUWAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KOKUWAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Kokuwamon";
-    inline static constexpr const char* ALT_PEN20_KOKUWAMON_FQNAME = ALT_PEN20_KOKUWAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KOKUWAMON_FQNAME_LEN = sizeof(ALT_PEN20_KOKUWAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KOROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:koromon";
-    inline static constexpr const char* ALT_PEN20_KOROMON_FQID = ALT_PEN20_KOROMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KOROMON_FQID_LEN = sizeof(ALT_PEN20_KOROMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KOROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Koromon";
-    inline static constexpr const char* ALT_PEN20_KOROMON_FQNAME = ALT_PEN20_KOROMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KOROMON_FQNAME_LEN = sizeof(ALT_PEN20_KOROMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KUWAGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:kuwagamon";
-    inline static constexpr const char* ALT_PEN20_KUWAGAMON_FQID = ALT_PEN20_KUWAGAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KUWAGAMON_FQID_LEN = sizeof(ALT_PEN20_KUWAGAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KUWAGAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Kuwagamon";
-    inline static constexpr const char* ALT_PEN20_KUWAGAMON_FQNAME = ALT_PEN20_KUWAGAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KUWAGAMON_FQNAME_LEN = sizeof(ALT_PEN20_KUWAGAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_KYOKYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:kyokyomon";
-    inline static constexpr const char* ALT_PEN20_KYOKYOMON_FQID = ALT_PEN20_KYOKYOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_KYOKYOMON_FQID_LEN = sizeof(ALT_PEN20_KYOKYOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_KYOKYOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Kyokyomon";
-    inline static constexpr const char* ALT_PEN20_KYOKYOMON_FQNAME = ALT_PEN20_KYOKYOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_KYOKYOMON_FQNAME_LEN = sizeof(ALT_PEN20_KYOKYOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LADY_DEVIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lady_devimon";
-    inline static constexpr const char* ALT_PEN20_LADY_DEVIMON_FQID = ALT_PEN20_LADY_DEVIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LADY_DEVIMON_FQID_LEN = sizeof(ALT_PEN20_LADY_DEVIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LADY_DEVIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lady Devimon";
-    inline static constexpr const char* ALT_PEN20_LADY_DEVIMON_FQNAME = ALT_PEN20_LADY_DEVIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LADY_DEVIMON_FQNAME_LEN = sizeof(ALT_PEN20_LADY_DEVIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LALAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lalamon";
-    inline static constexpr const char* ALT_PEN20_LALAMON_FQID = ALT_PEN20_LALAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LALAMON_FQID_LEN = sizeof(ALT_PEN20_LALAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LALAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lalamon";
-    inline static constexpr const char* ALT_PEN20_LALAMON_FQNAME = ALT_PEN20_LALAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LALAMON_FQNAME_LEN = sizeof(ALT_PEN20_LALAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LAVOGARITAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lavogaritamon";
-    inline static constexpr const char* ALT_PEN20_LAVOGARITAMON_FQID = ALT_PEN20_LAVOGARITAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LAVOGARITAMON_FQID_LEN = sizeof(ALT_PEN20_LAVOGARITAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LAVOGARITAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lavogaritamon";
-    inline static constexpr const char* ALT_PEN20_LAVOGARITAMON_FQNAME = ALT_PEN20_LAVOGARITAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LAVOGARITAMON_FQNAME_LEN = sizeof(ALT_PEN20_LAVOGARITAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LAVORVOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lavorvomon";
-    inline static constexpr const char* ALT_PEN20_LAVORVOMON_FQID = ALT_PEN20_LAVORVOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LAVORVOMON_FQID_LEN = sizeof(ALT_PEN20_LAVORVOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LAVORVOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lavorvomon";
-    inline static constexpr const char* ALT_PEN20_LAVORVOMON_FQNAME = ALT_PEN20_LAVORVOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LAVORVOMON_FQNAME_LEN = sizeof(ALT_PEN20_LAVORVOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LEOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:leomon";
-    inline static constexpr const char* ALT_PEN20_LEOMON_FQID = ALT_PEN20_LEOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LEOMON_FQID_LEN = sizeof(ALT_PEN20_LEOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LEOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Leomon";
-    inline static constexpr const char* ALT_PEN20_LEOMON_FQNAME = ALT_PEN20_LEOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LEOMON_FQNAME_LEN = sizeof(ALT_PEN20_LEOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LILAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lilamon";
-    inline static constexpr const char* ALT_PEN20_LILAMON_FQID = ALT_PEN20_LILAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LILAMON_FQID_LEN = sizeof(ALT_PEN20_LILAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LILAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lilamon";
-    inline static constexpr const char* ALT_PEN20_LILAMON_FQNAME = ALT_PEN20_LILAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LILAMON_FQNAME_LEN = sizeof(ALT_PEN20_LILAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LILIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lilimon";
-    inline static constexpr const char* ALT_PEN20_LILIMON_FQID = ALT_PEN20_LILIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LILIMON_FQID_LEN = sizeof(ALT_PEN20_LILIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LILIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lilimon";
-    inline static constexpr const char* ALT_PEN20_LILIMON_FQNAME = ALT_PEN20_LILIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LILIMON_FQNAME_LEN = sizeof(ALT_PEN20_LILIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LOPMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lopmon";
-    inline static constexpr const char* ALT_PEN20_LOPMON_FQID = ALT_PEN20_LOPMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LOPMON_FQID_LEN = sizeof(ALT_PEN20_LOPMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LOPMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lopmon";
-    inline static constexpr const char* ALT_PEN20_LOPMON_FQNAME = ALT_PEN20_LOPMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LOPMON_FQNAME_LEN = sizeof(ALT_PEN20_LOPMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LOTUSMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:lotusmon";
-    inline static constexpr const char* ALT_PEN20_LOTUSMON_FQID = ALT_PEN20_LOTUSMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LOTUSMON_FQID_LEN = sizeof(ALT_PEN20_LOTUSMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LOTUSMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Lotusmon";
-    inline static constexpr const char* ALT_PEN20_LOTUSMON_FQNAME = ALT_PEN20_LOTUSMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LOTUSMON_FQNAME_LEN = sizeof(ALT_PEN20_LOTUSMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_LUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ludomon";
-    inline static constexpr const char* ALT_PEN20_LUDOMON_FQID = ALT_PEN20_LUDOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_LUDOMON_FQID_LEN = sizeof(ALT_PEN20_LUDOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_LUDOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ludomon";
-    inline static constexpr const char* ALT_PEN20_LUDOMON_FQNAME = ALT_PEN20_LUDOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_LUDOMON_FQNAME_LEN = sizeof(ALT_PEN20_LUDOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MAD_LEOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mad_leomon";
-    inline static constexpr const char* ALT_PEN20_MAD_LEOMON_FQID = ALT_PEN20_MAD_LEOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MAD_LEOMON_FQID_LEN = sizeof(ALT_PEN20_MAD_LEOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MAD_LEOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mad Leomon";
-    inline static constexpr const char* ALT_PEN20_MAD_LEOMON_FQNAME = ALT_PEN20_MAD_LEOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MAD_LEOMON_FQNAME_LEN = sizeof(ALT_PEN20_MAD_LEOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MAMMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mammon";
-    inline static constexpr const char* ALT_PEN20_MAMMON_FQID = ALT_PEN20_MAMMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MAMMON_FQID_LEN = sizeof(ALT_PEN20_MAMMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MAMMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mammon";
-    inline static constexpr const char* ALT_PEN20_MAMMON_FQNAME = ALT_PEN20_MAMMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MAMMON_FQNAME_LEN = sizeof(ALT_PEN20_MAMMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MANBOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:manbomon";
-    inline static constexpr const char* ALT_PEN20_MANBOMON_FQID = ALT_PEN20_MANBOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MANBOMON_FQID_LEN = sizeof(ALT_PEN20_MANBOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MANBOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Manbomon";
-    inline static constexpr const char* ALT_PEN20_MANBOMON_FQNAME = ALT_PEN20_MANBOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MANBOMON_FQNAME_LEN = sizeof(ALT_PEN20_MANBOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MARIN_ANGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:marin_angemon";
-    inline static constexpr const char* ALT_PEN20_MARIN_ANGEMON_FQID = ALT_PEN20_MARIN_ANGEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MARIN_ANGEMON_FQID_LEN = sizeof(ALT_PEN20_MARIN_ANGEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MARIN_ANGEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Marin Angemon";
-    inline static constexpr const char* ALT_PEN20_MARIN_ANGEMON_FQNAME = ALT_PEN20_MARIN_ANGEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MARIN_ANGEMON_FQNAME_LEN = sizeof(ALT_PEN20_MARIN_ANGEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MARIN_DEVIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:marin_devimon";
-    inline static constexpr const char* ALT_PEN20_MARIN_DEVIMON_FQID = ALT_PEN20_MARIN_DEVIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MARIN_DEVIMON_FQID_LEN = sizeof(ALT_PEN20_MARIN_DEVIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MARIN_DEVIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Marin Devimon";
-    inline static constexpr const char* ALT_PEN20_MARIN_DEVIMON_FQNAME = ALT_PEN20_MARIN_DEVIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MARIN_DEVIMON_FQNAME_LEN = sizeof(ALT_PEN20_MARIN_DEVIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MASTEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mastemon";
-    inline static constexpr const char* ALT_PEN20_MASTEMON_FQID = ALT_PEN20_MASTEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MASTEMON_FQID_LEN = sizeof(ALT_PEN20_MASTEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MASTEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mastemon";
-    inline static constexpr const char* ALT_PEN20_MASTEMON_FQNAME = ALT_PEN20_MASTEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MASTEMON_FQNAME_LEN = sizeof(ALT_PEN20_MASTEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MECHANORIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mechanorimon";
-    inline static constexpr const char* ALT_PEN20_MECHANORIMON_FQID = ALT_PEN20_MECHANORIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MECHANORIMON_FQID_LEN = sizeof(ALT_PEN20_MECHANORIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MECHANORIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mechanorimon";
-    inline static constexpr const char* ALT_PEN20_MECHANORIMON_FQNAME = ALT_PEN20_MECHANORIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MECHANORIMON_FQNAME_LEN = sizeof(ALT_PEN20_MECHANORIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEGADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:megadramon";
-    inline static constexpr const char* ALT_PEN20_MEGADRAMON_FQID = ALT_PEN20_MEGADRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MEGADRAMON_FQID_LEN = sizeof(ALT_PEN20_MEGADRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEGADRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Megadramon";
-    inline static constexpr const char* ALT_PEN20_MEGADRAMON_FQNAME = ALT_PEN20_MEGADRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MEGADRAMON_FQNAME_LEN = sizeof(ALT_PEN20_MEGADRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEGALO_GROWMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:megalo_growmon";
-    inline static constexpr const char* ALT_PEN20_MEGALO_GROWMON_FQID = ALT_PEN20_MEGALO_GROWMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MEGALO_GROWMON_FQID_LEN = sizeof(ALT_PEN20_MEGALO_GROWMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEGALO_GROWMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Megalo Growmon";
-    inline static constexpr const char* ALT_PEN20_MEGALO_GROWMON_FQNAME = ALT_PEN20_MEGALO_GROWMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MEGALO_GROWMON_FQNAME_LEN = sizeof(ALT_PEN20_MEGALO_GROWMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEGA_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mega_seadramon";
-    inline static constexpr const char* ALT_PEN20_MEGA_SEADRAMON_FQID = ALT_PEN20_MEGA_SEADRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MEGA_SEADRAMON_FQID_LEN = sizeof(ALT_PEN20_MEGA_SEADRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEGA_SEADRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mega Seadramon";
-    inline static constexpr const char* ALT_PEN20_MEGA_SEADRAMON_FQNAME = ALT_PEN20_MEGA_SEADRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MEGA_SEADRAMON_FQNAME_LEN = sizeof(ALT_PEN20_MEGA_SEADRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEICOOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:meicoomon";
-    inline static constexpr const char* ALT_PEN20_MEICOOMON_FQID = ALT_PEN20_MEICOOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MEICOOMON_FQID_LEN = sizeof(ALT_PEN20_MEICOOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEICOOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Meicoomon";
-    inline static constexpr const char* ALT_PEN20_MEICOOMON_FQNAME = ALT_PEN20_MEICOOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MEICOOMON_FQNAME_LEN = sizeof(ALT_PEN20_MEICOOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "pen:meicrackmon_vicious_mode";
-    inline static constexpr const char* ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID = ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_LEN = sizeof(ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Meicrackmon Vicious Mode";
-    inline static constexpr const char* ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME = ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_LEN = sizeof(ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:meramon";
-    inline static constexpr const char* ALT_PEN20_MERAMON_FQID = ALT_PEN20_MERAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MERAMON_FQID_LEN = sizeof(ALT_PEN20_MERAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Meramon";
-    inline static constexpr const char* ALT_PEN20_MERAMON_FQNAME = ALT_PEN20_MERAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MERAMON_FQNAME_LEN = sizeof(ALT_PEN20_MERAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_ETEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:metal_etemon";
-    inline static constexpr const char* ALT_PEN20_METAL_ETEMON_FQID = ALT_PEN20_METAL_ETEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_ETEMON_FQID_LEN = sizeof(ALT_PEN20_METAL_ETEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_ETEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Metal Etemon";
-    inline static constexpr const char* ALT_PEN20_METAL_ETEMON_FQNAME = ALT_PEN20_METAL_ETEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_ETEMON_FQNAME_LEN = sizeof(ALT_PEN20_METAL_ETEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:metal_garurumon";
-    inline static constexpr const char* ALT_PEN20_METAL_GARURUMON_FQID = ALT_PEN20_METAL_GARURUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_GARURUMON_FQID_LEN = sizeof(ALT_PEN20_METAL_GARURUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_GARURUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Metal Garurumon";
-    inline static constexpr const char* ALT_PEN20_METAL_GARURUMON_FQNAME = ALT_PEN20_METAL_GARURUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_GARURUMON_FQNAME_LEN = sizeof(ALT_PEN20_METAL_GARURUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:metal_greymon";
-    inline static constexpr const char* ALT_PEN20_METAL_GREYMON_FQID = ALT_PEN20_METAL_GREYMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_GREYMON_FQID_LEN = sizeof(ALT_PEN20_METAL_GREYMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_GREYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Metal Greymon";
-    inline static constexpr const char* ALT_PEN20_METAL_GREYMON_FQNAME = ALT_PEN20_METAL_GREYMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_GREYMON_FQNAME_LEN = sizeof(ALT_PEN20_METAL_GREYMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_MAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:metal_mamemon";
-    inline static constexpr const char* ALT_PEN20_METAL_MAMEMON_FQID = ALT_PEN20_METAL_MAMEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_MAMEMON_FQID_LEN = sizeof(ALT_PEN20_METAL_MAMEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_MAMEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Metal Mamemon";
-    inline static constexpr const char* ALT_PEN20_METAL_MAMEMON_FQNAME = ALT_PEN20_METAL_MAMEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_MAMEMON_FQNAME_LEN = sizeof(ALT_PEN20_METAL_MAMEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:metal_seadramon";
-    inline static constexpr const char* ALT_PEN20_METAL_SEADRAMON_FQID = ALT_PEN20_METAL_SEADRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_SEADRAMON_FQID_LEN = sizeof(ALT_PEN20_METAL_SEADRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_METAL_SEADRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Metal Seadramon";
-    inline static constexpr const char* ALT_PEN20_METAL_SEADRAMON_FQNAME = ALT_PEN20_METAL_SEADRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_METAL_SEADRAMON_FQNAME_LEN = sizeof(ALT_PEN20_METAL_SEADRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MOCHIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mochimon";
-    inline static constexpr const char* ALT_PEN20_MOCHIMON_FQID = ALT_PEN20_MOCHIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MOCHIMON_FQID_LEN = sizeof(ALT_PEN20_MOCHIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MOCHIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mochimon";
-    inline static constexpr const char* ALT_PEN20_MOCHIMON_FQNAME = ALT_PEN20_MOCHIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MOCHIMON_FQNAME_LEN = sizeof(ALT_PEN20_MOCHIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MOKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mokumon";
-    inline static constexpr const char* ALT_PEN20_MOKUMON_FQID = ALT_PEN20_MOKUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MOKUMON_FQID_LEN = sizeof(ALT_PEN20_MOKUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MOKUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mokumon";
-    inline static constexpr const char* ALT_PEN20_MOKUMON_FQNAME = ALT_PEN20_MOKUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MOKUMON_FQNAME_LEN = sizeof(ALT_PEN20_MOKUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MONOCHROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:monochromon";
-    inline static constexpr const char* ALT_PEN20_MONOCHROMON_FQID = ALT_PEN20_MONOCHROMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MONOCHROMON_FQID_LEN = sizeof(ALT_PEN20_MONOCHROMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MONOCHROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Monochromon";
-    inline static constexpr const char* ALT_PEN20_MONOCHROMON_FQNAME = ALT_PEN20_MONOCHROMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MONOCHROMON_FQNAME_LEN = sizeof(ALT_PEN20_MONOCHROMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MUGENDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mugendramon";
-    inline static constexpr const char* ALT_PEN20_MUGENDRAMON_FQID = ALT_PEN20_MUGENDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MUGENDRAMON_FQID_LEN = sizeof(ALT_PEN20_MUGENDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MUGENDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mugendramon";
-    inline static constexpr const char* ALT_PEN20_MUGENDRAMON_FQNAME = ALT_PEN20_MUGENDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MUGENDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_MUGENDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_MUSHMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:mushmon";
-    inline static constexpr const char* ALT_PEN20_MUSHMON_FQID = ALT_PEN20_MUSHMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_MUSHMON_FQID_LEN = sizeof(ALT_PEN20_MUSHMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_MUSHMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Mushmon";
-    inline static constexpr const char* ALT_PEN20_MUSHMON_FQNAME = ALT_PEN20_MUSHMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_MUSHMON_FQNAME_LEN = sizeof(ALT_PEN20_MUSHMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_NYAROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:nyaromon";
-    inline static constexpr const char* ALT_PEN20_NYAROMON_FQID = ALT_PEN20_NYAROMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_NYAROMON_FQID_LEN = sizeof(ALT_PEN20_NYAROMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_NYAROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Nyaromon";
-    inline static constexpr const char* ALT_PEN20_NYAROMON_FQNAME = ALT_PEN20_NYAROMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_NYAROMON_FQNAME_LEN = sizeof(ALT_PEN20_NYAROMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_NYOKIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:nyokimon";
-    inline static constexpr const char* ALT_PEN20_NYOKIMON_FQID = ALT_PEN20_NYOKIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_NYOKIMON_FQID_LEN = sizeof(ALT_PEN20_NYOKIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_NYOKIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Nyokimon";
-    inline static constexpr const char* ALT_PEN20_NYOKIMON_FQNAME = ALT_PEN20_NYOKIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_NYOKIMON_FQNAME_LEN = sizeof(ALT_PEN20_NYOKIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_OCTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:octmon";
-    inline static constexpr const char* ALT_PEN20_OCTMON_FQID = ALT_PEN20_OCTMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_OCTMON_FQID_LEN = sizeof(ALT_PEN20_OCTMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_OCTMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Octmon";
-    inline static constexpr const char* ALT_PEN20_OCTMON_FQNAME = ALT_PEN20_OCTMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_OCTMON_FQNAME_LEN = sizeof(ALT_PEN20_OCTMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_OFANIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ofanimon";
-    inline static constexpr const char* ALT_PEN20_OFANIMON_FQID = ALT_PEN20_OFANIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_OFANIMON_FQID_LEN = sizeof(ALT_PEN20_OFANIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_OFANIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ofanimon";
-    inline static constexpr const char* ALT_PEN20_OFANIMON_FQNAME = ALT_PEN20_OFANIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_OFANIMON_FQNAME_LEN = sizeof(ALT_PEN20_OFANIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_OGUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ogudomon";
-    inline static constexpr const char* ALT_PEN20_OGUDOMON_FQID = ALT_PEN20_OGUDOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_OGUDOMON_FQID_LEN = sizeof(ALT_PEN20_OGUDOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_OGUDOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ogudomon";
-    inline static constexpr const char* ALT_PEN20_OGUDOMON_FQNAME = ALT_PEN20_OGUDOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_OGUDOMON_FQNAME_LEN = sizeof(ALT_PEN20_OGUDOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_OKUWAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:okuwamon";
-    inline static constexpr const char* ALT_PEN20_OKUWAMON_FQID = ALT_PEN20_OKUWAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_OKUWAMON_FQID_LEN = sizeof(ALT_PEN20_OKUWAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_OKUWAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Okuwamon";
-    inline static constexpr const char* ALT_PEN20_OKUWAMON_FQNAME = ALT_PEN20_OKUWAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_OKUWAMON_FQNAME_LEN = sizeof(ALT_PEN20_OKUWAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_OMEGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:omegamon";
-    inline static constexpr const char* ALT_PEN20_OMEGAMON_FQID = ALT_PEN20_OMEGAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_OMEGAMON_FQID_LEN = sizeof(ALT_PEN20_OMEGAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_OMEGAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Omegamon";
-    inline static constexpr const char* ALT_PEN20_OMEGAMON_FQNAME = ALT_PEN20_OMEGAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_OMEGAMON_FQNAME_LEN = sizeof(ALT_PEN20_OMEGAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ORDINEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ordinemon";
-    inline static constexpr const char* ALT_PEN20_ORDINEMON_FQID = ALT_PEN20_ORDINEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ORDINEMON_FQID_LEN = sizeof(ALT_PEN20_ORDINEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ORDINEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ordinemon";
-    inline static constexpr const char* ALT_PEN20_ORDINEMON_FQNAME = ALT_PEN20_ORDINEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ORDINEMON_FQNAME_LEN = sizeof(ALT_PEN20_ORDINEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_OTAMAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:otamamon";
-    inline static constexpr const char* ALT_PEN20_OTAMAMON_FQID = ALT_PEN20_OTAMAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_OTAMAMON_FQID_LEN = sizeof(ALT_PEN20_OTAMAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_OTAMAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Otamamon";
-    inline static constexpr const char* ALT_PEN20_OTAMAMON_FQNAME = ALT_PEN20_OTAMAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_OTAMAMON_FQNAME_LEN = sizeof(ALT_PEN20_OTAMAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_OURYUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ouryumon";
-    inline static constexpr const char* ALT_PEN20_OURYUMON_FQID = ALT_PEN20_OURYUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_OURYUMON_FQID_LEN = sizeof(ALT_PEN20_OURYUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_OURYUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ouryumon";
-    inline static constexpr const char* ALT_PEN20_OURYUMON_FQNAME = ALT_PEN20_OURYUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_OURYUMON_FQNAME_LEN = sizeof(ALT_PEN20_OURYUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PAILDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:paildramon";
-    inline static constexpr const char* ALT_PEN20_PAILDRAMON_FQID = ALT_PEN20_PAILDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PAILDRAMON_FQID_LEN = sizeof(ALT_PEN20_PAILDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PAILDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Paildramon";
-    inline static constexpr const char* ALT_PEN20_PAILDRAMON_FQNAME = ALT_PEN20_PAILDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PAILDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_PAILDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PALMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:palmon";
-    inline static constexpr const char* ALT_PEN20_PALMON_FQID = ALT_PEN20_PALMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PALMON_FQID_LEN = sizeof(ALT_PEN20_PALMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PALMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Palmon";
-    inline static constexpr const char* ALT_PEN20_PALMON_FQNAME = ALT_PEN20_PALMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PALMON_FQNAME_LEN = sizeof(ALT_PEN20_PALMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PETI_MERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:peti_meramon";
-    inline static constexpr const char* ALT_PEN20_PETI_MERAMON_FQID = ALT_PEN20_PETI_MERAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PETI_MERAMON_FQID_LEN = sizeof(ALT_PEN20_PETI_MERAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PETI_MERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Peti Meramon";
-    inline static constexpr const char* ALT_PEN20_PETI_MERAMON_FQNAME = ALT_PEN20_PETI_MERAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PETI_MERAMON_FQNAME_LEN = sizeof(ALT_PEN20_PETI_MERAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PETITMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:petitmon";
-    inline static constexpr const char* ALT_PEN20_PETITMON_FQID = ALT_PEN20_PETITMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PETITMON_FQID_LEN = sizeof(ALT_PEN20_PETITMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PETITMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Petitmon";
-    inline static constexpr const char* ALT_PEN20_PETITMON_FQNAME = ALT_PEN20_PETITMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PETITMON_FQNAME_LEN = sizeof(ALT_PEN20_PETITMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PHASCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:phascomon";
-    inline static constexpr const char* ALT_PEN20_PHASCOMON_FQID = ALT_PEN20_PHASCOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PHASCOMON_FQID_LEN = sizeof(ALT_PEN20_PHASCOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PHASCOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Phascomon";
-    inline static constexpr const char* ALT_PEN20_PHASCOMON_FQNAME = ALT_PEN20_PHASCOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PHASCOMON_FQNAME_LEN = sizeof(ALT_PEN20_PHASCOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PICCOLOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:piccolomon";
-    inline static constexpr const char* ALT_PEN20_PICCOLOMON_FQID = ALT_PEN20_PICCOLOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PICCOLOMON_FQID_LEN = sizeof(ALT_PEN20_PICCOLOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PICCOLOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Piccolomon";
-    inline static constexpr const char* ALT_PEN20_PICCOLOMON_FQNAME = ALT_PEN20_PICCOLOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PICCOLOMON_FQNAME_LEN = sizeof(ALT_PEN20_PICCOLOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PICO_DEVIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:pico_devimon";
-    inline static constexpr const char* ALT_PEN20_PICO_DEVIMON_FQID = ALT_PEN20_PICO_DEVIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PICO_DEVIMON_FQID_LEN = sizeof(ALT_PEN20_PICO_DEVIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PICO_DEVIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Pico Devimon";
-    inline static constexpr const char* ALT_PEN20_PICO_DEVIMON_FQNAME = ALT_PEN20_PICO_DEVIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PICO_DEVIMON_FQNAME_LEN = sizeof(ALT_PEN20_PICO_DEVIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PIEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:piemon";
-    inline static constexpr const char* ALT_PEN20_PIEMON_FQID = ALT_PEN20_PIEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PIEMON_FQID_LEN = sizeof(ALT_PEN20_PIEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PIEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Piemon";
-    inline static constexpr const char* ALT_PEN20_PIEMON_FQNAME = ALT_PEN20_PIEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PIEMON_FQNAME_LEN = sizeof(ALT_PEN20_PIEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PINOCHIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:pinochimon";
-    inline static constexpr const char* ALT_PEN20_PINOCHIMON_FQID = ALT_PEN20_PINOCHIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PINOCHIMON_FQID_LEN = sizeof(ALT_PEN20_PINOCHIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PINOCHIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Pinochimon";
-    inline static constexpr const char* ALT_PEN20_PINOCHIMON_FQNAME = ALT_PEN20_PINOCHIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PINOCHIMON_FQNAME_LEN = sizeof(ALT_PEN20_PINOCHIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PITCHMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:pitchmon";
-    inline static constexpr const char* ALT_PEN20_PITCHMON_FQID = ALT_PEN20_PITCHMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PITCHMON_FQID_LEN = sizeof(ALT_PEN20_PITCHMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PITCHMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Pitchmon";
-    inline static constexpr const char* ALT_PEN20_PITCHMON_FQNAME = ALT_PEN20_PITCHMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PITCHMON_FQNAME_LEN = sizeof(ALT_PEN20_PITCHMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PIYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:piyomon";
-    inline static constexpr const char* ALT_PEN20_PIYOMON_FQID = ALT_PEN20_PIYOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PIYOMON_FQID_LEN = sizeof(ALT_PEN20_PIYOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PIYOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Piyomon";
-    inline static constexpr const char* ALT_PEN20_PIYOMON_FQNAME = ALT_PEN20_PIYOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PIYOMON_FQNAME_LEN = sizeof(ALT_PEN20_PIYOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PLESIOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:plesiomon";
-    inline static constexpr const char* ALT_PEN20_PLESIOMON_FQID = ALT_PEN20_PLESIOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PLESIOMON_FQID_LEN = sizeof(ALT_PEN20_PLESIOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PLESIOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Plesiomon";
-    inline static constexpr const char* ALT_PEN20_PLESIOMON_FQNAME = ALT_PEN20_PLESIOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PLESIOMON_FQNAME_LEN = sizeof(ALT_PEN20_PLESIOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PLOTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:plotmon";
-    inline static constexpr const char* ALT_PEN20_PLOTMON_FQID = ALT_PEN20_PLOTMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PLOTMON_FQID_LEN = sizeof(ALT_PEN20_PLOTMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PLOTMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Plotmon";
-    inline static constexpr const char* ALT_PEN20_PLOTMON_FQNAME = ALT_PEN20_PLOTMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PLOTMON_FQNAME_LEN = sizeof(ALT_PEN20_PLOTMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PORCUPAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:porcupamon";
-    inline static constexpr const char* ALT_PEN20_PORCUPAMON_FQID = ALT_PEN20_PORCUPAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PORCUPAMON_FQID_LEN = sizeof(ALT_PEN20_PORCUPAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PORCUPAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Porcupamon";
-    inline static constexpr const char* ALT_PEN20_PORCUPAMON_FQNAME = ALT_PEN20_PORCUPAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PORCUPAMON_FQNAME_LEN = sizeof(ALT_PEN20_PORCUPAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PUKAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:pukamon";
-    inline static constexpr const char* ALT_PEN20_PUKAMON_FQID = ALT_PEN20_PUKAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PUKAMON_FQID_LEN = sizeof(ALT_PEN20_PUKAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PUKAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Pukamon";
-    inline static constexpr const char* ALT_PEN20_PUKAMON_FQNAME = ALT_PEN20_PUKAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PUKAMON_FQNAME_LEN = sizeof(ALT_PEN20_PUKAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PUKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:pukumon";
-    inline static constexpr const char* ALT_PEN20_PUKUMON_FQID = ALT_PEN20_PUKUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PUKUMON_FQID_LEN = sizeof(ALT_PEN20_PUKUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PUKUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Pukumon";
-    inline static constexpr const char* ALT_PEN20_PUKUMON_FQNAME = ALT_PEN20_PUKUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PUKUMON_FQNAME_LEN = sizeof(ALT_PEN20_PUKUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PUMPMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:pumpmon";
-    inline static constexpr const char* ALT_PEN20_PUMPMON_FQID = ALT_PEN20_PUMPMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PUMPMON_FQID_LEN = sizeof(ALT_PEN20_PUMPMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PUMPMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Pumpmon";
-    inline static constexpr const char* ALT_PEN20_PUMPMON_FQNAME = ALT_PEN20_PUMPMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PUMPMON_FQNAME_LEN = sizeof(ALT_PEN20_PUMPMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_PYOCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:pyocomon";
-    inline static constexpr const char* ALT_PEN20_PYOCOMON_FQID = ALT_PEN20_PYOCOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_PYOCOMON_FQID_LEN = sizeof(ALT_PEN20_PYOCOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_PYOCOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Pyocomon";
-    inline static constexpr const char* ALT_PEN20_PYOCOMON_FQNAME = ALT_PEN20_PYOCOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_PYOCOMON_FQNAME_LEN = sizeof(ALT_PEN20_PYOCOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAFFLESIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:rafflesimon";
-    inline static constexpr const char* ALT_PEN20_RAFFLESIMON_FQID = ALT_PEN20_RAFFLESIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RAFFLESIMON_FQID_LEN = sizeof(ALT_PEN20_RAFFLESIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAFFLESIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Rafflesimon";
-    inline static constexpr const char* ALT_PEN20_RAFFLESIMON_FQNAME = ALT_PEN20_RAFFLESIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RAFFLESIMON_FQNAME_LEN = sizeof(ALT_PEN20_RAFFLESIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAGNA_LORDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ragna_lordmon";
-    inline static constexpr const char* ALT_PEN20_RAGNA_LORDMON_FQID = ALT_PEN20_RAGNA_LORDMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RAGNA_LORDMON_FQID_LEN = sizeof(ALT_PEN20_RAGNA_LORDMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAGNA_LORDMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ragna Lordmon";
-    inline static constexpr const char* ALT_PEN20_RAGNA_LORDMON_FQNAME = ALT_PEN20_RAGNA_LORDMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RAGNA_LORDMON_FQNAME_LEN = sizeof(ALT_PEN20_RAGNA_LORDMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAGUELMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:raguelmon";
-    inline static constexpr const char* ALT_PEN20_RAGUELMON_FQID = ALT_PEN20_RAGUELMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RAGUELMON_FQID_LEN = sizeof(ALT_PEN20_RAGUELMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAGUELMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Raguelmon";
-    inline static constexpr const char* ALT_PEN20_RAGUELMON_FQNAME = ALT_PEN20_RAGUELMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RAGUELMON_FQNAME_LEN = sizeof(ALT_PEN20_RAGUELMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAIJI_LUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:raiji_ludomon";
-    inline static constexpr const char* ALT_PEN20_RAIJI_LUDOMON_FQID = ALT_PEN20_RAIJI_LUDOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RAIJI_LUDOMON_FQID_LEN = sizeof(ALT_PEN20_RAIJI_LUDOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAIJI_LUDOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Raiji Ludomon";
-    inline static constexpr const char* ALT_PEN20_RAIJI_LUDOMON_FQNAME = ALT_PEN20_RAIJI_LUDOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RAIJI_LUDOMON_FQNAME_LEN = sizeof(ALT_PEN20_RAIJI_LUDOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAPIDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:rapidmon";
-    inline static constexpr const char* ALT_PEN20_RAPIDMON_FQID = ALT_PEN20_RAPIDMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RAPIDMON_FQID_LEN = sizeof(ALT_PEN20_RAPIDMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAPIDMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Rapidmon";
-    inline static constexpr const char* ALT_PEN20_RAPIDMON_FQNAME = ALT_PEN20_RAPIDMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RAPIDMON_FQNAME_LEN = sizeof(ALT_PEN20_RAPIDMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RED_VEGIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:red_vegimon";
-    inline static constexpr const char* ALT_PEN20_RED_VEGIMON_FQID = ALT_PEN20_RED_VEGIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RED_VEGIMON_FQID_LEN = sizeof(ALT_PEN20_RED_VEGIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RED_VEGIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Red Vegimon";
-    inline static constexpr const char* ALT_PEN20_RED_VEGIMON_FQNAME = ALT_PEN20_RED_VEGIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RED_VEGIMON_FQNAME_LEN = sizeof(ALT_PEN20_RED_VEGIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_REPPAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:reppamon";
-    inline static constexpr const char* ALT_PEN20_REPPAMON_FQID = ALT_PEN20_REPPAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_REPPAMON_FQID_LEN = sizeof(ALT_PEN20_REPPAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_REPPAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Reppamon";
-    inline static constexpr const char* ALT_PEN20_REPPAMON_FQNAME = ALT_PEN20_REPPAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_REPPAMON_FQNAME_LEN = sizeof(ALT_PEN20_REPPAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_REVOLMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:revolmon";
-    inline static constexpr const char* ALT_PEN20_REVOLMON_FQID = ALT_PEN20_REVOLMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_REVOLMON_FQID_LEN = sizeof(ALT_PEN20_REVOLMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_REVOLMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Revolmon";
-    inline static constexpr const char* ALT_PEN20_REVOLMON_FQNAME = ALT_PEN20_REVOLMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_REVOLMON_FQNAME_LEN = sizeof(ALT_PEN20_REVOLMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RIZE_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:rize_greymon";
-    inline static constexpr const char* ALT_PEN20_RIZE_GREYMON_FQID = ALT_PEN20_RIZE_GREYMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RIZE_GREYMON_FQID_LEN = sizeof(ALT_PEN20_RIZE_GREYMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RIZE_GREYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Rize Greymon";
-    inline static constexpr const char* ALT_PEN20_RIZE_GREYMON_FQNAME = ALT_PEN20_RIZE_GREYMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RIZE_GREYMON_FQNAME_LEN = sizeof(ALT_PEN20_RIZE_GREYMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ROSEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:rosemon";
-    inline static constexpr const char* ALT_PEN20_ROSEMON_FQID = ALT_PEN20_ROSEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ROSEMON_FQID_LEN = sizeof(ALT_PEN20_ROSEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ROSEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Rosemon";
-    inline static constexpr const char* ALT_PEN20_ROSEMON_FQNAME = ALT_PEN20_ROSEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ROSEMON_FQNAME_LEN = sizeof(ALT_PEN20_ROSEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RUKAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:rukamon";
-    inline static constexpr const char* ALT_PEN20_RUKAMON_FQID = ALT_PEN20_RUKAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RUKAMON_FQID_LEN = sizeof(ALT_PEN20_RUKAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RUKAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Rukamon";
-    inline static constexpr const char* ALT_PEN20_RUKAMON_FQNAME = ALT_PEN20_RUKAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RUKAMON_FQNAME_LEN = sizeof(ALT_PEN20_RUKAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RYUDAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:ryudamon";
-    inline static constexpr const char* ALT_PEN20_RYUDAMON_FQID = ALT_PEN20_RYUDAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RYUDAMON_FQID_LEN = sizeof(ALT_PEN20_RYUDAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RYUDAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Ryudamon";
-    inline static constexpr const char* ALT_PEN20_RYUDAMON_FQNAME = ALT_PEN20_RYUDAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RYUDAMON_FQNAME_LEN = sizeof(ALT_PEN20_RYUDAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SABER_LEOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:saber_leomon";
-    inline static constexpr const char* ALT_PEN20_SABER_LEOMON_FQID = ALT_PEN20_SABER_LEOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SABER_LEOMON_FQID_LEN = sizeof(ALT_PEN20_SABER_LEOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SABER_LEOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Saber Leomon";
-    inline static constexpr const char* ALT_PEN20_SABER_LEOMON_FQNAME = ALT_PEN20_SABER_LEOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SABER_LEOMON_FQNAME_LEN = sizeof(ALT_PEN20_SABER_LEOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAINT_GALGOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:saint_galgomon";
-    inline static constexpr const char* ALT_PEN20_SAINT_GALGOMON_FQID = ALT_PEN20_SAINT_GALGOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SAINT_GALGOMON_FQID_LEN = sizeof(ALT_PEN20_SAINT_GALGOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAINT_GALGOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Saint Galgomon";
-    inline static constexpr const char* ALT_PEN20_SAINT_GALGOMON_FQNAME = ALT_PEN20_SAINT_GALGOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SAINT_GALGOMON_FQNAME_LEN = sizeof(ALT_PEN20_SAINT_GALGOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:sakumon";
-    inline static constexpr const char* ALT_PEN20_SAKUMON_FQID = ALT_PEN20_SAKUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SAKUMON_FQID_LEN = sizeof(ALT_PEN20_SAKUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAKUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Sakumon";
-    inline static constexpr const char* ALT_PEN20_SAKUMON_FQNAME = ALT_PEN20_SAKUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SAKUMON_FQNAME_LEN = sizeof(ALT_PEN20_SAKUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAKUTTOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:sakuttomon";
-    inline static constexpr const char* ALT_PEN20_SAKUTTOMON_FQID = ALT_PEN20_SAKUTTOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SAKUTTOMON_FQID_LEN = sizeof(ALT_PEN20_SAKUTTOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAKUTTOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Sakuttomon";
-    inline static constexpr const char* ALT_PEN20_SAKUTTOMON_FQNAME = ALT_PEN20_SAKUTTOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SAKUTTOMON_FQNAME_LEN = sizeof(ALT_PEN20_SAKUTTOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAVIOR_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:savior_hackmon";
-    inline static constexpr const char* ALT_PEN20_SAVIOR_HACKMON_FQID = ALT_PEN20_SAVIOR_HACKMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SAVIOR_HACKMON_FQID_LEN = sizeof(ALT_PEN20_SAVIOR_HACKMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SAVIOR_HACKMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Savior Hackmon";
-    inline static constexpr const char* ALT_PEN20_SAVIOR_HACKMON_FQNAME = ALT_PEN20_SAVIOR_HACKMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SAVIOR_HACKMON_FQNAME_LEN = sizeof(ALT_PEN20_SAVIOR_HACKMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:seadramon";
-    inline static constexpr const char* ALT_PEN20_SEADRAMON_FQID = ALT_PEN20_SEADRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SEADRAMON_FQID_LEN = sizeof(ALT_PEN20_SEADRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SEADRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Seadramon";
-    inline static constexpr const char* ALT_PEN20_SEADRAMON_FQNAME = ALT_PEN20_SEADRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SEADRAMON_FQNAME_LEN = sizeof(ALT_PEN20_SEADRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SERAPHIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:seraphimon";
-    inline static constexpr const char* ALT_PEN20_SERAPHIMON_FQID = ALT_PEN20_SERAPHIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SERAPHIMON_FQID_LEN = sizeof(ALT_PEN20_SERAPHIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SERAPHIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Seraphimon";
-    inline static constexpr const char* ALT_PEN20_SERAPHIMON_FQNAME = ALT_PEN20_SERAPHIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SERAPHIMON_FQNAME_LEN = sizeof(ALT_PEN20_SERAPHIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SHADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:shadramon";
-    inline static constexpr const char* ALT_PEN20_SHADRAMON_FQID = ALT_PEN20_SHADRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SHADRAMON_FQID_LEN = sizeof(ALT_PEN20_SHADRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SHADRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Shadramon";
-    inline static constexpr const char* ALT_PEN20_SHADRAMON_FQNAME = ALT_PEN20_SHADRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SHADRAMON_FQNAME_LEN = sizeof(ALT_PEN20_SHADRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SHAKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:shakomon";
-    inline static constexpr const char* ALT_PEN20_SHAKOMON_FQID = ALT_PEN20_SHAKOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SHAKOMON_FQID_LEN = sizeof(ALT_PEN20_SHAKOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SHAKOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Shakomon";
-    inline static constexpr const char* ALT_PEN20_SHAKOMON_FQNAME = ALT_PEN20_SHAKOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SHAKOMON_FQNAME_LEN = sizeof(ALT_PEN20_SHAKOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SKULL_MAMMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:skull_mammon";
-    inline static constexpr const char* ALT_PEN20_SKULL_MAMMON_FQID = ALT_PEN20_SKULL_MAMMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SKULL_MAMMON_FQID_LEN = sizeof(ALT_PEN20_SKULL_MAMMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SKULL_MAMMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Skull Mammon";
-    inline static constexpr const char* ALT_PEN20_SKULL_MAMMON_FQNAME = ALT_PEN20_SKULL_MAMMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SKULL_MAMMON_FQNAME_LEN = sizeof(ALT_PEN20_SKULL_MAMMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SLAYERDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:slayerdramon";
-    inline static constexpr const char* ALT_PEN20_SLAYERDRAMON_FQID = ALT_PEN20_SLAYERDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SLAYERDRAMON_FQID_LEN = sizeof(ALT_PEN20_SLAYERDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SLAYERDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Slayerdramon";
-    inline static constexpr const char* ALT_PEN20_SLAYERDRAMON_FQNAME = ALT_PEN20_SLAYERDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SLAYERDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_SLAYERDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_STARMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:starmon";
-    inline static constexpr const char* ALT_PEN20_STARMON_FQID = ALT_PEN20_STARMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_STARMON_FQID_LEN = sizeof(ALT_PEN20_STARMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_STARMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Starmon";
-    inline static constexpr const char* ALT_PEN20_STARMON_FQNAME = ALT_PEN20_STARMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_STARMON_FQNAME_LEN = sizeof(ALT_PEN20_STARMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_SUNFLOWMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:sunflowmon";
-    inline static constexpr const char* ALT_PEN20_SUNFLOWMON_FQID = ALT_PEN20_SUNFLOWMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_SUNFLOWMON_FQID_LEN = sizeof(ALT_PEN20_SUNFLOWMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_SUNFLOWMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Sunflowmon";
-    inline static constexpr const char* ALT_PEN20_SUNFLOWMON_FQNAME = ALT_PEN20_SUNFLOWMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_SUNFLOWMON_FQNAME_LEN = sizeof(ALT_PEN20_SUNFLOWMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TAILMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:tailmon";
-    inline static constexpr const char* ALT_PEN20_TAILMON_FQID = ALT_PEN20_TAILMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TAILMON_FQID_LEN = sizeof(ALT_PEN20_TAILMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TAILMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Tailmon";
-    inline static constexpr const char* ALT_PEN20_TAILMON_FQNAME = ALT_PEN20_TAILMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TAILMON_FQNAME_LEN = sizeof(ALT_PEN20_TAILMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TANKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:tankmon";
-    inline static constexpr const char* ALT_PEN20_TANKMON_FQID = ALT_PEN20_TANKMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TANKMON_FQID_LEN = sizeof(ALT_PEN20_TANKMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TANKMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Tankmon";
-    inline static constexpr const char* ALT_PEN20_TANKMON_FQNAME = ALT_PEN20_TANKMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TANKMON_FQNAME_LEN = sizeof(ALT_PEN20_TANKMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TARGETMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:targetmon";
-    inline static constexpr const char* ALT_PEN20_TARGETMON_FQID = ALT_PEN20_TARGETMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TARGETMON_FQID_LEN = sizeof(ALT_PEN20_TARGETMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TARGETMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Targetmon";
-    inline static constexpr const char* ALT_PEN20_TARGETMON_FQNAME = ALT_PEN20_TARGETMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TARGETMON_FQNAME_LEN = sizeof(ALT_PEN20_TARGETMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TENTOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:tentomon";
-    inline static constexpr const char* ALT_PEN20_TENTOMON_FQID = ALT_PEN20_TENTOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TENTOMON_FQID_LEN = sizeof(ALT_PEN20_TENTOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TENTOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Tentomon";
-    inline static constexpr const char* ALT_PEN20_TENTOMON_FQNAME = ALT_PEN20_TENTOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TENTOMON_FQNAME_LEN = sizeof(ALT_PEN20_TENTOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TERRIERMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:terriermon";
-    inline static constexpr const char* ALT_PEN20_TERRIERMON_FQID = ALT_PEN20_TERRIERMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TERRIERMON_FQID_LEN = sizeof(ALT_PEN20_TERRIERMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TERRIERMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Terriermon";
-    inline static constexpr const char* ALT_PEN20_TERRIERMON_FQNAME = ALT_PEN20_TERRIERMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TERRIERMON_FQNAME_LEN = sizeof(ALT_PEN20_TERRIERMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_THUNDERBALLMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:thunderballmon";
-    inline static constexpr const char* ALT_PEN20_THUNDERBALLMON_FQID = ALT_PEN20_THUNDERBALLMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_THUNDERBALLMON_FQID_LEN = sizeof(ALT_PEN20_THUNDERBALLMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_THUNDERBALLMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Thunderballmon";
-    inline static constexpr const char* ALT_PEN20_THUNDERBALLMON_FQNAME = ALT_PEN20_THUNDERBALLMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_THUNDERBALLMON_FQNAME_LEN = sizeof(ALT_PEN20_THUNDERBALLMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TIA_LUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:tia_ludomon";
-    inline static constexpr const char* ALT_PEN20_TIA_LUDOMON_FQID = ALT_PEN20_TIA_LUDOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TIA_LUDOMON_FQID_LEN = sizeof(ALT_PEN20_TIA_LUDOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TIA_LUDOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Tia Ludomon";
-    inline static constexpr const char* ALT_PEN20_TIA_LUDOMON_FQNAME = ALT_PEN20_TIA_LUDOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TIA_LUDOMON_FQNAME_LEN = sizeof(ALT_PEN20_TIA_LUDOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TOGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:togemon";
-    inline static constexpr const char* ALT_PEN20_TOGEMON_FQID = ALT_PEN20_TOGEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TOGEMON_FQID_LEN = sizeof(ALT_PEN20_TOGEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TOGEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Togemon";
-    inline static constexpr const char* ALT_PEN20_TOGEMON_FQNAME = ALT_PEN20_TOGEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TOGEMON_FQNAME_LEN = sizeof(ALT_PEN20_TOGEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TONOSAMA_GEKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:tonosama_gekomon";
-    inline static constexpr const char* ALT_PEN20_TONOSAMA_GEKOMON_FQID = ALT_PEN20_TONOSAMA_GEKOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TONOSAMA_GEKOMON_FQID_LEN = sizeof(ALT_PEN20_TONOSAMA_GEKOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Tonosama Gekomon";
-    inline static constexpr const char* ALT_PEN20_TONOSAMA_GEKOMON_FQNAME = ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_LEN = sizeof(ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TORTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:tortamon";
-    inline static constexpr const char* ALT_PEN20_TORTAMON_FQID = ALT_PEN20_TORTAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TORTAMON_FQID_LEN = sizeof(ALT_PEN20_TORTAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TORTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Tortamon";
-    inline static constexpr const char* ALT_PEN20_TORTAMON_FQNAME = ALT_PEN20_TORTAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TORTAMON_FQNAME_LEN = sizeof(ALT_PEN20_TORTAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TOY_AGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:toy_agumon";
-    inline static constexpr const char* ALT_PEN20_TOY_AGUMON_FQID = ALT_PEN20_TOY_AGUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TOY_AGUMON_FQID_LEN = sizeof(ALT_PEN20_TOY_AGUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TOY_AGUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Toy Agumon";
-    inline static constexpr const char* ALT_PEN20_TOY_AGUMON_FQNAME = ALT_PEN20_TOY_AGUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TOY_AGUMON_FQNAME_LEN = sizeof(ALT_PEN20_TOY_AGUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TRICERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:triceramon";
-    inline static constexpr const char* ALT_PEN20_TRICERAMON_FQID = ALT_PEN20_TRICERAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TRICERAMON_FQID_LEN = sizeof(ALT_PEN20_TRICERAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TRICERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Triceramon";
-    inline static constexpr const char* ALT_PEN20_TRICERAMON_FQNAME = ALT_PEN20_TRICERAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TRICERAMON_FQNAME_LEN = sizeof(ALT_PEN20_TRICERAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TROOPMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:troopmon";
-    inline static constexpr const char* ALT_PEN20_TROOPMON_FQID = ALT_PEN20_TROOPMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TROOPMON_FQID_LEN = sizeof(ALT_PEN20_TROOPMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TROOPMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Troopmon";
-    inline static constexpr const char* ALT_PEN20_TROOPMON_FQNAME = ALT_PEN20_TROOPMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TROOPMON_FQNAME_LEN = sizeof(ALT_PEN20_TROOPMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_TURUIEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:turuiemon";
-    inline static constexpr const char* ALT_PEN20_TURUIEMON_FQID = ALT_PEN20_TURUIEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_TURUIEMON_FQID_LEN = sizeof(ALT_PEN20_TURUIEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_TURUIEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Turuiemon";
-    inline static constexpr const char* ALT_PEN20_TURUIEMON_FQNAME = ALT_PEN20_TURUIEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_TURUIEMON_FQNAME_LEN = sizeof(ALT_PEN20_TURUIEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_VAMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:vamdemon";
-    inline static constexpr const char* ALT_PEN20_VAMDEMON_FQID = ALT_PEN20_VAMDEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_VAMDEMON_FQID_LEN = sizeof(ALT_PEN20_VAMDEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_VAMDEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Vamdemon";
-    inline static constexpr const char* ALT_PEN20_VAMDEMON_FQNAME = ALT_PEN20_VAMDEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_VAMDEMON_FQNAME_LEN = sizeof(ALT_PEN20_VAMDEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_V_DRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:v_dramon";
-    inline static constexpr const char* ALT_PEN20_V_DRAMON_FQID = ALT_PEN20_V_DRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_V_DRAMON_FQID_LEN = sizeof(ALT_PEN20_V_DRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_V_DRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:V-dramon";
-    inline static constexpr const char* ALT_PEN20_V_DRAMON_FQNAME = ALT_PEN20_V_DRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_V_DRAMON_FQNAME_LEN = sizeof(ALT_PEN20_V_DRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_VENOM_VAMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:venom_vamdemon";
-    inline static constexpr const char* ALT_PEN20_VENOM_VAMDEMON_FQID = ALT_PEN20_VENOM_VAMDEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_VENOM_VAMDEMON_FQID_LEN = sizeof(ALT_PEN20_VENOM_VAMDEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_VENOM_VAMDEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Venom Vamdemon";
-    inline static constexpr const char* ALT_PEN20_VENOM_VAMDEMON_FQNAME = ALT_PEN20_VENOM_VAMDEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_VENOM_VAMDEMON_FQNAME_LEN = sizeof(ALT_PEN20_VENOM_VAMDEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_V_MON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:v_mon";
-    inline static constexpr const char* ALT_PEN20_V_MON_FQID = ALT_PEN20_V_MON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_V_MON_FQID_LEN = sizeof(ALT_PEN20_V_MON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_V_MON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:V-mon";
-    inline static constexpr const char* ALT_PEN20_V_MON_FQNAME = ALT_PEN20_V_MON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_V_MON_FQNAME_LEN = sizeof(ALT_PEN20_V_MON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_VOLCANICDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:volcanicdramon";
-    inline static constexpr const char* ALT_PEN20_VOLCANICDRAMON_FQID = ALT_PEN20_VOLCANICDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_VOLCANICDRAMON_FQID_LEN = sizeof(ALT_PEN20_VOLCANICDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_VOLCANICDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Volcanicdramon";
-    inline static constexpr const char* ALT_PEN20_VOLCANICDRAMON_FQNAME = ALT_PEN20_VOLCANICDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_VOLCANICDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_VOLCANICDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_VOLTOBAUTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:voltobautamon";
-    inline static constexpr const char* ALT_PEN20_VOLTOBAUTAMON_FQID = ALT_PEN20_VOLTOBAUTAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_VOLTOBAUTAMON_FQID_LEN = sizeof(ALT_PEN20_VOLTOBAUTAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_VOLTOBAUTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Voltobautamon";
-    inline static constexpr const char* ALT_PEN20_VOLTOBAUTAMON_FQNAME = ALT_PEN20_VOLTOBAUTAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_VOLTOBAUTAMON_FQNAME_LEN = sizeof(ALT_PEN20_VOLTOBAUTAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_VORVOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:vorvomon";
-    inline static constexpr const char* ALT_PEN20_VORVOMON_FQID = ALT_PEN20_VORVOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_VORVOMON_FQID_LEN = sizeof(ALT_PEN20_VORVOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_VORVOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Vorvomon";
-    inline static constexpr const char* ALT_PEN20_VORVOMON_FQNAME = ALT_PEN20_VORVOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_VORVOMON_FQNAME_LEN = sizeof(ALT_PEN20_VORVOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_WAR_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:war_greymon";
-    inline static constexpr const char* ALT_PEN20_WAR_GREYMON_FQID = ALT_PEN20_WAR_GREYMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_WAR_GREYMON_FQID_LEN = sizeof(ALT_PEN20_WAR_GREYMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_WAR_GREYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:War Greymon";
-    inline static constexpr const char* ALT_PEN20_WAR_GREYMON_FQNAME = ALT_PEN20_WAR_GREYMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_WAR_GREYMON_FQNAME_LEN = sizeof(ALT_PEN20_WAR_GREYMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_WARU_MONZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:waru_monzaemon";
-    inline static constexpr const char* ALT_PEN20_WARU_MONZAEMON_FQID = ALT_PEN20_WARU_MONZAEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_WARU_MONZAEMON_FQID_LEN = sizeof(ALT_PEN20_WARU_MONZAEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_WARU_MONZAEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Waru Monzaemon";
-    inline static constexpr const char* ALT_PEN20_WARU_MONZAEMON_FQNAME = ALT_PEN20_WARU_MONZAEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_WARU_MONZAEMON_FQNAME_LEN = sizeof(ALT_PEN20_WARU_MONZAEMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_WERE_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:were_garurumon";
-    inline static constexpr const char* ALT_PEN20_WERE_GARURUMON_FQID = ALT_PEN20_WERE_GARURUMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_WERE_GARURUMON_FQID_LEN = sizeof(ALT_PEN20_WERE_GARURUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_WERE_GARURUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Were Garurumon";
-    inline static constexpr const char* ALT_PEN20_WERE_GARURUMON_FQNAME = ALT_PEN20_WERE_GARURUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_WERE_GARURUMON_FQNAME_LEN = sizeof(ALT_PEN20_WERE_GARURUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_WHAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:whamon";
-    inline static constexpr const char* ALT_PEN20_WHAMON_FQID = ALT_PEN20_WHAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_WHAMON_FQID_LEN = sizeof(ALT_PEN20_WHAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_WHAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Whamon";
-    inline static constexpr const char* ALT_PEN20_WHAMON_FQNAME = ALT_PEN20_WHAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_WHAMON_FQNAME_LEN = sizeof(ALT_PEN20_WHAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_WINGDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:wingdramon";
-    inline static constexpr const char* ALT_PEN20_WINGDRAMON_FQID = ALT_PEN20_WINGDRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_WINGDRAMON_FQID_LEN = sizeof(ALT_PEN20_WINGDRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_WINGDRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Wingdramon";
-    inline static constexpr const char* ALT_PEN20_WINGDRAMON_FQNAME = ALT_PEN20_WINGDRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_WINGDRAMON_FQNAME_LEN = sizeof(ALT_PEN20_WINGDRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_WIZARMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:wizarmon";
-    inline static constexpr const char* ALT_PEN20_WIZARMON_FQID = ALT_PEN20_WIZARMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_WIZARMON_FQID_LEN = sizeof(ALT_PEN20_WIZARMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_WIZARMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Wizarmon";
-    inline static constexpr const char* ALT_PEN20_WIZARMON_FQNAME = ALT_PEN20_WIZARMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_WIZARMON_FQNAME_LEN = sizeof(ALT_PEN20_WIZARMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_WOODMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:woodmon";
-    inline static constexpr const char* ALT_PEN20_WOODMON_FQID = ALT_PEN20_WOODMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_WOODMON_FQID_LEN = sizeof(ALT_PEN20_WOODMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_WOODMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Woodmon";
-    inline static constexpr const char* ALT_PEN20_WOODMON_FQNAME = ALT_PEN20_WOODMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_WOODMON_FQNAME_LEN = sizeof(ALT_PEN20_WOODMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_XV_MON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:xv_mon";
-    inline static constexpr const char* ALT_PEN20_XV_MON_FQID = ALT_PEN20_XV_MON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_XV_MON_FQID_LEN = sizeof(ALT_PEN20_XV_MON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_XV_MON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:XV-mon";
-    inline static constexpr const char* ALT_PEN20_XV_MON_FQNAME = ALT_PEN20_XV_MON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_XV_MON_FQNAME_LEN = sizeof(ALT_PEN20_XV_MON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_YUKIMI_BOTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:yukimi_botamon";
-    inline static constexpr const char* ALT_PEN20_YUKIMI_BOTAMON_FQID = ALT_PEN20_YUKIMI_BOTAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_YUKIMI_BOTAMON_FQID_LEN = sizeof(ALT_PEN20_YUKIMI_BOTAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_YUKIMI_BOTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Yukimi Botamon";
-    inline static constexpr const char* ALT_PEN20_YUKIMI_BOTAMON_FQNAME = ALT_PEN20_YUKIMI_BOTAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_YUKIMI_BOTAMON_FQNAME_LEN = sizeof(ALT_PEN20_YUKIMI_BOTAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:zerimon";
-    inline static constexpr const char* ALT_PEN20_ZERIMON_FQID = ALT_PEN20_ZERIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ZERIMON_FQID_LEN = sizeof(ALT_PEN20_ZERIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZERIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Zerimon";
-    inline static constexpr const char* ALT_PEN20_ZERIMON_FQNAME = ALT_PEN20_ZERIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ZERIMON_FQNAME_LEN = sizeof(ALT_PEN20_ZERIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZUBAEAGERMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:zubaeagermon";
-    inline static constexpr const char* ALT_PEN20_ZUBAEAGERMON_FQID = ALT_PEN20_ZUBAEAGERMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ZUBAEAGERMON_FQID_LEN = sizeof(ALT_PEN20_ZUBAEAGERMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZUBAEAGERMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Zubaeagermon";
-    inline static constexpr const char* ALT_PEN20_ZUBAEAGERMON_FQNAME = ALT_PEN20_ZUBAEAGERMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ZUBAEAGERMON_FQNAME_LEN = sizeof(ALT_PEN20_ZUBAEAGERMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZUBAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:zubamon";
-    inline static constexpr const char* ALT_PEN20_ZUBAMON_FQID = ALT_PEN20_ZUBAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ZUBAMON_FQID_LEN = sizeof(ALT_PEN20_ZUBAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZUBAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Zubamon";
-    inline static constexpr const char* ALT_PEN20_ZUBAMON_FQNAME = ALT_PEN20_ZUBAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ZUBAMON_FQNAME_LEN = sizeof(ALT_PEN20_ZUBAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen:zudomon";
-    inline static constexpr const char* ALT_PEN20_ZUDOMON_FQID = ALT_PEN20_ZUDOMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ZUDOMON_FQID_LEN = sizeof(ALT_PEN20_ZUDOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ZUDOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen:Zudomon";
-    inline static constexpr const char* ALT_PEN20_ZUDOMON_FQNAME = ALT_PEN20_ZUDOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ZUDOMON_FQNAME_LEN = sizeof(ALT_PEN20_ZUDOMON_FQNAME_ARR)-1;
+    // @string-blob ALT_PEN20_STRINGS (generated by scripts/build_string_blobs.sh, 466 strings, 6741 bytes)
+    static constexpr char ALT_PEN20_STRINGS[] CONFIG_LOCAL_STRING_SECTION =
+        "pen:imperialdramon_fighter_mode\0"
+        "pen:Imperialdramon Fighter Mode\0"
+        "pen:meicrackmon_vicious_mode\0"
+        "pen:Meicrackmon Vicious Mode\0"
+        "pen:beelzebumon_blast_mode\0"
+        "pen:Beelzebumon Blast Mode\0"
+        "pen:herakle_kabuterimon\0"
+        "pen:Herakle Kabuterimon\0"
+        "pen:Coredramon (Green)\0"
+        "pen:alphamon_ouryuken\0"
+        "pen:Alphamon Ouryuken\0"
+        "pen:atlur_kabuterimon\0"
+        "pen:Atlur Kabuterimon\0"
+        "pen:Coredramon (Blue)\0"
+        "pen:coredramon_green\0"
+        "pen:tonosama_gekomon\0"
+        "pen:Tonosama Gekomon\0"
+        "pen:coredramon_blue\0"
+        "pen:metal_garurumon\0"
+        "pen:Metal Garurumon\0"
+        "pen:metal_seadramon\0"
+        "pen:Metal Seadramon\0"
+        "pen:anomalocarimon\0"
+        "pen:Anomalocarimon\0"
+        "pen:arresterdramon\0"
+        "pen:Arresterdramon\0"
+        "pen:dark_knightmon\0"
+        "pen:Dark Knightmon\0"
+        "pen:megalo_growmon\0"
+        "pen:Megalo Growmon\0"
+        "pen:mega_seadramon\0"
+        "pen:Mega Seadramon\0"
+        "pen:saint_galgomon\0"
+        "pen:Saint Galgomon\0"
+        "pen:savior_hackmon\0"
+        "pen:Savior Hackmon\0"
+        "pen:thunderballmon\0"
+        "pen:Thunderballmon\0"
+        "pen:venom_vamdemon\0"
+        "pen:Venom Vamdemon\0"
+        "pen:volcanicdramon\0"
+        "pen:Volcanicdramon\0"
+        "pen:waru_monzaemon\0"
+        "pen:Waru Monzaemon\0"
+        "pen:were_garurumon\0"
+        "pen:Were Garurumon\0"
+        "pen:yukimi_botamon\0"
+        "pen:Yukimi Botamon\0"
+        "pen:aero_v_dramon\0"
+        "pen:Aero V-dramon\0"
+        "pen:agumon_hakase\0"
+        "pen:Agumon Hakase\0"
+        "pen:bancho_leomon\0"
+        "pen:Bancho Leomon\0"
+        "pen:bryweludramon\0"
+        "pen:Bryweludramon\0"
+        "pen:death_meramon\0"
+        "pen:Death Meramon\0"
+        "pen:lavogaritamon\0"
+        "pen:Lavogaritamon\0"
+        "pen:marin_angemon\0"
+        "pen:Marin Angemon\0"
+        "pen:marin_devimon\0"
+        "pen:Marin Devimon\0"
+        "pen:metal_greymon\0"
+        "pen:Metal Greymon\0"
+        "pen:metal_mamemon\0"
+        "pen:Metal Mamemon\0"
+        "pen:ragna_lordmon\0"
+        "pen:Ragna Lordmon\0"
+        "pen:raiji_ludomon\0"
+        "pen:Raiji Ludomon\0"
+        "pen:voltobautamon\0"
+        "pen:Voltobautamon\0"
+        "pen:bushi_agumon\0"
+        "pen:Bushi Agumon\0"
+        "pen:holy_angemon\0"
+        "pen:Holy Angemon\0"
+        "pen:lady_devimon\0"
+        "pen:Lady Devimon\0"
+        "pen:mechanorimon\0"
+        "pen:Mechanorimon\0"
+        "pen:metal_etemon\0"
+        "pen:Metal Etemon\0"
+        "pen:peti_meramon\0"
+        "pen:Peti Meramon\0"
+        "pen:pico_devimon\0"
+        "pen:Pico Devimon\0"
+        "pen:rize_greymon\0"
+        "pen:Rize Greymon\0"
+        "pen:saber_leomon\0"
+        "pen:Saber Leomon\0"
+        "pen:skull_mammon\0"
+        "pen:Skull Mammon\0"
+        "pen:slayerdramon\0"
+        "pen:Slayerdramon\0"
+        "pen:zubaeagermon\0"
+        "pen:Zubaeagermon\0"
+        "pen:bao_hackmon\0"
+        "pen:Bao Hackmon\0"
+        "pen:big_mamemon\0"
+        "pen:Big Mamemon\0"
+        "pen:breakdramon\0"
+        "pen:Breakdramon\0"
+        "pen:cyberdramon\0"
+        "pen:Cyberdramon\0"
+        "pen:dorugoramon\0"
+        "pen:DORUgoramon\0"
+        "pen:doruguremon\0"
+        "pen:DORUguremon\0"
+        "pen:groundramon\0"
+        "pen:Groundramon\0"
+        "pen:hisyaryumon\0"
+        "pen:Hisyaryumon\0"
+        "pen:kabuterimon\0"
+        "pen:Kabuterimon\0"
+        "pen:monochromon\0"
+        "pen:Monochromon\0"
+        "pen:mugendramon\0"
+        "pen:Mugendramon\0"
+        "pen:rafflesimon\0"
+        "pen:Rafflesimon\0"
+        "pen:red_vegimon\0"
+        "pen:Red Vegimon\0"
+        "pen:tia_ludomon\0"
+        "pen:Tia Ludomon\0"
+        "pen:war_greymon\0"
+        "pen:War Greymon\0"
+        "pen:beowolfmon\0"
+        "pen:Beowolfmon\0"
+        "pen:cherubimon\0"
+        "pen:Cherubimon\0"
+        "pen:cotsucomon\0"
+        "pen:Cotsucomon\0"
+        "pen:darkdramon\0"
+        "pen:Darkdramon\0"
+        "pen:devidramon\0"
+        "pen:Devidramon\0"
+        "pen:durandamon\0"
+        "pen:Durandamon\0"
+        "pen:guardromon\0"
+        "pen:Guardromon\0"
+        "pen:holydramon\0"
+        "pen:Holydramon\0"
+        "pen:lavorvomon\0"
+        "pen:Lavorvomon\0"
+        "pen:mad_leomon\0"
+        "pen:Mad Leomon\0"
+        "pen:megadramon\0"
+        "pen:Megadramon\0"
+        "pen:paildramon\0"
+        "pen:Paildramon\0"
+        "pen:piccolomon\0"
+        "pen:Piccolomon\0"
+        "pen:pinochimon\0"
+        "pen:Pinochimon\0"
+        "pen:porcupamon\0"
+        "pen:Porcupamon\0"
+        "pen:sakuttomon\0"
+        "pen:Sakuttomon\0"
+        "pen:seraphimon\0"
+        "pen:Seraphimon\0"
+        "pen:sunflowmon\0"
+        "pen:Sunflowmon\0"
+        "pen:terriermon\0"
+        "pen:Terriermon\0"
+        "pen:toy_agumon\0"
+        "pen:Toy Agumon\0"
+        "pen:triceramon\0"
+        "pen:Triceramon\0"
+        "pen:wingdramon\0"
+        "pen:Wingdramon\0"
+        "pen:andiramon\0"
+        "pen:Andiramon\0"
+        "pen:angewomon\0"
+        "pen:Angewomon\0"
+        "pen:birdramon\0"
+        "pen:Birdramon\0"
+        "pen:blossomon\0"
+        "pen:Blossomon\0"
+        "pen:dokugumon\0"
+        "pen:Dokugumon\0"
+        "pen:dorugamon\0"
+        "pen:DORUgamon\0"
+        "pen:ebidramon\0"
+        "pen:Ebidramon\0"
+        "pen:garudamon\0"
+        "pen:Garudamon\0"
+        "pen:garurumon\0"
+        "pen:Garurumon\0"
+        "pen:ginryumon\0"
+        "pen:Ginryumon\0"
+        "pen:gottsumon\0"
+        "pen:Gottsumon\0"
+        "pen:griffomon\0"
+        "pen:Griffomon\0"
+        "pen:hagurumon\0"
+        "pen:Hagurumon\0"
+        "pen:hangyomon\0"
+        "pen:Hangyomon\0"
+        "pen:ikkakumon\0"
+        "pen:Ikkakumon\0"
+        "pen:jyureimon\0"
+        "pen:Jyureimon\0"
+        "pen:kakkinmon\0"
+        "pen:Kakkinmon\0"
+        "pen:knightmon\0"
+        "pen:Knightmon\0"
+        "pen:kokuwamon\0"
+        "pen:Kokuwamon\0"
+        "pen:kuwagamon\0"
+        "pen:Kuwagamon\0"
+        "pen:kyokyomon\0"
+        "pen:Kyokyomon\0"
+        "pen:meicoomon\0"
+        "pen:Meicoomon\0"
+        "pen:ordinemon\0"
+        "pen:Ordinemon\0"
+        "pen:phascomon\0"
+        "pen:Phascomon\0"
+        "pen:plesiomon\0"
+        "pen:Plesiomon\0"
+        "pen:raguelmon\0"
+        "pen:Raguelmon\0"
+        "pen:seadramon\0"
+        "pen:Seadramon\0"
+        "pen:shadramon\0"
+        "pen:Shadramon\0"
+        "pen:targetmon\0"
+        "pen:Targetmon\0"
+        "pen:turuiemon\0"
+        "pen:Turuiemon\0"
+        "pen:alphamon\0"
+        "pen:Alphamon\0"
+        "pen:andromon\0"
+        "pen:Andromon\0"
+        "pen:asuramon\0"
+        "pen:Asuramon\0"
+        "pen:babydmon\0"
+        "pen:Babydmon\0"
+        "pen:caprimon\0"
+        "pen:Caprimon\0"
+        "pen:chaosmon\0"
+        "pen:Chaosmon\0"
+        "pen:chibimon\0"
+        "pen:Chibimon\0"
+        "pen:chicomon\0"
+        "pen:Chicomon\0"
+        "pen:chocomon\0"
+        "pen:Chocomon\0"
+        "pen:choromon\0"
+        "pen:Choromon\0"
+        "pen:clockmon\0"
+        "pen:Clockmon\0"
+        "pen:coelamon\0"
+        "pen:Coelamon\0"
+        "pen:dracomon\0"
+        "pen:Dracomon\0"
+        "pen:fantomon\0"
+        "pen:Fantomon\0"
+        "pen:floramon\0"
+        "pen:Floramon\0"
+        "pen:galgomon\0"
+        "pen:Galgomon\0"
+        "pen:gerbemon\0"
+        "pen:Gerbemon\0"
+        "pen:gummymon\0"
+        "pen:Gummymon\0"
+        "pen:hououmon\0"
+        "pen:Hououmon\0"
+        "pen:jesmon_x\0"
+        "pen:Jesmon X\0"
+        "pen:jyagamon\0"
+        "pen:Jyagamon\0"
+        "pen:lotusmon\0"
+        "pen:Lotusmon\0"
+        "pen:manbomon\0"
+        "pen:Manbomon\0"
+        "pen:mastemon\0"
+        "pen:Mastemon\0"
+        "pen:mochimon\0"
+        "pen:Mochimon\0"
+        "pen:nyaromon\0"
+        "pen:Nyaromon\0"
+        "pen:nyokimon\0"
+        "pen:Nyokimon\0"
+        "pen:ofanimon\0"
+        "pen:Ofanimon\0"
+        "pen:ogudomon\0"
+        "pen:Ogudomon\0"
+        "pen:okuwamon\0"
+        "pen:Okuwamon\0"
+        "pen:omegamon\0"
+        "pen:Omegamon\0"
+        "pen:otamamon\0"
+        "pen:Otamamon\0"
+        "pen:ouryumon\0"
+        "pen:Ouryumon\0"
+        "pen:petitmon\0"
+        "pen:Petitmon\0"
+        "pen:pitchmon\0"
+        "pen:Pitchmon\0"
+        "pen:pyocomon\0"
+        "pen:Pyocomon\0"
+        "pen:rapidmon\0"
+        "pen:Rapidmon\0"
+        "pen:reppamon\0"
+        "pen:Reppamon\0"
+        "pen:revolmon\0"
+        "pen:Revolmon\0"
+        "pen:ryudamon\0"
+        "pen:Ryudamon\0"
+        "pen:shakomon\0"
+        "pen:Shakomon\0"
+        "pen:tentomon\0"
+        "pen:Tentomon\0"
+        "pen:tortamon\0"
+        "pen:Tortamon\0"
+        "pen:troopmon\0"
+        "pen:Troopmon\0"
+        "pen:vamdemon\0"
+        "pen:Vamdemon\0"
+        "pen:v_dramon\0"
+        "pen:V-dramon\0"
+        "pen:vorvomon\0"
+        "pen:Vorvomon\0"
+        "pen:wizarmon\0"
+        "pen:Wizarmon\0"
+        "pen:angemon\0"
+        "pen:Angemon\0"
+        "pen:astamon\0"
+        "pen:Astamon\0"
+        "pen:baalmon\0"
+        "pen:Baalmon\0"
+        "pen:bakemon\0"
+        "pen:Bakemon\0"
+        "pen:bakumon\0"
+        "pen:Bakumon\0"
+        "pen:boltmon\0"
+        "pen:Boltmon\0"
+        "pen:botamon\0"
+        "pen:Botamon\0"
+        "pen:bubbmon\0"
+        "pen:Bubbmon\0"
+        "pen:candmon\0"
+        "pen:Candmon\0"
+        "pen:cocomon\0"
+        "pen:Cocomon\0"
+        "pen:dagomon\0"
+        "pen:Dagomon\0"
+        "pen:delumon\0"
+        "pen:Delumon\0"
+        "pen:devimon\0"
+        "pen:Devimon\0"
+        "pen:dodomon\0"
+        "pen:Dodomon\0"
+        "pen:dorimon\0"
+        "pen:Dorimon\0"
+        "pen:dorumon\0"
+        "pen:DORUmon\0"
+        "pen:duramon\0"
+        "pen:Duramon\0"
+        "pen:fufumon\0"
+        "pen:Fufumon\0"
+        "pen:gabumon\0"
+        "pen:Gabumon\0"
+        "pen:ganimon\0"
+        "pen:Ganimon\0"
+        "pen:gekomon\0"
+        "pen:Gekomon\0"
+        "pen:gesomon\0"
+        "pen:Gesomon\0"
+        "pen:gomamon\0"
+        "pen:Gomamon\0"
+        "pen:greymon\0"
+        "pen:Greymon\0"
+        "pen:growmon\0"
+        "pen:Growmon\0"
+        "pen:guilmon\0"
+        "pen:Guilmon\0"
+        "pen:hackmon\0"
+        "pen:Hackmon\0"
+        "pen:hanumon\0"
+        "pen:Hanumon\0"
+        "pen:kiwimon\0"
+        "pen:Kiwimon\0"
+        "pen:koromon\0"
+        "pen:Koromon\0"
+        "pen:lalamon\0"
+        "pen:Lalamon\0"
+        "pen:lilamon\0"
+        "pen:Lilamon\0"
+        "pen:lilimon\0"
+        "pen:Lilimon\0"
+        "pen:ludomon\0"
+        "pen:Ludomon\0"
+        "pen:meramon\0"
+        "pen:Meramon\0"
+        "pen:mokumon\0"
+        "pen:Mokumon\0"
+        "pen:mushmon\0"
+        "pen:Mushmon\0"
+        "pen:piyomon\0"
+        "pen:Piyomon\0"
+        "pen:plotmon\0"
+        "pen:Plotmon\0"
+        "pen:pukamon\0"
+        "pen:Pukamon\0"
+        "pen:pukumon\0"
+        "pen:Pukumon\0"
+        "pen:pumpmon\0"
+        "pen:Pumpmon\0"
+        "pen:rosemon\0"
+        "pen:Rosemon\0"
+        "pen:rukamon\0"
+        "pen:Rukamon\0"
+        "pen:sakumon\0"
+        "pen:Sakumon\0"
+        "pen:starmon\0"
+        "pen:Starmon\0"
+        "pen:tailmon\0"
+        "pen:Tailmon\0"
+        "pen:tankmon\0"
+        "pen:Tankmon\0"
+        "pen:togemon\0"
+        "pen:Togemon\0"
+        "pen:woodmon\0"
+        "pen:Woodmon\0"
+        "pen:zerimon\0"
+        "pen:Zerimon\0"
+        "pen:zubamon\0"
+        "pen:Zubamon\0"
+        "pen:zudomon\0"
+        "pen:Zudomon\0"
+        "pen:agumon\0"
+        "pen:Agumon\0"
+        "pen:budmon\0"
+        "pen:Budmon\0"
+        "pen:etemon\0"
+        "pen:Etemon\0"
+        "pen:examon\0"
+        "pen:Examon\0"
+        "pen:igamon\0"
+        "pen:Igamon\0"
+        "pen:impmon\0"
+        "pen:Impmon\0"
+        "pen:jesmon\0"
+        "pen:Jesmon\0"
+        "pen:leomon\0"
+        "pen:Leomon\0"
+        "pen:lopmon\0"
+        "pen:Lopmon\0"
+        "pen:mammon\0"
+        "pen:Mammon\0"
+        "pen:octmon\0"
+        "pen:Octmon\0"
+        "pen:palmon\0"
+        "pen:Palmon\0"
+        "pen:piemon\0"
+        "pen:Piemon\0"
+        "pen:whamon\0"
+        "pen:Whamon\0"
+        "pen:xv_mon\0"
+        "pen:XV-mon\0"
+        "pen:v_mon\0"
+        "pen:V-mon\0";
+    static constexpr uint32_t ALT_PEN20_AERO_V_DRAMON_FQID_OFF = 1014;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_AERO_V_DRAMON_FQID_OFF, "pen:aero_v_dramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_AERO_V_DRAMON_FQNAME_OFF = 1032;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_AERO_V_DRAMON_FQNAME_OFF, "pen:Aero V-dramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_AGUMON_HAKASE_FQID_OFF = 1050;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_AGUMON_HAKASE_FQID_OFF, "pen:agumon_hakase"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_AGUMON_HAKASE_FQNAME_OFF = 1068;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_AGUMON_HAKASE_FQNAME_OFF, "pen:Agumon Hakase"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_AGUMON_FQID_OFF = 6390;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_AGUMON_FQID_OFF, "pen:agumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_AGUMON_FQNAME_OFF = 6401;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_AGUMON_FQNAME_OFF, "pen:Agumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ALPHAMON_OURYUKEN_FQID_OFF = 247;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ALPHAMON_OURYUKEN_FQID_OFF, "pen:alphamon_ouryuken"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_OFF = 269;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_OFF, "pen:Alphamon Ouryuken"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ALPHAMON_FQID_OFF = 3870;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ALPHAMON_FQID_OFF, "pen:alphamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ALPHAMON_FQNAME_OFF = 3883;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ALPHAMON_FQNAME_OFF, "pen:Alphamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANDIRAMON_FQID_OFF = 3030;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANDIRAMON_FQID_OFF, "pen:andiramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANDIRAMON_FQNAME_OFF = 3044;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANDIRAMON_FQNAME_OFF, "pen:Andiramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANDROMON_FQID_OFF = 3896;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANDROMON_FQID_OFF, "pen:andromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANDROMON_FQNAME_OFF = 3909;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANDROMON_FQNAME_OFF, "pen:Andromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANGEMON_FQID_OFF = 5118;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANGEMON_FQID_OFF, "pen:angemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANGEMON_FQNAME_OFF = 5130;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANGEMON_FQNAME_OFF, "pen:Angemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANGEWOMON_FQID_OFF = 3058;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANGEWOMON_FQID_OFF, "pen:angewomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANGEWOMON_FQNAME_OFF = 3072;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANGEWOMON_FQNAME_OFF, "pen:Angewomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANOMALOCARIMON_FQID_OFF = 520;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANOMALOCARIMON_FQID_OFF, "pen:anomalocarimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ANOMALOCARIMON_FQNAME_OFF = 539;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ANOMALOCARIMON_FQNAME_OFF, "pen:Anomalocarimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ARRESTERDRAMON_FQID_OFF = 558;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ARRESTERDRAMON_FQID_OFF, "pen:arresterdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ARRESTERDRAMON_FQNAME_OFF = 577;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ARRESTERDRAMON_FQNAME_OFF, "pen:Arresterdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ASTAMON_FQID_OFF = 5142;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ASTAMON_FQID_OFF, "pen:astamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ASTAMON_FQNAME_OFF = 5154;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ASTAMON_FQNAME_OFF, "pen:Astamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ASURAMON_FQID_OFF = 3922;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ASURAMON_FQID_OFF, "pen:asuramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ASURAMON_FQNAME_OFF = 3935;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ASURAMON_FQNAME_OFF, "pen:Asuramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ATLUR_KABUTERIMON_FQID_OFF = 291;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ATLUR_KABUTERIMON_FQID_OFF, "pen:atlur_kabuterimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_OFF = 313;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_OFF, "pen:Atlur Kabuterimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAALMON_FQID_OFF = 5166;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAALMON_FQID_OFF, "pen:baalmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAALMON_FQNAME_OFF = 5178;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAALMON_FQNAME_OFF, "pen:Baalmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BABYDMON_FQID_OFF = 3948;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BABYDMON_FQID_OFF, "pen:babydmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BABYDMON_FQNAME_OFF = 3961;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BABYDMON_FQNAME_OFF, "pen:Babydmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAKEMON_FQID_OFF = 5190;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAKEMON_FQID_OFF, "pen:bakemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAKEMON_FQNAME_OFF = 5202;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAKEMON_FQNAME_OFF, "pen:Bakemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAKUMON_FQID_OFF = 5214;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAKUMON_FQID_OFF, "pen:bakumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAKUMON_FQNAME_OFF = 5226;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAKUMON_FQNAME_OFF, "pen:Bakumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BANCHO_LEOMON_FQID_OFF = 1086;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BANCHO_LEOMON_FQID_OFF, "pen:bancho_leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BANCHO_LEOMON_FQNAME_OFF = 1104;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BANCHO_LEOMON_FQNAME_OFF, "pen:Bancho Leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAO_HACKMON_FQID_OFF = 1890;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAO_HACKMON_FQID_OFF, "pen:bao_hackmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BAO_HACKMON_FQNAME_OFF = 1906;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BAO_HACKMON_FQNAME_OFF, "pen:Bao Hackmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_OFF = 122;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_OFF, "pen:beelzebumon_blast_mode"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_OFF = 149;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_OFF, "pen:Beelzebumon Blast Mode"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BEOWOLFMON_FQID_OFF = 2370;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BEOWOLFMON_FQID_OFF, "pen:beowolfmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BEOWOLFMON_FQNAME_OFF = 2385;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BEOWOLFMON_FQNAME_OFF, "pen:Beowolfmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BIG_MAMEMON_FQID_OFF = 1922;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BIG_MAMEMON_FQID_OFF, "pen:big_mamemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BIG_MAMEMON_FQNAME_OFF = 1938;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BIG_MAMEMON_FQNAME_OFF, "pen:Big Mamemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BIRDRAMON_FQID_OFF = 3086;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BIRDRAMON_FQID_OFF, "pen:birdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BIRDRAMON_FQNAME_OFF = 3100;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BIRDRAMON_FQNAME_OFF, "pen:Birdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BLOSSOMON_FQID_OFF = 3114;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BLOSSOMON_FQID_OFF, "pen:blossomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BLOSSOMON_FQNAME_OFF = 3128;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BLOSSOMON_FQNAME_OFF, "pen:Blossomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BOLTMON_FQID_OFF = 5238;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BOLTMON_FQID_OFF, "pen:boltmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BOLTMON_FQNAME_OFF = 5250;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BOLTMON_FQNAME_OFF, "pen:Boltmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BOTAMON_FQID_OFF = 5262;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BOTAMON_FQID_OFF, "pen:botamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BOTAMON_FQNAME_OFF = 5274;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BOTAMON_FQNAME_OFF, "pen:Botamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BREAKDRAMON_FQID_OFF = 1954;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BREAKDRAMON_FQID_OFF, "pen:breakdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BREAKDRAMON_FQNAME_OFF = 1970;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BREAKDRAMON_FQNAME_OFF, "pen:Breakdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BRYWELUDRAMON_FQID_OFF = 1122;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BRYWELUDRAMON_FQID_OFF, "pen:bryweludramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BRYWELUDRAMON_FQNAME_OFF = 1140;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BRYWELUDRAMON_FQNAME_OFF, "pen:Bryweludramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BUBBMON_FQID_OFF = 5286;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BUBBMON_FQID_OFF, "pen:bubbmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BUBBMON_FQNAME_OFF = 5298;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BUBBMON_FQNAME_OFF, "pen:Bubbmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BUDMON_FQID_OFF = 6412;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BUDMON_FQID_OFF, "pen:budmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BUDMON_FQNAME_OFF = 6423;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BUDMON_FQNAME_OFF, "pen:Budmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BUSHI_AGUMON_FQID_OFF = 1482;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BUSHI_AGUMON_FQID_OFF, "pen:bushi_agumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_BUSHI_AGUMON_FQNAME_OFF = 1499;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_BUSHI_AGUMON_FQNAME_OFF, "pen:Bushi Agumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CANDMON_FQID_OFF = 5310;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CANDMON_FQID_OFF, "pen:candmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CANDMON_FQNAME_OFF = 5322;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CANDMON_FQNAME_OFF, "pen:Candmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CAPRIMON_FQID_OFF = 3974;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CAPRIMON_FQID_OFF, "pen:caprimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CAPRIMON_FQNAME_OFF = 3987;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CAPRIMON_FQNAME_OFF, "pen:Caprimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHAOSMON_FQID_OFF = 4000;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHAOSMON_FQID_OFF, "pen:chaosmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHAOSMON_FQNAME_OFF = 4013;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHAOSMON_FQNAME_OFF, "pen:Chaosmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHERUBIMON_FQID_OFF = 2400;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHERUBIMON_FQID_OFF, "pen:cherubimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHERUBIMON_FQNAME_OFF = 2415;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHERUBIMON_FQNAME_OFF, "pen:Cherubimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHIBIMON_FQID_OFF = 4026;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHIBIMON_FQID_OFF, "pen:chibimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHIBIMON_FQNAME_OFF = 4039;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHIBIMON_FQNAME_OFF, "pen:Chibimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHICOMON_FQID_OFF = 4052;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHICOMON_FQID_OFF, "pen:chicomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHICOMON_FQNAME_OFF = 4065;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHICOMON_FQNAME_OFF, "pen:Chicomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHOCOMON_FQID_OFF = 4078;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHOCOMON_FQID_OFF, "pen:chocomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHOCOMON_FQNAME_OFF = 4091;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHOCOMON_FQNAME_OFF, "pen:Chocomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHOROMON_FQID_OFF = 4104;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHOROMON_FQID_OFF, "pen:choromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CHOROMON_FQNAME_OFF = 4117;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CHOROMON_FQNAME_OFF, "pen:Choromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CLOCKMON_FQID_OFF = 4130;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CLOCKMON_FQID_OFF, "pen:clockmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CLOCKMON_FQNAME_OFF = 4143;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CLOCKMON_FQNAME_OFF, "pen:Clockmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COCOMON_FQID_OFF = 5334;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COCOMON_FQID_OFF, "pen:cocomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COCOMON_FQNAME_OFF = 5346;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COCOMON_FQNAME_OFF, "pen:Cocomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COELAMON_FQID_OFF = 4156;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COELAMON_FQID_OFF, "pen:coelamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COELAMON_FQNAME_OFF = 4169;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COELAMON_FQNAME_OFF, "pen:Coelamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COREDRAMON_BLUE_FQID_OFF = 420;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COREDRAMON_BLUE_FQID_OFF, "pen:coredramon_blue"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COREDRAMON_BLUE_FQNAME_OFF = 335;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COREDRAMON_BLUE_FQNAME_OFF, "pen:Coredramon (Blue)"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COREDRAMON_GREEN_FQID_OFF = 357;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COREDRAMON_GREEN_FQID_OFF, "pen:coredramon_green"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COREDRAMON_GREEN_FQNAME_OFF = 224;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COREDRAMON_GREEN_FQNAME_OFF, "pen:Coredramon (Green)"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COTSUCOMON_FQID_OFF = 2430;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COTSUCOMON_FQID_OFF, "pen:cotsucomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_COTSUCOMON_FQNAME_OFF = 2445;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_COTSUCOMON_FQNAME_OFF, "pen:Cotsucomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CYBERDRAMON_FQID_OFF = 1986;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CYBERDRAMON_FQID_OFF, "pen:cyberdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_CYBERDRAMON_FQNAME_OFF = 2002;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_CYBERDRAMON_FQNAME_OFF, "pen:Cyberdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DAGOMON_FQID_OFF = 5358;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DAGOMON_FQID_OFF, "pen:dagomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DAGOMON_FQNAME_OFF = 5370;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DAGOMON_FQNAME_OFF, "pen:Dagomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DARKDRAMON_FQID_OFF = 2460;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DARKDRAMON_FQID_OFF, "pen:darkdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DARKDRAMON_FQNAME_OFF = 2475;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DARKDRAMON_FQNAME_OFF, "pen:Darkdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DARK_KNIGHTMON_FQID_OFF = 596;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DARK_KNIGHTMON_FQID_OFF, "pen:dark_knightmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DARK_KNIGHTMON_FQNAME_OFF = 615;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DARK_KNIGHTMON_FQNAME_OFF, "pen:Dark Knightmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DEATH_MERAMON_FQID_OFF = 1158;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DEATH_MERAMON_FQID_OFF, "pen:death_meramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DEATH_MERAMON_FQNAME_OFF = 1176;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DEATH_MERAMON_FQNAME_OFF, "pen:Death Meramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DELUMON_FQID_OFF = 5382;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DELUMON_FQID_OFF, "pen:delumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DELUMON_FQNAME_OFF = 5394;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DELUMON_FQNAME_OFF, "pen:Delumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DEVIDRAMON_FQID_OFF = 2490;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DEVIDRAMON_FQID_OFF, "pen:devidramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DEVIDRAMON_FQNAME_OFF = 2505;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DEVIDRAMON_FQNAME_OFF, "pen:Devidramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DEVIMON_FQID_OFF = 5406;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DEVIMON_FQID_OFF, "pen:devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DEVIMON_FQNAME_OFF = 5418;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DEVIMON_FQNAME_OFF, "pen:Devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DODOMON_FQID_OFF = 5430;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DODOMON_FQID_OFF, "pen:dodomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DODOMON_FQNAME_OFF = 5442;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DODOMON_FQNAME_OFF, "pen:Dodomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DOKUGUMON_FQID_OFF = 3142;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DOKUGUMON_FQID_OFF, "pen:dokugumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DOKUGUMON_FQNAME_OFF = 3156;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DOKUGUMON_FQNAME_OFF, "pen:Dokugumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORIMON_FQID_OFF = 5454;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORIMON_FQID_OFF, "pen:dorimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORIMON_FQNAME_OFF = 5466;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORIMON_FQNAME_OFF, "pen:Dorimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUGAMON_FQID_OFF = 3170;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUGAMON_FQID_OFF, "pen:dorugamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUGAMON_FQNAME_OFF = 3184;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUGAMON_FQNAME_OFF, "pen:DORUgamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUGORAMON_FQID_OFF = 2018;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUGORAMON_FQID_OFF, "pen:dorugoramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUGORAMON_FQNAME_OFF = 2034;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUGORAMON_FQNAME_OFF, "pen:DORUgoramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUGUREMON_FQID_OFF = 2050;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUGUREMON_FQID_OFF, "pen:doruguremon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUGUREMON_FQNAME_OFF = 2066;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUGUREMON_FQNAME_OFF, "pen:DORUguremon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUMON_FQID_OFF = 5478;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUMON_FQID_OFF, "pen:dorumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DORUMON_FQNAME_OFF = 5490;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DORUMON_FQNAME_OFF, "pen:DORUmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DRACOMON_FQID_OFF = 4182;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DRACOMON_FQID_OFF, "pen:dracomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DRACOMON_FQNAME_OFF = 4195;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DRACOMON_FQNAME_OFF, "pen:Dracomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DURAMON_FQID_OFF = 5502;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DURAMON_FQID_OFF, "pen:duramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DURAMON_FQNAME_OFF = 5514;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DURAMON_FQNAME_OFF, "pen:Duramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DURANDAMON_FQID_OFF = 2520;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DURANDAMON_FQID_OFF, "pen:durandamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_DURANDAMON_FQNAME_OFF = 2535;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_DURANDAMON_FQNAME_OFF, "pen:Durandamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_EBIDRAMON_FQID_OFF = 3198;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_EBIDRAMON_FQID_OFF, "pen:ebidramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_EBIDRAMON_FQNAME_OFF = 3212;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_EBIDRAMON_FQNAME_OFF, "pen:Ebidramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ETEMON_FQID_OFF = 6434;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ETEMON_FQID_OFF, "pen:etemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ETEMON_FQNAME_OFF = 6445;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ETEMON_FQNAME_OFF, "pen:Etemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_EXAMON_FQID_OFF = 6456;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_EXAMON_FQID_OFF, "pen:examon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_EXAMON_FQNAME_OFF = 6467;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_EXAMON_FQNAME_OFF, "pen:Examon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_FANTOMON_FQID_OFF = 4208;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_FANTOMON_FQID_OFF, "pen:fantomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_FANTOMON_FQNAME_OFF = 4221;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_FANTOMON_FQNAME_OFF, "pen:Fantomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_FLORAMON_FQID_OFF = 4234;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_FLORAMON_FQID_OFF, "pen:floramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_FLORAMON_FQNAME_OFF = 4247;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_FLORAMON_FQNAME_OFF, "pen:Floramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_FUFUMON_FQID_OFF = 5526;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_FUFUMON_FQID_OFF, "pen:fufumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_FUFUMON_FQNAME_OFF = 5538;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_FUFUMON_FQNAME_OFF, "pen:Fufumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GABUMON_FQID_OFF = 5550;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GABUMON_FQID_OFF, "pen:gabumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GABUMON_FQNAME_OFF = 5562;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GABUMON_FQNAME_OFF, "pen:Gabumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GALGOMON_FQID_OFF = 4260;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GALGOMON_FQID_OFF, "pen:galgomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GALGOMON_FQNAME_OFF = 4273;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GALGOMON_FQNAME_OFF, "pen:Galgomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GANIMON_FQID_OFF = 5574;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GANIMON_FQID_OFF, "pen:ganimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GANIMON_FQNAME_OFF = 5586;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GANIMON_FQNAME_OFF, "pen:Ganimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GARUDAMON_FQID_OFF = 3226;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GARUDAMON_FQID_OFF, "pen:garudamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GARUDAMON_FQNAME_OFF = 3240;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GARUDAMON_FQNAME_OFF, "pen:Garudamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GARURUMON_FQID_OFF = 3254;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GARURUMON_FQID_OFF, "pen:garurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GARURUMON_FQNAME_OFF = 3268;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GARURUMON_FQNAME_OFF, "pen:Garurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GEKOMON_FQID_OFF = 5598;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GEKOMON_FQID_OFF, "pen:gekomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GEKOMON_FQNAME_OFF = 5610;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GEKOMON_FQNAME_OFF, "pen:Gekomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GERBEMON_FQID_OFF = 4286;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GERBEMON_FQID_OFF, "pen:gerbemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GERBEMON_FQNAME_OFF = 4299;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GERBEMON_FQNAME_OFF, "pen:Gerbemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GESOMON_FQID_OFF = 5622;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GESOMON_FQID_OFF, "pen:gesomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GESOMON_FQNAME_OFF = 5634;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GESOMON_FQNAME_OFF, "pen:Gesomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GINRYUMON_FQID_OFF = 3282;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GINRYUMON_FQID_OFF, "pen:ginryumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GINRYUMON_FQNAME_OFF = 3296;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GINRYUMON_FQNAME_OFF, "pen:Ginryumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GOMAMON_FQID_OFF = 5646;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GOMAMON_FQID_OFF, "pen:gomamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GOMAMON_FQNAME_OFF = 5658;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GOMAMON_FQNAME_OFF, "pen:Gomamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GOTTSUMON_FQID_OFF = 3310;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GOTTSUMON_FQID_OFF, "pen:gottsumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GOTTSUMON_FQNAME_OFF = 3324;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GOTTSUMON_FQNAME_OFF, "pen:Gottsumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GREYMON_FQID_OFF = 5670;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GREYMON_FQID_OFF, "pen:greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GREYMON_FQNAME_OFF = 5682;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GREYMON_FQNAME_OFF, "pen:Greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GRIFFOMON_FQID_OFF = 3338;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GRIFFOMON_FQID_OFF, "pen:griffomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GRIFFOMON_FQNAME_OFF = 3352;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GRIFFOMON_FQNAME_OFF, "pen:Griffomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GROUNDRAMON_FQID_OFF = 2082;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GROUNDRAMON_FQID_OFF, "pen:groundramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GROUNDRAMON_FQNAME_OFF = 2098;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GROUNDRAMON_FQNAME_OFF, "pen:Groundramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GROWMON_FQID_OFF = 5694;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GROWMON_FQID_OFF, "pen:growmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GROWMON_FQNAME_OFF = 5706;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GROWMON_FQNAME_OFF, "pen:Growmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GUARDROMON_FQID_OFF = 2550;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GUARDROMON_FQID_OFF, "pen:guardromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GUARDROMON_FQNAME_OFF = 2565;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GUARDROMON_FQNAME_OFF, "pen:Guardromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GUILMON_FQID_OFF = 5718;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GUILMON_FQID_OFF, "pen:guilmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GUILMON_FQNAME_OFF = 5730;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GUILMON_FQNAME_OFF, "pen:Guilmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GUMMYMON_FQID_OFF = 4312;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GUMMYMON_FQID_OFF, "pen:gummymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_GUMMYMON_FQNAME_OFF = 4325;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_GUMMYMON_FQNAME_OFF, "pen:Gummymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HACKMON_FQID_OFF = 5742;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HACKMON_FQID_OFF, "pen:hackmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HACKMON_FQNAME_OFF = 5754;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HACKMON_FQNAME_OFF, "pen:Hackmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HAGURUMON_FQID_OFF = 3366;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HAGURUMON_FQID_OFF, "pen:hagurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HAGURUMON_FQNAME_OFF = 3380;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HAGURUMON_FQNAME_OFF, "pen:Hagurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HANGYOMON_FQID_OFF = 3394;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HANGYOMON_FQID_OFF, "pen:hangyomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HANGYOMON_FQNAME_OFF = 3408;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HANGYOMON_FQNAME_OFF, "pen:Hangyomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HANUMON_FQID_OFF = 5766;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HANUMON_FQID_OFF, "pen:hanumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HANUMON_FQNAME_OFF = 5778;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HANUMON_FQNAME_OFF, "pen:Hanumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HERAKLE_KABUTERIMON_FQID_OFF = 176;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HERAKLE_KABUTERIMON_FQID_OFF, "pen:herakle_kabuterimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_OFF = 200;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_OFF, "pen:Herakle Kabuterimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HISYARYUMON_FQID_OFF = 2114;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HISYARYUMON_FQID_OFF, "pen:hisyaryumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HISYARYUMON_FQNAME_OFF = 2130;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HISYARYUMON_FQNAME_OFF, "pen:Hisyaryumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HOLY_ANGEMON_FQID_OFF = 1516;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HOLY_ANGEMON_FQID_OFF, "pen:holy_angemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HOLY_ANGEMON_FQNAME_OFF = 1533;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HOLY_ANGEMON_FQNAME_OFF, "pen:Holy Angemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HOLYDRAMON_FQID_OFF = 2580;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HOLYDRAMON_FQID_OFF, "pen:holydramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HOLYDRAMON_FQNAME_OFF = 2595;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HOLYDRAMON_FQNAME_OFF, "pen:Holydramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HOUOUMON_FQID_OFF = 4338;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HOUOUMON_FQID_OFF, "pen:hououmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_HOUOUMON_FQNAME_OFF = 4351;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_HOUOUMON_FQNAME_OFF, "pen:Hououmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IGAMON_FQID_OFF = 6478;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IGAMON_FQID_OFF, "pen:igamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IGAMON_FQNAME_OFF = 6489;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IGAMON_FQNAME_OFF, "pen:Igamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IKKAKUMON_FQID_OFF = 3422;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IKKAKUMON_FQID_OFF, "pen:ikkakumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IKKAKUMON_FQNAME_OFF = 3436;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IKKAKUMON_FQNAME_OFF, "pen:Ikkakumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_OFF = 0;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_OFF, "pen:imperialdramon_fighter_mode"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_OFF = 32;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_OFF, "pen:Imperialdramon Fighter Mode"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IMPMON_FQID_OFF = 6500;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IMPMON_FQID_OFF, "pen:impmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_IMPMON_FQNAME_OFF = 6511;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_IMPMON_FQNAME_OFF, "pen:Impmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JESMON_FQID_OFF = 6522;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JESMON_FQID_OFF, "pen:jesmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JESMON_FQNAME_OFF = 6533;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JESMON_FQNAME_OFF, "pen:Jesmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JESMON_X_FQID_OFF = 4364;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JESMON_X_FQID_OFF, "pen:jesmon_x"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JESMON_X_FQNAME_OFF = 4377;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JESMON_X_FQNAME_OFF, "pen:Jesmon X"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JYAGAMON_FQID_OFF = 4390;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JYAGAMON_FQID_OFF, "pen:jyagamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JYAGAMON_FQNAME_OFF = 4403;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JYAGAMON_FQNAME_OFF, "pen:Jyagamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JYUREIMON_FQID_OFF = 3450;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JYUREIMON_FQID_OFF, "pen:jyureimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_JYUREIMON_FQNAME_OFF = 3464;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_JYUREIMON_FQNAME_OFF, "pen:Jyureimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KABUTERIMON_FQID_OFF = 2146;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KABUTERIMON_FQID_OFF, "pen:kabuterimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KABUTERIMON_FQNAME_OFF = 2162;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KABUTERIMON_FQNAME_OFF, "pen:Kabuterimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KAKKINMON_FQID_OFF = 3478;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KAKKINMON_FQID_OFF, "pen:kakkinmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KAKKINMON_FQNAME_OFF = 3492;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KAKKINMON_FQNAME_OFF, "pen:Kakkinmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KIWIMON_FQID_OFF = 5790;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KIWIMON_FQID_OFF, "pen:kiwimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KIWIMON_FQNAME_OFF = 5802;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KIWIMON_FQNAME_OFF, "pen:Kiwimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KNIGHTMON_FQID_OFF = 3506;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KNIGHTMON_FQID_OFF, "pen:knightmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KNIGHTMON_FQNAME_OFF = 3520;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KNIGHTMON_FQNAME_OFF, "pen:Knightmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KOKUWAMON_FQID_OFF = 3534;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KOKUWAMON_FQID_OFF, "pen:kokuwamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KOKUWAMON_FQNAME_OFF = 3548;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KOKUWAMON_FQNAME_OFF, "pen:Kokuwamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KOROMON_FQID_OFF = 5814;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KOROMON_FQID_OFF, "pen:koromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KOROMON_FQNAME_OFF = 5826;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KOROMON_FQNAME_OFF, "pen:Koromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KUWAGAMON_FQID_OFF = 3562;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KUWAGAMON_FQID_OFF, "pen:kuwagamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KUWAGAMON_FQNAME_OFF = 3576;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KUWAGAMON_FQNAME_OFF, "pen:Kuwagamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KYOKYOMON_FQID_OFF = 3590;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KYOKYOMON_FQID_OFF, "pen:kyokyomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_KYOKYOMON_FQNAME_OFF = 3604;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_KYOKYOMON_FQNAME_OFF, "pen:Kyokyomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LADY_DEVIMON_FQID_OFF = 1550;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LADY_DEVIMON_FQID_OFF, "pen:lady_devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LADY_DEVIMON_FQNAME_OFF = 1567;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LADY_DEVIMON_FQNAME_OFF, "pen:Lady Devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LALAMON_FQID_OFF = 5838;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LALAMON_FQID_OFF, "pen:lalamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LALAMON_FQNAME_OFF = 5850;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LALAMON_FQNAME_OFF, "pen:Lalamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LAVOGARITAMON_FQID_OFF = 1194;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LAVOGARITAMON_FQID_OFF, "pen:lavogaritamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LAVOGARITAMON_FQNAME_OFF = 1212;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LAVOGARITAMON_FQNAME_OFF, "pen:Lavogaritamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LAVORVOMON_FQID_OFF = 2610;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LAVORVOMON_FQID_OFF, "pen:lavorvomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LAVORVOMON_FQNAME_OFF = 2625;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LAVORVOMON_FQNAME_OFF, "pen:Lavorvomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LEOMON_FQID_OFF = 6544;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LEOMON_FQID_OFF, "pen:leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LEOMON_FQNAME_OFF = 6555;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LEOMON_FQNAME_OFF, "pen:Leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LILAMON_FQID_OFF = 5862;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LILAMON_FQID_OFF, "pen:lilamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LILAMON_FQNAME_OFF = 5874;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LILAMON_FQNAME_OFF, "pen:Lilamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LILIMON_FQID_OFF = 5886;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LILIMON_FQID_OFF, "pen:lilimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LILIMON_FQNAME_OFF = 5898;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LILIMON_FQNAME_OFF, "pen:Lilimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LOPMON_FQID_OFF = 6566;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LOPMON_FQID_OFF, "pen:lopmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LOPMON_FQNAME_OFF = 6577;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LOPMON_FQNAME_OFF, "pen:Lopmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LOTUSMON_FQID_OFF = 4416;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LOTUSMON_FQID_OFF, "pen:lotusmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LOTUSMON_FQNAME_OFF = 4429;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LOTUSMON_FQNAME_OFF, "pen:Lotusmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LUDOMON_FQID_OFF = 5910;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LUDOMON_FQID_OFF, "pen:ludomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_LUDOMON_FQNAME_OFF = 5922;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_LUDOMON_FQNAME_OFF, "pen:Ludomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MAD_LEOMON_FQID_OFF = 2640;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MAD_LEOMON_FQID_OFF, "pen:mad_leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MAD_LEOMON_FQNAME_OFF = 2655;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MAD_LEOMON_FQNAME_OFF, "pen:Mad Leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MAMMON_FQID_OFF = 6588;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MAMMON_FQID_OFF, "pen:mammon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MAMMON_FQNAME_OFF = 6599;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MAMMON_FQNAME_OFF, "pen:Mammon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MANBOMON_FQID_OFF = 4442;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MANBOMON_FQID_OFF, "pen:manbomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MANBOMON_FQNAME_OFF = 4455;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MANBOMON_FQNAME_OFF, "pen:Manbomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MARIN_ANGEMON_FQID_OFF = 1230;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MARIN_ANGEMON_FQID_OFF, "pen:marin_angemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MARIN_ANGEMON_FQNAME_OFF = 1248;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MARIN_ANGEMON_FQNAME_OFF, "pen:Marin Angemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MARIN_DEVIMON_FQID_OFF = 1266;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MARIN_DEVIMON_FQID_OFF, "pen:marin_devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MARIN_DEVIMON_FQNAME_OFF = 1284;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MARIN_DEVIMON_FQNAME_OFF, "pen:Marin Devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MASTEMON_FQID_OFF = 4468;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MASTEMON_FQID_OFF, "pen:mastemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MASTEMON_FQNAME_OFF = 4481;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MASTEMON_FQNAME_OFF, "pen:Mastemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MECHANORIMON_FQID_OFF = 1584;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MECHANORIMON_FQID_OFF, "pen:mechanorimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MECHANORIMON_FQNAME_OFF = 1601;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MECHANORIMON_FQNAME_OFF, "pen:Mechanorimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEGADRAMON_FQID_OFF = 2670;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEGADRAMON_FQID_OFF, "pen:megadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEGADRAMON_FQNAME_OFF = 2685;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEGADRAMON_FQNAME_OFF, "pen:Megadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEGALO_GROWMON_FQID_OFF = 634;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEGALO_GROWMON_FQID_OFF, "pen:megalo_growmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEGALO_GROWMON_FQNAME_OFF = 653;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEGALO_GROWMON_FQNAME_OFF, "pen:Megalo Growmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEGA_SEADRAMON_FQID_OFF = 672;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEGA_SEADRAMON_FQID_OFF, "pen:mega_seadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEGA_SEADRAMON_FQNAME_OFF = 691;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEGA_SEADRAMON_FQNAME_OFF, "pen:Mega Seadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEICOOMON_FQID_OFF = 3618;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEICOOMON_FQID_OFF, "pen:meicoomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEICOOMON_FQNAME_OFF = 3632;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEICOOMON_FQNAME_OFF, "pen:Meicoomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_OFF = 64;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_OFF, "pen:meicrackmon_vicious_mode"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_OFF = 93;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_OFF, "pen:Meicrackmon Vicious Mode"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MERAMON_FQID_OFF = 5934;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MERAMON_FQID_OFF, "pen:meramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MERAMON_FQNAME_OFF = 5946;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MERAMON_FQNAME_OFF, "pen:Meramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_ETEMON_FQID_OFF = 1618;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_ETEMON_FQID_OFF, "pen:metal_etemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_ETEMON_FQNAME_OFF = 1635;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_ETEMON_FQNAME_OFF, "pen:Metal Etemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_GARURUMON_FQID_OFF = 440;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_GARURUMON_FQID_OFF, "pen:metal_garurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_GARURUMON_FQNAME_OFF = 460;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_GARURUMON_FQNAME_OFF, "pen:Metal Garurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_GREYMON_FQID_OFF = 1302;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_GREYMON_FQID_OFF, "pen:metal_greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_GREYMON_FQNAME_OFF = 1320;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_GREYMON_FQNAME_OFF, "pen:Metal Greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_MAMEMON_FQID_OFF = 1338;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_MAMEMON_FQID_OFF, "pen:metal_mamemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_MAMEMON_FQNAME_OFF = 1356;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_MAMEMON_FQNAME_OFF, "pen:Metal Mamemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_SEADRAMON_FQID_OFF = 480;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_SEADRAMON_FQID_OFF, "pen:metal_seadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_METAL_SEADRAMON_FQNAME_OFF = 500;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_METAL_SEADRAMON_FQNAME_OFF, "pen:Metal Seadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MOCHIMON_FQID_OFF = 4494;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MOCHIMON_FQID_OFF, "pen:mochimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MOCHIMON_FQNAME_OFF = 4507;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MOCHIMON_FQNAME_OFF, "pen:Mochimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MOKUMON_FQID_OFF = 5958;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MOKUMON_FQID_OFF, "pen:mokumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MOKUMON_FQNAME_OFF = 5970;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MOKUMON_FQNAME_OFF, "pen:Mokumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MONOCHROMON_FQID_OFF = 2178;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MONOCHROMON_FQID_OFF, "pen:monochromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MONOCHROMON_FQNAME_OFF = 2194;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MONOCHROMON_FQNAME_OFF, "pen:Monochromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MUGENDRAMON_FQID_OFF = 2210;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MUGENDRAMON_FQID_OFF, "pen:mugendramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MUGENDRAMON_FQNAME_OFF = 2226;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MUGENDRAMON_FQNAME_OFF, "pen:Mugendramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MUSHMON_FQID_OFF = 5982;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MUSHMON_FQID_OFF, "pen:mushmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_MUSHMON_FQNAME_OFF = 5994;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_MUSHMON_FQNAME_OFF, "pen:Mushmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_NYAROMON_FQID_OFF = 4520;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_NYAROMON_FQID_OFF, "pen:nyaromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_NYAROMON_FQNAME_OFF = 4533;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_NYAROMON_FQNAME_OFF, "pen:Nyaromon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_NYOKIMON_FQID_OFF = 4546;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_NYOKIMON_FQID_OFF, "pen:nyokimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_NYOKIMON_FQNAME_OFF = 4559;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_NYOKIMON_FQNAME_OFF, "pen:Nyokimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OCTMON_FQID_OFF = 6610;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OCTMON_FQID_OFF, "pen:octmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OCTMON_FQNAME_OFF = 6621;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OCTMON_FQNAME_OFF, "pen:Octmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OFANIMON_FQID_OFF = 4572;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OFANIMON_FQID_OFF, "pen:ofanimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OFANIMON_FQNAME_OFF = 4585;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OFANIMON_FQNAME_OFF, "pen:Ofanimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OGUDOMON_FQID_OFF = 4598;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OGUDOMON_FQID_OFF, "pen:ogudomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OGUDOMON_FQNAME_OFF = 4611;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OGUDOMON_FQNAME_OFF, "pen:Ogudomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OKUWAMON_FQID_OFF = 4624;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OKUWAMON_FQID_OFF, "pen:okuwamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OKUWAMON_FQNAME_OFF = 4637;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OKUWAMON_FQNAME_OFF, "pen:Okuwamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OMEGAMON_FQID_OFF = 4650;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OMEGAMON_FQID_OFF, "pen:omegamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OMEGAMON_FQNAME_OFF = 4663;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OMEGAMON_FQNAME_OFF, "pen:Omegamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ORDINEMON_FQID_OFF = 3646;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ORDINEMON_FQID_OFF, "pen:ordinemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ORDINEMON_FQNAME_OFF = 3660;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ORDINEMON_FQNAME_OFF, "pen:Ordinemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OTAMAMON_FQID_OFF = 4676;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OTAMAMON_FQID_OFF, "pen:otamamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OTAMAMON_FQNAME_OFF = 4689;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OTAMAMON_FQNAME_OFF, "pen:Otamamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OURYUMON_FQID_OFF = 4702;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OURYUMON_FQID_OFF, "pen:ouryumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_OURYUMON_FQNAME_OFF = 4715;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_OURYUMON_FQNAME_OFF, "pen:Ouryumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PAILDRAMON_FQID_OFF = 2700;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PAILDRAMON_FQID_OFF, "pen:paildramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PAILDRAMON_FQNAME_OFF = 2715;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PAILDRAMON_FQNAME_OFF, "pen:Paildramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PALMON_FQID_OFF = 6632;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PALMON_FQID_OFF, "pen:palmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PALMON_FQNAME_OFF = 6643;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PALMON_FQNAME_OFF, "pen:Palmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PETI_MERAMON_FQID_OFF = 1652;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PETI_MERAMON_FQID_OFF, "pen:peti_meramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PETI_MERAMON_FQNAME_OFF = 1669;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PETI_MERAMON_FQNAME_OFF, "pen:Peti Meramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PETITMON_FQID_OFF = 4728;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PETITMON_FQID_OFF, "pen:petitmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PETITMON_FQNAME_OFF = 4741;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PETITMON_FQNAME_OFF, "pen:Petitmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PHASCOMON_FQID_OFF = 3674;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PHASCOMON_FQID_OFF, "pen:phascomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PHASCOMON_FQNAME_OFF = 3688;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PHASCOMON_FQNAME_OFF, "pen:Phascomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PICCOLOMON_FQID_OFF = 2730;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PICCOLOMON_FQID_OFF, "pen:piccolomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PICCOLOMON_FQNAME_OFF = 2745;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PICCOLOMON_FQNAME_OFF, "pen:Piccolomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PICO_DEVIMON_FQID_OFF = 1686;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PICO_DEVIMON_FQID_OFF, "pen:pico_devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PICO_DEVIMON_FQNAME_OFF = 1703;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PICO_DEVIMON_FQNAME_OFF, "pen:Pico Devimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PIEMON_FQID_OFF = 6654;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PIEMON_FQID_OFF, "pen:piemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PIEMON_FQNAME_OFF = 6665;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PIEMON_FQNAME_OFF, "pen:Piemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PINOCHIMON_FQID_OFF = 2760;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PINOCHIMON_FQID_OFF, "pen:pinochimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PINOCHIMON_FQNAME_OFF = 2775;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PINOCHIMON_FQNAME_OFF, "pen:Pinochimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PITCHMON_FQID_OFF = 4754;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PITCHMON_FQID_OFF, "pen:pitchmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PITCHMON_FQNAME_OFF = 4767;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PITCHMON_FQNAME_OFF, "pen:Pitchmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PIYOMON_FQID_OFF = 6006;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PIYOMON_FQID_OFF, "pen:piyomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PIYOMON_FQNAME_OFF = 6018;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PIYOMON_FQNAME_OFF, "pen:Piyomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PLESIOMON_FQID_OFF = 3702;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PLESIOMON_FQID_OFF, "pen:plesiomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PLESIOMON_FQNAME_OFF = 3716;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PLESIOMON_FQNAME_OFF, "pen:Plesiomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PLOTMON_FQID_OFF = 6030;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PLOTMON_FQID_OFF, "pen:plotmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PLOTMON_FQNAME_OFF = 6042;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PLOTMON_FQNAME_OFF, "pen:Plotmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PORCUPAMON_FQID_OFF = 2790;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PORCUPAMON_FQID_OFF, "pen:porcupamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PORCUPAMON_FQNAME_OFF = 2805;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PORCUPAMON_FQNAME_OFF, "pen:Porcupamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PUKAMON_FQID_OFF = 6054;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PUKAMON_FQID_OFF, "pen:pukamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PUKAMON_FQNAME_OFF = 6066;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PUKAMON_FQNAME_OFF, "pen:Pukamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PUKUMON_FQID_OFF = 6078;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PUKUMON_FQID_OFF, "pen:pukumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PUKUMON_FQNAME_OFF = 6090;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PUKUMON_FQNAME_OFF, "pen:Pukumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PUMPMON_FQID_OFF = 6102;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PUMPMON_FQID_OFF, "pen:pumpmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PUMPMON_FQNAME_OFF = 6114;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PUMPMON_FQNAME_OFF, "pen:Pumpmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PYOCOMON_FQID_OFF = 4780;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PYOCOMON_FQID_OFF, "pen:pyocomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_PYOCOMON_FQNAME_OFF = 4793;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_PYOCOMON_FQNAME_OFF, "pen:Pyocomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAFFLESIMON_FQID_OFF = 2242;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAFFLESIMON_FQID_OFF, "pen:rafflesimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAFFLESIMON_FQNAME_OFF = 2258;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAFFLESIMON_FQNAME_OFF, "pen:Rafflesimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAGNA_LORDMON_FQID_OFF = 1374;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAGNA_LORDMON_FQID_OFF, "pen:ragna_lordmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAGNA_LORDMON_FQNAME_OFF = 1392;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAGNA_LORDMON_FQNAME_OFF, "pen:Ragna Lordmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAGUELMON_FQID_OFF = 3730;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAGUELMON_FQID_OFF, "pen:raguelmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAGUELMON_FQNAME_OFF = 3744;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAGUELMON_FQNAME_OFF, "pen:Raguelmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAIJI_LUDOMON_FQID_OFF = 1410;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAIJI_LUDOMON_FQID_OFF, "pen:raiji_ludomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAIJI_LUDOMON_FQNAME_OFF = 1428;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAIJI_LUDOMON_FQNAME_OFF, "pen:Raiji Ludomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAPIDMON_FQID_OFF = 4806;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAPIDMON_FQID_OFF, "pen:rapidmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RAPIDMON_FQNAME_OFF = 4819;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RAPIDMON_FQNAME_OFF, "pen:Rapidmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RED_VEGIMON_FQID_OFF = 2274;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RED_VEGIMON_FQID_OFF, "pen:red_vegimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RED_VEGIMON_FQNAME_OFF = 2290;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RED_VEGIMON_FQNAME_OFF, "pen:Red Vegimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_REPPAMON_FQID_OFF = 4832;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_REPPAMON_FQID_OFF, "pen:reppamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_REPPAMON_FQNAME_OFF = 4845;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_REPPAMON_FQNAME_OFF, "pen:Reppamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_REVOLMON_FQID_OFF = 4858;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_REVOLMON_FQID_OFF, "pen:revolmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_REVOLMON_FQNAME_OFF = 4871;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_REVOLMON_FQNAME_OFF, "pen:Revolmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RIZE_GREYMON_FQID_OFF = 1720;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RIZE_GREYMON_FQID_OFF, "pen:rize_greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RIZE_GREYMON_FQNAME_OFF = 1737;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RIZE_GREYMON_FQNAME_OFF, "pen:Rize Greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ROSEMON_FQID_OFF = 6126;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ROSEMON_FQID_OFF, "pen:rosemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ROSEMON_FQNAME_OFF = 6138;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ROSEMON_FQNAME_OFF, "pen:Rosemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RUKAMON_FQID_OFF = 6150;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RUKAMON_FQID_OFF, "pen:rukamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RUKAMON_FQNAME_OFF = 6162;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RUKAMON_FQNAME_OFF, "pen:Rukamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RYUDAMON_FQID_OFF = 4884;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RYUDAMON_FQID_OFF, "pen:ryudamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_RYUDAMON_FQNAME_OFF = 4897;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_RYUDAMON_FQNAME_OFF, "pen:Ryudamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SABER_LEOMON_FQID_OFF = 1754;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SABER_LEOMON_FQID_OFF, "pen:saber_leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SABER_LEOMON_FQNAME_OFF = 1771;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SABER_LEOMON_FQNAME_OFF, "pen:Saber Leomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAINT_GALGOMON_FQID_OFF = 710;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAINT_GALGOMON_FQID_OFF, "pen:saint_galgomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAINT_GALGOMON_FQNAME_OFF = 729;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAINT_GALGOMON_FQNAME_OFF, "pen:Saint Galgomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAKUMON_FQID_OFF = 6174;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAKUMON_FQID_OFF, "pen:sakumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAKUMON_FQNAME_OFF = 6186;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAKUMON_FQNAME_OFF, "pen:Sakumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAKUTTOMON_FQID_OFF = 2820;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAKUTTOMON_FQID_OFF, "pen:sakuttomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAKUTTOMON_FQNAME_OFF = 2835;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAKUTTOMON_FQNAME_OFF, "pen:Sakuttomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAVIOR_HACKMON_FQID_OFF = 748;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAVIOR_HACKMON_FQID_OFF, "pen:savior_hackmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SAVIOR_HACKMON_FQNAME_OFF = 767;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SAVIOR_HACKMON_FQNAME_OFF, "pen:Savior Hackmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SEADRAMON_FQID_OFF = 3758;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SEADRAMON_FQID_OFF, "pen:seadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SEADRAMON_FQNAME_OFF = 3772;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SEADRAMON_FQNAME_OFF, "pen:Seadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SERAPHIMON_FQID_OFF = 2850;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SERAPHIMON_FQID_OFF, "pen:seraphimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SERAPHIMON_FQNAME_OFF = 2865;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SERAPHIMON_FQNAME_OFF, "pen:Seraphimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SHADRAMON_FQID_OFF = 3786;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SHADRAMON_FQID_OFF, "pen:shadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SHADRAMON_FQNAME_OFF = 3800;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SHADRAMON_FQNAME_OFF, "pen:Shadramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SHAKOMON_FQID_OFF = 4910;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SHAKOMON_FQID_OFF, "pen:shakomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SHAKOMON_FQNAME_OFF = 4923;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SHAKOMON_FQNAME_OFF, "pen:Shakomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SKULL_MAMMON_FQID_OFF = 1788;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SKULL_MAMMON_FQID_OFF, "pen:skull_mammon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SKULL_MAMMON_FQNAME_OFF = 1805;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SKULL_MAMMON_FQNAME_OFF, "pen:Skull Mammon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SLAYERDRAMON_FQID_OFF = 1822;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SLAYERDRAMON_FQID_OFF, "pen:slayerdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SLAYERDRAMON_FQNAME_OFF = 1839;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SLAYERDRAMON_FQNAME_OFF, "pen:Slayerdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_STARMON_FQID_OFF = 6198;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_STARMON_FQID_OFF, "pen:starmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_STARMON_FQNAME_OFF = 6210;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_STARMON_FQNAME_OFF, "pen:Starmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SUNFLOWMON_FQID_OFF = 2880;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SUNFLOWMON_FQID_OFF, "pen:sunflowmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_SUNFLOWMON_FQNAME_OFF = 2895;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_SUNFLOWMON_FQNAME_OFF, "pen:Sunflowmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TAILMON_FQID_OFF = 6222;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TAILMON_FQID_OFF, "pen:tailmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TAILMON_FQNAME_OFF = 6234;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TAILMON_FQNAME_OFF, "pen:Tailmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TANKMON_FQID_OFF = 6246;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TANKMON_FQID_OFF, "pen:tankmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TANKMON_FQNAME_OFF = 6258;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TANKMON_FQNAME_OFF, "pen:Tankmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TARGETMON_FQID_OFF = 3814;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TARGETMON_FQID_OFF, "pen:targetmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TARGETMON_FQNAME_OFF = 3828;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TARGETMON_FQNAME_OFF, "pen:Targetmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TENTOMON_FQID_OFF = 4936;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TENTOMON_FQID_OFF, "pen:tentomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TENTOMON_FQNAME_OFF = 4949;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TENTOMON_FQNAME_OFF, "pen:Tentomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TERRIERMON_FQID_OFF = 2910;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TERRIERMON_FQID_OFF, "pen:terriermon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TERRIERMON_FQNAME_OFF = 2925;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TERRIERMON_FQNAME_OFF, "pen:Terriermon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_THUNDERBALLMON_FQID_OFF = 786;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_THUNDERBALLMON_FQID_OFF, "pen:thunderballmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_THUNDERBALLMON_FQNAME_OFF = 805;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_THUNDERBALLMON_FQNAME_OFF, "pen:Thunderballmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TIA_LUDOMON_FQID_OFF = 2306;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TIA_LUDOMON_FQID_OFF, "pen:tia_ludomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TIA_LUDOMON_FQNAME_OFF = 2322;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TIA_LUDOMON_FQNAME_OFF, "pen:Tia Ludomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TOGEMON_FQID_OFF = 6270;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TOGEMON_FQID_OFF, "pen:togemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TOGEMON_FQNAME_OFF = 6282;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TOGEMON_FQNAME_OFF, "pen:Togemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TONOSAMA_GEKOMON_FQID_OFF = 378;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TONOSAMA_GEKOMON_FQID_OFF, "pen:tonosama_gekomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_OFF = 399;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_OFF, "pen:Tonosama Gekomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TORTAMON_FQID_OFF = 4962;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TORTAMON_FQID_OFF, "pen:tortamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TORTAMON_FQNAME_OFF = 4975;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TORTAMON_FQNAME_OFF, "pen:Tortamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TOY_AGUMON_FQID_OFF = 2940;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TOY_AGUMON_FQID_OFF, "pen:toy_agumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TOY_AGUMON_FQNAME_OFF = 2955;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TOY_AGUMON_FQNAME_OFF, "pen:Toy Agumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TRICERAMON_FQID_OFF = 2970;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TRICERAMON_FQID_OFF, "pen:triceramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TRICERAMON_FQNAME_OFF = 2985;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TRICERAMON_FQNAME_OFF, "pen:Triceramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TROOPMON_FQID_OFF = 4988;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TROOPMON_FQID_OFF, "pen:troopmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TROOPMON_FQNAME_OFF = 5001;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TROOPMON_FQNAME_OFF, "pen:Troopmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TURUIEMON_FQID_OFF = 3842;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TURUIEMON_FQID_OFF, "pen:turuiemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_TURUIEMON_FQNAME_OFF = 3856;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_TURUIEMON_FQNAME_OFF, "pen:Turuiemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VAMDEMON_FQID_OFF = 5014;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VAMDEMON_FQID_OFF, "pen:vamdemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VAMDEMON_FQNAME_OFF = 5027;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VAMDEMON_FQNAME_OFF, "pen:Vamdemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_V_DRAMON_FQID_OFF = 5040;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_V_DRAMON_FQID_OFF, "pen:v_dramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_V_DRAMON_FQNAME_OFF = 5053;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_V_DRAMON_FQNAME_OFF, "pen:V-dramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VENOM_VAMDEMON_FQID_OFF = 824;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VENOM_VAMDEMON_FQID_OFF, "pen:venom_vamdemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VENOM_VAMDEMON_FQNAME_OFF = 843;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VENOM_VAMDEMON_FQNAME_OFF, "pen:Venom Vamdemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_V_MON_FQID_OFF = 6720;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_V_MON_FQID_OFF, "pen:v_mon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_V_MON_FQNAME_OFF = 6730;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_V_MON_FQNAME_OFF, "pen:V-mon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VOLCANICDRAMON_FQID_OFF = 862;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VOLCANICDRAMON_FQID_OFF, "pen:volcanicdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VOLCANICDRAMON_FQNAME_OFF = 881;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VOLCANICDRAMON_FQNAME_OFF, "pen:Volcanicdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VOLTOBAUTAMON_FQID_OFF = 1446;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VOLTOBAUTAMON_FQID_OFF, "pen:voltobautamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VOLTOBAUTAMON_FQNAME_OFF = 1464;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VOLTOBAUTAMON_FQNAME_OFF, "pen:Voltobautamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VORVOMON_FQID_OFF = 5066;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VORVOMON_FQID_OFF, "pen:vorvomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_VORVOMON_FQNAME_OFF = 5079;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_VORVOMON_FQNAME_OFF, "pen:Vorvomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WAR_GREYMON_FQID_OFF = 2338;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WAR_GREYMON_FQID_OFF, "pen:war_greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WAR_GREYMON_FQNAME_OFF = 2354;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WAR_GREYMON_FQNAME_OFF, "pen:War Greymon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WARU_MONZAEMON_FQID_OFF = 900;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WARU_MONZAEMON_FQID_OFF, "pen:waru_monzaemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WARU_MONZAEMON_FQNAME_OFF = 919;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WARU_MONZAEMON_FQNAME_OFF, "pen:Waru Monzaemon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WERE_GARURUMON_FQID_OFF = 938;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WERE_GARURUMON_FQID_OFF, "pen:were_garurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WERE_GARURUMON_FQNAME_OFF = 957;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WERE_GARURUMON_FQNAME_OFF, "pen:Were Garurumon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WHAMON_FQID_OFF = 6676;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WHAMON_FQID_OFF, "pen:whamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WHAMON_FQNAME_OFF = 6687;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WHAMON_FQNAME_OFF, "pen:Whamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WINGDRAMON_FQID_OFF = 3000;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WINGDRAMON_FQID_OFF, "pen:wingdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WINGDRAMON_FQNAME_OFF = 3015;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WINGDRAMON_FQNAME_OFF, "pen:Wingdramon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WIZARMON_FQID_OFF = 5092;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WIZARMON_FQID_OFF, "pen:wizarmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WIZARMON_FQNAME_OFF = 5105;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WIZARMON_FQNAME_OFF, "pen:Wizarmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WOODMON_FQID_OFF = 6294;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WOODMON_FQID_OFF, "pen:woodmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_WOODMON_FQNAME_OFF = 6306;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_WOODMON_FQNAME_OFF, "pen:Woodmon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_XV_MON_FQID_OFF = 6698;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_XV_MON_FQID_OFF, "pen:xv_mon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_XV_MON_FQNAME_OFF = 6709;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_XV_MON_FQNAME_OFF, "pen:XV-mon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_YUKIMI_BOTAMON_FQID_OFF = 976;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_YUKIMI_BOTAMON_FQID_OFF, "pen:yukimi_botamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_YUKIMI_BOTAMON_FQNAME_OFF = 995;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_YUKIMI_BOTAMON_FQNAME_OFF, "pen:Yukimi Botamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZERIMON_FQID_OFF = 6318;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZERIMON_FQID_OFF, "pen:zerimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZERIMON_FQNAME_OFF = 6330;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZERIMON_FQNAME_OFF, "pen:Zerimon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZUBAEAGERMON_FQID_OFF = 1856;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZUBAEAGERMON_FQID_OFF, "pen:zubaeagermon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZUBAEAGERMON_FQNAME_OFF = 1873;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZUBAEAGERMON_FQNAME_OFF, "pen:Zubaeagermon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZUBAMON_FQID_OFF = 6342;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZUBAMON_FQID_OFF, "pen:zubamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZUBAMON_FQNAME_OFF = 6354;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZUBAMON_FQNAME_OFF, "pen:Zubamon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZUDOMON_FQID_OFF = 6366;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZUDOMON_FQID_OFF, "pen:zudomon"), "re-run scripts/build_string_blobs.sh");
+    static constexpr uint32_t ALT_PEN20_ZUDOMON_FQNAME_OFF = 6378;
+    static_assert(::bongocat::assets::details::cstr_equal(ALT_PEN20_STRINGS + ALT_PEN20_ZUDOMON_FQNAME_OFF, "pen:Zudomon"), "re-run scripts/build_string_blobs.sh");
 
     struct pen20_animation_table_entry_t {
-        config_animation_entry_t normal;
-        struct {
-            const char *fqid{""};
-            const char *fqname{""};
-        } alt;
+        // offsets into PEN20_STRINGS
+        uint32_t name;
+        uint32_t id;
+        uint32_t fqid;
+        uint32_t fqname;
+        int32_t anim_index;
+        config::config_animation_dm_set_t set;
+        config::config_animation_sprite_sheet_layout_t layout;
+        // offsets into ALT_PEN20_STRINGS
+        uint32_t alt_fqid;
+        uint32_t alt_fqname;
     };
-    static const pen20_animation_table_entry_t pen20_animation_table[] = {
-        { { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_FQID, PEN20_AERO_V_DRAMON_FQNAME, PEN20_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_AERO_V_DRAMON_FQID, ALT_PEN20_AERO_V_DRAMON_FQNAME } },  // Aero V-dramon
-        { { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_FQID, PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_AGUMON_HAKASE_FQID, ALT_PEN20_AGUMON_HAKASE_FQNAME } },  // Agumon Hakase
-        { { PEN20_AGUMON_NAME, PEN20_AGUMON_ID, PEN20_AGUMON_FQID, PEN20_AGUMON_FQNAME, PEN20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_AGUMON_FQID, ALT_PEN20_AGUMON_FQNAME } },  // Agumon
-        { { PEN20_ALPHAMON_OURYUKEN_NAME, PEN20_ALPHAMON_OURYUKEN_ID, PEN20_ALPHAMON_OURYUKEN_FQID, PEN20_ALPHAMON_OURYUKEN_FQNAME, PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ALPHAMON_OURYUKEN_FQID, ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME } },  // Alphamon Ouryuken
-        { { PEN20_ALPHAMON_NAME, PEN20_ALPHAMON_ID, PEN20_ALPHAMON_FQID, PEN20_ALPHAMON_FQNAME, PEN20_ALPHAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ALPHAMON_FQID, ALT_PEN20_ALPHAMON_FQNAME } },  // Alphamon
-        { { PEN20_ANDIRAMON_NAME, PEN20_ANDIRAMON_ID, PEN20_ANDIRAMON_FQID, PEN20_ANDIRAMON_FQNAME, PEN20_ANDIRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ANDIRAMON_FQID, ALT_PEN20_ANDIRAMON_FQNAME } },  // Andiramon
-        { { PEN20_ANDROMON_NAME, PEN20_ANDROMON_ID, PEN20_ANDROMON_FQID, PEN20_ANDROMON_FQNAME, PEN20_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ANDROMON_FQID, ALT_PEN20_ANDROMON_FQNAME } },  // Andromon
-        { { PEN20_ANGEMON_NAME, PEN20_ANGEMON_ID, PEN20_ANGEMON_FQID, PEN20_ANGEMON_FQNAME, PEN20_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ANGEMON_FQID, ALT_PEN20_ANGEMON_FQNAME } },  // Angemon
-        { { PEN20_ANGEWOMON_NAME, PEN20_ANGEWOMON_ID, PEN20_ANGEWOMON_FQID, PEN20_ANGEWOMON_FQNAME, PEN20_ANGEWOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ANGEWOMON_FQID, ALT_PEN20_ANGEWOMON_FQNAME } },  // Angewomon
-        { { PEN20_ANOMALOCARIMON_NAME, PEN20_ANOMALOCARIMON_ID, PEN20_ANOMALOCARIMON_FQID, PEN20_ANOMALOCARIMON_FQNAME, PEN20_ANOMALOCARIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ANOMALOCARIMON_FQID, ALT_PEN20_ANOMALOCARIMON_FQNAME } },  // Anomalocarimon
-        { { PEN20_ARRESTERDRAMON_NAME, PEN20_ARRESTERDRAMON_ID, PEN20_ARRESTERDRAMON_FQID, PEN20_ARRESTERDRAMON_FQNAME, PEN20_ARRESTERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ARRESTERDRAMON_FQID, ALT_PEN20_ARRESTERDRAMON_FQNAME } },  // Arresterdramon
-        { { PEN20_ASTAMON_NAME, PEN20_ASTAMON_ID, PEN20_ASTAMON_FQID, PEN20_ASTAMON_FQNAME, PEN20_ASTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ASTAMON_FQID, ALT_PEN20_ASTAMON_FQNAME } },  // Astamon
-        { { PEN20_ASURAMON_NAME, PEN20_ASURAMON_ID, PEN20_ASURAMON_FQID, PEN20_ASURAMON_FQNAME, PEN20_ASURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ASURAMON_FQID, ALT_PEN20_ASURAMON_FQNAME } },  // Asuramon
-        { { PEN20_ATLUR_KABUTERIMON_NAME, PEN20_ATLUR_KABUTERIMON_ID, PEN20_ATLUR_KABUTERIMON_FQID, PEN20_ATLUR_KABUTERIMON_FQNAME, PEN20_ATLUR_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ATLUR_KABUTERIMON_FQID, ALT_PEN20_ATLUR_KABUTERIMON_FQNAME } },  // Atlur Kabuterimon
-        { { PEN20_BAALMON_NAME, PEN20_BAALMON_ID, PEN20_BAALMON_FQID, PEN20_BAALMON_FQNAME, PEN20_BAALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BAALMON_FQID, ALT_PEN20_BAALMON_FQNAME } },  // Baalmon
-        { { PEN20_BABYDMON_NAME, PEN20_BABYDMON_ID, PEN20_BABYDMON_FQID, PEN20_BABYDMON_FQNAME, PEN20_BABYDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BABYDMON_FQID, ALT_PEN20_BABYDMON_FQNAME } },  // Babydmon
-        { { PEN20_BAKEMON_NAME, PEN20_BAKEMON_ID, PEN20_BAKEMON_FQID, PEN20_BAKEMON_FQNAME, PEN20_BAKEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BAKEMON_FQID, ALT_PEN20_BAKEMON_FQNAME } },  // Bakemon
-        { { PEN20_BAKUMON_NAME, PEN20_BAKUMON_ID, PEN20_BAKUMON_FQID, PEN20_BAKUMON_FQNAME, PEN20_BAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BAKUMON_FQID, ALT_PEN20_BAKUMON_FQNAME } },  // Bakumon
-        { { PEN20_BANCHO_LEOMON_NAME, PEN20_BANCHO_LEOMON_ID, PEN20_BANCHO_LEOMON_FQID, PEN20_BANCHO_LEOMON_FQNAME, PEN20_BANCHO_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BANCHO_LEOMON_FQID, ALT_PEN20_BANCHO_LEOMON_FQNAME } },  // Bancho Leomon
-        { { PEN20_BAO_HACKMON_NAME, PEN20_BAO_HACKMON_ID, PEN20_BAO_HACKMON_FQID, PEN20_BAO_HACKMON_FQNAME, PEN20_BAO_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BAO_HACKMON_FQID, ALT_PEN20_BAO_HACKMON_FQNAME } },  // Bao Hackmon
-        { { PEN20_BEELZEBUMON_BLAST_MODE_NAME, PEN20_BEELZEBUMON_BLAST_MODE_ID, PEN20_BEELZEBUMON_BLAST_MODE_FQID, PEN20_BEELZEBUMON_BLAST_MODE_FQNAME, PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME } },  // Beelzebumon Blast Mode
-        { { PEN20_BEOWOLFMON_NAME, PEN20_BEOWOLFMON_ID, PEN20_BEOWOLFMON_FQID, PEN20_BEOWOLFMON_FQNAME, PEN20_BEOWOLFMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BEOWOLFMON_FQID, ALT_PEN20_BEOWOLFMON_FQNAME } },  // Beowolfmon
-        { { PEN20_BIG_MAMEMON_NAME, PEN20_BIG_MAMEMON_ID, PEN20_BIG_MAMEMON_FQID, PEN20_BIG_MAMEMON_FQNAME, PEN20_BIG_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BIG_MAMEMON_FQID, ALT_PEN20_BIG_MAMEMON_FQNAME } },  // Big Mamemon
-        { { PEN20_BIRDRAMON_NAME, PEN20_BIRDRAMON_ID, PEN20_BIRDRAMON_FQID, PEN20_BIRDRAMON_FQNAME, PEN20_BIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BIRDRAMON_FQID, ALT_PEN20_BIRDRAMON_FQNAME } },  // Birdramon
-        { { PEN20_BLOSSOMON_NAME, PEN20_BLOSSOMON_ID, PEN20_BLOSSOMON_FQID, PEN20_BLOSSOMON_FQNAME, PEN20_BLOSSOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BLOSSOMON_FQID, ALT_PEN20_BLOSSOMON_FQNAME } },  // Blossomon
-        { { PEN20_BOLTMON_NAME, PEN20_BOLTMON_ID, PEN20_BOLTMON_FQID, PEN20_BOLTMON_FQNAME, PEN20_BOLTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BOLTMON_FQID, ALT_PEN20_BOLTMON_FQNAME } },  // Boltmon
-        { { PEN20_BOTAMON_NAME, PEN20_BOTAMON_ID, PEN20_BOTAMON_FQID, PEN20_BOTAMON_FQNAME, PEN20_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BOTAMON_FQID, ALT_PEN20_BOTAMON_FQNAME } },  // Botamon
-        { { PEN20_BREAKDRAMON_NAME, PEN20_BREAKDRAMON_ID, PEN20_BREAKDRAMON_FQID, PEN20_BREAKDRAMON_FQNAME, PEN20_BREAKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BREAKDRAMON_FQID, ALT_PEN20_BREAKDRAMON_FQNAME } },  // Breakdramon
-        { { PEN20_BRYWELUDRAMON_NAME, PEN20_BRYWELUDRAMON_ID, PEN20_BRYWELUDRAMON_FQID, PEN20_BRYWELUDRAMON_FQNAME, PEN20_BRYWELUDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BRYWELUDRAMON_FQID, ALT_PEN20_BRYWELUDRAMON_FQNAME } },  // Bryweludramon
-        { { PEN20_BUBBMON_NAME, PEN20_BUBBMON_ID, PEN20_BUBBMON_FQID, PEN20_BUBBMON_FQNAME, PEN20_BUBBMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BUBBMON_FQID, ALT_PEN20_BUBBMON_FQNAME } },  // Bubbmon
-        { { PEN20_BUDMON_NAME, PEN20_BUDMON_ID, PEN20_BUDMON_FQID, PEN20_BUDMON_FQNAME, PEN20_BUDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BUDMON_FQID, ALT_PEN20_BUDMON_FQNAME } },  // Budmon
-        { { PEN20_BUSHI_AGUMON_NAME, PEN20_BUSHI_AGUMON_ID, PEN20_BUSHI_AGUMON_FQID, PEN20_BUSHI_AGUMON_FQNAME, PEN20_BUSHI_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_BUSHI_AGUMON_FQID, ALT_PEN20_BUSHI_AGUMON_FQNAME } },  // Bushi Agumon
-        { { PEN20_CANDMON_NAME, PEN20_CANDMON_ID, PEN20_CANDMON_FQID, PEN20_CANDMON_FQNAME, PEN20_CANDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CANDMON_FQID, ALT_PEN20_CANDMON_FQNAME } },  // Candmon
-        { { PEN20_CAPRIMON_NAME, PEN20_CAPRIMON_ID, PEN20_CAPRIMON_FQID, PEN20_CAPRIMON_FQNAME, PEN20_CAPRIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CAPRIMON_FQID, ALT_PEN20_CAPRIMON_FQNAME } },  // Caprimon
-        { { PEN20_CHAOSMON_NAME, PEN20_CHAOSMON_ID, PEN20_CHAOSMON_FQID, PEN20_CHAOSMON_FQNAME, PEN20_CHAOSMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CHAOSMON_FQID, ALT_PEN20_CHAOSMON_FQNAME } },  // Chaosmon
-        { { PEN20_CHERUBIMON_NAME, PEN20_CHERUBIMON_ID, PEN20_CHERUBIMON_FQID, PEN20_CHERUBIMON_FQNAME, PEN20_CHERUBIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CHERUBIMON_FQID, ALT_PEN20_CHERUBIMON_FQNAME } },  // Cherubimon
-        { { PEN20_CHIBIMON_NAME, PEN20_CHIBIMON_ID, PEN20_CHIBIMON_FQID, PEN20_CHIBIMON_FQNAME, PEN20_CHIBIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CHIBIMON_FQID, ALT_PEN20_CHIBIMON_FQNAME } },  // Chibimon
-        { { PEN20_CHICOMON_NAME, PEN20_CHICOMON_ID, PEN20_CHICOMON_FQID, PEN20_CHICOMON_FQNAME, PEN20_CHICOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CHICOMON_FQID, ALT_PEN20_CHICOMON_FQNAME } },  // Chicomon
-        { { PEN20_CHOCOMON_NAME, PEN20_CHOCOMON_ID, PEN20_CHOCOMON_FQID, PEN20_CHOCOMON_FQNAME, PEN20_CHOCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CHOCOMON_FQID, ALT_PEN20_CHOCOMON_FQNAME } },  // Chocomon
-        { { PEN20_CHOROMON_NAME, PEN20_CHOROMON_ID, PEN20_CHOROMON_FQID, PEN20_CHOROMON_FQNAME, PEN20_CHOROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CHOROMON_FQID, ALT_PEN20_CHOROMON_FQNAME } },  // Choromon
-        { { PEN20_CLOCKMON_NAME, PEN20_CLOCKMON_ID, PEN20_CLOCKMON_FQID, PEN20_CLOCKMON_FQNAME, PEN20_CLOCKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CLOCKMON_FQID, ALT_PEN20_CLOCKMON_FQNAME } },  // Clockmon
-        { { PEN20_COCOMON_NAME, PEN20_COCOMON_ID, PEN20_COCOMON_FQID, PEN20_COCOMON_FQNAME, PEN20_COCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_COCOMON_FQID, ALT_PEN20_COCOMON_FQNAME } },  // Cocomon
-        { { PEN20_COELAMON_NAME, PEN20_COELAMON_ID, PEN20_COELAMON_FQID, PEN20_COELAMON_FQNAME, PEN20_COELAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_COELAMON_FQID, ALT_PEN20_COELAMON_FQNAME } },  // Coelamon
-        { { PEN20_COREDRAMON_BLUE_NAME, PEN20_COREDRAMON_BLUE_ID, PEN20_COREDRAMON_BLUE_FQID, PEN20_COREDRAMON_BLUE_FQNAME, PEN20_COREDRAMON_BLUE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_COREDRAMON_BLUE_FQID, ALT_PEN20_COREDRAMON_BLUE_FQNAME } },  // Coredramon (Blue)
-        { { PEN20_COREDRAMON_GREEN_NAME, PEN20_COREDRAMON_GREEN_ID, PEN20_COREDRAMON_GREEN_FQID, PEN20_COREDRAMON_GREEN_FQNAME, PEN20_COREDRAMON_GREEN_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_COREDRAMON_GREEN_FQID, ALT_PEN20_COREDRAMON_GREEN_FQNAME } },  // Coredramon (Green)
-        { { PEN20_COTSUCOMON_NAME, PEN20_COTSUCOMON_ID, PEN20_COTSUCOMON_FQID, PEN20_COTSUCOMON_FQNAME, PEN20_COTSUCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_COTSUCOMON_FQID, ALT_PEN20_COTSUCOMON_FQNAME } },  // Cotsucomon
-        { { PEN20_CYBERDRAMON_NAME, PEN20_CYBERDRAMON_ID, PEN20_CYBERDRAMON_FQID, PEN20_CYBERDRAMON_FQNAME, PEN20_CYBERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_CYBERDRAMON_FQID, ALT_PEN20_CYBERDRAMON_FQNAME } },  // Cyberdramon
-        { { PEN20_DAGOMON_NAME, PEN20_DAGOMON_ID, PEN20_DAGOMON_FQID, PEN20_DAGOMON_FQNAME, PEN20_DAGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DAGOMON_FQID, ALT_PEN20_DAGOMON_FQNAME } },  // Dagomon
-        { { PEN20_DARKDRAMON_NAME, PEN20_DARKDRAMON_ID, PEN20_DARKDRAMON_FQID, PEN20_DARKDRAMON_FQNAME, PEN20_DARKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DARKDRAMON_FQID, ALT_PEN20_DARKDRAMON_FQNAME } },  // Darkdramon
-        { { PEN20_DARK_KNIGHTMON_NAME, PEN20_DARK_KNIGHTMON_ID, PEN20_DARK_KNIGHTMON_FQID, PEN20_DARK_KNIGHTMON_FQNAME, PEN20_DARK_KNIGHTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DARK_KNIGHTMON_FQID, ALT_PEN20_DARK_KNIGHTMON_FQNAME } },  // Dark Knightmon
-        { { PEN20_DEATH_MERAMON_NAME, PEN20_DEATH_MERAMON_ID, PEN20_DEATH_MERAMON_FQID, PEN20_DEATH_MERAMON_FQNAME, PEN20_DEATH_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DEATH_MERAMON_FQID, ALT_PEN20_DEATH_MERAMON_FQNAME } },  // Death Meramon
-        { { PEN20_DELUMON_NAME, PEN20_DELUMON_ID, PEN20_DELUMON_FQID, PEN20_DELUMON_FQNAME, PEN20_DELUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DELUMON_FQID, ALT_PEN20_DELUMON_FQNAME } },  // Delumon
-        { { PEN20_DEVIDRAMON_NAME, PEN20_DEVIDRAMON_ID, PEN20_DEVIDRAMON_FQID, PEN20_DEVIDRAMON_FQNAME, PEN20_DEVIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DEVIDRAMON_FQID, ALT_PEN20_DEVIDRAMON_FQNAME } },  // Devidramon
-        { { PEN20_DEVIMON_NAME, PEN20_DEVIMON_ID, PEN20_DEVIMON_FQID, PEN20_DEVIMON_FQNAME, PEN20_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DEVIMON_FQID, ALT_PEN20_DEVIMON_FQNAME } },  // Devimon
-        { { PEN20_DODOMON_NAME, PEN20_DODOMON_ID, PEN20_DODOMON_FQID, PEN20_DODOMON_FQNAME, PEN20_DODOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DODOMON_FQID, ALT_PEN20_DODOMON_FQNAME } },  // Dodomon
-        { { PEN20_DOKUGUMON_NAME, PEN20_DOKUGUMON_ID, PEN20_DOKUGUMON_FQID, PEN20_DOKUGUMON_FQNAME, PEN20_DOKUGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DOKUGUMON_FQID, ALT_PEN20_DOKUGUMON_FQNAME } },  // Dokugumon
-        { { PEN20_DORIMON_NAME, PEN20_DORIMON_ID, PEN20_DORIMON_FQID, PEN20_DORIMON_FQNAME, PEN20_DORIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DORIMON_FQID, ALT_PEN20_DORIMON_FQNAME } },  // Dorimon
-        { { PEN20_DORUGAMON_NAME, PEN20_DORUGAMON_ID, PEN20_DORUGAMON_FQID, PEN20_DORUGAMON_FQNAME, PEN20_DORUGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DORUGAMON_FQID, ALT_PEN20_DORUGAMON_FQNAME } },  // DORUgamon
-        { { PEN20_DORUGORAMON_NAME, PEN20_DORUGORAMON_ID, PEN20_DORUGORAMON_FQID, PEN20_DORUGORAMON_FQNAME, PEN20_DORUGORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DORUGORAMON_FQID, ALT_PEN20_DORUGORAMON_FQNAME } },  // DORUgoramon
-        { { PEN20_DORUGUREMON_NAME, PEN20_DORUGUREMON_ID, PEN20_DORUGUREMON_FQID, PEN20_DORUGUREMON_FQNAME, PEN20_DORUGUREMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DORUGUREMON_FQID, ALT_PEN20_DORUGUREMON_FQNAME } },  // DORUguremon
-        { { PEN20_DORUMON_NAME, PEN20_DORUMON_ID, PEN20_DORUMON_FQID, PEN20_DORUMON_FQNAME, PEN20_DORUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DORUMON_FQID, ALT_PEN20_DORUMON_FQNAME } },  // DORUmon
-        { { PEN20_DRACOMON_NAME, PEN20_DRACOMON_ID, PEN20_DRACOMON_FQID, PEN20_DRACOMON_FQNAME, PEN20_DRACOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DRACOMON_FQID, ALT_PEN20_DRACOMON_FQNAME } },  // Dracomon
-        { { PEN20_DURAMON_NAME, PEN20_DURAMON_ID, PEN20_DURAMON_FQID, PEN20_DURAMON_FQNAME, PEN20_DURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DURAMON_FQID, ALT_PEN20_DURAMON_FQNAME } },  // Duramon
-        { { PEN20_DURANDAMON_NAME, PEN20_DURANDAMON_ID, PEN20_DURANDAMON_FQID, PEN20_DURANDAMON_FQNAME, PEN20_DURANDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_DURANDAMON_FQID, ALT_PEN20_DURANDAMON_FQNAME } },  // Durandamon
-        { { PEN20_EBIDRAMON_NAME, PEN20_EBIDRAMON_ID, PEN20_EBIDRAMON_FQID, PEN20_EBIDRAMON_FQNAME, PEN20_EBIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_EBIDRAMON_FQID, ALT_PEN20_EBIDRAMON_FQNAME } },  // Ebidramon
-        { { PEN20_ETEMON_NAME, PEN20_ETEMON_ID, PEN20_ETEMON_FQID, PEN20_ETEMON_FQNAME, PEN20_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ETEMON_FQID, ALT_PEN20_ETEMON_FQNAME } },  // Etemon
-        { { PEN20_EXAMON_NAME, PEN20_EXAMON_ID, PEN20_EXAMON_FQID, PEN20_EXAMON_FQNAME, PEN20_EXAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_EXAMON_FQID, ALT_PEN20_EXAMON_FQNAME } },  // Examon
-        { { PEN20_FANTOMON_NAME, PEN20_FANTOMON_ID, PEN20_FANTOMON_FQID, PEN20_FANTOMON_FQNAME, PEN20_FANTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_FANTOMON_FQID, ALT_PEN20_FANTOMON_FQNAME } },  // Fantomon
-        { { PEN20_FLORAMON_NAME, PEN20_FLORAMON_ID, PEN20_FLORAMON_FQID, PEN20_FLORAMON_FQNAME, PEN20_FLORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_FLORAMON_FQID, ALT_PEN20_FLORAMON_FQNAME } },  // Floramon
-        { { PEN20_FUFUMON_NAME, PEN20_FUFUMON_ID, PEN20_FUFUMON_FQID, PEN20_FUFUMON_FQNAME, PEN20_FUFUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_FUFUMON_FQID, ALT_PEN20_FUFUMON_FQNAME } },  // Fufumon
-        { { PEN20_GABUMON_NAME, PEN20_GABUMON_ID, PEN20_GABUMON_FQID, PEN20_GABUMON_FQNAME, PEN20_GABUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GABUMON_FQID, ALT_PEN20_GABUMON_FQNAME } },  // Gabumon
-        { { PEN20_GALGOMON_NAME, PEN20_GALGOMON_ID, PEN20_GALGOMON_FQID, PEN20_GALGOMON_FQNAME, PEN20_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GALGOMON_FQID, ALT_PEN20_GALGOMON_FQNAME } },  // Galgomon
-        { { PEN20_GANIMON_NAME, PEN20_GANIMON_ID, PEN20_GANIMON_FQID, PEN20_GANIMON_FQNAME, PEN20_GANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GANIMON_FQID, ALT_PEN20_GANIMON_FQNAME } },  // Ganimon
-        { { PEN20_GARUDAMON_NAME, PEN20_GARUDAMON_ID, PEN20_GARUDAMON_FQID, PEN20_GARUDAMON_FQNAME, PEN20_GARUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GARUDAMON_FQID, ALT_PEN20_GARUDAMON_FQNAME } },  // Garudamon
-        { { PEN20_GARURUMON_NAME, PEN20_GARURUMON_ID, PEN20_GARURUMON_FQID, PEN20_GARURUMON_FQNAME, PEN20_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GARURUMON_FQID, ALT_PEN20_GARURUMON_FQNAME } },  // Garurumon
-        { { PEN20_GEKOMON_NAME, PEN20_GEKOMON_ID, PEN20_GEKOMON_FQID, PEN20_GEKOMON_FQNAME, PEN20_GEKOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GEKOMON_FQID, ALT_PEN20_GEKOMON_FQNAME } },  // Gekomon
-        { { PEN20_GERBEMON_NAME, PEN20_GERBEMON_ID, PEN20_GERBEMON_FQID, PEN20_GERBEMON_FQNAME, PEN20_GERBEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GERBEMON_FQID, ALT_PEN20_GERBEMON_FQNAME } },  // Gerbemon
-        { { PEN20_GESOMON_NAME, PEN20_GESOMON_ID, PEN20_GESOMON_FQID, PEN20_GESOMON_FQNAME, PEN20_GESOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GESOMON_FQID, ALT_PEN20_GESOMON_FQNAME } },  // Gesomon
-        { { PEN20_GINRYUMON_NAME, PEN20_GINRYUMON_ID, PEN20_GINRYUMON_FQID, PEN20_GINRYUMON_FQNAME, PEN20_GINRYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GINRYUMON_FQID, ALT_PEN20_GINRYUMON_FQNAME } },  // Ginryumon
-        { { PEN20_GOMAMON_NAME, PEN20_GOMAMON_ID, PEN20_GOMAMON_FQID, PEN20_GOMAMON_FQNAME, PEN20_GOMAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GOMAMON_FQID, ALT_PEN20_GOMAMON_FQNAME } },  // Gomamon
-        { { PEN20_GOTTSUMON_NAME, PEN20_GOTTSUMON_ID, PEN20_GOTTSUMON_FQID, PEN20_GOTTSUMON_FQNAME, PEN20_GOTTSUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GOTTSUMON_FQID, ALT_PEN20_GOTTSUMON_FQNAME } },  // Gottsumon
-        { { PEN20_GREYMON_NAME, PEN20_GREYMON_ID, PEN20_GREYMON_FQID, PEN20_GREYMON_FQNAME, PEN20_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GREYMON_FQID, ALT_PEN20_GREYMON_FQNAME } },  // Greymon
-        { { PEN20_GRIFFOMON_NAME, PEN20_GRIFFOMON_ID, PEN20_GRIFFOMON_FQID, PEN20_GRIFFOMON_FQNAME, PEN20_GRIFFOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GRIFFOMON_FQID, ALT_PEN20_GRIFFOMON_FQNAME } },  // Griffomon
-        { { PEN20_GROUNDRAMON_NAME, PEN20_GROUNDRAMON_ID, PEN20_GROUNDRAMON_FQID, PEN20_GROUNDRAMON_FQNAME, PEN20_GROUNDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GROUNDRAMON_FQID, ALT_PEN20_GROUNDRAMON_FQNAME } },  // Groundramon
-        { { PEN20_GROWMON_NAME, PEN20_GROWMON_ID, PEN20_GROWMON_FQID, PEN20_GROWMON_FQNAME, PEN20_GROWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GROWMON_FQID, ALT_PEN20_GROWMON_FQNAME } },  // Growmon
-        { { PEN20_GUARDROMON_NAME, PEN20_GUARDROMON_ID, PEN20_GUARDROMON_FQID, PEN20_GUARDROMON_FQNAME, PEN20_GUARDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GUARDROMON_FQID, ALT_PEN20_GUARDROMON_FQNAME } },  // Guardromon
-        { { PEN20_GUILMON_NAME, PEN20_GUILMON_ID, PEN20_GUILMON_FQID, PEN20_GUILMON_FQNAME, PEN20_GUILMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GUILMON_FQID, ALT_PEN20_GUILMON_FQNAME } },  // Guilmon
-        { { PEN20_GUMMYMON_NAME, PEN20_GUMMYMON_ID, PEN20_GUMMYMON_FQID, PEN20_GUMMYMON_FQNAME, PEN20_GUMMYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_GUMMYMON_FQID, ALT_PEN20_GUMMYMON_FQNAME } },  // Gummymon
-        { { PEN20_HACKMON_NAME, PEN20_HACKMON_ID, PEN20_HACKMON_FQID, PEN20_HACKMON_FQNAME, PEN20_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HACKMON_FQID, ALT_PEN20_HACKMON_FQNAME } },  // Hackmon
-        { { PEN20_HAGURUMON_NAME, PEN20_HAGURUMON_ID, PEN20_HAGURUMON_FQID, PEN20_HAGURUMON_FQNAME, PEN20_HAGURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HAGURUMON_FQID, ALT_PEN20_HAGURUMON_FQNAME } },  // Hagurumon
-        { { PEN20_HANGYOMON_NAME, PEN20_HANGYOMON_ID, PEN20_HANGYOMON_FQID, PEN20_HANGYOMON_FQNAME, PEN20_HANGYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HANGYOMON_FQID, ALT_PEN20_HANGYOMON_FQNAME } },  // Hangyomon
-        { { PEN20_HANUMON_NAME, PEN20_HANUMON_ID, PEN20_HANUMON_FQID, PEN20_HANUMON_FQNAME, PEN20_HANUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HANUMON_FQID, ALT_PEN20_HANUMON_FQNAME } },  // Hanumon
-        { { PEN20_HERAKLE_KABUTERIMON_NAME, PEN20_HERAKLE_KABUTERIMON_ID, PEN20_HERAKLE_KABUTERIMON_FQID, PEN20_HERAKLE_KABUTERIMON_FQNAME, PEN20_HERAKLE_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HERAKLE_KABUTERIMON_FQID, ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME } },  // Herakle Kabuterimon
-        { { PEN20_HISYARYUMON_NAME, PEN20_HISYARYUMON_ID, PEN20_HISYARYUMON_FQID, PEN20_HISYARYUMON_FQNAME, PEN20_HISYARYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HISYARYUMON_FQID, ALT_PEN20_HISYARYUMON_FQNAME } },  // Hisyaryumon
-        { { PEN20_HOLY_ANGEMON_NAME, PEN20_HOLY_ANGEMON_ID, PEN20_HOLY_ANGEMON_FQID, PEN20_HOLY_ANGEMON_FQNAME, PEN20_HOLY_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HOLY_ANGEMON_FQID, ALT_PEN20_HOLY_ANGEMON_FQNAME } },  // Holy Angemon
-        { { PEN20_HOLYDRAMON_NAME, PEN20_HOLYDRAMON_ID, PEN20_HOLYDRAMON_FQID, PEN20_HOLYDRAMON_FQNAME, PEN20_HOLYDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HOLYDRAMON_FQID, ALT_PEN20_HOLYDRAMON_FQNAME } },  // Holydramon
-        { { PEN20_HOUOUMON_NAME, PEN20_HOUOUMON_ID, PEN20_HOUOUMON_FQID, PEN20_HOUOUMON_FQNAME, PEN20_HOUOUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_HOUOUMON_FQID, ALT_PEN20_HOUOUMON_FQNAME } },  // Hououmon
-        { { PEN20_IGAMON_NAME, PEN20_IGAMON_ID, PEN20_IGAMON_FQID, PEN20_IGAMON_FQNAME, PEN20_IGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_IGAMON_FQID, ALT_PEN20_IGAMON_FQNAME } },  // Igamon
-        { { PEN20_IKKAKUMON_NAME, PEN20_IKKAKUMON_ID, PEN20_IKKAKUMON_FQID, PEN20_IKKAKUMON_FQNAME, PEN20_IKKAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_IKKAKUMON_FQID, ALT_PEN20_IKKAKUMON_FQNAME } },  // Ikkakumon
-        { { PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME } },  // Imperialdramon Fighter Mode
-        { { PEN20_IMPMON_NAME, PEN20_IMPMON_ID, PEN20_IMPMON_FQID, PEN20_IMPMON_FQNAME, PEN20_IMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_IMPMON_FQID, ALT_PEN20_IMPMON_FQNAME } },  // Impmon
-        { { PEN20_JESMON_NAME, PEN20_JESMON_ID, PEN20_JESMON_FQID, PEN20_JESMON_FQNAME, PEN20_JESMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_JESMON_FQID, ALT_PEN20_JESMON_FQNAME } },  // Jesmon
-        { { PEN20_JESMON_X_NAME, PEN20_JESMON_X_ID, PEN20_JESMON_X_FQID, PEN20_JESMON_X_FQNAME, PEN20_JESMON_X_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_JESMON_X_FQID, ALT_PEN20_JESMON_X_FQNAME } },  // Jesmon X
-        { { PEN20_JYAGAMON_NAME, PEN20_JYAGAMON_ID, PEN20_JYAGAMON_FQID, PEN20_JYAGAMON_FQNAME, PEN20_JYAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_JYAGAMON_FQID, ALT_PEN20_JYAGAMON_FQNAME } },  // Jyagamon
-        { { PEN20_JYUREIMON_NAME, PEN20_JYUREIMON_ID, PEN20_JYUREIMON_FQID, PEN20_JYUREIMON_FQNAME, PEN20_JYUREIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_JYUREIMON_FQID, ALT_PEN20_JYUREIMON_FQNAME } },  // Jyureimon
-        { { PEN20_KABUTERIMON_NAME, PEN20_KABUTERIMON_ID, PEN20_KABUTERIMON_FQID, PEN20_KABUTERIMON_FQNAME, PEN20_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KABUTERIMON_FQID, ALT_PEN20_KABUTERIMON_FQNAME } },  // Kabuterimon
-        { { PEN20_KAKKINMON_NAME, PEN20_KAKKINMON_ID, PEN20_KAKKINMON_FQID, PEN20_KAKKINMON_FQNAME, PEN20_KAKKINMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KAKKINMON_FQID, ALT_PEN20_KAKKINMON_FQNAME } },  // Kakkinmon
-        { { PEN20_KIWIMON_NAME, PEN20_KIWIMON_ID, PEN20_KIWIMON_FQID, PEN20_KIWIMON_FQNAME, PEN20_KIWIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KIWIMON_FQID, ALT_PEN20_KIWIMON_FQNAME } },  // Kiwimon
-        { { PEN20_KNIGHTMON_NAME, PEN20_KNIGHTMON_ID, PEN20_KNIGHTMON_FQID, PEN20_KNIGHTMON_FQNAME, PEN20_KNIGHTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KNIGHTMON_FQID, ALT_PEN20_KNIGHTMON_FQNAME } },  // Knightmon
-        { { PEN20_KOKUWAMON_NAME, PEN20_KOKUWAMON_ID, PEN20_KOKUWAMON_FQID, PEN20_KOKUWAMON_FQNAME, PEN20_KOKUWAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KOKUWAMON_FQID, ALT_PEN20_KOKUWAMON_FQNAME } },  // Kokuwamon
-        { { PEN20_KOROMON_NAME, PEN20_KOROMON_ID, PEN20_KOROMON_FQID, PEN20_KOROMON_FQNAME, PEN20_KOROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KOROMON_FQID, ALT_PEN20_KOROMON_FQNAME } },  // Koromon
-        { { PEN20_KUWAGAMON_NAME, PEN20_KUWAGAMON_ID, PEN20_KUWAGAMON_FQID, PEN20_KUWAGAMON_FQNAME, PEN20_KUWAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KUWAGAMON_FQID, ALT_PEN20_KUWAGAMON_FQNAME } },  // Kuwagamon
-        { { PEN20_KYOKYOMON_NAME, PEN20_KYOKYOMON_ID, PEN20_KYOKYOMON_FQID, PEN20_KYOKYOMON_FQNAME, PEN20_KYOKYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_KYOKYOMON_FQID, ALT_PEN20_KYOKYOMON_FQNAME } },  // Kyokyomon
-        { { PEN20_LADY_DEVIMON_NAME, PEN20_LADY_DEVIMON_ID, PEN20_LADY_DEVIMON_FQID, PEN20_LADY_DEVIMON_FQNAME, PEN20_LADY_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LADY_DEVIMON_FQID, ALT_PEN20_LADY_DEVIMON_FQNAME } },  // Lady Devimon
-        { { PEN20_LALAMON_NAME, PEN20_LALAMON_ID, PEN20_LALAMON_FQID, PEN20_LALAMON_FQNAME, PEN20_LALAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LALAMON_FQID, ALT_PEN20_LALAMON_FQNAME } },  // Lalamon
-        { { PEN20_LAVOGARITAMON_NAME, PEN20_LAVOGARITAMON_ID, PEN20_LAVOGARITAMON_FQID, PEN20_LAVOGARITAMON_FQNAME, PEN20_LAVOGARITAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LAVOGARITAMON_FQID, ALT_PEN20_LAVOGARITAMON_FQNAME } },  // Lavogaritamon
-        { { PEN20_LAVORVOMON_NAME, PEN20_LAVORVOMON_ID, PEN20_LAVORVOMON_FQID, PEN20_LAVORVOMON_FQNAME, PEN20_LAVORVOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LAVORVOMON_FQID, ALT_PEN20_LAVORVOMON_FQNAME } },  // Lavorvomon
-        { { PEN20_LEOMON_NAME, PEN20_LEOMON_ID, PEN20_LEOMON_FQID, PEN20_LEOMON_FQNAME, PEN20_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LEOMON_FQID, ALT_PEN20_LEOMON_FQNAME } },  // Leomon
-        { { PEN20_LILAMON_NAME, PEN20_LILAMON_ID, PEN20_LILAMON_FQID, PEN20_LILAMON_FQNAME, PEN20_LILAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LILAMON_FQID, ALT_PEN20_LILAMON_FQNAME } },  // Lilamon
-        { { PEN20_LILIMON_NAME, PEN20_LILIMON_ID, PEN20_LILIMON_FQID, PEN20_LILIMON_FQNAME, PEN20_LILIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LILIMON_FQID, ALT_PEN20_LILIMON_FQNAME } },  // Lilimon
-        { { PEN20_LOPMON_NAME, PEN20_LOPMON_ID, PEN20_LOPMON_FQID, PEN20_LOPMON_FQNAME, PEN20_LOPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LOPMON_FQID, ALT_PEN20_LOPMON_FQNAME } },  // Lopmon
-        { { PEN20_LOTUSMON_NAME, PEN20_LOTUSMON_ID, PEN20_LOTUSMON_FQID, PEN20_LOTUSMON_FQNAME, PEN20_LOTUSMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LOTUSMON_FQID, ALT_PEN20_LOTUSMON_FQNAME } },  // Lotusmon
-        { { PEN20_LUDOMON_NAME, PEN20_LUDOMON_ID, PEN20_LUDOMON_FQID, PEN20_LUDOMON_FQNAME, PEN20_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_LUDOMON_FQID, ALT_PEN20_LUDOMON_FQNAME } },  // Ludomon
-        { { PEN20_MAD_LEOMON_NAME, PEN20_MAD_LEOMON_ID, PEN20_MAD_LEOMON_FQID, PEN20_MAD_LEOMON_FQNAME, PEN20_MAD_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MAD_LEOMON_FQID, ALT_PEN20_MAD_LEOMON_FQNAME } },  // Mad Leomon
-        { { PEN20_MAMMON_NAME, PEN20_MAMMON_ID, PEN20_MAMMON_FQID, PEN20_MAMMON_FQNAME, PEN20_MAMMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MAMMON_FQID, ALT_PEN20_MAMMON_FQNAME } },  // Mammon
-        { { PEN20_MANBOMON_NAME, PEN20_MANBOMON_ID, PEN20_MANBOMON_FQID, PEN20_MANBOMON_FQNAME, PEN20_MANBOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MANBOMON_FQID, ALT_PEN20_MANBOMON_FQNAME } },  // Manbomon
-        { { PEN20_MARIN_ANGEMON_NAME, PEN20_MARIN_ANGEMON_ID, PEN20_MARIN_ANGEMON_FQID, PEN20_MARIN_ANGEMON_FQNAME, PEN20_MARIN_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MARIN_ANGEMON_FQID, ALT_PEN20_MARIN_ANGEMON_FQNAME } },  // Marin Angemon
-        { { PEN20_MARIN_DEVIMON_NAME, PEN20_MARIN_DEVIMON_ID, PEN20_MARIN_DEVIMON_FQID, PEN20_MARIN_DEVIMON_FQNAME, PEN20_MARIN_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MARIN_DEVIMON_FQID, ALT_PEN20_MARIN_DEVIMON_FQNAME } },  // Marin Devimon
-        { { PEN20_MASTEMON_NAME, PEN20_MASTEMON_ID, PEN20_MASTEMON_FQID, PEN20_MASTEMON_FQNAME, PEN20_MASTEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MASTEMON_FQID, ALT_PEN20_MASTEMON_FQNAME } },  // Mastemon
-        { { PEN20_MECHANORIMON_NAME, PEN20_MECHANORIMON_ID, PEN20_MECHANORIMON_FQID, PEN20_MECHANORIMON_FQNAME, PEN20_MECHANORIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MECHANORIMON_FQID, ALT_PEN20_MECHANORIMON_FQNAME } },  // Mechanorimon
-        { { PEN20_MEGADRAMON_NAME, PEN20_MEGADRAMON_ID, PEN20_MEGADRAMON_FQID, PEN20_MEGADRAMON_FQNAME, PEN20_MEGADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MEGADRAMON_FQID, ALT_PEN20_MEGADRAMON_FQNAME } },  // Megadramon
-        { { PEN20_MEGALO_GROWMON_NAME, PEN20_MEGALO_GROWMON_ID, PEN20_MEGALO_GROWMON_FQID, PEN20_MEGALO_GROWMON_FQNAME, PEN20_MEGALO_GROWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MEGALO_GROWMON_FQID, ALT_PEN20_MEGALO_GROWMON_FQNAME } },  // Megalo Growmon
-        { { PEN20_MEGA_SEADRAMON_NAME, PEN20_MEGA_SEADRAMON_ID, PEN20_MEGA_SEADRAMON_FQID, PEN20_MEGA_SEADRAMON_FQNAME, PEN20_MEGA_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MEGA_SEADRAMON_FQID, ALT_PEN20_MEGA_SEADRAMON_FQNAME } },  // Mega Seadramon
-        { { PEN20_MEICOOMON_NAME, PEN20_MEICOOMON_ID, PEN20_MEICOOMON_FQID, PEN20_MEICOOMON_FQNAME, PEN20_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MEICOOMON_FQID, ALT_PEN20_MEICOOMON_FQNAME } },  // Meicoomon
-        { { PEN20_MEICRACKMON_VICIOUS_MODE_NAME, PEN20_MEICRACKMON_VICIOUS_MODE_ID, PEN20_MEICRACKMON_VICIOUS_MODE_FQID, PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME, PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME } },  // Meicrackmon Vicious Mode
-        { { PEN20_MERAMON_NAME, PEN20_MERAMON_ID, PEN20_MERAMON_FQID, PEN20_MERAMON_FQNAME, PEN20_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MERAMON_FQID, ALT_PEN20_MERAMON_FQNAME } },  // Meramon
-        { { PEN20_METAL_ETEMON_NAME, PEN20_METAL_ETEMON_ID, PEN20_METAL_ETEMON_FQID, PEN20_METAL_ETEMON_FQNAME, PEN20_METAL_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_METAL_ETEMON_FQID, ALT_PEN20_METAL_ETEMON_FQNAME } },  // Metal Etemon
-        { { PEN20_METAL_GARURUMON_NAME, PEN20_METAL_GARURUMON_ID, PEN20_METAL_GARURUMON_FQID, PEN20_METAL_GARURUMON_FQNAME, PEN20_METAL_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_METAL_GARURUMON_FQID, ALT_PEN20_METAL_GARURUMON_FQNAME } },  // Metal Garurumon
-        { { PEN20_METAL_GREYMON_NAME, PEN20_METAL_GREYMON_ID, PEN20_METAL_GREYMON_FQID, PEN20_METAL_GREYMON_FQNAME, PEN20_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_METAL_GREYMON_FQID, ALT_PEN20_METAL_GREYMON_FQNAME } },  // Metal Greymon
-        { { PEN20_METAL_MAMEMON_NAME, PEN20_METAL_MAMEMON_ID, PEN20_METAL_MAMEMON_FQID, PEN20_METAL_MAMEMON_FQNAME, PEN20_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_METAL_MAMEMON_FQID, ALT_PEN20_METAL_MAMEMON_FQNAME } },  // Metal Mamemon
-        { { PEN20_METAL_SEADRAMON_NAME, PEN20_METAL_SEADRAMON_ID, PEN20_METAL_SEADRAMON_FQID, PEN20_METAL_SEADRAMON_FQNAME, PEN20_METAL_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_METAL_SEADRAMON_FQID, ALT_PEN20_METAL_SEADRAMON_FQNAME } },  // Metal Seadramon
-        { { PEN20_MOCHIMON_NAME, PEN20_MOCHIMON_ID, PEN20_MOCHIMON_FQID, PEN20_MOCHIMON_FQNAME, PEN20_MOCHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MOCHIMON_FQID, ALT_PEN20_MOCHIMON_FQNAME } },  // Mochimon
-        { { PEN20_MOKUMON_NAME, PEN20_MOKUMON_ID, PEN20_MOKUMON_FQID, PEN20_MOKUMON_FQNAME, PEN20_MOKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MOKUMON_FQID, ALT_PEN20_MOKUMON_FQNAME } },  // Mokumon
-        { { PEN20_MONOCHROMON_NAME, PEN20_MONOCHROMON_ID, PEN20_MONOCHROMON_FQID, PEN20_MONOCHROMON_FQNAME, PEN20_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MONOCHROMON_FQID, ALT_PEN20_MONOCHROMON_FQNAME } },  // Monochromon
-        { { PEN20_MUGENDRAMON_NAME, PEN20_MUGENDRAMON_ID, PEN20_MUGENDRAMON_FQID, PEN20_MUGENDRAMON_FQNAME, PEN20_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MUGENDRAMON_FQID, ALT_PEN20_MUGENDRAMON_FQNAME } },  // Mugendramon
-        { { PEN20_MUSHMON_NAME, PEN20_MUSHMON_ID, PEN20_MUSHMON_FQID, PEN20_MUSHMON_FQNAME, PEN20_MUSHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_MUSHMON_FQID, ALT_PEN20_MUSHMON_FQNAME } },  // Mushmon
-        { { PEN20_NYAROMON_NAME, PEN20_NYAROMON_ID, PEN20_NYAROMON_FQID, PEN20_NYAROMON_FQNAME, PEN20_NYAROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_NYAROMON_FQID, ALT_PEN20_NYAROMON_FQNAME } },  // Nyaromon
-        { { PEN20_NYOKIMON_NAME, PEN20_NYOKIMON_ID, PEN20_NYOKIMON_FQID, PEN20_NYOKIMON_FQNAME, PEN20_NYOKIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_NYOKIMON_FQID, ALT_PEN20_NYOKIMON_FQNAME } },  // Nyokimon
-        { { PEN20_OCTMON_NAME, PEN20_OCTMON_ID, PEN20_OCTMON_FQID, PEN20_OCTMON_FQNAME, PEN20_OCTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_OCTMON_FQID, ALT_PEN20_OCTMON_FQNAME } },  // Octmon
-        { { PEN20_OFANIMON_NAME, PEN20_OFANIMON_ID, PEN20_OFANIMON_FQID, PEN20_OFANIMON_FQNAME, PEN20_OFANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_OFANIMON_FQID, ALT_PEN20_OFANIMON_FQNAME } },  // Ofanimon
-        { { PEN20_OGUDOMON_NAME, PEN20_OGUDOMON_ID, PEN20_OGUDOMON_FQID, PEN20_OGUDOMON_FQNAME, PEN20_OGUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_OGUDOMON_FQID, ALT_PEN20_OGUDOMON_FQNAME } },  // Ogudomon
-        { { PEN20_OKUWAMON_NAME, PEN20_OKUWAMON_ID, PEN20_OKUWAMON_FQID, PEN20_OKUWAMON_FQNAME, PEN20_OKUWAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_OKUWAMON_FQID, ALT_PEN20_OKUWAMON_FQNAME } },  // Okuwamon
-        { { PEN20_OMEGAMON_NAME, PEN20_OMEGAMON_ID, PEN20_OMEGAMON_FQID, PEN20_OMEGAMON_FQNAME, PEN20_OMEGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_OMEGAMON_FQID, ALT_PEN20_OMEGAMON_FQNAME } },  // Omegamon
-        { { PEN20_ORDINEMON_NAME, PEN20_ORDINEMON_ID, PEN20_ORDINEMON_FQID, PEN20_ORDINEMON_FQNAME, PEN20_ORDINEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ORDINEMON_FQID, ALT_PEN20_ORDINEMON_FQNAME } },  // Ordinemon
-        { { PEN20_OTAMAMON_NAME, PEN20_OTAMAMON_ID, PEN20_OTAMAMON_FQID, PEN20_OTAMAMON_FQNAME, PEN20_OTAMAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_OTAMAMON_FQID, ALT_PEN20_OTAMAMON_FQNAME } },  // Otamamon
-        { { PEN20_OURYUMON_NAME, PEN20_OURYUMON_ID, PEN20_OURYUMON_FQID, PEN20_OURYUMON_FQNAME, PEN20_OURYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_OURYUMON_FQID, ALT_PEN20_OURYUMON_FQNAME } },  // Ouryumon
-        { { PEN20_PAILDRAMON_NAME, PEN20_PAILDRAMON_ID, PEN20_PAILDRAMON_FQID, PEN20_PAILDRAMON_FQNAME, PEN20_PAILDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PAILDRAMON_FQID, ALT_PEN20_PAILDRAMON_FQNAME } },  // Paildramon
-        { { PEN20_PALMON_NAME, PEN20_PALMON_ID, PEN20_PALMON_FQID, PEN20_PALMON_FQNAME, PEN20_PALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PALMON_FQID, ALT_PEN20_PALMON_FQNAME } },  // Palmon
-        { { PEN20_PETI_MERAMON_NAME, PEN20_PETI_MERAMON_ID, PEN20_PETI_MERAMON_FQID, PEN20_PETI_MERAMON_FQNAME, PEN20_PETI_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PETI_MERAMON_FQID, ALT_PEN20_PETI_MERAMON_FQNAME } },  // Peti Meramon
-        { { PEN20_PETITMON_NAME, PEN20_PETITMON_ID, PEN20_PETITMON_FQID, PEN20_PETITMON_FQNAME, PEN20_PETITMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PETITMON_FQID, ALT_PEN20_PETITMON_FQNAME } },  // Petitmon
-        { { PEN20_PHASCOMON_NAME, PEN20_PHASCOMON_ID, PEN20_PHASCOMON_FQID, PEN20_PHASCOMON_FQNAME, PEN20_PHASCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PHASCOMON_FQID, ALT_PEN20_PHASCOMON_FQNAME } },  // Phascomon
-        { { PEN20_PICCOLOMON_NAME, PEN20_PICCOLOMON_ID, PEN20_PICCOLOMON_FQID, PEN20_PICCOLOMON_FQNAME, PEN20_PICCOLOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PICCOLOMON_FQID, ALT_PEN20_PICCOLOMON_FQNAME } },  // Piccolomon
-        { { PEN20_PICO_DEVIMON_NAME, PEN20_PICO_DEVIMON_ID, PEN20_PICO_DEVIMON_FQID, PEN20_PICO_DEVIMON_FQNAME, PEN20_PICO_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PICO_DEVIMON_FQID, ALT_PEN20_PICO_DEVIMON_FQNAME } },  // Pico Devimon
-        { { PEN20_PIEMON_NAME, PEN20_PIEMON_ID, PEN20_PIEMON_FQID, PEN20_PIEMON_FQNAME, PEN20_PIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PIEMON_FQID, ALT_PEN20_PIEMON_FQNAME } },  // Piemon
-        { { PEN20_PINOCHIMON_NAME, PEN20_PINOCHIMON_ID, PEN20_PINOCHIMON_FQID, PEN20_PINOCHIMON_FQNAME, PEN20_PINOCHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PINOCHIMON_FQID, ALT_PEN20_PINOCHIMON_FQNAME } },  // Pinochimon
-        { { PEN20_PITCHMON_NAME, PEN20_PITCHMON_ID, PEN20_PITCHMON_FQID, PEN20_PITCHMON_FQNAME, PEN20_PITCHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PITCHMON_FQID, ALT_PEN20_PITCHMON_FQNAME } },  // Pitchmon
-        { { PEN20_PIYOMON_NAME, PEN20_PIYOMON_ID, PEN20_PIYOMON_FQID, PEN20_PIYOMON_FQNAME, PEN20_PIYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PIYOMON_FQID, ALT_PEN20_PIYOMON_FQNAME } },  // Piyomon
-        { { PEN20_PLESIOMON_NAME, PEN20_PLESIOMON_ID, PEN20_PLESIOMON_FQID, PEN20_PLESIOMON_FQNAME, PEN20_PLESIOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PLESIOMON_FQID, ALT_PEN20_PLESIOMON_FQNAME } },  // Plesiomon
-        { { PEN20_PLOTMON_NAME, PEN20_PLOTMON_ID, PEN20_PLOTMON_FQID, PEN20_PLOTMON_FQNAME, PEN20_PLOTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PLOTMON_FQID, ALT_PEN20_PLOTMON_FQNAME } },  // Plotmon
-        { { PEN20_PORCUPAMON_NAME, PEN20_PORCUPAMON_ID, PEN20_PORCUPAMON_FQID, PEN20_PORCUPAMON_FQNAME, PEN20_PORCUPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PORCUPAMON_FQID, ALT_PEN20_PORCUPAMON_FQNAME } },  // Porcupamon
-        { { PEN20_PUKAMON_NAME, PEN20_PUKAMON_ID, PEN20_PUKAMON_FQID, PEN20_PUKAMON_FQNAME, PEN20_PUKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PUKAMON_FQID, ALT_PEN20_PUKAMON_FQNAME } },  // Pukamon
-        { { PEN20_PUKUMON_NAME, PEN20_PUKUMON_ID, PEN20_PUKUMON_FQID, PEN20_PUKUMON_FQNAME, PEN20_PUKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PUKUMON_FQID, ALT_PEN20_PUKUMON_FQNAME } },  // Pukumon
-        { { PEN20_PUMPMON_NAME, PEN20_PUMPMON_ID, PEN20_PUMPMON_FQID, PEN20_PUMPMON_FQNAME, PEN20_PUMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PUMPMON_FQID, ALT_PEN20_PUMPMON_FQNAME } },  // Pumpmon
-        { { PEN20_PYOCOMON_NAME, PEN20_PYOCOMON_ID, PEN20_PYOCOMON_FQID, PEN20_PYOCOMON_FQNAME, PEN20_PYOCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_PYOCOMON_FQID, ALT_PEN20_PYOCOMON_FQNAME } },  // Pyocomon
-        { { PEN20_RAFFLESIMON_NAME, PEN20_RAFFLESIMON_ID, PEN20_RAFFLESIMON_FQID, PEN20_RAFFLESIMON_FQNAME, PEN20_RAFFLESIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RAFFLESIMON_FQID, ALT_PEN20_RAFFLESIMON_FQNAME } },  // Rafflesimon
-        { { PEN20_RAGNA_LORDMON_NAME, PEN20_RAGNA_LORDMON_ID, PEN20_RAGNA_LORDMON_FQID, PEN20_RAGNA_LORDMON_FQNAME, PEN20_RAGNA_LORDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RAGNA_LORDMON_FQID, ALT_PEN20_RAGNA_LORDMON_FQNAME } },  // Ragna Lordmon
-        { { PEN20_RAGUELMON_NAME, PEN20_RAGUELMON_ID, PEN20_RAGUELMON_FQID, PEN20_RAGUELMON_FQNAME, PEN20_RAGUELMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RAGUELMON_FQID, ALT_PEN20_RAGUELMON_FQNAME } },  // Raguelmon
-        { { PEN20_RAIJI_LUDOMON_NAME, PEN20_RAIJI_LUDOMON_ID, PEN20_RAIJI_LUDOMON_FQID, PEN20_RAIJI_LUDOMON_FQNAME, PEN20_RAIJI_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RAIJI_LUDOMON_FQID, ALT_PEN20_RAIJI_LUDOMON_FQNAME } },  // Raiji Ludomon
-        { { PEN20_RAPIDMON_NAME, PEN20_RAPIDMON_ID, PEN20_RAPIDMON_FQID, PEN20_RAPIDMON_FQNAME, PEN20_RAPIDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RAPIDMON_FQID, ALT_PEN20_RAPIDMON_FQNAME } },  // Rapidmon
-        { { PEN20_RED_VEGIMON_NAME, PEN20_RED_VEGIMON_ID, PEN20_RED_VEGIMON_FQID, PEN20_RED_VEGIMON_FQNAME, PEN20_RED_VEGIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RED_VEGIMON_FQID, ALT_PEN20_RED_VEGIMON_FQNAME } },  // Red Vegimon
-        { { PEN20_REPPAMON_NAME, PEN20_REPPAMON_ID, PEN20_REPPAMON_FQID, PEN20_REPPAMON_FQNAME, PEN20_REPPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_REPPAMON_FQID, ALT_PEN20_REPPAMON_FQNAME } },  // Reppamon
-        { { PEN20_REVOLMON_NAME, PEN20_REVOLMON_ID, PEN20_REVOLMON_FQID, PEN20_REVOLMON_FQNAME, PEN20_REVOLMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_REVOLMON_FQID, ALT_PEN20_REVOLMON_FQNAME } },  // Revolmon
-        { { PEN20_RIZE_GREYMON_NAME, PEN20_RIZE_GREYMON_ID, PEN20_RIZE_GREYMON_FQID, PEN20_RIZE_GREYMON_FQNAME, PEN20_RIZE_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RIZE_GREYMON_FQID, ALT_PEN20_RIZE_GREYMON_FQNAME } },  // Rize Greymon
-        { { PEN20_ROSEMON_NAME, PEN20_ROSEMON_ID, PEN20_ROSEMON_FQID, PEN20_ROSEMON_FQNAME, PEN20_ROSEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ROSEMON_FQID, ALT_PEN20_ROSEMON_FQNAME } },  // Rosemon
-        { { PEN20_RUKAMON_NAME, PEN20_RUKAMON_ID, PEN20_RUKAMON_FQID, PEN20_RUKAMON_FQNAME, PEN20_RUKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RUKAMON_FQID, ALT_PEN20_RUKAMON_FQNAME } },  // Rukamon
-        { { PEN20_RYUDAMON_NAME, PEN20_RYUDAMON_ID, PEN20_RYUDAMON_FQID, PEN20_RYUDAMON_FQNAME, PEN20_RYUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_RYUDAMON_FQID, ALT_PEN20_RYUDAMON_FQNAME } },  // Ryudamon
-        { { PEN20_SABER_LEOMON_NAME, PEN20_SABER_LEOMON_ID, PEN20_SABER_LEOMON_FQID, PEN20_SABER_LEOMON_FQNAME, PEN20_SABER_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SABER_LEOMON_FQID, ALT_PEN20_SABER_LEOMON_FQNAME } },  // Saber Leomon
-        { { PEN20_SAINT_GALGOMON_NAME, PEN20_SAINT_GALGOMON_ID, PEN20_SAINT_GALGOMON_FQID, PEN20_SAINT_GALGOMON_FQNAME, PEN20_SAINT_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SAINT_GALGOMON_FQID, ALT_PEN20_SAINT_GALGOMON_FQNAME } },  // Saint Galgomon
-        { { PEN20_SAKUMON_NAME, PEN20_SAKUMON_ID, PEN20_SAKUMON_FQID, PEN20_SAKUMON_FQNAME, PEN20_SAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SAKUMON_FQID, ALT_PEN20_SAKUMON_FQNAME } },  // Sakumon
-        { { PEN20_SAKUTTOMON_NAME, PEN20_SAKUTTOMON_ID, PEN20_SAKUTTOMON_FQID, PEN20_SAKUTTOMON_FQNAME, PEN20_SAKUTTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SAKUTTOMON_FQID, ALT_PEN20_SAKUTTOMON_FQNAME } },  // Sakuttomon
-        { { PEN20_SAVIOR_HACKMON_NAME, PEN20_SAVIOR_HACKMON_ID, PEN20_SAVIOR_HACKMON_FQID, PEN20_SAVIOR_HACKMON_FQNAME, PEN20_SAVIOR_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SAVIOR_HACKMON_FQID, ALT_PEN20_SAVIOR_HACKMON_FQNAME } },  // Savior Hackmon
-        { { PEN20_SEADRAMON_NAME, PEN20_SEADRAMON_ID, PEN20_SEADRAMON_FQID, PEN20_SEADRAMON_FQNAME, PEN20_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SEADRAMON_FQID, ALT_PEN20_SEADRAMON_FQNAME } },  // Seadramon
-        { { PEN20_SERAPHIMON_NAME, PEN20_SERAPHIMON_ID, PEN20_SERAPHIMON_FQID, PEN20_SERAPHIMON_FQNAME, PEN20_SERAPHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SERAPHIMON_FQID, ALT_PEN20_SERAPHIMON_FQNAME } },  // Seraphimon
-        { { PEN20_SHADRAMON_NAME, PEN20_SHADRAMON_ID, PEN20_SHADRAMON_FQID, PEN20_SHADRAMON_FQNAME, PEN20_SHADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SHADRAMON_FQID, ALT_PEN20_SHADRAMON_FQNAME } },  // Shadramon
-        { { PEN20_SHAKOMON_NAME, PEN20_SHAKOMON_ID, PEN20_SHAKOMON_FQID, PEN20_SHAKOMON_FQNAME, PEN20_SHAKOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SHAKOMON_FQID, ALT_PEN20_SHAKOMON_FQNAME } },  // Shakomon
-        { { PEN20_SKULL_MAMMON_NAME, PEN20_SKULL_MAMMON_ID, PEN20_SKULL_MAMMON_FQID, PEN20_SKULL_MAMMON_FQNAME, PEN20_SKULL_MAMMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SKULL_MAMMON_FQID, ALT_PEN20_SKULL_MAMMON_FQNAME } },  // Skull Mammon
-        { { PEN20_SLAYERDRAMON_NAME, PEN20_SLAYERDRAMON_ID, PEN20_SLAYERDRAMON_FQID, PEN20_SLAYERDRAMON_FQNAME, PEN20_SLAYERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SLAYERDRAMON_FQID, ALT_PEN20_SLAYERDRAMON_FQNAME } },  // Slayerdramon
-        { { PEN20_STARMON_NAME, PEN20_STARMON_ID, PEN20_STARMON_FQID, PEN20_STARMON_FQNAME, PEN20_STARMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_STARMON_FQID, ALT_PEN20_STARMON_FQNAME } },  // Starmon
-        { { PEN20_SUNFLOWMON_NAME, PEN20_SUNFLOWMON_ID, PEN20_SUNFLOWMON_FQID, PEN20_SUNFLOWMON_FQNAME, PEN20_SUNFLOWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_SUNFLOWMON_FQID, ALT_PEN20_SUNFLOWMON_FQNAME } },  // Sunflowmon
-        { { PEN20_TAILMON_NAME, PEN20_TAILMON_ID, PEN20_TAILMON_FQID, PEN20_TAILMON_FQNAME, PEN20_TAILMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TAILMON_FQID, ALT_PEN20_TAILMON_FQNAME } },  // Tailmon
-        { { PEN20_TANKMON_NAME, PEN20_TANKMON_ID, PEN20_TANKMON_FQID, PEN20_TANKMON_FQNAME, PEN20_TANKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TANKMON_FQID, ALT_PEN20_TANKMON_FQNAME } },  // Tankmon
-        { { PEN20_TARGETMON_NAME, PEN20_TARGETMON_ID, PEN20_TARGETMON_FQID, PEN20_TARGETMON_FQNAME, PEN20_TARGETMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TARGETMON_FQID, ALT_PEN20_TARGETMON_FQNAME } },  // Targetmon
-        { { PEN20_TENTOMON_NAME, PEN20_TENTOMON_ID, PEN20_TENTOMON_FQID, PEN20_TENTOMON_FQNAME, PEN20_TENTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TENTOMON_FQID, ALT_PEN20_TENTOMON_FQNAME } },  // Tentomon
-        { { PEN20_TERRIERMON_NAME, PEN20_TERRIERMON_ID, PEN20_TERRIERMON_FQID, PEN20_TERRIERMON_FQNAME, PEN20_TERRIERMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TERRIERMON_FQID, ALT_PEN20_TERRIERMON_FQNAME } },  // Terriermon
-        { { PEN20_THUNDERBALLMON_NAME, PEN20_THUNDERBALLMON_ID, PEN20_THUNDERBALLMON_FQID, PEN20_THUNDERBALLMON_FQNAME, PEN20_THUNDERBALLMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_THUNDERBALLMON_FQID, ALT_PEN20_THUNDERBALLMON_FQNAME } },  // Thunderballmon
-        { { PEN20_TIA_LUDOMON_NAME, PEN20_TIA_LUDOMON_ID, PEN20_TIA_LUDOMON_FQID, PEN20_TIA_LUDOMON_FQNAME, PEN20_TIA_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TIA_LUDOMON_FQID, ALT_PEN20_TIA_LUDOMON_FQNAME } },  // Tia Ludomon
-        { { PEN20_TOGEMON_NAME, PEN20_TOGEMON_ID, PEN20_TOGEMON_FQID, PEN20_TOGEMON_FQNAME, PEN20_TOGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TOGEMON_FQID, ALT_PEN20_TOGEMON_FQNAME } },  // Togemon
-        { { PEN20_TONOSAMA_GEKOMON_NAME, PEN20_TONOSAMA_GEKOMON_ID, PEN20_TONOSAMA_GEKOMON_FQID, PEN20_TONOSAMA_GEKOMON_FQNAME, PEN20_TONOSAMA_GEKOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TONOSAMA_GEKOMON_FQID, ALT_PEN20_TONOSAMA_GEKOMON_FQNAME } },  // Tonosama Gekomon
-        { { PEN20_TORTAMON_NAME, PEN20_TORTAMON_ID, PEN20_TORTAMON_FQID, PEN20_TORTAMON_FQNAME, PEN20_TORTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TORTAMON_FQID, ALT_PEN20_TORTAMON_FQNAME } },  // Tortamon
-        { { PEN20_TOY_AGUMON_NAME, PEN20_TOY_AGUMON_ID, PEN20_TOY_AGUMON_FQID, PEN20_TOY_AGUMON_FQNAME, PEN20_TOY_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TOY_AGUMON_FQID, ALT_PEN20_TOY_AGUMON_FQNAME } },  // Toy Agumon
-        { { PEN20_TRICERAMON_NAME, PEN20_TRICERAMON_ID, PEN20_TRICERAMON_FQID, PEN20_TRICERAMON_FQNAME, PEN20_TRICERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TRICERAMON_FQID, ALT_PEN20_TRICERAMON_FQNAME } },  // Triceramon
-        { { PEN20_TROOPMON_NAME, PEN20_TROOPMON_ID, PEN20_TROOPMON_FQID, PEN20_TROOPMON_FQNAME, PEN20_TROOPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TROOPMON_FQID, ALT_PEN20_TROOPMON_FQNAME } },  // Troopmon
-        { { PEN20_TURUIEMON_NAME, PEN20_TURUIEMON_ID, PEN20_TURUIEMON_FQID, PEN20_TURUIEMON_FQNAME, PEN20_TURUIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_TURUIEMON_FQID, ALT_PEN20_TURUIEMON_FQNAME } },  // Turuiemon
-        { { PEN20_VAMDEMON_NAME, PEN20_VAMDEMON_ID, PEN20_VAMDEMON_FQID, PEN20_VAMDEMON_FQNAME, PEN20_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_VAMDEMON_FQID, ALT_PEN20_VAMDEMON_FQNAME } },  // Vamdemon
-        { { PEN20_V_DRAMON_NAME, PEN20_V_DRAMON_ID, PEN20_V_DRAMON_FQID, PEN20_V_DRAMON_FQNAME, PEN20_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_V_DRAMON_FQID, ALT_PEN20_V_DRAMON_FQNAME } },  // V-dramon
-        { { PEN20_VENOM_VAMDEMON_NAME, PEN20_VENOM_VAMDEMON_ID, PEN20_VENOM_VAMDEMON_FQID, PEN20_VENOM_VAMDEMON_FQNAME, PEN20_VENOM_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_VENOM_VAMDEMON_FQID, ALT_PEN20_VENOM_VAMDEMON_FQNAME } },  // Venom Vamdemon
-        { { PEN20_V_MON_NAME, PEN20_V_MON_ID, PEN20_V_MON_FQID, PEN20_V_MON_FQNAME, PEN20_V_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_V_MON_FQID, ALT_PEN20_V_MON_FQNAME } },  // V-mon
-        { { PEN20_VOLCANICDRAMON_NAME, PEN20_VOLCANICDRAMON_ID, PEN20_VOLCANICDRAMON_FQID, PEN20_VOLCANICDRAMON_FQNAME, PEN20_VOLCANICDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_VOLCANICDRAMON_FQID, ALT_PEN20_VOLCANICDRAMON_FQNAME } },  // Volcanicdramon
-        { { PEN20_VOLTOBAUTAMON_NAME, PEN20_VOLTOBAUTAMON_ID, PEN20_VOLTOBAUTAMON_FQID, PEN20_VOLTOBAUTAMON_FQNAME, PEN20_VOLTOBAUTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_VOLTOBAUTAMON_FQID, ALT_PEN20_VOLTOBAUTAMON_FQNAME } },  // Voltobautamon
-        { { PEN20_VORVOMON_NAME, PEN20_VORVOMON_ID, PEN20_VORVOMON_FQID, PEN20_VORVOMON_FQNAME, PEN20_VORVOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_VORVOMON_FQID, ALT_PEN20_VORVOMON_FQNAME } },  // Vorvomon
-        { { PEN20_WAR_GREYMON_NAME, PEN20_WAR_GREYMON_ID, PEN20_WAR_GREYMON_FQID, PEN20_WAR_GREYMON_FQNAME, PEN20_WAR_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_WAR_GREYMON_FQID, ALT_PEN20_WAR_GREYMON_FQNAME } },  // War Greymon
-        { { PEN20_WARU_MONZAEMON_NAME, PEN20_WARU_MONZAEMON_ID, PEN20_WARU_MONZAEMON_FQID, PEN20_WARU_MONZAEMON_FQNAME, PEN20_WARU_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_WARU_MONZAEMON_FQID, ALT_PEN20_WARU_MONZAEMON_FQNAME } },  // Waru Monzaemon
-        { { PEN20_WERE_GARURUMON_NAME, PEN20_WERE_GARURUMON_ID, PEN20_WERE_GARURUMON_FQID, PEN20_WERE_GARURUMON_FQNAME, PEN20_WERE_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_WERE_GARURUMON_FQID, ALT_PEN20_WERE_GARURUMON_FQNAME } },  // Were Garurumon
-        { { PEN20_WHAMON_NAME, PEN20_WHAMON_ID, PEN20_WHAMON_FQID, PEN20_WHAMON_FQNAME, PEN20_WHAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_WHAMON_FQID, ALT_PEN20_WHAMON_FQNAME } },  // Whamon
-        { { PEN20_WINGDRAMON_NAME, PEN20_WINGDRAMON_ID, PEN20_WINGDRAMON_FQID, PEN20_WINGDRAMON_FQNAME, PEN20_WINGDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_WINGDRAMON_FQID, ALT_PEN20_WINGDRAMON_FQNAME } },  // Wingdramon
-        { { PEN20_WIZARMON_NAME, PEN20_WIZARMON_ID, PEN20_WIZARMON_FQID, PEN20_WIZARMON_FQNAME, PEN20_WIZARMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_WIZARMON_FQID, ALT_PEN20_WIZARMON_FQNAME } },  // Wizarmon
-        { { PEN20_WOODMON_NAME, PEN20_WOODMON_ID, PEN20_WOODMON_FQID, PEN20_WOODMON_FQNAME, PEN20_WOODMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_WOODMON_FQID, ALT_PEN20_WOODMON_FQNAME } },  // Woodmon
-        { { PEN20_XV_MON_NAME, PEN20_XV_MON_ID, PEN20_XV_MON_FQID, PEN20_XV_MON_FQNAME, PEN20_XV_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_XV_MON_FQID, ALT_PEN20_XV_MON_FQNAME } },  // XV-mon
-        { { PEN20_YUKIMI_BOTAMON_NAME, PEN20_YUKIMI_BOTAMON_ID, PEN20_YUKIMI_BOTAMON_FQID, PEN20_YUKIMI_BOTAMON_FQNAME, PEN20_YUKIMI_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_YUKIMI_BOTAMON_FQID, ALT_PEN20_YUKIMI_BOTAMON_FQNAME } },  // Yukimi Botamon
-        { { PEN20_ZERIMON_NAME, PEN20_ZERIMON_ID, PEN20_ZERIMON_FQID, PEN20_ZERIMON_FQNAME, PEN20_ZERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ZERIMON_FQID, ALT_PEN20_ZERIMON_FQNAME } },  // Zerimon
-        { { PEN20_ZUBAEAGERMON_NAME, PEN20_ZUBAEAGERMON_ID, PEN20_ZUBAEAGERMON_FQID, PEN20_ZUBAEAGERMON_FQNAME, PEN20_ZUBAEAGERMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ZUBAEAGERMON_FQID, ALT_PEN20_ZUBAEAGERMON_FQNAME } },  // Zubaeagermon
-        { { PEN20_ZUBAMON_NAME, PEN20_ZUBAMON_ID, PEN20_ZUBAMON_FQID, PEN20_ZUBAMON_FQNAME, PEN20_ZUBAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ZUBAMON_FQID, ALT_PEN20_ZUBAMON_FQNAME } },  // Zubamon
-        { { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_ID, PEN20_ZUDOMON_FQID, PEN20_ZUDOMON_FQNAME, PEN20_ZUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm }, { ALT_PEN20_ZUDOMON_FQID, ALT_PEN20_ZUDOMON_FQNAME } },  // Zudomon
+    static constexpr pen20_animation_table_entry_t pen20_animation_table[] CONFIG_LOCAL_STRING_SECTION = {
+        { PEN20_AERO_V_DRAMON_NAME_OFF, PEN20_AERO_V_DRAMON_ID_OFF, PEN20_AERO_V_DRAMON_FQID_OFF, PEN20_AERO_V_DRAMON_FQNAME_OFF, PEN20_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_AERO_V_DRAMON_FQID_OFF, ALT_PEN20_AERO_V_DRAMON_FQNAME_OFF },  // Aero V-dramon
+        { PEN20_AGUMON_HAKASE_NAME_OFF, PEN20_AGUMON_HAKASE_ID_OFF, PEN20_AGUMON_HAKASE_FQID_OFF, PEN20_AGUMON_HAKASE_FQNAME_OFF, PEN20_AGUMON_HAKASE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_AGUMON_HAKASE_FQID_OFF, ALT_PEN20_AGUMON_HAKASE_FQNAME_OFF },  // Agumon Hakase
+        { PEN20_AGUMON_NAME_OFF, PEN20_AGUMON_ID_OFF, PEN20_AGUMON_FQID_OFF, PEN20_AGUMON_FQNAME_OFF, PEN20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_AGUMON_FQID_OFF, ALT_PEN20_AGUMON_FQNAME_OFF },  // Agumon
+        { PEN20_ALPHAMON_OURYUKEN_NAME_OFF, PEN20_ALPHAMON_OURYUKEN_ID_OFF, PEN20_ALPHAMON_OURYUKEN_FQID_OFF, PEN20_ALPHAMON_OURYUKEN_FQNAME_OFF, PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ALPHAMON_OURYUKEN_FQID_OFF, ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_OFF },  // Alphamon Ouryuken
+        { PEN20_ALPHAMON_NAME_OFF, PEN20_ALPHAMON_ID_OFF, PEN20_ALPHAMON_FQID_OFF, PEN20_ALPHAMON_FQNAME_OFF, PEN20_ALPHAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ALPHAMON_FQID_OFF, ALT_PEN20_ALPHAMON_FQNAME_OFF },  // Alphamon
+        { PEN20_ANDIRAMON_NAME_OFF, PEN20_ANDIRAMON_ID_OFF, PEN20_ANDIRAMON_FQID_OFF, PEN20_ANDIRAMON_FQNAME_OFF, PEN20_ANDIRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ANDIRAMON_FQID_OFF, ALT_PEN20_ANDIRAMON_FQNAME_OFF },  // Andiramon
+        { PEN20_ANDROMON_NAME_OFF, PEN20_ANDROMON_ID_OFF, PEN20_ANDROMON_FQID_OFF, PEN20_ANDROMON_FQNAME_OFF, PEN20_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ANDROMON_FQID_OFF, ALT_PEN20_ANDROMON_FQNAME_OFF },  // Andromon
+        { PEN20_ANGEMON_NAME_OFF, PEN20_ANGEMON_ID_OFF, PEN20_ANGEMON_FQID_OFF, PEN20_ANGEMON_FQNAME_OFF, PEN20_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ANGEMON_FQID_OFF, ALT_PEN20_ANGEMON_FQNAME_OFF },  // Angemon
+        { PEN20_ANGEWOMON_NAME_OFF, PEN20_ANGEWOMON_ID_OFF, PEN20_ANGEWOMON_FQID_OFF, PEN20_ANGEWOMON_FQNAME_OFF, PEN20_ANGEWOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ANGEWOMON_FQID_OFF, ALT_PEN20_ANGEWOMON_FQNAME_OFF },  // Angewomon
+        { PEN20_ANOMALOCARIMON_NAME_OFF, PEN20_ANOMALOCARIMON_ID_OFF, PEN20_ANOMALOCARIMON_FQID_OFF, PEN20_ANOMALOCARIMON_FQNAME_OFF, PEN20_ANOMALOCARIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ANOMALOCARIMON_FQID_OFF, ALT_PEN20_ANOMALOCARIMON_FQNAME_OFF },  // Anomalocarimon
+        { PEN20_ARRESTERDRAMON_NAME_OFF, PEN20_ARRESTERDRAMON_ID_OFF, PEN20_ARRESTERDRAMON_FQID_OFF, PEN20_ARRESTERDRAMON_FQNAME_OFF, PEN20_ARRESTERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ARRESTERDRAMON_FQID_OFF, ALT_PEN20_ARRESTERDRAMON_FQNAME_OFF },  // Arresterdramon
+        { PEN20_ASTAMON_NAME_OFF, PEN20_ASTAMON_ID_OFF, PEN20_ASTAMON_FQID_OFF, PEN20_ASTAMON_FQNAME_OFF, PEN20_ASTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ASTAMON_FQID_OFF, ALT_PEN20_ASTAMON_FQNAME_OFF },  // Astamon
+        { PEN20_ASURAMON_NAME_OFF, PEN20_ASURAMON_ID_OFF, PEN20_ASURAMON_FQID_OFF, PEN20_ASURAMON_FQNAME_OFF, PEN20_ASURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ASURAMON_FQID_OFF, ALT_PEN20_ASURAMON_FQNAME_OFF },  // Asuramon
+        { PEN20_ATLUR_KABUTERIMON_NAME_OFF, PEN20_ATLUR_KABUTERIMON_ID_OFF, PEN20_ATLUR_KABUTERIMON_FQID_OFF, PEN20_ATLUR_KABUTERIMON_FQNAME_OFF, PEN20_ATLUR_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ATLUR_KABUTERIMON_FQID_OFF, ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_OFF },  // Atlur Kabuterimon
+        { PEN20_BAALMON_NAME_OFF, PEN20_BAALMON_ID_OFF, PEN20_BAALMON_FQID_OFF, PEN20_BAALMON_FQNAME_OFF, PEN20_BAALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BAALMON_FQID_OFF, ALT_PEN20_BAALMON_FQNAME_OFF },  // Baalmon
+        { PEN20_BABYDMON_NAME_OFF, PEN20_BABYDMON_ID_OFF, PEN20_BABYDMON_FQID_OFF, PEN20_BABYDMON_FQNAME_OFF, PEN20_BABYDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BABYDMON_FQID_OFF, ALT_PEN20_BABYDMON_FQNAME_OFF },  // Babydmon
+        { PEN20_BAKEMON_NAME_OFF, PEN20_BAKEMON_ID_OFF, PEN20_BAKEMON_FQID_OFF, PEN20_BAKEMON_FQNAME_OFF, PEN20_BAKEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BAKEMON_FQID_OFF, ALT_PEN20_BAKEMON_FQNAME_OFF },  // Bakemon
+        { PEN20_BAKUMON_NAME_OFF, PEN20_BAKUMON_ID_OFF, PEN20_BAKUMON_FQID_OFF, PEN20_BAKUMON_FQNAME_OFF, PEN20_BAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BAKUMON_FQID_OFF, ALT_PEN20_BAKUMON_FQNAME_OFF },  // Bakumon
+        { PEN20_BANCHO_LEOMON_NAME_OFF, PEN20_BANCHO_LEOMON_ID_OFF, PEN20_BANCHO_LEOMON_FQID_OFF, PEN20_BANCHO_LEOMON_FQNAME_OFF, PEN20_BANCHO_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BANCHO_LEOMON_FQID_OFF, ALT_PEN20_BANCHO_LEOMON_FQNAME_OFF },  // Bancho Leomon
+        { PEN20_BAO_HACKMON_NAME_OFF, PEN20_BAO_HACKMON_ID_OFF, PEN20_BAO_HACKMON_FQID_OFF, PEN20_BAO_HACKMON_FQNAME_OFF, PEN20_BAO_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BAO_HACKMON_FQID_OFF, ALT_PEN20_BAO_HACKMON_FQNAME_OFF },  // Bao Hackmon
+        { PEN20_BEELZEBUMON_BLAST_MODE_NAME_OFF, PEN20_BEELZEBUMON_BLAST_MODE_ID_OFF, PEN20_BEELZEBUMON_BLAST_MODE_FQID_OFF, PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_OFF, PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_OFF, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_OFF },  // Beelzebumon Blast Mode
+        { PEN20_BEOWOLFMON_NAME_OFF, PEN20_BEOWOLFMON_ID_OFF, PEN20_BEOWOLFMON_FQID_OFF, PEN20_BEOWOLFMON_FQNAME_OFF, PEN20_BEOWOLFMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BEOWOLFMON_FQID_OFF, ALT_PEN20_BEOWOLFMON_FQNAME_OFF },  // Beowolfmon
+        { PEN20_BIG_MAMEMON_NAME_OFF, PEN20_BIG_MAMEMON_ID_OFF, PEN20_BIG_MAMEMON_FQID_OFF, PEN20_BIG_MAMEMON_FQNAME_OFF, PEN20_BIG_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BIG_MAMEMON_FQID_OFF, ALT_PEN20_BIG_MAMEMON_FQNAME_OFF },  // Big Mamemon
+        { PEN20_BIRDRAMON_NAME_OFF, PEN20_BIRDRAMON_ID_OFF, PEN20_BIRDRAMON_FQID_OFF, PEN20_BIRDRAMON_FQNAME_OFF, PEN20_BIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BIRDRAMON_FQID_OFF, ALT_PEN20_BIRDRAMON_FQNAME_OFF },  // Birdramon
+        { PEN20_BLOSSOMON_NAME_OFF, PEN20_BLOSSOMON_ID_OFF, PEN20_BLOSSOMON_FQID_OFF, PEN20_BLOSSOMON_FQNAME_OFF, PEN20_BLOSSOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BLOSSOMON_FQID_OFF, ALT_PEN20_BLOSSOMON_FQNAME_OFF },  // Blossomon
+        { PEN20_BOLTMON_NAME_OFF, PEN20_BOLTMON_ID_OFF, PEN20_BOLTMON_FQID_OFF, PEN20_BOLTMON_FQNAME_OFF, PEN20_BOLTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BOLTMON_FQID_OFF, ALT_PEN20_BOLTMON_FQNAME_OFF },  // Boltmon
+        { PEN20_BOTAMON_NAME_OFF, PEN20_BOTAMON_ID_OFF, PEN20_BOTAMON_FQID_OFF, PEN20_BOTAMON_FQNAME_OFF, PEN20_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BOTAMON_FQID_OFF, ALT_PEN20_BOTAMON_FQNAME_OFF },  // Botamon
+        { PEN20_BREAKDRAMON_NAME_OFF, PEN20_BREAKDRAMON_ID_OFF, PEN20_BREAKDRAMON_FQID_OFF, PEN20_BREAKDRAMON_FQNAME_OFF, PEN20_BREAKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BREAKDRAMON_FQID_OFF, ALT_PEN20_BREAKDRAMON_FQNAME_OFF },  // Breakdramon
+        { PEN20_BRYWELUDRAMON_NAME_OFF, PEN20_BRYWELUDRAMON_ID_OFF, PEN20_BRYWELUDRAMON_FQID_OFF, PEN20_BRYWELUDRAMON_FQNAME_OFF, PEN20_BRYWELUDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BRYWELUDRAMON_FQID_OFF, ALT_PEN20_BRYWELUDRAMON_FQNAME_OFF },  // Bryweludramon
+        { PEN20_BUBBMON_NAME_OFF, PEN20_BUBBMON_ID_OFF, PEN20_BUBBMON_FQID_OFF, PEN20_BUBBMON_FQNAME_OFF, PEN20_BUBBMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BUBBMON_FQID_OFF, ALT_PEN20_BUBBMON_FQNAME_OFF },  // Bubbmon
+        { PEN20_BUDMON_NAME_OFF, PEN20_BUDMON_ID_OFF, PEN20_BUDMON_FQID_OFF, PEN20_BUDMON_FQNAME_OFF, PEN20_BUDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BUDMON_FQID_OFF, ALT_PEN20_BUDMON_FQNAME_OFF },  // Budmon
+        { PEN20_BUSHI_AGUMON_NAME_OFF, PEN20_BUSHI_AGUMON_ID_OFF, PEN20_BUSHI_AGUMON_FQID_OFF, PEN20_BUSHI_AGUMON_FQNAME_OFF, PEN20_BUSHI_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_BUSHI_AGUMON_FQID_OFF, ALT_PEN20_BUSHI_AGUMON_FQNAME_OFF },  // Bushi Agumon
+        { PEN20_CANDMON_NAME_OFF, PEN20_CANDMON_ID_OFF, PEN20_CANDMON_FQID_OFF, PEN20_CANDMON_FQNAME_OFF, PEN20_CANDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CANDMON_FQID_OFF, ALT_PEN20_CANDMON_FQNAME_OFF },  // Candmon
+        { PEN20_CAPRIMON_NAME_OFF, PEN20_CAPRIMON_ID_OFF, PEN20_CAPRIMON_FQID_OFF, PEN20_CAPRIMON_FQNAME_OFF, PEN20_CAPRIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CAPRIMON_FQID_OFF, ALT_PEN20_CAPRIMON_FQNAME_OFF },  // Caprimon
+        { PEN20_CHAOSMON_NAME_OFF, PEN20_CHAOSMON_ID_OFF, PEN20_CHAOSMON_FQID_OFF, PEN20_CHAOSMON_FQNAME_OFF, PEN20_CHAOSMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CHAOSMON_FQID_OFF, ALT_PEN20_CHAOSMON_FQNAME_OFF },  // Chaosmon
+        { PEN20_CHERUBIMON_NAME_OFF, PEN20_CHERUBIMON_ID_OFF, PEN20_CHERUBIMON_FQID_OFF, PEN20_CHERUBIMON_FQNAME_OFF, PEN20_CHERUBIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CHERUBIMON_FQID_OFF, ALT_PEN20_CHERUBIMON_FQNAME_OFF },  // Cherubimon
+        { PEN20_CHIBIMON_NAME_OFF, PEN20_CHIBIMON_ID_OFF, PEN20_CHIBIMON_FQID_OFF, PEN20_CHIBIMON_FQNAME_OFF, PEN20_CHIBIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CHIBIMON_FQID_OFF, ALT_PEN20_CHIBIMON_FQNAME_OFF },  // Chibimon
+        { PEN20_CHICOMON_NAME_OFF, PEN20_CHICOMON_ID_OFF, PEN20_CHICOMON_FQID_OFF, PEN20_CHICOMON_FQNAME_OFF, PEN20_CHICOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CHICOMON_FQID_OFF, ALT_PEN20_CHICOMON_FQNAME_OFF },  // Chicomon
+        { PEN20_CHOCOMON_NAME_OFF, PEN20_CHOCOMON_ID_OFF, PEN20_CHOCOMON_FQID_OFF, PEN20_CHOCOMON_FQNAME_OFF, PEN20_CHOCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CHOCOMON_FQID_OFF, ALT_PEN20_CHOCOMON_FQNAME_OFF },  // Chocomon
+        { PEN20_CHOROMON_NAME_OFF, PEN20_CHOROMON_ID_OFF, PEN20_CHOROMON_FQID_OFF, PEN20_CHOROMON_FQNAME_OFF, PEN20_CHOROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CHOROMON_FQID_OFF, ALT_PEN20_CHOROMON_FQNAME_OFF },  // Choromon
+        { PEN20_CLOCKMON_NAME_OFF, PEN20_CLOCKMON_ID_OFF, PEN20_CLOCKMON_FQID_OFF, PEN20_CLOCKMON_FQNAME_OFF, PEN20_CLOCKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CLOCKMON_FQID_OFF, ALT_PEN20_CLOCKMON_FQNAME_OFF },  // Clockmon
+        { PEN20_COCOMON_NAME_OFF, PEN20_COCOMON_ID_OFF, PEN20_COCOMON_FQID_OFF, PEN20_COCOMON_FQNAME_OFF, PEN20_COCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_COCOMON_FQID_OFF, ALT_PEN20_COCOMON_FQNAME_OFF },  // Cocomon
+        { PEN20_COELAMON_NAME_OFF, PEN20_COELAMON_ID_OFF, PEN20_COELAMON_FQID_OFF, PEN20_COELAMON_FQNAME_OFF, PEN20_COELAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_COELAMON_FQID_OFF, ALT_PEN20_COELAMON_FQNAME_OFF },  // Coelamon
+        { PEN20_COREDRAMON_BLUE_NAME_OFF, PEN20_COREDRAMON_BLUE_ID_OFF, PEN20_COREDRAMON_BLUE_FQID_OFF, PEN20_COREDRAMON_BLUE_FQNAME_OFF, PEN20_COREDRAMON_BLUE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_COREDRAMON_BLUE_FQID_OFF, ALT_PEN20_COREDRAMON_BLUE_FQNAME_OFF },  // Coredramon (Blue)
+        { PEN20_COREDRAMON_GREEN_NAME_OFF, PEN20_COREDRAMON_GREEN_ID_OFF, PEN20_COREDRAMON_GREEN_FQID_OFF, PEN20_COREDRAMON_GREEN_FQNAME_OFF, PEN20_COREDRAMON_GREEN_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_COREDRAMON_GREEN_FQID_OFF, ALT_PEN20_COREDRAMON_GREEN_FQNAME_OFF },  // Coredramon (Green)
+        { PEN20_COTSUCOMON_NAME_OFF, PEN20_COTSUCOMON_ID_OFF, PEN20_COTSUCOMON_FQID_OFF, PEN20_COTSUCOMON_FQNAME_OFF, PEN20_COTSUCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_COTSUCOMON_FQID_OFF, ALT_PEN20_COTSUCOMON_FQNAME_OFF },  // Cotsucomon
+        { PEN20_CYBERDRAMON_NAME_OFF, PEN20_CYBERDRAMON_ID_OFF, PEN20_CYBERDRAMON_FQID_OFF, PEN20_CYBERDRAMON_FQNAME_OFF, PEN20_CYBERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_CYBERDRAMON_FQID_OFF, ALT_PEN20_CYBERDRAMON_FQNAME_OFF },  // Cyberdramon
+        { PEN20_DAGOMON_NAME_OFF, PEN20_DAGOMON_ID_OFF, PEN20_DAGOMON_FQID_OFF, PEN20_DAGOMON_FQNAME_OFF, PEN20_DAGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DAGOMON_FQID_OFF, ALT_PEN20_DAGOMON_FQNAME_OFF },  // Dagomon
+        { PEN20_DARKDRAMON_NAME_OFF, PEN20_DARKDRAMON_ID_OFF, PEN20_DARKDRAMON_FQID_OFF, PEN20_DARKDRAMON_FQNAME_OFF, PEN20_DARKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DARKDRAMON_FQID_OFF, ALT_PEN20_DARKDRAMON_FQNAME_OFF },  // Darkdramon
+        { PEN20_DARK_KNIGHTMON_NAME_OFF, PEN20_DARK_KNIGHTMON_ID_OFF, PEN20_DARK_KNIGHTMON_FQID_OFF, PEN20_DARK_KNIGHTMON_FQNAME_OFF, PEN20_DARK_KNIGHTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DARK_KNIGHTMON_FQID_OFF, ALT_PEN20_DARK_KNIGHTMON_FQNAME_OFF },  // Dark Knightmon
+        { PEN20_DEATH_MERAMON_NAME_OFF, PEN20_DEATH_MERAMON_ID_OFF, PEN20_DEATH_MERAMON_FQID_OFF, PEN20_DEATH_MERAMON_FQNAME_OFF, PEN20_DEATH_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DEATH_MERAMON_FQID_OFF, ALT_PEN20_DEATH_MERAMON_FQNAME_OFF },  // Death Meramon
+        { PEN20_DELUMON_NAME_OFF, PEN20_DELUMON_ID_OFF, PEN20_DELUMON_FQID_OFF, PEN20_DELUMON_FQNAME_OFF, PEN20_DELUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DELUMON_FQID_OFF, ALT_PEN20_DELUMON_FQNAME_OFF },  // Delumon
+        { PEN20_DEVIDRAMON_NAME_OFF, PEN20_DEVIDRAMON_ID_OFF, PEN20_DEVIDRAMON_FQID_OFF, PEN20_DEVIDRAMON_FQNAME_OFF, PEN20_DEVIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DEVIDRAMON_FQID_OFF, ALT_PEN20_DEVIDRAMON_FQNAME_OFF },  // Devidramon
+        { PEN20_DEVIMON_NAME_OFF, PEN20_DEVIMON_ID_OFF, PEN20_DEVIMON_FQID_OFF, PEN20_DEVIMON_FQNAME_OFF, PEN20_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DEVIMON_FQID_OFF, ALT_PEN20_DEVIMON_FQNAME_OFF },  // Devimon
+        { PEN20_DODOMON_NAME_OFF, PEN20_DODOMON_ID_OFF, PEN20_DODOMON_FQID_OFF, PEN20_DODOMON_FQNAME_OFF, PEN20_DODOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DODOMON_FQID_OFF, ALT_PEN20_DODOMON_FQNAME_OFF },  // Dodomon
+        { PEN20_DOKUGUMON_NAME_OFF, PEN20_DOKUGUMON_ID_OFF, PEN20_DOKUGUMON_FQID_OFF, PEN20_DOKUGUMON_FQNAME_OFF, PEN20_DOKUGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DOKUGUMON_FQID_OFF, ALT_PEN20_DOKUGUMON_FQNAME_OFF },  // Dokugumon
+        { PEN20_DORIMON_NAME_OFF, PEN20_DORIMON_ID_OFF, PEN20_DORIMON_FQID_OFF, PEN20_DORIMON_FQNAME_OFF, PEN20_DORIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DORIMON_FQID_OFF, ALT_PEN20_DORIMON_FQNAME_OFF },  // Dorimon
+        { PEN20_DORUGAMON_NAME_OFF, PEN20_DORUGAMON_ID_OFF, PEN20_DORUGAMON_FQID_OFF, PEN20_DORUGAMON_FQNAME_OFF, PEN20_DORUGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DORUGAMON_FQID_OFF, ALT_PEN20_DORUGAMON_FQNAME_OFF },  // DORUgamon
+        { PEN20_DORUGORAMON_NAME_OFF, PEN20_DORUGORAMON_ID_OFF, PEN20_DORUGORAMON_FQID_OFF, PEN20_DORUGORAMON_FQNAME_OFF, PEN20_DORUGORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DORUGORAMON_FQID_OFF, ALT_PEN20_DORUGORAMON_FQNAME_OFF },  // DORUgoramon
+        { PEN20_DORUGUREMON_NAME_OFF, PEN20_DORUGUREMON_ID_OFF, PEN20_DORUGUREMON_FQID_OFF, PEN20_DORUGUREMON_FQNAME_OFF, PEN20_DORUGUREMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DORUGUREMON_FQID_OFF, ALT_PEN20_DORUGUREMON_FQNAME_OFF },  // DORUguremon
+        { PEN20_DORUMON_NAME_OFF, PEN20_DORUMON_ID_OFF, PEN20_DORUMON_FQID_OFF, PEN20_DORUMON_FQNAME_OFF, PEN20_DORUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DORUMON_FQID_OFF, ALT_PEN20_DORUMON_FQNAME_OFF },  // DORUmon
+        { PEN20_DRACOMON_NAME_OFF, PEN20_DRACOMON_ID_OFF, PEN20_DRACOMON_FQID_OFF, PEN20_DRACOMON_FQNAME_OFF, PEN20_DRACOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DRACOMON_FQID_OFF, ALT_PEN20_DRACOMON_FQNAME_OFF },  // Dracomon
+        { PEN20_DURAMON_NAME_OFF, PEN20_DURAMON_ID_OFF, PEN20_DURAMON_FQID_OFF, PEN20_DURAMON_FQNAME_OFF, PEN20_DURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DURAMON_FQID_OFF, ALT_PEN20_DURAMON_FQNAME_OFF },  // Duramon
+        { PEN20_DURANDAMON_NAME_OFF, PEN20_DURANDAMON_ID_OFF, PEN20_DURANDAMON_FQID_OFF, PEN20_DURANDAMON_FQNAME_OFF, PEN20_DURANDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_DURANDAMON_FQID_OFF, ALT_PEN20_DURANDAMON_FQNAME_OFF },  // Durandamon
+        { PEN20_EBIDRAMON_NAME_OFF, PEN20_EBIDRAMON_ID_OFF, PEN20_EBIDRAMON_FQID_OFF, PEN20_EBIDRAMON_FQNAME_OFF, PEN20_EBIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_EBIDRAMON_FQID_OFF, ALT_PEN20_EBIDRAMON_FQNAME_OFF },  // Ebidramon
+        { PEN20_ETEMON_NAME_OFF, PEN20_ETEMON_ID_OFF, PEN20_ETEMON_FQID_OFF, PEN20_ETEMON_FQNAME_OFF, PEN20_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ETEMON_FQID_OFF, ALT_PEN20_ETEMON_FQNAME_OFF },  // Etemon
+        { PEN20_EXAMON_NAME_OFF, PEN20_EXAMON_ID_OFF, PEN20_EXAMON_FQID_OFF, PEN20_EXAMON_FQNAME_OFF, PEN20_EXAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_EXAMON_FQID_OFF, ALT_PEN20_EXAMON_FQNAME_OFF },  // Examon
+        { PEN20_FANTOMON_NAME_OFF, PEN20_FANTOMON_ID_OFF, PEN20_FANTOMON_FQID_OFF, PEN20_FANTOMON_FQNAME_OFF, PEN20_FANTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_FANTOMON_FQID_OFF, ALT_PEN20_FANTOMON_FQNAME_OFF },  // Fantomon
+        { PEN20_FLORAMON_NAME_OFF, PEN20_FLORAMON_ID_OFF, PEN20_FLORAMON_FQID_OFF, PEN20_FLORAMON_FQNAME_OFF, PEN20_FLORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_FLORAMON_FQID_OFF, ALT_PEN20_FLORAMON_FQNAME_OFF },  // Floramon
+        { PEN20_FUFUMON_NAME_OFF, PEN20_FUFUMON_ID_OFF, PEN20_FUFUMON_FQID_OFF, PEN20_FUFUMON_FQNAME_OFF, PEN20_FUFUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_FUFUMON_FQID_OFF, ALT_PEN20_FUFUMON_FQNAME_OFF },  // Fufumon
+        { PEN20_GABUMON_NAME_OFF, PEN20_GABUMON_ID_OFF, PEN20_GABUMON_FQID_OFF, PEN20_GABUMON_FQNAME_OFF, PEN20_GABUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GABUMON_FQID_OFF, ALT_PEN20_GABUMON_FQNAME_OFF },  // Gabumon
+        { PEN20_GALGOMON_NAME_OFF, PEN20_GALGOMON_ID_OFF, PEN20_GALGOMON_FQID_OFF, PEN20_GALGOMON_FQNAME_OFF, PEN20_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GALGOMON_FQID_OFF, ALT_PEN20_GALGOMON_FQNAME_OFF },  // Galgomon
+        { PEN20_GANIMON_NAME_OFF, PEN20_GANIMON_ID_OFF, PEN20_GANIMON_FQID_OFF, PEN20_GANIMON_FQNAME_OFF, PEN20_GANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GANIMON_FQID_OFF, ALT_PEN20_GANIMON_FQNAME_OFF },  // Ganimon
+        { PEN20_GARUDAMON_NAME_OFF, PEN20_GARUDAMON_ID_OFF, PEN20_GARUDAMON_FQID_OFF, PEN20_GARUDAMON_FQNAME_OFF, PEN20_GARUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GARUDAMON_FQID_OFF, ALT_PEN20_GARUDAMON_FQNAME_OFF },  // Garudamon
+        { PEN20_GARURUMON_NAME_OFF, PEN20_GARURUMON_ID_OFF, PEN20_GARURUMON_FQID_OFF, PEN20_GARURUMON_FQNAME_OFF, PEN20_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GARURUMON_FQID_OFF, ALT_PEN20_GARURUMON_FQNAME_OFF },  // Garurumon
+        { PEN20_GEKOMON_NAME_OFF, PEN20_GEKOMON_ID_OFF, PEN20_GEKOMON_FQID_OFF, PEN20_GEKOMON_FQNAME_OFF, PEN20_GEKOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GEKOMON_FQID_OFF, ALT_PEN20_GEKOMON_FQNAME_OFF },  // Gekomon
+        { PEN20_GERBEMON_NAME_OFF, PEN20_GERBEMON_ID_OFF, PEN20_GERBEMON_FQID_OFF, PEN20_GERBEMON_FQNAME_OFF, PEN20_GERBEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GERBEMON_FQID_OFF, ALT_PEN20_GERBEMON_FQNAME_OFF },  // Gerbemon
+        { PEN20_GESOMON_NAME_OFF, PEN20_GESOMON_ID_OFF, PEN20_GESOMON_FQID_OFF, PEN20_GESOMON_FQNAME_OFF, PEN20_GESOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GESOMON_FQID_OFF, ALT_PEN20_GESOMON_FQNAME_OFF },  // Gesomon
+        { PEN20_GINRYUMON_NAME_OFF, PEN20_GINRYUMON_ID_OFF, PEN20_GINRYUMON_FQID_OFF, PEN20_GINRYUMON_FQNAME_OFF, PEN20_GINRYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GINRYUMON_FQID_OFF, ALT_PEN20_GINRYUMON_FQNAME_OFF },  // Ginryumon
+        { PEN20_GOMAMON_NAME_OFF, PEN20_GOMAMON_ID_OFF, PEN20_GOMAMON_FQID_OFF, PEN20_GOMAMON_FQNAME_OFF, PEN20_GOMAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GOMAMON_FQID_OFF, ALT_PEN20_GOMAMON_FQNAME_OFF },  // Gomamon
+        { PEN20_GOTTSUMON_NAME_OFF, PEN20_GOTTSUMON_ID_OFF, PEN20_GOTTSUMON_FQID_OFF, PEN20_GOTTSUMON_FQNAME_OFF, PEN20_GOTTSUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GOTTSUMON_FQID_OFF, ALT_PEN20_GOTTSUMON_FQNAME_OFF },  // Gottsumon
+        { PEN20_GREYMON_NAME_OFF, PEN20_GREYMON_ID_OFF, PEN20_GREYMON_FQID_OFF, PEN20_GREYMON_FQNAME_OFF, PEN20_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GREYMON_FQID_OFF, ALT_PEN20_GREYMON_FQNAME_OFF },  // Greymon
+        { PEN20_GRIFFOMON_NAME_OFF, PEN20_GRIFFOMON_ID_OFF, PEN20_GRIFFOMON_FQID_OFF, PEN20_GRIFFOMON_FQNAME_OFF, PEN20_GRIFFOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GRIFFOMON_FQID_OFF, ALT_PEN20_GRIFFOMON_FQNAME_OFF },  // Griffomon
+        { PEN20_GROUNDRAMON_NAME_OFF, PEN20_GROUNDRAMON_ID_OFF, PEN20_GROUNDRAMON_FQID_OFF, PEN20_GROUNDRAMON_FQNAME_OFF, PEN20_GROUNDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GROUNDRAMON_FQID_OFF, ALT_PEN20_GROUNDRAMON_FQNAME_OFF },  // Groundramon
+        { PEN20_GROWMON_NAME_OFF, PEN20_GROWMON_ID_OFF, PEN20_GROWMON_FQID_OFF, PEN20_GROWMON_FQNAME_OFF, PEN20_GROWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GROWMON_FQID_OFF, ALT_PEN20_GROWMON_FQNAME_OFF },  // Growmon
+        { PEN20_GUARDROMON_NAME_OFF, PEN20_GUARDROMON_ID_OFF, PEN20_GUARDROMON_FQID_OFF, PEN20_GUARDROMON_FQNAME_OFF, PEN20_GUARDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GUARDROMON_FQID_OFF, ALT_PEN20_GUARDROMON_FQNAME_OFF },  // Guardromon
+        { PEN20_GUILMON_NAME_OFF, PEN20_GUILMON_ID_OFF, PEN20_GUILMON_FQID_OFF, PEN20_GUILMON_FQNAME_OFF, PEN20_GUILMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GUILMON_FQID_OFF, ALT_PEN20_GUILMON_FQNAME_OFF },  // Guilmon
+        { PEN20_GUMMYMON_NAME_OFF, PEN20_GUMMYMON_ID_OFF, PEN20_GUMMYMON_FQID_OFF, PEN20_GUMMYMON_FQNAME_OFF, PEN20_GUMMYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_GUMMYMON_FQID_OFF, ALT_PEN20_GUMMYMON_FQNAME_OFF },  // Gummymon
+        { PEN20_HACKMON_NAME_OFF, PEN20_HACKMON_ID_OFF, PEN20_HACKMON_FQID_OFF, PEN20_HACKMON_FQNAME_OFF, PEN20_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HACKMON_FQID_OFF, ALT_PEN20_HACKMON_FQNAME_OFF },  // Hackmon
+        { PEN20_HAGURUMON_NAME_OFF, PEN20_HAGURUMON_ID_OFF, PEN20_HAGURUMON_FQID_OFF, PEN20_HAGURUMON_FQNAME_OFF, PEN20_HAGURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HAGURUMON_FQID_OFF, ALT_PEN20_HAGURUMON_FQNAME_OFF },  // Hagurumon
+        { PEN20_HANGYOMON_NAME_OFF, PEN20_HANGYOMON_ID_OFF, PEN20_HANGYOMON_FQID_OFF, PEN20_HANGYOMON_FQNAME_OFF, PEN20_HANGYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HANGYOMON_FQID_OFF, ALT_PEN20_HANGYOMON_FQNAME_OFF },  // Hangyomon
+        { PEN20_HANUMON_NAME_OFF, PEN20_HANUMON_ID_OFF, PEN20_HANUMON_FQID_OFF, PEN20_HANUMON_FQNAME_OFF, PEN20_HANUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HANUMON_FQID_OFF, ALT_PEN20_HANUMON_FQNAME_OFF },  // Hanumon
+        { PEN20_HERAKLE_KABUTERIMON_NAME_OFF, PEN20_HERAKLE_KABUTERIMON_ID_OFF, PEN20_HERAKLE_KABUTERIMON_FQID_OFF, PEN20_HERAKLE_KABUTERIMON_FQNAME_OFF, PEN20_HERAKLE_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HERAKLE_KABUTERIMON_FQID_OFF, ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_OFF },  // Herakle Kabuterimon
+        { PEN20_HISYARYUMON_NAME_OFF, PEN20_HISYARYUMON_ID_OFF, PEN20_HISYARYUMON_FQID_OFF, PEN20_HISYARYUMON_FQNAME_OFF, PEN20_HISYARYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HISYARYUMON_FQID_OFF, ALT_PEN20_HISYARYUMON_FQNAME_OFF },  // Hisyaryumon
+        { PEN20_HOLY_ANGEMON_NAME_OFF, PEN20_HOLY_ANGEMON_ID_OFF, PEN20_HOLY_ANGEMON_FQID_OFF, PEN20_HOLY_ANGEMON_FQNAME_OFF, PEN20_HOLY_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HOLY_ANGEMON_FQID_OFF, ALT_PEN20_HOLY_ANGEMON_FQNAME_OFF },  // Holy Angemon
+        { PEN20_HOLYDRAMON_NAME_OFF, PEN20_HOLYDRAMON_ID_OFF, PEN20_HOLYDRAMON_FQID_OFF, PEN20_HOLYDRAMON_FQNAME_OFF, PEN20_HOLYDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HOLYDRAMON_FQID_OFF, ALT_PEN20_HOLYDRAMON_FQNAME_OFF },  // Holydramon
+        { PEN20_HOUOUMON_NAME_OFF, PEN20_HOUOUMON_ID_OFF, PEN20_HOUOUMON_FQID_OFF, PEN20_HOUOUMON_FQNAME_OFF, PEN20_HOUOUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_HOUOUMON_FQID_OFF, ALT_PEN20_HOUOUMON_FQNAME_OFF },  // Hououmon
+        { PEN20_IGAMON_NAME_OFF, PEN20_IGAMON_ID_OFF, PEN20_IGAMON_FQID_OFF, PEN20_IGAMON_FQNAME_OFF, PEN20_IGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_IGAMON_FQID_OFF, ALT_PEN20_IGAMON_FQNAME_OFF },  // Igamon
+        { PEN20_IKKAKUMON_NAME_OFF, PEN20_IKKAKUMON_ID_OFF, PEN20_IKKAKUMON_FQID_OFF, PEN20_IKKAKUMON_FQNAME_OFF, PEN20_IKKAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_IKKAKUMON_FQID_OFF, ALT_PEN20_IKKAKUMON_FQNAME_OFF },  // Ikkakumon
+        { PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_OFF, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_OFF, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_OFF, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_OFF, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_OFF, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_OFF },  // Imperialdramon Fighter Mode
+        { PEN20_IMPMON_NAME_OFF, PEN20_IMPMON_ID_OFF, PEN20_IMPMON_FQID_OFF, PEN20_IMPMON_FQNAME_OFF, PEN20_IMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_IMPMON_FQID_OFF, ALT_PEN20_IMPMON_FQNAME_OFF },  // Impmon
+        { PEN20_JESMON_NAME_OFF, PEN20_JESMON_ID_OFF, PEN20_JESMON_FQID_OFF, PEN20_JESMON_FQNAME_OFF, PEN20_JESMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_JESMON_FQID_OFF, ALT_PEN20_JESMON_FQNAME_OFF },  // Jesmon
+        { PEN20_JESMON_X_NAME_OFF, PEN20_JESMON_X_ID_OFF, PEN20_JESMON_X_FQID_OFF, PEN20_JESMON_X_FQNAME_OFF, PEN20_JESMON_X_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_JESMON_X_FQID_OFF, ALT_PEN20_JESMON_X_FQNAME_OFF },  // Jesmon X
+        { PEN20_JYAGAMON_NAME_OFF, PEN20_JYAGAMON_ID_OFF, PEN20_JYAGAMON_FQID_OFF, PEN20_JYAGAMON_FQNAME_OFF, PEN20_JYAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_JYAGAMON_FQID_OFF, ALT_PEN20_JYAGAMON_FQNAME_OFF },  // Jyagamon
+        { PEN20_JYUREIMON_NAME_OFF, PEN20_JYUREIMON_ID_OFF, PEN20_JYUREIMON_FQID_OFF, PEN20_JYUREIMON_FQNAME_OFF, PEN20_JYUREIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_JYUREIMON_FQID_OFF, ALT_PEN20_JYUREIMON_FQNAME_OFF },  // Jyureimon
+        { PEN20_KABUTERIMON_NAME_OFF, PEN20_KABUTERIMON_ID_OFF, PEN20_KABUTERIMON_FQID_OFF, PEN20_KABUTERIMON_FQNAME_OFF, PEN20_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KABUTERIMON_FQID_OFF, ALT_PEN20_KABUTERIMON_FQNAME_OFF },  // Kabuterimon
+        { PEN20_KAKKINMON_NAME_OFF, PEN20_KAKKINMON_ID_OFF, PEN20_KAKKINMON_FQID_OFF, PEN20_KAKKINMON_FQNAME_OFF, PEN20_KAKKINMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KAKKINMON_FQID_OFF, ALT_PEN20_KAKKINMON_FQNAME_OFF },  // Kakkinmon
+        { PEN20_KIWIMON_NAME_OFF, PEN20_KIWIMON_ID_OFF, PEN20_KIWIMON_FQID_OFF, PEN20_KIWIMON_FQNAME_OFF, PEN20_KIWIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KIWIMON_FQID_OFF, ALT_PEN20_KIWIMON_FQNAME_OFF },  // Kiwimon
+        { PEN20_KNIGHTMON_NAME_OFF, PEN20_KNIGHTMON_ID_OFF, PEN20_KNIGHTMON_FQID_OFF, PEN20_KNIGHTMON_FQNAME_OFF, PEN20_KNIGHTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KNIGHTMON_FQID_OFF, ALT_PEN20_KNIGHTMON_FQNAME_OFF },  // Knightmon
+        { PEN20_KOKUWAMON_NAME_OFF, PEN20_KOKUWAMON_ID_OFF, PEN20_KOKUWAMON_FQID_OFF, PEN20_KOKUWAMON_FQNAME_OFF, PEN20_KOKUWAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KOKUWAMON_FQID_OFF, ALT_PEN20_KOKUWAMON_FQNAME_OFF },  // Kokuwamon
+        { PEN20_KOROMON_NAME_OFF, PEN20_KOROMON_ID_OFF, PEN20_KOROMON_FQID_OFF, PEN20_KOROMON_FQNAME_OFF, PEN20_KOROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KOROMON_FQID_OFF, ALT_PEN20_KOROMON_FQNAME_OFF },  // Koromon
+        { PEN20_KUWAGAMON_NAME_OFF, PEN20_KUWAGAMON_ID_OFF, PEN20_KUWAGAMON_FQID_OFF, PEN20_KUWAGAMON_FQNAME_OFF, PEN20_KUWAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KUWAGAMON_FQID_OFF, ALT_PEN20_KUWAGAMON_FQNAME_OFF },  // Kuwagamon
+        { PEN20_KYOKYOMON_NAME_OFF, PEN20_KYOKYOMON_ID_OFF, PEN20_KYOKYOMON_FQID_OFF, PEN20_KYOKYOMON_FQNAME_OFF, PEN20_KYOKYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_KYOKYOMON_FQID_OFF, ALT_PEN20_KYOKYOMON_FQNAME_OFF },  // Kyokyomon
+        { PEN20_LADY_DEVIMON_NAME_OFF, PEN20_LADY_DEVIMON_ID_OFF, PEN20_LADY_DEVIMON_FQID_OFF, PEN20_LADY_DEVIMON_FQNAME_OFF, PEN20_LADY_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LADY_DEVIMON_FQID_OFF, ALT_PEN20_LADY_DEVIMON_FQNAME_OFF },  // Lady Devimon
+        { PEN20_LALAMON_NAME_OFF, PEN20_LALAMON_ID_OFF, PEN20_LALAMON_FQID_OFF, PEN20_LALAMON_FQNAME_OFF, PEN20_LALAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LALAMON_FQID_OFF, ALT_PEN20_LALAMON_FQNAME_OFF },  // Lalamon
+        { PEN20_LAVOGARITAMON_NAME_OFF, PEN20_LAVOGARITAMON_ID_OFF, PEN20_LAVOGARITAMON_FQID_OFF, PEN20_LAVOGARITAMON_FQNAME_OFF, PEN20_LAVOGARITAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LAVOGARITAMON_FQID_OFF, ALT_PEN20_LAVOGARITAMON_FQNAME_OFF },  // Lavogaritamon
+        { PEN20_LAVORVOMON_NAME_OFF, PEN20_LAVORVOMON_ID_OFF, PEN20_LAVORVOMON_FQID_OFF, PEN20_LAVORVOMON_FQNAME_OFF, PEN20_LAVORVOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LAVORVOMON_FQID_OFF, ALT_PEN20_LAVORVOMON_FQNAME_OFF },  // Lavorvomon
+        { PEN20_LEOMON_NAME_OFF, PEN20_LEOMON_ID_OFF, PEN20_LEOMON_FQID_OFF, PEN20_LEOMON_FQNAME_OFF, PEN20_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LEOMON_FQID_OFF, ALT_PEN20_LEOMON_FQNAME_OFF },  // Leomon
+        { PEN20_LILAMON_NAME_OFF, PEN20_LILAMON_ID_OFF, PEN20_LILAMON_FQID_OFF, PEN20_LILAMON_FQNAME_OFF, PEN20_LILAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LILAMON_FQID_OFF, ALT_PEN20_LILAMON_FQNAME_OFF },  // Lilamon
+        { PEN20_LILIMON_NAME_OFF, PEN20_LILIMON_ID_OFF, PEN20_LILIMON_FQID_OFF, PEN20_LILIMON_FQNAME_OFF, PEN20_LILIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LILIMON_FQID_OFF, ALT_PEN20_LILIMON_FQNAME_OFF },  // Lilimon
+        { PEN20_LOPMON_NAME_OFF, PEN20_LOPMON_ID_OFF, PEN20_LOPMON_FQID_OFF, PEN20_LOPMON_FQNAME_OFF, PEN20_LOPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LOPMON_FQID_OFF, ALT_PEN20_LOPMON_FQNAME_OFF },  // Lopmon
+        { PEN20_LOTUSMON_NAME_OFF, PEN20_LOTUSMON_ID_OFF, PEN20_LOTUSMON_FQID_OFF, PEN20_LOTUSMON_FQNAME_OFF, PEN20_LOTUSMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LOTUSMON_FQID_OFF, ALT_PEN20_LOTUSMON_FQNAME_OFF },  // Lotusmon
+        { PEN20_LUDOMON_NAME_OFF, PEN20_LUDOMON_ID_OFF, PEN20_LUDOMON_FQID_OFF, PEN20_LUDOMON_FQNAME_OFF, PEN20_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_LUDOMON_FQID_OFF, ALT_PEN20_LUDOMON_FQNAME_OFF },  // Ludomon
+        { PEN20_MAD_LEOMON_NAME_OFF, PEN20_MAD_LEOMON_ID_OFF, PEN20_MAD_LEOMON_FQID_OFF, PEN20_MAD_LEOMON_FQNAME_OFF, PEN20_MAD_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MAD_LEOMON_FQID_OFF, ALT_PEN20_MAD_LEOMON_FQNAME_OFF },  // Mad Leomon
+        { PEN20_MAMMON_NAME_OFF, PEN20_MAMMON_ID_OFF, PEN20_MAMMON_FQID_OFF, PEN20_MAMMON_FQNAME_OFF, PEN20_MAMMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MAMMON_FQID_OFF, ALT_PEN20_MAMMON_FQNAME_OFF },  // Mammon
+        { PEN20_MANBOMON_NAME_OFF, PEN20_MANBOMON_ID_OFF, PEN20_MANBOMON_FQID_OFF, PEN20_MANBOMON_FQNAME_OFF, PEN20_MANBOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MANBOMON_FQID_OFF, ALT_PEN20_MANBOMON_FQNAME_OFF },  // Manbomon
+        { PEN20_MARIN_ANGEMON_NAME_OFF, PEN20_MARIN_ANGEMON_ID_OFF, PEN20_MARIN_ANGEMON_FQID_OFF, PEN20_MARIN_ANGEMON_FQNAME_OFF, PEN20_MARIN_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MARIN_ANGEMON_FQID_OFF, ALT_PEN20_MARIN_ANGEMON_FQNAME_OFF },  // Marin Angemon
+        { PEN20_MARIN_DEVIMON_NAME_OFF, PEN20_MARIN_DEVIMON_ID_OFF, PEN20_MARIN_DEVIMON_FQID_OFF, PEN20_MARIN_DEVIMON_FQNAME_OFF, PEN20_MARIN_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MARIN_DEVIMON_FQID_OFF, ALT_PEN20_MARIN_DEVIMON_FQNAME_OFF },  // Marin Devimon
+        { PEN20_MASTEMON_NAME_OFF, PEN20_MASTEMON_ID_OFF, PEN20_MASTEMON_FQID_OFF, PEN20_MASTEMON_FQNAME_OFF, PEN20_MASTEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MASTEMON_FQID_OFF, ALT_PEN20_MASTEMON_FQNAME_OFF },  // Mastemon
+        { PEN20_MECHANORIMON_NAME_OFF, PEN20_MECHANORIMON_ID_OFF, PEN20_MECHANORIMON_FQID_OFF, PEN20_MECHANORIMON_FQNAME_OFF, PEN20_MECHANORIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MECHANORIMON_FQID_OFF, ALT_PEN20_MECHANORIMON_FQNAME_OFF },  // Mechanorimon
+        { PEN20_MEGADRAMON_NAME_OFF, PEN20_MEGADRAMON_ID_OFF, PEN20_MEGADRAMON_FQID_OFF, PEN20_MEGADRAMON_FQNAME_OFF, PEN20_MEGADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MEGADRAMON_FQID_OFF, ALT_PEN20_MEGADRAMON_FQNAME_OFF },  // Megadramon
+        { PEN20_MEGALO_GROWMON_NAME_OFF, PEN20_MEGALO_GROWMON_ID_OFF, PEN20_MEGALO_GROWMON_FQID_OFF, PEN20_MEGALO_GROWMON_FQNAME_OFF, PEN20_MEGALO_GROWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MEGALO_GROWMON_FQID_OFF, ALT_PEN20_MEGALO_GROWMON_FQNAME_OFF },  // Megalo Growmon
+        { PEN20_MEGA_SEADRAMON_NAME_OFF, PEN20_MEGA_SEADRAMON_ID_OFF, PEN20_MEGA_SEADRAMON_FQID_OFF, PEN20_MEGA_SEADRAMON_FQNAME_OFF, PEN20_MEGA_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MEGA_SEADRAMON_FQID_OFF, ALT_PEN20_MEGA_SEADRAMON_FQNAME_OFF },  // Mega Seadramon
+        { PEN20_MEICOOMON_NAME_OFF, PEN20_MEICOOMON_ID_OFF, PEN20_MEICOOMON_FQID_OFF, PEN20_MEICOOMON_FQNAME_OFF, PEN20_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MEICOOMON_FQID_OFF, ALT_PEN20_MEICOOMON_FQNAME_OFF },  // Meicoomon
+        { PEN20_MEICRACKMON_VICIOUS_MODE_NAME_OFF, PEN20_MEICRACKMON_VICIOUS_MODE_ID_OFF, PEN20_MEICRACKMON_VICIOUS_MODE_FQID_OFF, PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_OFF, PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_OFF, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_OFF },  // Meicrackmon Vicious Mode
+        { PEN20_MERAMON_NAME_OFF, PEN20_MERAMON_ID_OFF, PEN20_MERAMON_FQID_OFF, PEN20_MERAMON_FQNAME_OFF, PEN20_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MERAMON_FQID_OFF, ALT_PEN20_MERAMON_FQNAME_OFF },  // Meramon
+        { PEN20_METAL_ETEMON_NAME_OFF, PEN20_METAL_ETEMON_ID_OFF, PEN20_METAL_ETEMON_FQID_OFF, PEN20_METAL_ETEMON_FQNAME_OFF, PEN20_METAL_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_METAL_ETEMON_FQID_OFF, ALT_PEN20_METAL_ETEMON_FQNAME_OFF },  // Metal Etemon
+        { PEN20_METAL_GARURUMON_NAME_OFF, PEN20_METAL_GARURUMON_ID_OFF, PEN20_METAL_GARURUMON_FQID_OFF, PEN20_METAL_GARURUMON_FQNAME_OFF, PEN20_METAL_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_METAL_GARURUMON_FQID_OFF, ALT_PEN20_METAL_GARURUMON_FQNAME_OFF },  // Metal Garurumon
+        { PEN20_METAL_GREYMON_NAME_OFF, PEN20_METAL_GREYMON_ID_OFF, PEN20_METAL_GREYMON_FQID_OFF, PEN20_METAL_GREYMON_FQNAME_OFF, PEN20_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_METAL_GREYMON_FQID_OFF, ALT_PEN20_METAL_GREYMON_FQNAME_OFF },  // Metal Greymon
+        { PEN20_METAL_MAMEMON_NAME_OFF, PEN20_METAL_MAMEMON_ID_OFF, PEN20_METAL_MAMEMON_FQID_OFF, PEN20_METAL_MAMEMON_FQNAME_OFF, PEN20_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_METAL_MAMEMON_FQID_OFF, ALT_PEN20_METAL_MAMEMON_FQNAME_OFF },  // Metal Mamemon
+        { PEN20_METAL_SEADRAMON_NAME_OFF, PEN20_METAL_SEADRAMON_ID_OFF, PEN20_METAL_SEADRAMON_FQID_OFF, PEN20_METAL_SEADRAMON_FQNAME_OFF, PEN20_METAL_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_METAL_SEADRAMON_FQID_OFF, ALT_PEN20_METAL_SEADRAMON_FQNAME_OFF },  // Metal Seadramon
+        { PEN20_MOCHIMON_NAME_OFF, PEN20_MOCHIMON_ID_OFF, PEN20_MOCHIMON_FQID_OFF, PEN20_MOCHIMON_FQNAME_OFF, PEN20_MOCHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MOCHIMON_FQID_OFF, ALT_PEN20_MOCHIMON_FQNAME_OFF },  // Mochimon
+        { PEN20_MOKUMON_NAME_OFF, PEN20_MOKUMON_ID_OFF, PEN20_MOKUMON_FQID_OFF, PEN20_MOKUMON_FQNAME_OFF, PEN20_MOKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MOKUMON_FQID_OFF, ALT_PEN20_MOKUMON_FQNAME_OFF },  // Mokumon
+        { PEN20_MONOCHROMON_NAME_OFF, PEN20_MONOCHROMON_ID_OFF, PEN20_MONOCHROMON_FQID_OFF, PEN20_MONOCHROMON_FQNAME_OFF, PEN20_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MONOCHROMON_FQID_OFF, ALT_PEN20_MONOCHROMON_FQNAME_OFF },  // Monochromon
+        { PEN20_MUGENDRAMON_NAME_OFF, PEN20_MUGENDRAMON_ID_OFF, PEN20_MUGENDRAMON_FQID_OFF, PEN20_MUGENDRAMON_FQNAME_OFF, PEN20_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MUGENDRAMON_FQID_OFF, ALT_PEN20_MUGENDRAMON_FQNAME_OFF },  // Mugendramon
+        { PEN20_MUSHMON_NAME_OFF, PEN20_MUSHMON_ID_OFF, PEN20_MUSHMON_FQID_OFF, PEN20_MUSHMON_FQNAME_OFF, PEN20_MUSHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_MUSHMON_FQID_OFF, ALT_PEN20_MUSHMON_FQNAME_OFF },  // Mushmon
+        { PEN20_NYAROMON_NAME_OFF, PEN20_NYAROMON_ID_OFF, PEN20_NYAROMON_FQID_OFF, PEN20_NYAROMON_FQNAME_OFF, PEN20_NYAROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_NYAROMON_FQID_OFF, ALT_PEN20_NYAROMON_FQNAME_OFF },  // Nyaromon
+        { PEN20_NYOKIMON_NAME_OFF, PEN20_NYOKIMON_ID_OFF, PEN20_NYOKIMON_FQID_OFF, PEN20_NYOKIMON_FQNAME_OFF, PEN20_NYOKIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_NYOKIMON_FQID_OFF, ALT_PEN20_NYOKIMON_FQNAME_OFF },  // Nyokimon
+        { PEN20_OCTMON_NAME_OFF, PEN20_OCTMON_ID_OFF, PEN20_OCTMON_FQID_OFF, PEN20_OCTMON_FQNAME_OFF, PEN20_OCTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_OCTMON_FQID_OFF, ALT_PEN20_OCTMON_FQNAME_OFF },  // Octmon
+        { PEN20_OFANIMON_NAME_OFF, PEN20_OFANIMON_ID_OFF, PEN20_OFANIMON_FQID_OFF, PEN20_OFANIMON_FQNAME_OFF, PEN20_OFANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_OFANIMON_FQID_OFF, ALT_PEN20_OFANIMON_FQNAME_OFF },  // Ofanimon
+        { PEN20_OGUDOMON_NAME_OFF, PEN20_OGUDOMON_ID_OFF, PEN20_OGUDOMON_FQID_OFF, PEN20_OGUDOMON_FQNAME_OFF, PEN20_OGUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_OGUDOMON_FQID_OFF, ALT_PEN20_OGUDOMON_FQNAME_OFF },  // Ogudomon
+        { PEN20_OKUWAMON_NAME_OFF, PEN20_OKUWAMON_ID_OFF, PEN20_OKUWAMON_FQID_OFF, PEN20_OKUWAMON_FQNAME_OFF, PEN20_OKUWAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_OKUWAMON_FQID_OFF, ALT_PEN20_OKUWAMON_FQNAME_OFF },  // Okuwamon
+        { PEN20_OMEGAMON_NAME_OFF, PEN20_OMEGAMON_ID_OFF, PEN20_OMEGAMON_FQID_OFF, PEN20_OMEGAMON_FQNAME_OFF, PEN20_OMEGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_OMEGAMON_FQID_OFF, ALT_PEN20_OMEGAMON_FQNAME_OFF },  // Omegamon
+        { PEN20_ORDINEMON_NAME_OFF, PEN20_ORDINEMON_ID_OFF, PEN20_ORDINEMON_FQID_OFF, PEN20_ORDINEMON_FQNAME_OFF, PEN20_ORDINEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ORDINEMON_FQID_OFF, ALT_PEN20_ORDINEMON_FQNAME_OFF },  // Ordinemon
+        { PEN20_OTAMAMON_NAME_OFF, PEN20_OTAMAMON_ID_OFF, PEN20_OTAMAMON_FQID_OFF, PEN20_OTAMAMON_FQNAME_OFF, PEN20_OTAMAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_OTAMAMON_FQID_OFF, ALT_PEN20_OTAMAMON_FQNAME_OFF },  // Otamamon
+        { PEN20_OURYUMON_NAME_OFF, PEN20_OURYUMON_ID_OFF, PEN20_OURYUMON_FQID_OFF, PEN20_OURYUMON_FQNAME_OFF, PEN20_OURYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_OURYUMON_FQID_OFF, ALT_PEN20_OURYUMON_FQNAME_OFF },  // Ouryumon
+        { PEN20_PAILDRAMON_NAME_OFF, PEN20_PAILDRAMON_ID_OFF, PEN20_PAILDRAMON_FQID_OFF, PEN20_PAILDRAMON_FQNAME_OFF, PEN20_PAILDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PAILDRAMON_FQID_OFF, ALT_PEN20_PAILDRAMON_FQNAME_OFF },  // Paildramon
+        { PEN20_PALMON_NAME_OFF, PEN20_PALMON_ID_OFF, PEN20_PALMON_FQID_OFF, PEN20_PALMON_FQNAME_OFF, PEN20_PALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PALMON_FQID_OFF, ALT_PEN20_PALMON_FQNAME_OFF },  // Palmon
+        { PEN20_PETI_MERAMON_NAME_OFF, PEN20_PETI_MERAMON_ID_OFF, PEN20_PETI_MERAMON_FQID_OFF, PEN20_PETI_MERAMON_FQNAME_OFF, PEN20_PETI_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PETI_MERAMON_FQID_OFF, ALT_PEN20_PETI_MERAMON_FQNAME_OFF },  // Peti Meramon
+        { PEN20_PETITMON_NAME_OFF, PEN20_PETITMON_ID_OFF, PEN20_PETITMON_FQID_OFF, PEN20_PETITMON_FQNAME_OFF, PEN20_PETITMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PETITMON_FQID_OFF, ALT_PEN20_PETITMON_FQNAME_OFF },  // Petitmon
+        { PEN20_PHASCOMON_NAME_OFF, PEN20_PHASCOMON_ID_OFF, PEN20_PHASCOMON_FQID_OFF, PEN20_PHASCOMON_FQNAME_OFF, PEN20_PHASCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PHASCOMON_FQID_OFF, ALT_PEN20_PHASCOMON_FQNAME_OFF },  // Phascomon
+        { PEN20_PICCOLOMON_NAME_OFF, PEN20_PICCOLOMON_ID_OFF, PEN20_PICCOLOMON_FQID_OFF, PEN20_PICCOLOMON_FQNAME_OFF, PEN20_PICCOLOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PICCOLOMON_FQID_OFF, ALT_PEN20_PICCOLOMON_FQNAME_OFF },  // Piccolomon
+        { PEN20_PICO_DEVIMON_NAME_OFF, PEN20_PICO_DEVIMON_ID_OFF, PEN20_PICO_DEVIMON_FQID_OFF, PEN20_PICO_DEVIMON_FQNAME_OFF, PEN20_PICO_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PICO_DEVIMON_FQID_OFF, ALT_PEN20_PICO_DEVIMON_FQNAME_OFF },  // Pico Devimon
+        { PEN20_PIEMON_NAME_OFF, PEN20_PIEMON_ID_OFF, PEN20_PIEMON_FQID_OFF, PEN20_PIEMON_FQNAME_OFF, PEN20_PIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PIEMON_FQID_OFF, ALT_PEN20_PIEMON_FQNAME_OFF },  // Piemon
+        { PEN20_PINOCHIMON_NAME_OFF, PEN20_PINOCHIMON_ID_OFF, PEN20_PINOCHIMON_FQID_OFF, PEN20_PINOCHIMON_FQNAME_OFF, PEN20_PINOCHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PINOCHIMON_FQID_OFF, ALT_PEN20_PINOCHIMON_FQNAME_OFF },  // Pinochimon
+        { PEN20_PITCHMON_NAME_OFF, PEN20_PITCHMON_ID_OFF, PEN20_PITCHMON_FQID_OFF, PEN20_PITCHMON_FQNAME_OFF, PEN20_PITCHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PITCHMON_FQID_OFF, ALT_PEN20_PITCHMON_FQNAME_OFF },  // Pitchmon
+        { PEN20_PIYOMON_NAME_OFF, PEN20_PIYOMON_ID_OFF, PEN20_PIYOMON_FQID_OFF, PEN20_PIYOMON_FQNAME_OFF, PEN20_PIYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PIYOMON_FQID_OFF, ALT_PEN20_PIYOMON_FQNAME_OFF },  // Piyomon
+        { PEN20_PLESIOMON_NAME_OFF, PEN20_PLESIOMON_ID_OFF, PEN20_PLESIOMON_FQID_OFF, PEN20_PLESIOMON_FQNAME_OFF, PEN20_PLESIOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PLESIOMON_FQID_OFF, ALT_PEN20_PLESIOMON_FQNAME_OFF },  // Plesiomon
+        { PEN20_PLOTMON_NAME_OFF, PEN20_PLOTMON_ID_OFF, PEN20_PLOTMON_FQID_OFF, PEN20_PLOTMON_FQNAME_OFF, PEN20_PLOTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PLOTMON_FQID_OFF, ALT_PEN20_PLOTMON_FQNAME_OFF },  // Plotmon
+        { PEN20_PORCUPAMON_NAME_OFF, PEN20_PORCUPAMON_ID_OFF, PEN20_PORCUPAMON_FQID_OFF, PEN20_PORCUPAMON_FQNAME_OFF, PEN20_PORCUPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PORCUPAMON_FQID_OFF, ALT_PEN20_PORCUPAMON_FQNAME_OFF },  // Porcupamon
+        { PEN20_PUKAMON_NAME_OFF, PEN20_PUKAMON_ID_OFF, PEN20_PUKAMON_FQID_OFF, PEN20_PUKAMON_FQNAME_OFF, PEN20_PUKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PUKAMON_FQID_OFF, ALT_PEN20_PUKAMON_FQNAME_OFF },  // Pukamon
+        { PEN20_PUKUMON_NAME_OFF, PEN20_PUKUMON_ID_OFF, PEN20_PUKUMON_FQID_OFF, PEN20_PUKUMON_FQNAME_OFF, PEN20_PUKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PUKUMON_FQID_OFF, ALT_PEN20_PUKUMON_FQNAME_OFF },  // Pukumon
+        { PEN20_PUMPMON_NAME_OFF, PEN20_PUMPMON_ID_OFF, PEN20_PUMPMON_FQID_OFF, PEN20_PUMPMON_FQNAME_OFF, PEN20_PUMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PUMPMON_FQID_OFF, ALT_PEN20_PUMPMON_FQNAME_OFF },  // Pumpmon
+        { PEN20_PYOCOMON_NAME_OFF, PEN20_PYOCOMON_ID_OFF, PEN20_PYOCOMON_FQID_OFF, PEN20_PYOCOMON_FQNAME_OFF, PEN20_PYOCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_PYOCOMON_FQID_OFF, ALT_PEN20_PYOCOMON_FQNAME_OFF },  // Pyocomon
+        { PEN20_RAFFLESIMON_NAME_OFF, PEN20_RAFFLESIMON_ID_OFF, PEN20_RAFFLESIMON_FQID_OFF, PEN20_RAFFLESIMON_FQNAME_OFF, PEN20_RAFFLESIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RAFFLESIMON_FQID_OFF, ALT_PEN20_RAFFLESIMON_FQNAME_OFF },  // Rafflesimon
+        { PEN20_RAGNA_LORDMON_NAME_OFF, PEN20_RAGNA_LORDMON_ID_OFF, PEN20_RAGNA_LORDMON_FQID_OFF, PEN20_RAGNA_LORDMON_FQNAME_OFF, PEN20_RAGNA_LORDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RAGNA_LORDMON_FQID_OFF, ALT_PEN20_RAGNA_LORDMON_FQNAME_OFF },  // Ragna Lordmon
+        { PEN20_RAGUELMON_NAME_OFF, PEN20_RAGUELMON_ID_OFF, PEN20_RAGUELMON_FQID_OFF, PEN20_RAGUELMON_FQNAME_OFF, PEN20_RAGUELMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RAGUELMON_FQID_OFF, ALT_PEN20_RAGUELMON_FQNAME_OFF },  // Raguelmon
+        { PEN20_RAIJI_LUDOMON_NAME_OFF, PEN20_RAIJI_LUDOMON_ID_OFF, PEN20_RAIJI_LUDOMON_FQID_OFF, PEN20_RAIJI_LUDOMON_FQNAME_OFF, PEN20_RAIJI_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RAIJI_LUDOMON_FQID_OFF, ALT_PEN20_RAIJI_LUDOMON_FQNAME_OFF },  // Raiji Ludomon
+        { PEN20_RAPIDMON_NAME_OFF, PEN20_RAPIDMON_ID_OFF, PEN20_RAPIDMON_FQID_OFF, PEN20_RAPIDMON_FQNAME_OFF, PEN20_RAPIDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RAPIDMON_FQID_OFF, ALT_PEN20_RAPIDMON_FQNAME_OFF },  // Rapidmon
+        { PEN20_RED_VEGIMON_NAME_OFF, PEN20_RED_VEGIMON_ID_OFF, PEN20_RED_VEGIMON_FQID_OFF, PEN20_RED_VEGIMON_FQNAME_OFF, PEN20_RED_VEGIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RED_VEGIMON_FQID_OFF, ALT_PEN20_RED_VEGIMON_FQNAME_OFF },  // Red Vegimon
+        { PEN20_REPPAMON_NAME_OFF, PEN20_REPPAMON_ID_OFF, PEN20_REPPAMON_FQID_OFF, PEN20_REPPAMON_FQNAME_OFF, PEN20_REPPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_REPPAMON_FQID_OFF, ALT_PEN20_REPPAMON_FQNAME_OFF },  // Reppamon
+        { PEN20_REVOLMON_NAME_OFF, PEN20_REVOLMON_ID_OFF, PEN20_REVOLMON_FQID_OFF, PEN20_REVOLMON_FQNAME_OFF, PEN20_REVOLMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_REVOLMON_FQID_OFF, ALT_PEN20_REVOLMON_FQNAME_OFF },  // Revolmon
+        { PEN20_RIZE_GREYMON_NAME_OFF, PEN20_RIZE_GREYMON_ID_OFF, PEN20_RIZE_GREYMON_FQID_OFF, PEN20_RIZE_GREYMON_FQNAME_OFF, PEN20_RIZE_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RIZE_GREYMON_FQID_OFF, ALT_PEN20_RIZE_GREYMON_FQNAME_OFF },  // Rize Greymon
+        { PEN20_ROSEMON_NAME_OFF, PEN20_ROSEMON_ID_OFF, PEN20_ROSEMON_FQID_OFF, PEN20_ROSEMON_FQNAME_OFF, PEN20_ROSEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ROSEMON_FQID_OFF, ALT_PEN20_ROSEMON_FQNAME_OFF },  // Rosemon
+        { PEN20_RUKAMON_NAME_OFF, PEN20_RUKAMON_ID_OFF, PEN20_RUKAMON_FQID_OFF, PEN20_RUKAMON_FQNAME_OFF, PEN20_RUKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RUKAMON_FQID_OFF, ALT_PEN20_RUKAMON_FQNAME_OFF },  // Rukamon
+        { PEN20_RYUDAMON_NAME_OFF, PEN20_RYUDAMON_ID_OFF, PEN20_RYUDAMON_FQID_OFF, PEN20_RYUDAMON_FQNAME_OFF, PEN20_RYUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_RYUDAMON_FQID_OFF, ALT_PEN20_RYUDAMON_FQNAME_OFF },  // Ryudamon
+        { PEN20_SABER_LEOMON_NAME_OFF, PEN20_SABER_LEOMON_ID_OFF, PEN20_SABER_LEOMON_FQID_OFF, PEN20_SABER_LEOMON_FQNAME_OFF, PEN20_SABER_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SABER_LEOMON_FQID_OFF, ALT_PEN20_SABER_LEOMON_FQNAME_OFF },  // Saber Leomon
+        { PEN20_SAINT_GALGOMON_NAME_OFF, PEN20_SAINT_GALGOMON_ID_OFF, PEN20_SAINT_GALGOMON_FQID_OFF, PEN20_SAINT_GALGOMON_FQNAME_OFF, PEN20_SAINT_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SAINT_GALGOMON_FQID_OFF, ALT_PEN20_SAINT_GALGOMON_FQNAME_OFF },  // Saint Galgomon
+        { PEN20_SAKUMON_NAME_OFF, PEN20_SAKUMON_ID_OFF, PEN20_SAKUMON_FQID_OFF, PEN20_SAKUMON_FQNAME_OFF, PEN20_SAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SAKUMON_FQID_OFF, ALT_PEN20_SAKUMON_FQNAME_OFF },  // Sakumon
+        { PEN20_SAKUTTOMON_NAME_OFF, PEN20_SAKUTTOMON_ID_OFF, PEN20_SAKUTTOMON_FQID_OFF, PEN20_SAKUTTOMON_FQNAME_OFF, PEN20_SAKUTTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SAKUTTOMON_FQID_OFF, ALT_PEN20_SAKUTTOMON_FQNAME_OFF },  // Sakuttomon
+        { PEN20_SAVIOR_HACKMON_NAME_OFF, PEN20_SAVIOR_HACKMON_ID_OFF, PEN20_SAVIOR_HACKMON_FQID_OFF, PEN20_SAVIOR_HACKMON_FQNAME_OFF, PEN20_SAVIOR_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SAVIOR_HACKMON_FQID_OFF, ALT_PEN20_SAVIOR_HACKMON_FQNAME_OFF },  // Savior Hackmon
+        { PEN20_SEADRAMON_NAME_OFF, PEN20_SEADRAMON_ID_OFF, PEN20_SEADRAMON_FQID_OFF, PEN20_SEADRAMON_FQNAME_OFF, PEN20_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SEADRAMON_FQID_OFF, ALT_PEN20_SEADRAMON_FQNAME_OFF },  // Seadramon
+        { PEN20_SERAPHIMON_NAME_OFF, PEN20_SERAPHIMON_ID_OFF, PEN20_SERAPHIMON_FQID_OFF, PEN20_SERAPHIMON_FQNAME_OFF, PEN20_SERAPHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SERAPHIMON_FQID_OFF, ALT_PEN20_SERAPHIMON_FQNAME_OFF },  // Seraphimon
+        { PEN20_SHADRAMON_NAME_OFF, PEN20_SHADRAMON_ID_OFF, PEN20_SHADRAMON_FQID_OFF, PEN20_SHADRAMON_FQNAME_OFF, PEN20_SHADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SHADRAMON_FQID_OFF, ALT_PEN20_SHADRAMON_FQNAME_OFF },  // Shadramon
+        { PEN20_SHAKOMON_NAME_OFF, PEN20_SHAKOMON_ID_OFF, PEN20_SHAKOMON_FQID_OFF, PEN20_SHAKOMON_FQNAME_OFF, PEN20_SHAKOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SHAKOMON_FQID_OFF, ALT_PEN20_SHAKOMON_FQNAME_OFF },  // Shakomon
+        { PEN20_SKULL_MAMMON_NAME_OFF, PEN20_SKULL_MAMMON_ID_OFF, PEN20_SKULL_MAMMON_FQID_OFF, PEN20_SKULL_MAMMON_FQNAME_OFF, PEN20_SKULL_MAMMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SKULL_MAMMON_FQID_OFF, ALT_PEN20_SKULL_MAMMON_FQNAME_OFF },  // Skull Mammon
+        { PEN20_SLAYERDRAMON_NAME_OFF, PEN20_SLAYERDRAMON_ID_OFF, PEN20_SLAYERDRAMON_FQID_OFF, PEN20_SLAYERDRAMON_FQNAME_OFF, PEN20_SLAYERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SLAYERDRAMON_FQID_OFF, ALT_PEN20_SLAYERDRAMON_FQNAME_OFF },  // Slayerdramon
+        { PEN20_STARMON_NAME_OFF, PEN20_STARMON_ID_OFF, PEN20_STARMON_FQID_OFF, PEN20_STARMON_FQNAME_OFF, PEN20_STARMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_STARMON_FQID_OFF, ALT_PEN20_STARMON_FQNAME_OFF },  // Starmon
+        { PEN20_SUNFLOWMON_NAME_OFF, PEN20_SUNFLOWMON_ID_OFF, PEN20_SUNFLOWMON_FQID_OFF, PEN20_SUNFLOWMON_FQNAME_OFF, PEN20_SUNFLOWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_SUNFLOWMON_FQID_OFF, ALT_PEN20_SUNFLOWMON_FQNAME_OFF },  // Sunflowmon
+        { PEN20_TAILMON_NAME_OFF, PEN20_TAILMON_ID_OFF, PEN20_TAILMON_FQID_OFF, PEN20_TAILMON_FQNAME_OFF, PEN20_TAILMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TAILMON_FQID_OFF, ALT_PEN20_TAILMON_FQNAME_OFF },  // Tailmon
+        { PEN20_TANKMON_NAME_OFF, PEN20_TANKMON_ID_OFF, PEN20_TANKMON_FQID_OFF, PEN20_TANKMON_FQNAME_OFF, PEN20_TANKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TANKMON_FQID_OFF, ALT_PEN20_TANKMON_FQNAME_OFF },  // Tankmon
+        { PEN20_TARGETMON_NAME_OFF, PEN20_TARGETMON_ID_OFF, PEN20_TARGETMON_FQID_OFF, PEN20_TARGETMON_FQNAME_OFF, PEN20_TARGETMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TARGETMON_FQID_OFF, ALT_PEN20_TARGETMON_FQNAME_OFF },  // Targetmon
+        { PEN20_TENTOMON_NAME_OFF, PEN20_TENTOMON_ID_OFF, PEN20_TENTOMON_FQID_OFF, PEN20_TENTOMON_FQNAME_OFF, PEN20_TENTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TENTOMON_FQID_OFF, ALT_PEN20_TENTOMON_FQNAME_OFF },  // Tentomon
+        { PEN20_TERRIERMON_NAME_OFF, PEN20_TERRIERMON_ID_OFF, PEN20_TERRIERMON_FQID_OFF, PEN20_TERRIERMON_FQNAME_OFF, PEN20_TERRIERMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TERRIERMON_FQID_OFF, ALT_PEN20_TERRIERMON_FQNAME_OFF },  // Terriermon
+        { PEN20_THUNDERBALLMON_NAME_OFF, PEN20_THUNDERBALLMON_ID_OFF, PEN20_THUNDERBALLMON_FQID_OFF, PEN20_THUNDERBALLMON_FQNAME_OFF, PEN20_THUNDERBALLMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_THUNDERBALLMON_FQID_OFF, ALT_PEN20_THUNDERBALLMON_FQNAME_OFF },  // Thunderballmon
+        { PEN20_TIA_LUDOMON_NAME_OFF, PEN20_TIA_LUDOMON_ID_OFF, PEN20_TIA_LUDOMON_FQID_OFF, PEN20_TIA_LUDOMON_FQNAME_OFF, PEN20_TIA_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TIA_LUDOMON_FQID_OFF, ALT_PEN20_TIA_LUDOMON_FQNAME_OFF },  // Tia Ludomon
+        { PEN20_TOGEMON_NAME_OFF, PEN20_TOGEMON_ID_OFF, PEN20_TOGEMON_FQID_OFF, PEN20_TOGEMON_FQNAME_OFF, PEN20_TOGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TOGEMON_FQID_OFF, ALT_PEN20_TOGEMON_FQNAME_OFF },  // Togemon
+        { PEN20_TONOSAMA_GEKOMON_NAME_OFF, PEN20_TONOSAMA_GEKOMON_ID_OFF, PEN20_TONOSAMA_GEKOMON_FQID_OFF, PEN20_TONOSAMA_GEKOMON_FQNAME_OFF, PEN20_TONOSAMA_GEKOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TONOSAMA_GEKOMON_FQID_OFF, ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_OFF },  // Tonosama Gekomon
+        { PEN20_TORTAMON_NAME_OFF, PEN20_TORTAMON_ID_OFF, PEN20_TORTAMON_FQID_OFF, PEN20_TORTAMON_FQNAME_OFF, PEN20_TORTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TORTAMON_FQID_OFF, ALT_PEN20_TORTAMON_FQNAME_OFF },  // Tortamon
+        { PEN20_TOY_AGUMON_NAME_OFF, PEN20_TOY_AGUMON_ID_OFF, PEN20_TOY_AGUMON_FQID_OFF, PEN20_TOY_AGUMON_FQNAME_OFF, PEN20_TOY_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TOY_AGUMON_FQID_OFF, ALT_PEN20_TOY_AGUMON_FQNAME_OFF },  // Toy Agumon
+        { PEN20_TRICERAMON_NAME_OFF, PEN20_TRICERAMON_ID_OFF, PEN20_TRICERAMON_FQID_OFF, PEN20_TRICERAMON_FQNAME_OFF, PEN20_TRICERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TRICERAMON_FQID_OFF, ALT_PEN20_TRICERAMON_FQNAME_OFF },  // Triceramon
+        { PEN20_TROOPMON_NAME_OFF, PEN20_TROOPMON_ID_OFF, PEN20_TROOPMON_FQID_OFF, PEN20_TROOPMON_FQNAME_OFF, PEN20_TROOPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TROOPMON_FQID_OFF, ALT_PEN20_TROOPMON_FQNAME_OFF },  // Troopmon
+        { PEN20_TURUIEMON_NAME_OFF, PEN20_TURUIEMON_ID_OFF, PEN20_TURUIEMON_FQID_OFF, PEN20_TURUIEMON_FQNAME_OFF, PEN20_TURUIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_TURUIEMON_FQID_OFF, ALT_PEN20_TURUIEMON_FQNAME_OFF },  // Turuiemon
+        { PEN20_VAMDEMON_NAME_OFF, PEN20_VAMDEMON_ID_OFF, PEN20_VAMDEMON_FQID_OFF, PEN20_VAMDEMON_FQNAME_OFF, PEN20_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_VAMDEMON_FQID_OFF, ALT_PEN20_VAMDEMON_FQNAME_OFF },  // Vamdemon
+        { PEN20_V_DRAMON_NAME_OFF, PEN20_V_DRAMON_ID_OFF, PEN20_V_DRAMON_FQID_OFF, PEN20_V_DRAMON_FQNAME_OFF, PEN20_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_V_DRAMON_FQID_OFF, ALT_PEN20_V_DRAMON_FQNAME_OFF },  // V-dramon
+        { PEN20_VENOM_VAMDEMON_NAME_OFF, PEN20_VENOM_VAMDEMON_ID_OFF, PEN20_VENOM_VAMDEMON_FQID_OFF, PEN20_VENOM_VAMDEMON_FQNAME_OFF, PEN20_VENOM_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_VENOM_VAMDEMON_FQID_OFF, ALT_PEN20_VENOM_VAMDEMON_FQNAME_OFF },  // Venom Vamdemon
+        { PEN20_V_MON_NAME_OFF, PEN20_V_MON_ID_OFF, PEN20_V_MON_FQID_OFF, PEN20_V_MON_FQNAME_OFF, PEN20_V_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_V_MON_FQID_OFF, ALT_PEN20_V_MON_FQNAME_OFF },  // V-mon
+        { PEN20_VOLCANICDRAMON_NAME_OFF, PEN20_VOLCANICDRAMON_ID_OFF, PEN20_VOLCANICDRAMON_FQID_OFF, PEN20_VOLCANICDRAMON_FQNAME_OFF, PEN20_VOLCANICDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_VOLCANICDRAMON_FQID_OFF, ALT_PEN20_VOLCANICDRAMON_FQNAME_OFF },  // Volcanicdramon
+        { PEN20_VOLTOBAUTAMON_NAME_OFF, PEN20_VOLTOBAUTAMON_ID_OFF, PEN20_VOLTOBAUTAMON_FQID_OFF, PEN20_VOLTOBAUTAMON_FQNAME_OFF, PEN20_VOLTOBAUTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_VOLTOBAUTAMON_FQID_OFF, ALT_PEN20_VOLTOBAUTAMON_FQNAME_OFF },  // Voltobautamon
+        { PEN20_VORVOMON_NAME_OFF, PEN20_VORVOMON_ID_OFF, PEN20_VORVOMON_FQID_OFF, PEN20_VORVOMON_FQNAME_OFF, PEN20_VORVOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_VORVOMON_FQID_OFF, ALT_PEN20_VORVOMON_FQNAME_OFF },  // Vorvomon
+        { PEN20_WAR_GREYMON_NAME_OFF, PEN20_WAR_GREYMON_ID_OFF, PEN20_WAR_GREYMON_FQID_OFF, PEN20_WAR_GREYMON_FQNAME_OFF, PEN20_WAR_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_WAR_GREYMON_FQID_OFF, ALT_PEN20_WAR_GREYMON_FQNAME_OFF },  // War Greymon
+        { PEN20_WARU_MONZAEMON_NAME_OFF, PEN20_WARU_MONZAEMON_ID_OFF, PEN20_WARU_MONZAEMON_FQID_OFF, PEN20_WARU_MONZAEMON_FQNAME_OFF, PEN20_WARU_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_WARU_MONZAEMON_FQID_OFF, ALT_PEN20_WARU_MONZAEMON_FQNAME_OFF },  // Waru Monzaemon
+        { PEN20_WERE_GARURUMON_NAME_OFF, PEN20_WERE_GARURUMON_ID_OFF, PEN20_WERE_GARURUMON_FQID_OFF, PEN20_WERE_GARURUMON_FQNAME_OFF, PEN20_WERE_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_WERE_GARURUMON_FQID_OFF, ALT_PEN20_WERE_GARURUMON_FQNAME_OFF },  // Were Garurumon
+        { PEN20_WHAMON_NAME_OFF, PEN20_WHAMON_ID_OFF, PEN20_WHAMON_FQID_OFF, PEN20_WHAMON_FQNAME_OFF, PEN20_WHAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_WHAMON_FQID_OFF, ALT_PEN20_WHAMON_FQNAME_OFF },  // Whamon
+        { PEN20_WINGDRAMON_NAME_OFF, PEN20_WINGDRAMON_ID_OFF, PEN20_WINGDRAMON_FQID_OFF, PEN20_WINGDRAMON_FQNAME_OFF, PEN20_WINGDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_WINGDRAMON_FQID_OFF, ALT_PEN20_WINGDRAMON_FQNAME_OFF },  // Wingdramon
+        { PEN20_WIZARMON_NAME_OFF, PEN20_WIZARMON_ID_OFF, PEN20_WIZARMON_FQID_OFF, PEN20_WIZARMON_FQNAME_OFF, PEN20_WIZARMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_WIZARMON_FQID_OFF, ALT_PEN20_WIZARMON_FQNAME_OFF },  // Wizarmon
+        { PEN20_WOODMON_NAME_OFF, PEN20_WOODMON_ID_OFF, PEN20_WOODMON_FQID_OFF, PEN20_WOODMON_FQNAME_OFF, PEN20_WOODMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_WOODMON_FQID_OFF, ALT_PEN20_WOODMON_FQNAME_OFF },  // Woodmon
+        { PEN20_XV_MON_NAME_OFF, PEN20_XV_MON_ID_OFF, PEN20_XV_MON_FQID_OFF, PEN20_XV_MON_FQNAME_OFF, PEN20_XV_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_XV_MON_FQID_OFF, ALT_PEN20_XV_MON_FQNAME_OFF },  // XV-mon
+        { PEN20_YUKIMI_BOTAMON_NAME_OFF, PEN20_YUKIMI_BOTAMON_ID_OFF, PEN20_YUKIMI_BOTAMON_FQID_OFF, PEN20_YUKIMI_BOTAMON_FQNAME_OFF, PEN20_YUKIMI_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_YUKIMI_BOTAMON_FQID_OFF, ALT_PEN20_YUKIMI_BOTAMON_FQNAME_OFF },  // Yukimi Botamon
+        { PEN20_ZERIMON_NAME_OFF, PEN20_ZERIMON_ID_OFF, PEN20_ZERIMON_FQID_OFF, PEN20_ZERIMON_FQNAME_OFF, PEN20_ZERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ZERIMON_FQID_OFF, ALT_PEN20_ZERIMON_FQNAME_OFF },  // Zerimon
+        { PEN20_ZUBAEAGERMON_NAME_OFF, PEN20_ZUBAEAGERMON_ID_OFF, PEN20_ZUBAEAGERMON_FQID_OFF, PEN20_ZUBAEAGERMON_FQNAME_OFF, PEN20_ZUBAEAGERMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ZUBAEAGERMON_FQID_OFF, ALT_PEN20_ZUBAEAGERMON_FQNAME_OFF },  // Zubaeagermon
+        { PEN20_ZUBAMON_NAME_OFF, PEN20_ZUBAMON_ID_OFF, PEN20_ZUBAMON_FQID_OFF, PEN20_ZUBAMON_FQNAME_OFF, PEN20_ZUBAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ZUBAMON_FQID_OFF, ALT_PEN20_ZUBAMON_FQNAME_OFF },  // Zubamon
+        { PEN20_ZUDOMON_NAME_OFF, PEN20_ZUDOMON_ID_OFF, PEN20_ZUDOMON_FQID_OFF, PEN20_ZUDOMON_FQNAME_OFF, PEN20_ZUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm, ALT_PEN20_ZUDOMON_FQID_OFF, ALT_PEN20_ZUDOMON_FQNAME_OFF },  // Zudomon
         
     };
-    static const config_animation_names_entry_t pen20_animation_names_table[] = {
-        { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_NAME_LEN, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_ID_LEN, PEN20_AERO_V_DRAMON_FQID, PEN20_AERO_V_DRAMON_FQID_LEN, PEN20_AERO_V_DRAMON_FQNAME, PEN20_AERO_V_DRAMON_FQNAME_LEN },
-        { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_NAME_LEN, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_ID_LEN, ALT_PEN20_AERO_V_DRAMON_FQID, ALT_PEN20_AERO_V_DRAMON_FQID_LEN, ALT_PEN20_AERO_V_DRAMON_FQNAME, ALT_PEN20_AERO_V_DRAMON_FQNAME_LEN },
-        { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_NAME_LEN, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_ID_LEN, PEN20_AGUMON_HAKASE_FQID, PEN20_AGUMON_HAKASE_FQID_LEN, PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_FQNAME_LEN },
-        { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_NAME_LEN, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_ID_LEN, ALT_PEN20_AGUMON_HAKASE_FQID, ALT_PEN20_AGUMON_HAKASE_FQID_LEN, ALT_PEN20_AGUMON_HAKASE_FQNAME, ALT_PEN20_AGUMON_HAKASE_FQNAME_LEN },
-        { PEN20_AGUMON_NAME, PEN20_AGUMON_NAME_LEN, PEN20_AGUMON_ID, PEN20_AGUMON_ID_LEN, PEN20_AGUMON_FQID, PEN20_AGUMON_FQID_LEN, PEN20_AGUMON_FQNAME, PEN20_AGUMON_FQNAME_LEN },
-        { PEN20_AGUMON_NAME, PEN20_AGUMON_NAME_LEN, PEN20_AGUMON_ID, PEN20_AGUMON_ID_LEN, ALT_PEN20_AGUMON_FQID, ALT_PEN20_AGUMON_FQID_LEN, ALT_PEN20_AGUMON_FQNAME, ALT_PEN20_AGUMON_FQNAME_LEN },
-        { PEN20_ALPHAMON_OURYUKEN_NAME, PEN20_ALPHAMON_OURYUKEN_NAME_LEN, PEN20_ALPHAMON_OURYUKEN_ID, PEN20_ALPHAMON_OURYUKEN_ID_LEN, PEN20_ALPHAMON_OURYUKEN_FQID, PEN20_ALPHAMON_OURYUKEN_FQID_LEN, PEN20_ALPHAMON_OURYUKEN_FQNAME, PEN20_ALPHAMON_OURYUKEN_FQNAME_LEN },
-        { PEN20_ALPHAMON_OURYUKEN_NAME, PEN20_ALPHAMON_OURYUKEN_NAME_LEN, PEN20_ALPHAMON_OURYUKEN_ID, PEN20_ALPHAMON_OURYUKEN_ID_LEN, ALT_PEN20_ALPHAMON_OURYUKEN_FQID, ALT_PEN20_ALPHAMON_OURYUKEN_FQID_LEN, ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME, ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_LEN },
-        { PEN20_ALPHAMON_NAME, PEN20_ALPHAMON_NAME_LEN, PEN20_ALPHAMON_ID, PEN20_ALPHAMON_ID_LEN, PEN20_ALPHAMON_FQID, PEN20_ALPHAMON_FQID_LEN, PEN20_ALPHAMON_FQNAME, PEN20_ALPHAMON_FQNAME_LEN },
-        { PEN20_ALPHAMON_NAME, PEN20_ALPHAMON_NAME_LEN, PEN20_ALPHAMON_ID, PEN20_ALPHAMON_ID_LEN, ALT_PEN20_ALPHAMON_FQID, ALT_PEN20_ALPHAMON_FQID_LEN, ALT_PEN20_ALPHAMON_FQNAME, ALT_PEN20_ALPHAMON_FQNAME_LEN },
-        { PEN20_ANDIRAMON_NAME, PEN20_ANDIRAMON_NAME_LEN, PEN20_ANDIRAMON_ID, PEN20_ANDIRAMON_ID_LEN, PEN20_ANDIRAMON_FQID, PEN20_ANDIRAMON_FQID_LEN, PEN20_ANDIRAMON_FQNAME, PEN20_ANDIRAMON_FQNAME_LEN },
-        { PEN20_ANDIRAMON_NAME, PEN20_ANDIRAMON_NAME_LEN, PEN20_ANDIRAMON_ID, PEN20_ANDIRAMON_ID_LEN, ALT_PEN20_ANDIRAMON_FQID, ALT_PEN20_ANDIRAMON_FQID_LEN, ALT_PEN20_ANDIRAMON_FQNAME, ALT_PEN20_ANDIRAMON_FQNAME_LEN },
-        { PEN20_ANDROMON_NAME, PEN20_ANDROMON_NAME_LEN, PEN20_ANDROMON_ID, PEN20_ANDROMON_ID_LEN, PEN20_ANDROMON_FQID, PEN20_ANDROMON_FQID_LEN, PEN20_ANDROMON_FQNAME, PEN20_ANDROMON_FQNAME_LEN },
-        { PEN20_ANDROMON_NAME, PEN20_ANDROMON_NAME_LEN, PEN20_ANDROMON_ID, PEN20_ANDROMON_ID_LEN, ALT_PEN20_ANDROMON_FQID, ALT_PEN20_ANDROMON_FQID_LEN, ALT_PEN20_ANDROMON_FQNAME, ALT_PEN20_ANDROMON_FQNAME_LEN },
-        { PEN20_ANGEMON_NAME, PEN20_ANGEMON_NAME_LEN, PEN20_ANGEMON_ID, PEN20_ANGEMON_ID_LEN, PEN20_ANGEMON_FQID, PEN20_ANGEMON_FQID_LEN, PEN20_ANGEMON_FQNAME, PEN20_ANGEMON_FQNAME_LEN },
-        { PEN20_ANGEMON_NAME, PEN20_ANGEMON_NAME_LEN, PEN20_ANGEMON_ID, PEN20_ANGEMON_ID_LEN, ALT_PEN20_ANGEMON_FQID, ALT_PEN20_ANGEMON_FQID_LEN, ALT_PEN20_ANGEMON_FQNAME, ALT_PEN20_ANGEMON_FQNAME_LEN },
-        { PEN20_ANGEWOMON_NAME, PEN20_ANGEWOMON_NAME_LEN, PEN20_ANGEWOMON_ID, PEN20_ANGEWOMON_ID_LEN, PEN20_ANGEWOMON_FQID, PEN20_ANGEWOMON_FQID_LEN, PEN20_ANGEWOMON_FQNAME, PEN20_ANGEWOMON_FQNAME_LEN },
-        { PEN20_ANGEWOMON_NAME, PEN20_ANGEWOMON_NAME_LEN, PEN20_ANGEWOMON_ID, PEN20_ANGEWOMON_ID_LEN, ALT_PEN20_ANGEWOMON_FQID, ALT_PEN20_ANGEWOMON_FQID_LEN, ALT_PEN20_ANGEWOMON_FQNAME, ALT_PEN20_ANGEWOMON_FQNAME_LEN },
-        { PEN20_ANOMALOCARIMON_NAME, PEN20_ANOMALOCARIMON_NAME_LEN, PEN20_ANOMALOCARIMON_ID, PEN20_ANOMALOCARIMON_ID_LEN, PEN20_ANOMALOCARIMON_FQID, PEN20_ANOMALOCARIMON_FQID_LEN, PEN20_ANOMALOCARIMON_FQNAME, PEN20_ANOMALOCARIMON_FQNAME_LEN },
-        { PEN20_ANOMALOCARIMON_NAME, PEN20_ANOMALOCARIMON_NAME_LEN, PEN20_ANOMALOCARIMON_ID, PEN20_ANOMALOCARIMON_ID_LEN, ALT_PEN20_ANOMALOCARIMON_FQID, ALT_PEN20_ANOMALOCARIMON_FQID_LEN, ALT_PEN20_ANOMALOCARIMON_FQNAME, ALT_PEN20_ANOMALOCARIMON_FQNAME_LEN },
-        { PEN20_ARRESTERDRAMON_NAME, PEN20_ARRESTERDRAMON_NAME_LEN, PEN20_ARRESTERDRAMON_ID, PEN20_ARRESTERDRAMON_ID_LEN, PEN20_ARRESTERDRAMON_FQID, PEN20_ARRESTERDRAMON_FQID_LEN, PEN20_ARRESTERDRAMON_FQNAME, PEN20_ARRESTERDRAMON_FQNAME_LEN },
-        { PEN20_ARRESTERDRAMON_NAME, PEN20_ARRESTERDRAMON_NAME_LEN, PEN20_ARRESTERDRAMON_ID, PEN20_ARRESTERDRAMON_ID_LEN, ALT_PEN20_ARRESTERDRAMON_FQID, ALT_PEN20_ARRESTERDRAMON_FQID_LEN, ALT_PEN20_ARRESTERDRAMON_FQNAME, ALT_PEN20_ARRESTERDRAMON_FQNAME_LEN },
-        { PEN20_ASTAMON_NAME, PEN20_ASTAMON_NAME_LEN, PEN20_ASTAMON_ID, PEN20_ASTAMON_ID_LEN, PEN20_ASTAMON_FQID, PEN20_ASTAMON_FQID_LEN, PEN20_ASTAMON_FQNAME, PEN20_ASTAMON_FQNAME_LEN },
-        { PEN20_ASTAMON_NAME, PEN20_ASTAMON_NAME_LEN, PEN20_ASTAMON_ID, PEN20_ASTAMON_ID_LEN, ALT_PEN20_ASTAMON_FQID, ALT_PEN20_ASTAMON_FQID_LEN, ALT_PEN20_ASTAMON_FQNAME, ALT_PEN20_ASTAMON_FQNAME_LEN },
-        { PEN20_ASURAMON_NAME, PEN20_ASURAMON_NAME_LEN, PEN20_ASURAMON_ID, PEN20_ASURAMON_ID_LEN, PEN20_ASURAMON_FQID, PEN20_ASURAMON_FQID_LEN, PEN20_ASURAMON_FQNAME, PEN20_ASURAMON_FQNAME_LEN },
-        { PEN20_ASURAMON_NAME, PEN20_ASURAMON_NAME_LEN, PEN20_ASURAMON_ID, PEN20_ASURAMON_ID_LEN, ALT_PEN20_ASURAMON_FQID, ALT_PEN20_ASURAMON_FQID_LEN, ALT_PEN20_ASURAMON_FQNAME, ALT_PEN20_ASURAMON_FQNAME_LEN },
-        { PEN20_ATLUR_KABUTERIMON_NAME, PEN20_ATLUR_KABUTERIMON_NAME_LEN, PEN20_ATLUR_KABUTERIMON_ID, PEN20_ATLUR_KABUTERIMON_ID_LEN, PEN20_ATLUR_KABUTERIMON_FQID, PEN20_ATLUR_KABUTERIMON_FQID_LEN, PEN20_ATLUR_KABUTERIMON_FQNAME, PEN20_ATLUR_KABUTERIMON_FQNAME_LEN },
-        { PEN20_ATLUR_KABUTERIMON_NAME, PEN20_ATLUR_KABUTERIMON_NAME_LEN, PEN20_ATLUR_KABUTERIMON_ID, PEN20_ATLUR_KABUTERIMON_ID_LEN, ALT_PEN20_ATLUR_KABUTERIMON_FQID, ALT_PEN20_ATLUR_KABUTERIMON_FQID_LEN, ALT_PEN20_ATLUR_KABUTERIMON_FQNAME, ALT_PEN20_ATLUR_KABUTERIMON_FQNAME_LEN },
-        { PEN20_BAALMON_NAME, PEN20_BAALMON_NAME_LEN, PEN20_BAALMON_ID, PEN20_BAALMON_ID_LEN, PEN20_BAALMON_FQID, PEN20_BAALMON_FQID_LEN, PEN20_BAALMON_FQNAME, PEN20_BAALMON_FQNAME_LEN },
-        { PEN20_BAALMON_NAME, PEN20_BAALMON_NAME_LEN, PEN20_BAALMON_ID, PEN20_BAALMON_ID_LEN, ALT_PEN20_BAALMON_FQID, ALT_PEN20_BAALMON_FQID_LEN, ALT_PEN20_BAALMON_FQNAME, ALT_PEN20_BAALMON_FQNAME_LEN },
-        { PEN20_BABYDMON_NAME, PEN20_BABYDMON_NAME_LEN, PEN20_BABYDMON_ID, PEN20_BABYDMON_ID_LEN, PEN20_BABYDMON_FQID, PEN20_BABYDMON_FQID_LEN, PEN20_BABYDMON_FQNAME, PEN20_BABYDMON_FQNAME_LEN },
-        { PEN20_BABYDMON_NAME, PEN20_BABYDMON_NAME_LEN, PEN20_BABYDMON_ID, PEN20_BABYDMON_ID_LEN, ALT_PEN20_BABYDMON_FQID, ALT_PEN20_BABYDMON_FQID_LEN, ALT_PEN20_BABYDMON_FQNAME, ALT_PEN20_BABYDMON_FQNAME_LEN },
-        { PEN20_BAKEMON_NAME, PEN20_BAKEMON_NAME_LEN, PEN20_BAKEMON_ID, PEN20_BAKEMON_ID_LEN, PEN20_BAKEMON_FQID, PEN20_BAKEMON_FQID_LEN, PEN20_BAKEMON_FQNAME, PEN20_BAKEMON_FQNAME_LEN },
-        { PEN20_BAKEMON_NAME, PEN20_BAKEMON_NAME_LEN, PEN20_BAKEMON_ID, PEN20_BAKEMON_ID_LEN, ALT_PEN20_BAKEMON_FQID, ALT_PEN20_BAKEMON_FQID_LEN, ALT_PEN20_BAKEMON_FQNAME, ALT_PEN20_BAKEMON_FQNAME_LEN },
-        { PEN20_BAKUMON_NAME, PEN20_BAKUMON_NAME_LEN, PEN20_BAKUMON_ID, PEN20_BAKUMON_ID_LEN, PEN20_BAKUMON_FQID, PEN20_BAKUMON_FQID_LEN, PEN20_BAKUMON_FQNAME, PEN20_BAKUMON_FQNAME_LEN },
-        { PEN20_BAKUMON_NAME, PEN20_BAKUMON_NAME_LEN, PEN20_BAKUMON_ID, PEN20_BAKUMON_ID_LEN, ALT_PEN20_BAKUMON_FQID, ALT_PEN20_BAKUMON_FQID_LEN, ALT_PEN20_BAKUMON_FQNAME, ALT_PEN20_BAKUMON_FQNAME_LEN },
-        { PEN20_BANCHO_LEOMON_NAME, PEN20_BANCHO_LEOMON_NAME_LEN, PEN20_BANCHO_LEOMON_ID, PEN20_BANCHO_LEOMON_ID_LEN, PEN20_BANCHO_LEOMON_FQID, PEN20_BANCHO_LEOMON_FQID_LEN, PEN20_BANCHO_LEOMON_FQNAME, PEN20_BANCHO_LEOMON_FQNAME_LEN },
-        { PEN20_BANCHO_LEOMON_NAME, PEN20_BANCHO_LEOMON_NAME_LEN, PEN20_BANCHO_LEOMON_ID, PEN20_BANCHO_LEOMON_ID_LEN, ALT_PEN20_BANCHO_LEOMON_FQID, ALT_PEN20_BANCHO_LEOMON_FQID_LEN, ALT_PEN20_BANCHO_LEOMON_FQNAME, ALT_PEN20_BANCHO_LEOMON_FQNAME_LEN },
-        { PEN20_BAO_HACKMON_NAME, PEN20_BAO_HACKMON_NAME_LEN, PEN20_BAO_HACKMON_ID, PEN20_BAO_HACKMON_ID_LEN, PEN20_BAO_HACKMON_FQID, PEN20_BAO_HACKMON_FQID_LEN, PEN20_BAO_HACKMON_FQNAME, PEN20_BAO_HACKMON_FQNAME_LEN },
-        { PEN20_BAO_HACKMON_NAME, PEN20_BAO_HACKMON_NAME_LEN, PEN20_BAO_HACKMON_ID, PEN20_BAO_HACKMON_ID_LEN, ALT_PEN20_BAO_HACKMON_FQID, ALT_PEN20_BAO_HACKMON_FQID_LEN, ALT_PEN20_BAO_HACKMON_FQNAME, ALT_PEN20_BAO_HACKMON_FQNAME_LEN },
-        { PEN20_BEELZEBUMON_BLAST_MODE_NAME, PEN20_BEELZEBUMON_BLAST_MODE_NAME_LEN, PEN20_BEELZEBUMON_BLAST_MODE_ID, PEN20_BEELZEBUMON_BLAST_MODE_ID_LEN, PEN20_BEELZEBUMON_BLAST_MODE_FQID, PEN20_BEELZEBUMON_BLAST_MODE_FQID_LEN, PEN20_BEELZEBUMON_BLAST_MODE_FQNAME, PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_LEN },
-        { PEN20_BEELZEBUMON_BLAST_MODE_NAME, PEN20_BEELZEBUMON_BLAST_MODE_NAME_LEN, PEN20_BEELZEBUMON_BLAST_MODE_ID, PEN20_BEELZEBUMON_BLAST_MODE_ID_LEN, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_LEN, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_LEN },
-        { PEN20_BEOWOLFMON_NAME, PEN20_BEOWOLFMON_NAME_LEN, PEN20_BEOWOLFMON_ID, PEN20_BEOWOLFMON_ID_LEN, PEN20_BEOWOLFMON_FQID, PEN20_BEOWOLFMON_FQID_LEN, PEN20_BEOWOLFMON_FQNAME, PEN20_BEOWOLFMON_FQNAME_LEN },
-        { PEN20_BEOWOLFMON_NAME, PEN20_BEOWOLFMON_NAME_LEN, PEN20_BEOWOLFMON_ID, PEN20_BEOWOLFMON_ID_LEN, ALT_PEN20_BEOWOLFMON_FQID, ALT_PEN20_BEOWOLFMON_FQID_LEN, ALT_PEN20_BEOWOLFMON_FQNAME, ALT_PEN20_BEOWOLFMON_FQNAME_LEN },
-        { PEN20_BIG_MAMEMON_NAME, PEN20_BIG_MAMEMON_NAME_LEN, PEN20_BIG_MAMEMON_ID, PEN20_BIG_MAMEMON_ID_LEN, PEN20_BIG_MAMEMON_FQID, PEN20_BIG_MAMEMON_FQID_LEN, PEN20_BIG_MAMEMON_FQNAME, PEN20_BIG_MAMEMON_FQNAME_LEN },
-        { PEN20_BIG_MAMEMON_NAME, PEN20_BIG_MAMEMON_NAME_LEN, PEN20_BIG_MAMEMON_ID, PEN20_BIG_MAMEMON_ID_LEN, ALT_PEN20_BIG_MAMEMON_FQID, ALT_PEN20_BIG_MAMEMON_FQID_LEN, ALT_PEN20_BIG_MAMEMON_FQNAME, ALT_PEN20_BIG_MAMEMON_FQNAME_LEN },
-        { PEN20_BIRDRAMON_NAME, PEN20_BIRDRAMON_NAME_LEN, PEN20_BIRDRAMON_ID, PEN20_BIRDRAMON_ID_LEN, PEN20_BIRDRAMON_FQID, PEN20_BIRDRAMON_FQID_LEN, PEN20_BIRDRAMON_FQNAME, PEN20_BIRDRAMON_FQNAME_LEN },
-        { PEN20_BIRDRAMON_NAME, PEN20_BIRDRAMON_NAME_LEN, PEN20_BIRDRAMON_ID, PEN20_BIRDRAMON_ID_LEN, ALT_PEN20_BIRDRAMON_FQID, ALT_PEN20_BIRDRAMON_FQID_LEN, ALT_PEN20_BIRDRAMON_FQNAME, ALT_PEN20_BIRDRAMON_FQNAME_LEN },
-        { PEN20_BLOSSOMON_NAME, PEN20_BLOSSOMON_NAME_LEN, PEN20_BLOSSOMON_ID, PEN20_BLOSSOMON_ID_LEN, PEN20_BLOSSOMON_FQID, PEN20_BLOSSOMON_FQID_LEN, PEN20_BLOSSOMON_FQNAME, PEN20_BLOSSOMON_FQNAME_LEN },
-        { PEN20_BLOSSOMON_NAME, PEN20_BLOSSOMON_NAME_LEN, PEN20_BLOSSOMON_ID, PEN20_BLOSSOMON_ID_LEN, ALT_PEN20_BLOSSOMON_FQID, ALT_PEN20_BLOSSOMON_FQID_LEN, ALT_PEN20_BLOSSOMON_FQNAME, ALT_PEN20_BLOSSOMON_FQNAME_LEN },
-        { PEN20_BOLTMON_NAME, PEN20_BOLTMON_NAME_LEN, PEN20_BOLTMON_ID, PEN20_BOLTMON_ID_LEN, PEN20_BOLTMON_FQID, PEN20_BOLTMON_FQID_LEN, PEN20_BOLTMON_FQNAME, PEN20_BOLTMON_FQNAME_LEN },
-        { PEN20_BOLTMON_NAME, PEN20_BOLTMON_NAME_LEN, PEN20_BOLTMON_ID, PEN20_BOLTMON_ID_LEN, ALT_PEN20_BOLTMON_FQID, ALT_PEN20_BOLTMON_FQID_LEN, ALT_PEN20_BOLTMON_FQNAME, ALT_PEN20_BOLTMON_FQNAME_LEN },
-        { PEN20_BOTAMON_NAME, PEN20_BOTAMON_NAME_LEN, PEN20_BOTAMON_ID, PEN20_BOTAMON_ID_LEN, PEN20_BOTAMON_FQID, PEN20_BOTAMON_FQID_LEN, PEN20_BOTAMON_FQNAME, PEN20_BOTAMON_FQNAME_LEN },
-        { PEN20_BOTAMON_NAME, PEN20_BOTAMON_NAME_LEN, PEN20_BOTAMON_ID, PEN20_BOTAMON_ID_LEN, ALT_PEN20_BOTAMON_FQID, ALT_PEN20_BOTAMON_FQID_LEN, ALT_PEN20_BOTAMON_FQNAME, ALT_PEN20_BOTAMON_FQNAME_LEN },
-        { PEN20_BREAKDRAMON_NAME, PEN20_BREAKDRAMON_NAME_LEN, PEN20_BREAKDRAMON_ID, PEN20_BREAKDRAMON_ID_LEN, PEN20_BREAKDRAMON_FQID, PEN20_BREAKDRAMON_FQID_LEN, PEN20_BREAKDRAMON_FQNAME, PEN20_BREAKDRAMON_FQNAME_LEN },
-        { PEN20_BREAKDRAMON_NAME, PEN20_BREAKDRAMON_NAME_LEN, PEN20_BREAKDRAMON_ID, PEN20_BREAKDRAMON_ID_LEN, ALT_PEN20_BREAKDRAMON_FQID, ALT_PEN20_BREAKDRAMON_FQID_LEN, ALT_PEN20_BREAKDRAMON_FQNAME, ALT_PEN20_BREAKDRAMON_FQNAME_LEN },
-        { PEN20_BRYWELUDRAMON_NAME, PEN20_BRYWELUDRAMON_NAME_LEN, PEN20_BRYWELUDRAMON_ID, PEN20_BRYWELUDRAMON_ID_LEN, PEN20_BRYWELUDRAMON_FQID, PEN20_BRYWELUDRAMON_FQID_LEN, PEN20_BRYWELUDRAMON_FQNAME, PEN20_BRYWELUDRAMON_FQNAME_LEN },
-        { PEN20_BRYWELUDRAMON_NAME, PEN20_BRYWELUDRAMON_NAME_LEN, PEN20_BRYWELUDRAMON_ID, PEN20_BRYWELUDRAMON_ID_LEN, ALT_PEN20_BRYWELUDRAMON_FQID, ALT_PEN20_BRYWELUDRAMON_FQID_LEN, ALT_PEN20_BRYWELUDRAMON_FQNAME, ALT_PEN20_BRYWELUDRAMON_FQNAME_LEN },
-        { PEN20_BUBBMON_NAME, PEN20_BUBBMON_NAME_LEN, PEN20_BUBBMON_ID, PEN20_BUBBMON_ID_LEN, PEN20_BUBBMON_FQID, PEN20_BUBBMON_FQID_LEN, PEN20_BUBBMON_FQNAME, PEN20_BUBBMON_FQNAME_LEN },
-        { PEN20_BUBBMON_NAME, PEN20_BUBBMON_NAME_LEN, PEN20_BUBBMON_ID, PEN20_BUBBMON_ID_LEN, ALT_PEN20_BUBBMON_FQID, ALT_PEN20_BUBBMON_FQID_LEN, ALT_PEN20_BUBBMON_FQNAME, ALT_PEN20_BUBBMON_FQNAME_LEN },
-        { PEN20_BUDMON_NAME, PEN20_BUDMON_NAME_LEN, PEN20_BUDMON_ID, PEN20_BUDMON_ID_LEN, PEN20_BUDMON_FQID, PEN20_BUDMON_FQID_LEN, PEN20_BUDMON_FQNAME, PEN20_BUDMON_FQNAME_LEN },
-        { PEN20_BUDMON_NAME, PEN20_BUDMON_NAME_LEN, PEN20_BUDMON_ID, PEN20_BUDMON_ID_LEN, ALT_PEN20_BUDMON_FQID, ALT_PEN20_BUDMON_FQID_LEN, ALT_PEN20_BUDMON_FQNAME, ALT_PEN20_BUDMON_FQNAME_LEN },
-        { PEN20_BUSHI_AGUMON_NAME, PEN20_BUSHI_AGUMON_NAME_LEN, PEN20_BUSHI_AGUMON_ID, PEN20_BUSHI_AGUMON_ID_LEN, PEN20_BUSHI_AGUMON_FQID, PEN20_BUSHI_AGUMON_FQID_LEN, PEN20_BUSHI_AGUMON_FQNAME, PEN20_BUSHI_AGUMON_FQNAME_LEN },
-        { PEN20_BUSHI_AGUMON_NAME, PEN20_BUSHI_AGUMON_NAME_LEN, PEN20_BUSHI_AGUMON_ID, PEN20_BUSHI_AGUMON_ID_LEN, ALT_PEN20_BUSHI_AGUMON_FQID, ALT_PEN20_BUSHI_AGUMON_FQID_LEN, ALT_PEN20_BUSHI_AGUMON_FQNAME, ALT_PEN20_BUSHI_AGUMON_FQNAME_LEN },
-        { PEN20_CANDMON_NAME, PEN20_CANDMON_NAME_LEN, PEN20_CANDMON_ID, PEN20_CANDMON_ID_LEN, PEN20_CANDMON_FQID, PEN20_CANDMON_FQID_LEN, PEN20_CANDMON_FQNAME, PEN20_CANDMON_FQNAME_LEN },
-        { PEN20_CANDMON_NAME, PEN20_CANDMON_NAME_LEN, PEN20_CANDMON_ID, PEN20_CANDMON_ID_LEN, ALT_PEN20_CANDMON_FQID, ALT_PEN20_CANDMON_FQID_LEN, ALT_PEN20_CANDMON_FQNAME, ALT_PEN20_CANDMON_FQNAME_LEN },
-        { PEN20_CAPRIMON_NAME, PEN20_CAPRIMON_NAME_LEN, PEN20_CAPRIMON_ID, PEN20_CAPRIMON_ID_LEN, PEN20_CAPRIMON_FQID, PEN20_CAPRIMON_FQID_LEN, PEN20_CAPRIMON_FQNAME, PEN20_CAPRIMON_FQNAME_LEN },
-        { PEN20_CAPRIMON_NAME, PEN20_CAPRIMON_NAME_LEN, PEN20_CAPRIMON_ID, PEN20_CAPRIMON_ID_LEN, ALT_PEN20_CAPRIMON_FQID, ALT_PEN20_CAPRIMON_FQID_LEN, ALT_PEN20_CAPRIMON_FQNAME, ALT_PEN20_CAPRIMON_FQNAME_LEN },
-        { PEN20_CHAOSMON_NAME, PEN20_CHAOSMON_NAME_LEN, PEN20_CHAOSMON_ID, PEN20_CHAOSMON_ID_LEN, PEN20_CHAOSMON_FQID, PEN20_CHAOSMON_FQID_LEN, PEN20_CHAOSMON_FQNAME, PEN20_CHAOSMON_FQNAME_LEN },
-        { PEN20_CHAOSMON_NAME, PEN20_CHAOSMON_NAME_LEN, PEN20_CHAOSMON_ID, PEN20_CHAOSMON_ID_LEN, ALT_PEN20_CHAOSMON_FQID, ALT_PEN20_CHAOSMON_FQID_LEN, ALT_PEN20_CHAOSMON_FQNAME, ALT_PEN20_CHAOSMON_FQNAME_LEN },
-        { PEN20_CHERUBIMON_NAME, PEN20_CHERUBIMON_NAME_LEN, PEN20_CHERUBIMON_ID, PEN20_CHERUBIMON_ID_LEN, PEN20_CHERUBIMON_FQID, PEN20_CHERUBIMON_FQID_LEN, PEN20_CHERUBIMON_FQNAME, PEN20_CHERUBIMON_FQNAME_LEN },
-        { PEN20_CHERUBIMON_NAME, PEN20_CHERUBIMON_NAME_LEN, PEN20_CHERUBIMON_ID, PEN20_CHERUBIMON_ID_LEN, ALT_PEN20_CHERUBIMON_FQID, ALT_PEN20_CHERUBIMON_FQID_LEN, ALT_PEN20_CHERUBIMON_FQNAME, ALT_PEN20_CHERUBIMON_FQNAME_LEN },
-        { PEN20_CHIBIMON_NAME, PEN20_CHIBIMON_NAME_LEN, PEN20_CHIBIMON_ID, PEN20_CHIBIMON_ID_LEN, PEN20_CHIBIMON_FQID, PEN20_CHIBIMON_FQID_LEN, PEN20_CHIBIMON_FQNAME, PEN20_CHIBIMON_FQNAME_LEN },
-        { PEN20_CHIBIMON_NAME, PEN20_CHIBIMON_NAME_LEN, PEN20_CHIBIMON_ID, PEN20_CHIBIMON_ID_LEN, ALT_PEN20_CHIBIMON_FQID, ALT_PEN20_CHIBIMON_FQID_LEN, ALT_PEN20_CHIBIMON_FQNAME, ALT_PEN20_CHIBIMON_FQNAME_LEN },
-        { PEN20_CHICOMON_NAME, PEN20_CHICOMON_NAME_LEN, PEN20_CHICOMON_ID, PEN20_CHICOMON_ID_LEN, PEN20_CHICOMON_FQID, PEN20_CHICOMON_FQID_LEN, PEN20_CHICOMON_FQNAME, PEN20_CHICOMON_FQNAME_LEN },
-        { PEN20_CHICOMON_NAME, PEN20_CHICOMON_NAME_LEN, PEN20_CHICOMON_ID, PEN20_CHICOMON_ID_LEN, ALT_PEN20_CHICOMON_FQID, ALT_PEN20_CHICOMON_FQID_LEN, ALT_PEN20_CHICOMON_FQNAME, ALT_PEN20_CHICOMON_FQNAME_LEN },
-        { PEN20_CHOCOMON_NAME, PEN20_CHOCOMON_NAME_LEN, PEN20_CHOCOMON_ID, PEN20_CHOCOMON_ID_LEN, PEN20_CHOCOMON_FQID, PEN20_CHOCOMON_FQID_LEN, PEN20_CHOCOMON_FQNAME, PEN20_CHOCOMON_FQNAME_LEN },
-        { PEN20_CHOCOMON_NAME, PEN20_CHOCOMON_NAME_LEN, PEN20_CHOCOMON_ID, PEN20_CHOCOMON_ID_LEN, ALT_PEN20_CHOCOMON_FQID, ALT_PEN20_CHOCOMON_FQID_LEN, ALT_PEN20_CHOCOMON_FQNAME, ALT_PEN20_CHOCOMON_FQNAME_LEN },
-        { PEN20_CHOROMON_NAME, PEN20_CHOROMON_NAME_LEN, PEN20_CHOROMON_ID, PEN20_CHOROMON_ID_LEN, PEN20_CHOROMON_FQID, PEN20_CHOROMON_FQID_LEN, PEN20_CHOROMON_FQNAME, PEN20_CHOROMON_FQNAME_LEN },
-        { PEN20_CHOROMON_NAME, PEN20_CHOROMON_NAME_LEN, PEN20_CHOROMON_ID, PEN20_CHOROMON_ID_LEN, ALT_PEN20_CHOROMON_FQID, ALT_PEN20_CHOROMON_FQID_LEN, ALT_PEN20_CHOROMON_FQNAME, ALT_PEN20_CHOROMON_FQNAME_LEN },
-        { PEN20_CLOCKMON_NAME, PEN20_CLOCKMON_NAME_LEN, PEN20_CLOCKMON_ID, PEN20_CLOCKMON_ID_LEN, PEN20_CLOCKMON_FQID, PEN20_CLOCKMON_FQID_LEN, PEN20_CLOCKMON_FQNAME, PEN20_CLOCKMON_FQNAME_LEN },
-        { PEN20_CLOCKMON_NAME, PEN20_CLOCKMON_NAME_LEN, PEN20_CLOCKMON_ID, PEN20_CLOCKMON_ID_LEN, ALT_PEN20_CLOCKMON_FQID, ALT_PEN20_CLOCKMON_FQID_LEN, ALT_PEN20_CLOCKMON_FQNAME, ALT_PEN20_CLOCKMON_FQNAME_LEN },
-        { PEN20_COCOMON_NAME, PEN20_COCOMON_NAME_LEN, PEN20_COCOMON_ID, PEN20_COCOMON_ID_LEN, PEN20_COCOMON_FQID, PEN20_COCOMON_FQID_LEN, PEN20_COCOMON_FQNAME, PEN20_COCOMON_FQNAME_LEN },
-        { PEN20_COCOMON_NAME, PEN20_COCOMON_NAME_LEN, PEN20_COCOMON_ID, PEN20_COCOMON_ID_LEN, ALT_PEN20_COCOMON_FQID, ALT_PEN20_COCOMON_FQID_LEN, ALT_PEN20_COCOMON_FQNAME, ALT_PEN20_COCOMON_FQNAME_LEN },
-        { PEN20_COELAMON_NAME, PEN20_COELAMON_NAME_LEN, PEN20_COELAMON_ID, PEN20_COELAMON_ID_LEN, PEN20_COELAMON_FQID, PEN20_COELAMON_FQID_LEN, PEN20_COELAMON_FQNAME, PEN20_COELAMON_FQNAME_LEN },
-        { PEN20_COELAMON_NAME, PEN20_COELAMON_NAME_LEN, PEN20_COELAMON_ID, PEN20_COELAMON_ID_LEN, ALT_PEN20_COELAMON_FQID, ALT_PEN20_COELAMON_FQID_LEN, ALT_PEN20_COELAMON_FQNAME, ALT_PEN20_COELAMON_FQNAME_LEN },
-        { PEN20_COREDRAMON_BLUE_NAME, PEN20_COREDRAMON_BLUE_NAME_LEN, PEN20_COREDRAMON_BLUE_ID, PEN20_COREDRAMON_BLUE_ID_LEN, PEN20_COREDRAMON_BLUE_FQID, PEN20_COREDRAMON_BLUE_FQID_LEN, PEN20_COREDRAMON_BLUE_FQNAME, PEN20_COREDRAMON_BLUE_FQNAME_LEN },
-        { PEN20_COREDRAMON_BLUE_NAME, PEN20_COREDRAMON_BLUE_NAME_LEN, PEN20_COREDRAMON_BLUE_ID, PEN20_COREDRAMON_BLUE_ID_LEN, ALT_PEN20_COREDRAMON_BLUE_FQID, ALT_PEN20_COREDRAMON_BLUE_FQID_LEN, ALT_PEN20_COREDRAMON_BLUE_FQNAME, ALT_PEN20_COREDRAMON_BLUE_FQNAME_LEN },
-        { PEN20_COREDRAMON_GREEN_NAME, PEN20_COREDRAMON_GREEN_NAME_LEN, PEN20_COREDRAMON_GREEN_ID, PEN20_COREDRAMON_GREEN_ID_LEN, PEN20_COREDRAMON_GREEN_FQID, PEN20_COREDRAMON_GREEN_FQID_LEN, PEN20_COREDRAMON_GREEN_FQNAME, PEN20_COREDRAMON_GREEN_FQNAME_LEN },
-        { PEN20_COREDRAMON_GREEN_NAME, PEN20_COREDRAMON_GREEN_NAME_LEN, PEN20_COREDRAMON_GREEN_ID, PEN20_COREDRAMON_GREEN_ID_LEN, ALT_PEN20_COREDRAMON_GREEN_FQID, ALT_PEN20_COREDRAMON_GREEN_FQID_LEN, ALT_PEN20_COREDRAMON_GREEN_FQNAME, ALT_PEN20_COREDRAMON_GREEN_FQNAME_LEN },
-        { PEN20_COTSUCOMON_NAME, PEN20_COTSUCOMON_NAME_LEN, PEN20_COTSUCOMON_ID, PEN20_COTSUCOMON_ID_LEN, PEN20_COTSUCOMON_FQID, PEN20_COTSUCOMON_FQID_LEN, PEN20_COTSUCOMON_FQNAME, PEN20_COTSUCOMON_FQNAME_LEN },
-        { PEN20_COTSUCOMON_NAME, PEN20_COTSUCOMON_NAME_LEN, PEN20_COTSUCOMON_ID, PEN20_COTSUCOMON_ID_LEN, ALT_PEN20_COTSUCOMON_FQID, ALT_PEN20_COTSUCOMON_FQID_LEN, ALT_PEN20_COTSUCOMON_FQNAME, ALT_PEN20_COTSUCOMON_FQNAME_LEN },
-        { PEN20_CYBERDRAMON_NAME, PEN20_CYBERDRAMON_NAME_LEN, PEN20_CYBERDRAMON_ID, PEN20_CYBERDRAMON_ID_LEN, PEN20_CYBERDRAMON_FQID, PEN20_CYBERDRAMON_FQID_LEN, PEN20_CYBERDRAMON_FQNAME, PEN20_CYBERDRAMON_FQNAME_LEN },
-        { PEN20_CYBERDRAMON_NAME, PEN20_CYBERDRAMON_NAME_LEN, PEN20_CYBERDRAMON_ID, PEN20_CYBERDRAMON_ID_LEN, ALT_PEN20_CYBERDRAMON_FQID, ALT_PEN20_CYBERDRAMON_FQID_LEN, ALT_PEN20_CYBERDRAMON_FQNAME, ALT_PEN20_CYBERDRAMON_FQNAME_LEN },
-        { PEN20_DAGOMON_NAME, PEN20_DAGOMON_NAME_LEN, PEN20_DAGOMON_ID, PEN20_DAGOMON_ID_LEN, PEN20_DAGOMON_FQID, PEN20_DAGOMON_FQID_LEN, PEN20_DAGOMON_FQNAME, PEN20_DAGOMON_FQNAME_LEN },
-        { PEN20_DAGOMON_NAME, PEN20_DAGOMON_NAME_LEN, PEN20_DAGOMON_ID, PEN20_DAGOMON_ID_LEN, ALT_PEN20_DAGOMON_FQID, ALT_PEN20_DAGOMON_FQID_LEN, ALT_PEN20_DAGOMON_FQNAME, ALT_PEN20_DAGOMON_FQNAME_LEN },
-        { PEN20_DARKDRAMON_NAME, PEN20_DARKDRAMON_NAME_LEN, PEN20_DARKDRAMON_ID, PEN20_DARKDRAMON_ID_LEN, PEN20_DARKDRAMON_FQID, PEN20_DARKDRAMON_FQID_LEN, PEN20_DARKDRAMON_FQNAME, PEN20_DARKDRAMON_FQNAME_LEN },
-        { PEN20_DARKDRAMON_NAME, PEN20_DARKDRAMON_NAME_LEN, PEN20_DARKDRAMON_ID, PEN20_DARKDRAMON_ID_LEN, ALT_PEN20_DARKDRAMON_FQID, ALT_PEN20_DARKDRAMON_FQID_LEN, ALT_PEN20_DARKDRAMON_FQNAME, ALT_PEN20_DARKDRAMON_FQNAME_LEN },
-        { PEN20_DARK_KNIGHTMON_NAME, PEN20_DARK_KNIGHTMON_NAME_LEN, PEN20_DARK_KNIGHTMON_ID, PEN20_DARK_KNIGHTMON_ID_LEN, PEN20_DARK_KNIGHTMON_FQID, PEN20_DARK_KNIGHTMON_FQID_LEN, PEN20_DARK_KNIGHTMON_FQNAME, PEN20_DARK_KNIGHTMON_FQNAME_LEN },
-        { PEN20_DARK_KNIGHTMON_NAME, PEN20_DARK_KNIGHTMON_NAME_LEN, PEN20_DARK_KNIGHTMON_ID, PEN20_DARK_KNIGHTMON_ID_LEN, ALT_PEN20_DARK_KNIGHTMON_FQID, ALT_PEN20_DARK_KNIGHTMON_FQID_LEN, ALT_PEN20_DARK_KNIGHTMON_FQNAME, ALT_PEN20_DARK_KNIGHTMON_FQNAME_LEN },
-        { PEN20_DEATH_MERAMON_NAME, PEN20_DEATH_MERAMON_NAME_LEN, PEN20_DEATH_MERAMON_ID, PEN20_DEATH_MERAMON_ID_LEN, PEN20_DEATH_MERAMON_FQID, PEN20_DEATH_MERAMON_FQID_LEN, PEN20_DEATH_MERAMON_FQNAME, PEN20_DEATH_MERAMON_FQNAME_LEN },
-        { PEN20_DEATH_MERAMON_NAME, PEN20_DEATH_MERAMON_NAME_LEN, PEN20_DEATH_MERAMON_ID, PEN20_DEATH_MERAMON_ID_LEN, ALT_PEN20_DEATH_MERAMON_FQID, ALT_PEN20_DEATH_MERAMON_FQID_LEN, ALT_PEN20_DEATH_MERAMON_FQNAME, ALT_PEN20_DEATH_MERAMON_FQNAME_LEN },
-        { PEN20_DELUMON_NAME, PEN20_DELUMON_NAME_LEN, PEN20_DELUMON_ID, PEN20_DELUMON_ID_LEN, PEN20_DELUMON_FQID, PEN20_DELUMON_FQID_LEN, PEN20_DELUMON_FQNAME, PEN20_DELUMON_FQNAME_LEN },
-        { PEN20_DELUMON_NAME, PEN20_DELUMON_NAME_LEN, PEN20_DELUMON_ID, PEN20_DELUMON_ID_LEN, ALT_PEN20_DELUMON_FQID, ALT_PEN20_DELUMON_FQID_LEN, ALT_PEN20_DELUMON_FQNAME, ALT_PEN20_DELUMON_FQNAME_LEN },
-        { PEN20_DEVIDRAMON_NAME, PEN20_DEVIDRAMON_NAME_LEN, PEN20_DEVIDRAMON_ID, PEN20_DEVIDRAMON_ID_LEN, PEN20_DEVIDRAMON_FQID, PEN20_DEVIDRAMON_FQID_LEN, PEN20_DEVIDRAMON_FQNAME, PEN20_DEVIDRAMON_FQNAME_LEN },
-        { PEN20_DEVIDRAMON_NAME, PEN20_DEVIDRAMON_NAME_LEN, PEN20_DEVIDRAMON_ID, PEN20_DEVIDRAMON_ID_LEN, ALT_PEN20_DEVIDRAMON_FQID, ALT_PEN20_DEVIDRAMON_FQID_LEN, ALT_PEN20_DEVIDRAMON_FQNAME, ALT_PEN20_DEVIDRAMON_FQNAME_LEN },
-        { PEN20_DEVIMON_NAME, PEN20_DEVIMON_NAME_LEN, PEN20_DEVIMON_ID, PEN20_DEVIMON_ID_LEN, PEN20_DEVIMON_FQID, PEN20_DEVIMON_FQID_LEN, PEN20_DEVIMON_FQNAME, PEN20_DEVIMON_FQNAME_LEN },
-        { PEN20_DEVIMON_NAME, PEN20_DEVIMON_NAME_LEN, PEN20_DEVIMON_ID, PEN20_DEVIMON_ID_LEN, ALT_PEN20_DEVIMON_FQID, ALT_PEN20_DEVIMON_FQID_LEN, ALT_PEN20_DEVIMON_FQNAME, ALT_PEN20_DEVIMON_FQNAME_LEN },
-        { PEN20_DODOMON_NAME, PEN20_DODOMON_NAME_LEN, PEN20_DODOMON_ID, PEN20_DODOMON_ID_LEN, PEN20_DODOMON_FQID, PEN20_DODOMON_FQID_LEN, PEN20_DODOMON_FQNAME, PEN20_DODOMON_FQNAME_LEN },
-        { PEN20_DODOMON_NAME, PEN20_DODOMON_NAME_LEN, PEN20_DODOMON_ID, PEN20_DODOMON_ID_LEN, ALT_PEN20_DODOMON_FQID, ALT_PEN20_DODOMON_FQID_LEN, ALT_PEN20_DODOMON_FQNAME, ALT_PEN20_DODOMON_FQNAME_LEN },
-        { PEN20_DOKUGUMON_NAME, PEN20_DOKUGUMON_NAME_LEN, PEN20_DOKUGUMON_ID, PEN20_DOKUGUMON_ID_LEN, PEN20_DOKUGUMON_FQID, PEN20_DOKUGUMON_FQID_LEN, PEN20_DOKUGUMON_FQNAME, PEN20_DOKUGUMON_FQNAME_LEN },
-        { PEN20_DOKUGUMON_NAME, PEN20_DOKUGUMON_NAME_LEN, PEN20_DOKUGUMON_ID, PEN20_DOKUGUMON_ID_LEN, ALT_PEN20_DOKUGUMON_FQID, ALT_PEN20_DOKUGUMON_FQID_LEN, ALT_PEN20_DOKUGUMON_FQNAME, ALT_PEN20_DOKUGUMON_FQNAME_LEN },
-        { PEN20_DORIMON_NAME, PEN20_DORIMON_NAME_LEN, PEN20_DORIMON_ID, PEN20_DORIMON_ID_LEN, PEN20_DORIMON_FQID, PEN20_DORIMON_FQID_LEN, PEN20_DORIMON_FQNAME, PEN20_DORIMON_FQNAME_LEN },
-        { PEN20_DORIMON_NAME, PEN20_DORIMON_NAME_LEN, PEN20_DORIMON_ID, PEN20_DORIMON_ID_LEN, ALT_PEN20_DORIMON_FQID, ALT_PEN20_DORIMON_FQID_LEN, ALT_PEN20_DORIMON_FQNAME, ALT_PEN20_DORIMON_FQNAME_LEN },
-        { PEN20_DORUGAMON_NAME, PEN20_DORUGAMON_NAME_LEN, PEN20_DORUGAMON_ID, PEN20_DORUGAMON_ID_LEN, PEN20_DORUGAMON_FQID, PEN20_DORUGAMON_FQID_LEN, PEN20_DORUGAMON_FQNAME, PEN20_DORUGAMON_FQNAME_LEN },
-        { PEN20_DORUGAMON_NAME, PEN20_DORUGAMON_NAME_LEN, PEN20_DORUGAMON_ID, PEN20_DORUGAMON_ID_LEN, ALT_PEN20_DORUGAMON_FQID, ALT_PEN20_DORUGAMON_FQID_LEN, ALT_PEN20_DORUGAMON_FQNAME, ALT_PEN20_DORUGAMON_FQNAME_LEN },
-        { PEN20_DORUGORAMON_NAME, PEN20_DORUGORAMON_NAME_LEN, PEN20_DORUGORAMON_ID, PEN20_DORUGORAMON_ID_LEN, PEN20_DORUGORAMON_FQID, PEN20_DORUGORAMON_FQID_LEN, PEN20_DORUGORAMON_FQNAME, PEN20_DORUGORAMON_FQNAME_LEN },
-        { PEN20_DORUGORAMON_NAME, PEN20_DORUGORAMON_NAME_LEN, PEN20_DORUGORAMON_ID, PEN20_DORUGORAMON_ID_LEN, ALT_PEN20_DORUGORAMON_FQID, ALT_PEN20_DORUGORAMON_FQID_LEN, ALT_PEN20_DORUGORAMON_FQNAME, ALT_PEN20_DORUGORAMON_FQNAME_LEN },
-        { PEN20_DORUGUREMON_NAME, PEN20_DORUGUREMON_NAME_LEN, PEN20_DORUGUREMON_ID, PEN20_DORUGUREMON_ID_LEN, PEN20_DORUGUREMON_FQID, PEN20_DORUGUREMON_FQID_LEN, PEN20_DORUGUREMON_FQNAME, PEN20_DORUGUREMON_FQNAME_LEN },
-        { PEN20_DORUGUREMON_NAME, PEN20_DORUGUREMON_NAME_LEN, PEN20_DORUGUREMON_ID, PEN20_DORUGUREMON_ID_LEN, ALT_PEN20_DORUGUREMON_FQID, ALT_PEN20_DORUGUREMON_FQID_LEN, ALT_PEN20_DORUGUREMON_FQNAME, ALT_PEN20_DORUGUREMON_FQNAME_LEN },
-        { PEN20_DORUMON_NAME, PEN20_DORUMON_NAME_LEN, PEN20_DORUMON_ID, PEN20_DORUMON_ID_LEN, PEN20_DORUMON_FQID, PEN20_DORUMON_FQID_LEN, PEN20_DORUMON_FQNAME, PEN20_DORUMON_FQNAME_LEN },
-        { PEN20_DORUMON_NAME, PEN20_DORUMON_NAME_LEN, PEN20_DORUMON_ID, PEN20_DORUMON_ID_LEN, ALT_PEN20_DORUMON_FQID, ALT_PEN20_DORUMON_FQID_LEN, ALT_PEN20_DORUMON_FQNAME, ALT_PEN20_DORUMON_FQNAME_LEN },
-        { PEN20_DRACOMON_NAME, PEN20_DRACOMON_NAME_LEN, PEN20_DRACOMON_ID, PEN20_DRACOMON_ID_LEN, PEN20_DRACOMON_FQID, PEN20_DRACOMON_FQID_LEN, PEN20_DRACOMON_FQNAME, PEN20_DRACOMON_FQNAME_LEN },
-        { PEN20_DRACOMON_NAME, PEN20_DRACOMON_NAME_LEN, PEN20_DRACOMON_ID, PEN20_DRACOMON_ID_LEN, ALT_PEN20_DRACOMON_FQID, ALT_PEN20_DRACOMON_FQID_LEN, ALT_PEN20_DRACOMON_FQNAME, ALT_PEN20_DRACOMON_FQNAME_LEN },
-        { PEN20_DURAMON_NAME, PEN20_DURAMON_NAME_LEN, PEN20_DURAMON_ID, PEN20_DURAMON_ID_LEN, PEN20_DURAMON_FQID, PEN20_DURAMON_FQID_LEN, PEN20_DURAMON_FQNAME, PEN20_DURAMON_FQNAME_LEN },
-        { PEN20_DURAMON_NAME, PEN20_DURAMON_NAME_LEN, PEN20_DURAMON_ID, PEN20_DURAMON_ID_LEN, ALT_PEN20_DURAMON_FQID, ALT_PEN20_DURAMON_FQID_LEN, ALT_PEN20_DURAMON_FQNAME, ALT_PEN20_DURAMON_FQNAME_LEN },
-        { PEN20_DURANDAMON_NAME, PEN20_DURANDAMON_NAME_LEN, PEN20_DURANDAMON_ID, PEN20_DURANDAMON_ID_LEN, PEN20_DURANDAMON_FQID, PEN20_DURANDAMON_FQID_LEN, PEN20_DURANDAMON_FQNAME, PEN20_DURANDAMON_FQNAME_LEN },
-        { PEN20_DURANDAMON_NAME, PEN20_DURANDAMON_NAME_LEN, PEN20_DURANDAMON_ID, PEN20_DURANDAMON_ID_LEN, ALT_PEN20_DURANDAMON_FQID, ALT_PEN20_DURANDAMON_FQID_LEN, ALT_PEN20_DURANDAMON_FQNAME, ALT_PEN20_DURANDAMON_FQNAME_LEN },
-        { PEN20_EBIDRAMON_NAME, PEN20_EBIDRAMON_NAME_LEN, PEN20_EBIDRAMON_ID, PEN20_EBIDRAMON_ID_LEN, PEN20_EBIDRAMON_FQID, PEN20_EBIDRAMON_FQID_LEN, PEN20_EBIDRAMON_FQNAME, PEN20_EBIDRAMON_FQNAME_LEN },
-        { PEN20_EBIDRAMON_NAME, PEN20_EBIDRAMON_NAME_LEN, PEN20_EBIDRAMON_ID, PEN20_EBIDRAMON_ID_LEN, ALT_PEN20_EBIDRAMON_FQID, ALT_PEN20_EBIDRAMON_FQID_LEN, ALT_PEN20_EBIDRAMON_FQNAME, ALT_PEN20_EBIDRAMON_FQNAME_LEN },
-        { PEN20_ETEMON_NAME, PEN20_ETEMON_NAME_LEN, PEN20_ETEMON_ID, PEN20_ETEMON_ID_LEN, PEN20_ETEMON_FQID, PEN20_ETEMON_FQID_LEN, PEN20_ETEMON_FQNAME, PEN20_ETEMON_FQNAME_LEN },
-        { PEN20_ETEMON_NAME, PEN20_ETEMON_NAME_LEN, PEN20_ETEMON_ID, PEN20_ETEMON_ID_LEN, ALT_PEN20_ETEMON_FQID, ALT_PEN20_ETEMON_FQID_LEN, ALT_PEN20_ETEMON_FQNAME, ALT_PEN20_ETEMON_FQNAME_LEN },
-        { PEN20_EXAMON_NAME, PEN20_EXAMON_NAME_LEN, PEN20_EXAMON_ID, PEN20_EXAMON_ID_LEN, PEN20_EXAMON_FQID, PEN20_EXAMON_FQID_LEN, PEN20_EXAMON_FQNAME, PEN20_EXAMON_FQNAME_LEN },
-        { PEN20_EXAMON_NAME, PEN20_EXAMON_NAME_LEN, PEN20_EXAMON_ID, PEN20_EXAMON_ID_LEN, ALT_PEN20_EXAMON_FQID, ALT_PEN20_EXAMON_FQID_LEN, ALT_PEN20_EXAMON_FQNAME, ALT_PEN20_EXAMON_FQNAME_LEN },
-        { PEN20_FANTOMON_NAME, PEN20_FANTOMON_NAME_LEN, PEN20_FANTOMON_ID, PEN20_FANTOMON_ID_LEN, PEN20_FANTOMON_FQID, PEN20_FANTOMON_FQID_LEN, PEN20_FANTOMON_FQNAME, PEN20_FANTOMON_FQNAME_LEN },
-        { PEN20_FANTOMON_NAME, PEN20_FANTOMON_NAME_LEN, PEN20_FANTOMON_ID, PEN20_FANTOMON_ID_LEN, ALT_PEN20_FANTOMON_FQID, ALT_PEN20_FANTOMON_FQID_LEN, ALT_PEN20_FANTOMON_FQNAME, ALT_PEN20_FANTOMON_FQNAME_LEN },
-        { PEN20_FLORAMON_NAME, PEN20_FLORAMON_NAME_LEN, PEN20_FLORAMON_ID, PEN20_FLORAMON_ID_LEN, PEN20_FLORAMON_FQID, PEN20_FLORAMON_FQID_LEN, PEN20_FLORAMON_FQNAME, PEN20_FLORAMON_FQNAME_LEN },
-        { PEN20_FLORAMON_NAME, PEN20_FLORAMON_NAME_LEN, PEN20_FLORAMON_ID, PEN20_FLORAMON_ID_LEN, ALT_PEN20_FLORAMON_FQID, ALT_PEN20_FLORAMON_FQID_LEN, ALT_PEN20_FLORAMON_FQNAME, ALT_PEN20_FLORAMON_FQNAME_LEN },
-        { PEN20_FUFUMON_NAME, PEN20_FUFUMON_NAME_LEN, PEN20_FUFUMON_ID, PEN20_FUFUMON_ID_LEN, PEN20_FUFUMON_FQID, PEN20_FUFUMON_FQID_LEN, PEN20_FUFUMON_FQNAME, PEN20_FUFUMON_FQNAME_LEN },
-        { PEN20_FUFUMON_NAME, PEN20_FUFUMON_NAME_LEN, PEN20_FUFUMON_ID, PEN20_FUFUMON_ID_LEN, ALT_PEN20_FUFUMON_FQID, ALT_PEN20_FUFUMON_FQID_LEN, ALT_PEN20_FUFUMON_FQNAME, ALT_PEN20_FUFUMON_FQNAME_LEN },
-        { PEN20_GABUMON_NAME, PEN20_GABUMON_NAME_LEN, PEN20_GABUMON_ID, PEN20_GABUMON_ID_LEN, PEN20_GABUMON_FQID, PEN20_GABUMON_FQID_LEN, PEN20_GABUMON_FQNAME, PEN20_GABUMON_FQNAME_LEN },
-        { PEN20_GABUMON_NAME, PEN20_GABUMON_NAME_LEN, PEN20_GABUMON_ID, PEN20_GABUMON_ID_LEN, ALT_PEN20_GABUMON_FQID, ALT_PEN20_GABUMON_FQID_LEN, ALT_PEN20_GABUMON_FQNAME, ALT_PEN20_GABUMON_FQNAME_LEN },
-        { PEN20_GALGOMON_NAME, PEN20_GALGOMON_NAME_LEN, PEN20_GALGOMON_ID, PEN20_GALGOMON_ID_LEN, PEN20_GALGOMON_FQID, PEN20_GALGOMON_FQID_LEN, PEN20_GALGOMON_FQNAME, PEN20_GALGOMON_FQNAME_LEN },
-        { PEN20_GALGOMON_NAME, PEN20_GALGOMON_NAME_LEN, PEN20_GALGOMON_ID, PEN20_GALGOMON_ID_LEN, ALT_PEN20_GALGOMON_FQID, ALT_PEN20_GALGOMON_FQID_LEN, ALT_PEN20_GALGOMON_FQNAME, ALT_PEN20_GALGOMON_FQNAME_LEN },
-        { PEN20_GANIMON_NAME, PEN20_GANIMON_NAME_LEN, PEN20_GANIMON_ID, PEN20_GANIMON_ID_LEN, PEN20_GANIMON_FQID, PEN20_GANIMON_FQID_LEN, PEN20_GANIMON_FQNAME, PEN20_GANIMON_FQNAME_LEN },
-        { PEN20_GANIMON_NAME, PEN20_GANIMON_NAME_LEN, PEN20_GANIMON_ID, PEN20_GANIMON_ID_LEN, ALT_PEN20_GANIMON_FQID, ALT_PEN20_GANIMON_FQID_LEN, ALT_PEN20_GANIMON_FQNAME, ALT_PEN20_GANIMON_FQNAME_LEN },
-        { PEN20_GARUDAMON_NAME, PEN20_GARUDAMON_NAME_LEN, PEN20_GARUDAMON_ID, PEN20_GARUDAMON_ID_LEN, PEN20_GARUDAMON_FQID, PEN20_GARUDAMON_FQID_LEN, PEN20_GARUDAMON_FQNAME, PEN20_GARUDAMON_FQNAME_LEN },
-        { PEN20_GARUDAMON_NAME, PEN20_GARUDAMON_NAME_LEN, PEN20_GARUDAMON_ID, PEN20_GARUDAMON_ID_LEN, ALT_PEN20_GARUDAMON_FQID, ALT_PEN20_GARUDAMON_FQID_LEN, ALT_PEN20_GARUDAMON_FQNAME, ALT_PEN20_GARUDAMON_FQNAME_LEN },
-        { PEN20_GARURUMON_NAME, PEN20_GARURUMON_NAME_LEN, PEN20_GARURUMON_ID, PEN20_GARURUMON_ID_LEN, PEN20_GARURUMON_FQID, PEN20_GARURUMON_FQID_LEN, PEN20_GARURUMON_FQNAME, PEN20_GARURUMON_FQNAME_LEN },
-        { PEN20_GARURUMON_NAME, PEN20_GARURUMON_NAME_LEN, PEN20_GARURUMON_ID, PEN20_GARURUMON_ID_LEN, ALT_PEN20_GARURUMON_FQID, ALT_PEN20_GARURUMON_FQID_LEN, ALT_PEN20_GARURUMON_FQNAME, ALT_PEN20_GARURUMON_FQNAME_LEN },
-        { PEN20_GEKOMON_NAME, PEN20_GEKOMON_NAME_LEN, PEN20_GEKOMON_ID, PEN20_GEKOMON_ID_LEN, PEN20_GEKOMON_FQID, PEN20_GEKOMON_FQID_LEN, PEN20_GEKOMON_FQNAME, PEN20_GEKOMON_FQNAME_LEN },
-        { PEN20_GEKOMON_NAME, PEN20_GEKOMON_NAME_LEN, PEN20_GEKOMON_ID, PEN20_GEKOMON_ID_LEN, ALT_PEN20_GEKOMON_FQID, ALT_PEN20_GEKOMON_FQID_LEN, ALT_PEN20_GEKOMON_FQNAME, ALT_PEN20_GEKOMON_FQNAME_LEN },
-        { PEN20_GERBEMON_NAME, PEN20_GERBEMON_NAME_LEN, PEN20_GERBEMON_ID, PEN20_GERBEMON_ID_LEN, PEN20_GERBEMON_FQID, PEN20_GERBEMON_FQID_LEN, PEN20_GERBEMON_FQNAME, PEN20_GERBEMON_FQNAME_LEN },
-        { PEN20_GERBEMON_NAME, PEN20_GERBEMON_NAME_LEN, PEN20_GERBEMON_ID, PEN20_GERBEMON_ID_LEN, ALT_PEN20_GERBEMON_FQID, ALT_PEN20_GERBEMON_FQID_LEN, ALT_PEN20_GERBEMON_FQNAME, ALT_PEN20_GERBEMON_FQNAME_LEN },
-        { PEN20_GESOMON_NAME, PEN20_GESOMON_NAME_LEN, PEN20_GESOMON_ID, PEN20_GESOMON_ID_LEN, PEN20_GESOMON_FQID, PEN20_GESOMON_FQID_LEN, PEN20_GESOMON_FQNAME, PEN20_GESOMON_FQNAME_LEN },
-        { PEN20_GESOMON_NAME, PEN20_GESOMON_NAME_LEN, PEN20_GESOMON_ID, PEN20_GESOMON_ID_LEN, ALT_PEN20_GESOMON_FQID, ALT_PEN20_GESOMON_FQID_LEN, ALT_PEN20_GESOMON_FQNAME, ALT_PEN20_GESOMON_FQNAME_LEN },
-        { PEN20_GINRYUMON_NAME, PEN20_GINRYUMON_NAME_LEN, PEN20_GINRYUMON_ID, PEN20_GINRYUMON_ID_LEN, PEN20_GINRYUMON_FQID, PEN20_GINRYUMON_FQID_LEN, PEN20_GINRYUMON_FQNAME, PEN20_GINRYUMON_FQNAME_LEN },
-        { PEN20_GINRYUMON_NAME, PEN20_GINRYUMON_NAME_LEN, PEN20_GINRYUMON_ID, PEN20_GINRYUMON_ID_LEN, ALT_PEN20_GINRYUMON_FQID, ALT_PEN20_GINRYUMON_FQID_LEN, ALT_PEN20_GINRYUMON_FQNAME, ALT_PEN20_GINRYUMON_FQNAME_LEN },
-        { PEN20_GOMAMON_NAME, PEN20_GOMAMON_NAME_LEN, PEN20_GOMAMON_ID, PEN20_GOMAMON_ID_LEN, PEN20_GOMAMON_FQID, PEN20_GOMAMON_FQID_LEN, PEN20_GOMAMON_FQNAME, PEN20_GOMAMON_FQNAME_LEN },
-        { PEN20_GOMAMON_NAME, PEN20_GOMAMON_NAME_LEN, PEN20_GOMAMON_ID, PEN20_GOMAMON_ID_LEN, ALT_PEN20_GOMAMON_FQID, ALT_PEN20_GOMAMON_FQID_LEN, ALT_PEN20_GOMAMON_FQNAME, ALT_PEN20_GOMAMON_FQNAME_LEN },
-        { PEN20_GOTTSUMON_NAME, PEN20_GOTTSUMON_NAME_LEN, PEN20_GOTTSUMON_ID, PEN20_GOTTSUMON_ID_LEN, PEN20_GOTTSUMON_FQID, PEN20_GOTTSUMON_FQID_LEN, PEN20_GOTTSUMON_FQNAME, PEN20_GOTTSUMON_FQNAME_LEN },
-        { PEN20_GOTTSUMON_NAME, PEN20_GOTTSUMON_NAME_LEN, PEN20_GOTTSUMON_ID, PEN20_GOTTSUMON_ID_LEN, ALT_PEN20_GOTTSUMON_FQID, ALT_PEN20_GOTTSUMON_FQID_LEN, ALT_PEN20_GOTTSUMON_FQNAME, ALT_PEN20_GOTTSUMON_FQNAME_LEN },
-        { PEN20_GREYMON_NAME, PEN20_GREYMON_NAME_LEN, PEN20_GREYMON_ID, PEN20_GREYMON_ID_LEN, PEN20_GREYMON_FQID, PEN20_GREYMON_FQID_LEN, PEN20_GREYMON_FQNAME, PEN20_GREYMON_FQNAME_LEN },
-        { PEN20_GREYMON_NAME, PEN20_GREYMON_NAME_LEN, PEN20_GREYMON_ID, PEN20_GREYMON_ID_LEN, ALT_PEN20_GREYMON_FQID, ALT_PEN20_GREYMON_FQID_LEN, ALT_PEN20_GREYMON_FQNAME, ALT_PEN20_GREYMON_FQNAME_LEN },
-        { PEN20_GRIFFOMON_NAME, PEN20_GRIFFOMON_NAME_LEN, PEN20_GRIFFOMON_ID, PEN20_GRIFFOMON_ID_LEN, PEN20_GRIFFOMON_FQID, PEN20_GRIFFOMON_FQID_LEN, PEN20_GRIFFOMON_FQNAME, PEN20_GRIFFOMON_FQNAME_LEN },
-        { PEN20_GRIFFOMON_NAME, PEN20_GRIFFOMON_NAME_LEN, PEN20_GRIFFOMON_ID, PEN20_GRIFFOMON_ID_LEN, ALT_PEN20_GRIFFOMON_FQID, ALT_PEN20_GRIFFOMON_FQID_LEN, ALT_PEN20_GRIFFOMON_FQNAME, ALT_PEN20_GRIFFOMON_FQNAME_LEN },
-        { PEN20_GROUNDRAMON_NAME, PEN20_GROUNDRAMON_NAME_LEN, PEN20_GROUNDRAMON_ID, PEN20_GROUNDRAMON_ID_LEN, PEN20_GROUNDRAMON_FQID, PEN20_GROUNDRAMON_FQID_LEN, PEN20_GROUNDRAMON_FQNAME, PEN20_GROUNDRAMON_FQNAME_LEN },
-        { PEN20_GROUNDRAMON_NAME, PEN20_GROUNDRAMON_NAME_LEN, PEN20_GROUNDRAMON_ID, PEN20_GROUNDRAMON_ID_LEN, ALT_PEN20_GROUNDRAMON_FQID, ALT_PEN20_GROUNDRAMON_FQID_LEN, ALT_PEN20_GROUNDRAMON_FQNAME, ALT_PEN20_GROUNDRAMON_FQNAME_LEN },
-        { PEN20_GROWMON_NAME, PEN20_GROWMON_NAME_LEN, PEN20_GROWMON_ID, PEN20_GROWMON_ID_LEN, PEN20_GROWMON_FQID, PEN20_GROWMON_FQID_LEN, PEN20_GROWMON_FQNAME, PEN20_GROWMON_FQNAME_LEN },
-        { PEN20_GROWMON_NAME, PEN20_GROWMON_NAME_LEN, PEN20_GROWMON_ID, PEN20_GROWMON_ID_LEN, ALT_PEN20_GROWMON_FQID, ALT_PEN20_GROWMON_FQID_LEN, ALT_PEN20_GROWMON_FQNAME, ALT_PEN20_GROWMON_FQNAME_LEN },
-        { PEN20_GUARDROMON_NAME, PEN20_GUARDROMON_NAME_LEN, PEN20_GUARDROMON_ID, PEN20_GUARDROMON_ID_LEN, PEN20_GUARDROMON_FQID, PEN20_GUARDROMON_FQID_LEN, PEN20_GUARDROMON_FQNAME, PEN20_GUARDROMON_FQNAME_LEN },
-        { PEN20_GUARDROMON_NAME, PEN20_GUARDROMON_NAME_LEN, PEN20_GUARDROMON_ID, PEN20_GUARDROMON_ID_LEN, ALT_PEN20_GUARDROMON_FQID, ALT_PEN20_GUARDROMON_FQID_LEN, ALT_PEN20_GUARDROMON_FQNAME, ALT_PEN20_GUARDROMON_FQNAME_LEN },
-        { PEN20_GUILMON_NAME, PEN20_GUILMON_NAME_LEN, PEN20_GUILMON_ID, PEN20_GUILMON_ID_LEN, PEN20_GUILMON_FQID, PEN20_GUILMON_FQID_LEN, PEN20_GUILMON_FQNAME, PEN20_GUILMON_FQNAME_LEN },
-        { PEN20_GUILMON_NAME, PEN20_GUILMON_NAME_LEN, PEN20_GUILMON_ID, PEN20_GUILMON_ID_LEN, ALT_PEN20_GUILMON_FQID, ALT_PEN20_GUILMON_FQID_LEN, ALT_PEN20_GUILMON_FQNAME, ALT_PEN20_GUILMON_FQNAME_LEN },
-        { PEN20_GUMMYMON_NAME, PEN20_GUMMYMON_NAME_LEN, PEN20_GUMMYMON_ID, PEN20_GUMMYMON_ID_LEN, PEN20_GUMMYMON_FQID, PEN20_GUMMYMON_FQID_LEN, PEN20_GUMMYMON_FQNAME, PEN20_GUMMYMON_FQNAME_LEN },
-        { PEN20_GUMMYMON_NAME, PEN20_GUMMYMON_NAME_LEN, PEN20_GUMMYMON_ID, PEN20_GUMMYMON_ID_LEN, ALT_PEN20_GUMMYMON_FQID, ALT_PEN20_GUMMYMON_FQID_LEN, ALT_PEN20_GUMMYMON_FQNAME, ALT_PEN20_GUMMYMON_FQNAME_LEN },
-        { PEN20_HACKMON_NAME, PEN20_HACKMON_NAME_LEN, PEN20_HACKMON_ID, PEN20_HACKMON_ID_LEN, PEN20_HACKMON_FQID, PEN20_HACKMON_FQID_LEN, PEN20_HACKMON_FQNAME, PEN20_HACKMON_FQNAME_LEN },
-        { PEN20_HACKMON_NAME, PEN20_HACKMON_NAME_LEN, PEN20_HACKMON_ID, PEN20_HACKMON_ID_LEN, ALT_PEN20_HACKMON_FQID, ALT_PEN20_HACKMON_FQID_LEN, ALT_PEN20_HACKMON_FQNAME, ALT_PEN20_HACKMON_FQNAME_LEN },
-        { PEN20_HAGURUMON_NAME, PEN20_HAGURUMON_NAME_LEN, PEN20_HAGURUMON_ID, PEN20_HAGURUMON_ID_LEN, PEN20_HAGURUMON_FQID, PEN20_HAGURUMON_FQID_LEN, PEN20_HAGURUMON_FQNAME, PEN20_HAGURUMON_FQNAME_LEN },
-        { PEN20_HAGURUMON_NAME, PEN20_HAGURUMON_NAME_LEN, PEN20_HAGURUMON_ID, PEN20_HAGURUMON_ID_LEN, ALT_PEN20_HAGURUMON_FQID, ALT_PEN20_HAGURUMON_FQID_LEN, ALT_PEN20_HAGURUMON_FQNAME, ALT_PEN20_HAGURUMON_FQNAME_LEN },
-        { PEN20_HANGYOMON_NAME, PEN20_HANGYOMON_NAME_LEN, PEN20_HANGYOMON_ID, PEN20_HANGYOMON_ID_LEN, PEN20_HANGYOMON_FQID, PEN20_HANGYOMON_FQID_LEN, PEN20_HANGYOMON_FQNAME, PEN20_HANGYOMON_FQNAME_LEN },
-        { PEN20_HANGYOMON_NAME, PEN20_HANGYOMON_NAME_LEN, PEN20_HANGYOMON_ID, PEN20_HANGYOMON_ID_LEN, ALT_PEN20_HANGYOMON_FQID, ALT_PEN20_HANGYOMON_FQID_LEN, ALT_PEN20_HANGYOMON_FQNAME, ALT_PEN20_HANGYOMON_FQNAME_LEN },
-        { PEN20_HANUMON_NAME, PEN20_HANUMON_NAME_LEN, PEN20_HANUMON_ID, PEN20_HANUMON_ID_LEN, PEN20_HANUMON_FQID, PEN20_HANUMON_FQID_LEN, PEN20_HANUMON_FQNAME, PEN20_HANUMON_FQNAME_LEN },
-        { PEN20_HANUMON_NAME, PEN20_HANUMON_NAME_LEN, PEN20_HANUMON_ID, PEN20_HANUMON_ID_LEN, ALT_PEN20_HANUMON_FQID, ALT_PEN20_HANUMON_FQID_LEN, ALT_PEN20_HANUMON_FQNAME, ALT_PEN20_HANUMON_FQNAME_LEN },
-        { PEN20_HERAKLE_KABUTERIMON_NAME, PEN20_HERAKLE_KABUTERIMON_NAME_LEN, PEN20_HERAKLE_KABUTERIMON_ID, PEN20_HERAKLE_KABUTERIMON_ID_LEN, PEN20_HERAKLE_KABUTERIMON_FQID, PEN20_HERAKLE_KABUTERIMON_FQID_LEN, PEN20_HERAKLE_KABUTERIMON_FQNAME, PEN20_HERAKLE_KABUTERIMON_FQNAME_LEN },
-        { PEN20_HERAKLE_KABUTERIMON_NAME, PEN20_HERAKLE_KABUTERIMON_NAME_LEN, PEN20_HERAKLE_KABUTERIMON_ID, PEN20_HERAKLE_KABUTERIMON_ID_LEN, ALT_PEN20_HERAKLE_KABUTERIMON_FQID, ALT_PEN20_HERAKLE_KABUTERIMON_FQID_LEN, ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME, ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_LEN },
-        { PEN20_HISYARYUMON_NAME, PEN20_HISYARYUMON_NAME_LEN, PEN20_HISYARYUMON_ID, PEN20_HISYARYUMON_ID_LEN, PEN20_HISYARYUMON_FQID, PEN20_HISYARYUMON_FQID_LEN, PEN20_HISYARYUMON_FQNAME, PEN20_HISYARYUMON_FQNAME_LEN },
-        { PEN20_HISYARYUMON_NAME, PEN20_HISYARYUMON_NAME_LEN, PEN20_HISYARYUMON_ID, PEN20_HISYARYUMON_ID_LEN, ALT_PEN20_HISYARYUMON_FQID, ALT_PEN20_HISYARYUMON_FQID_LEN, ALT_PEN20_HISYARYUMON_FQNAME, ALT_PEN20_HISYARYUMON_FQNAME_LEN },
-        { PEN20_HOLY_ANGEMON_NAME, PEN20_HOLY_ANGEMON_NAME_LEN, PEN20_HOLY_ANGEMON_ID, PEN20_HOLY_ANGEMON_ID_LEN, PEN20_HOLY_ANGEMON_FQID, PEN20_HOLY_ANGEMON_FQID_LEN, PEN20_HOLY_ANGEMON_FQNAME, PEN20_HOLY_ANGEMON_FQNAME_LEN },
-        { PEN20_HOLY_ANGEMON_NAME, PEN20_HOLY_ANGEMON_NAME_LEN, PEN20_HOLY_ANGEMON_ID, PEN20_HOLY_ANGEMON_ID_LEN, ALT_PEN20_HOLY_ANGEMON_FQID, ALT_PEN20_HOLY_ANGEMON_FQID_LEN, ALT_PEN20_HOLY_ANGEMON_FQNAME, ALT_PEN20_HOLY_ANGEMON_FQNAME_LEN },
-        { PEN20_HOLYDRAMON_NAME, PEN20_HOLYDRAMON_NAME_LEN, PEN20_HOLYDRAMON_ID, PEN20_HOLYDRAMON_ID_LEN, PEN20_HOLYDRAMON_FQID, PEN20_HOLYDRAMON_FQID_LEN, PEN20_HOLYDRAMON_FQNAME, PEN20_HOLYDRAMON_FQNAME_LEN },
-        { PEN20_HOLYDRAMON_NAME, PEN20_HOLYDRAMON_NAME_LEN, PEN20_HOLYDRAMON_ID, PEN20_HOLYDRAMON_ID_LEN, ALT_PEN20_HOLYDRAMON_FQID, ALT_PEN20_HOLYDRAMON_FQID_LEN, ALT_PEN20_HOLYDRAMON_FQNAME, ALT_PEN20_HOLYDRAMON_FQNAME_LEN },
-        { PEN20_HOUOUMON_NAME, PEN20_HOUOUMON_NAME_LEN, PEN20_HOUOUMON_ID, PEN20_HOUOUMON_ID_LEN, PEN20_HOUOUMON_FQID, PEN20_HOUOUMON_FQID_LEN, PEN20_HOUOUMON_FQNAME, PEN20_HOUOUMON_FQNAME_LEN },
-        { PEN20_HOUOUMON_NAME, PEN20_HOUOUMON_NAME_LEN, PEN20_HOUOUMON_ID, PEN20_HOUOUMON_ID_LEN, ALT_PEN20_HOUOUMON_FQID, ALT_PEN20_HOUOUMON_FQID_LEN, ALT_PEN20_HOUOUMON_FQNAME, ALT_PEN20_HOUOUMON_FQNAME_LEN },
-        { PEN20_IGAMON_NAME, PEN20_IGAMON_NAME_LEN, PEN20_IGAMON_ID, PEN20_IGAMON_ID_LEN, PEN20_IGAMON_FQID, PEN20_IGAMON_FQID_LEN, PEN20_IGAMON_FQNAME, PEN20_IGAMON_FQNAME_LEN },
-        { PEN20_IGAMON_NAME, PEN20_IGAMON_NAME_LEN, PEN20_IGAMON_ID, PEN20_IGAMON_ID_LEN, ALT_PEN20_IGAMON_FQID, ALT_PEN20_IGAMON_FQID_LEN, ALT_PEN20_IGAMON_FQNAME, ALT_PEN20_IGAMON_FQNAME_LEN },
-        { PEN20_IKKAKUMON_NAME, PEN20_IKKAKUMON_NAME_LEN, PEN20_IKKAKUMON_ID, PEN20_IKKAKUMON_ID_LEN, PEN20_IKKAKUMON_FQID, PEN20_IKKAKUMON_FQID_LEN, PEN20_IKKAKUMON_FQNAME, PEN20_IKKAKUMON_FQNAME_LEN },
-        { PEN20_IKKAKUMON_NAME, PEN20_IKKAKUMON_NAME_LEN, PEN20_IKKAKUMON_ID, PEN20_IKKAKUMON_ID_LEN, ALT_PEN20_IKKAKUMON_FQID, ALT_PEN20_IKKAKUMON_FQID_LEN, ALT_PEN20_IKKAKUMON_FQNAME, ALT_PEN20_IKKAKUMON_FQNAME_LEN },
-        { PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_LEN, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_LEN, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_LEN, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_LEN },
-        { PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_LEN, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_LEN, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_LEN, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_LEN },
-        { PEN20_IMPMON_NAME, PEN20_IMPMON_NAME_LEN, PEN20_IMPMON_ID, PEN20_IMPMON_ID_LEN, PEN20_IMPMON_FQID, PEN20_IMPMON_FQID_LEN, PEN20_IMPMON_FQNAME, PEN20_IMPMON_FQNAME_LEN },
-        { PEN20_IMPMON_NAME, PEN20_IMPMON_NAME_LEN, PEN20_IMPMON_ID, PEN20_IMPMON_ID_LEN, ALT_PEN20_IMPMON_FQID, ALT_PEN20_IMPMON_FQID_LEN, ALT_PEN20_IMPMON_FQNAME, ALT_PEN20_IMPMON_FQNAME_LEN },
-        { PEN20_JESMON_NAME, PEN20_JESMON_NAME_LEN, PEN20_JESMON_ID, PEN20_JESMON_ID_LEN, PEN20_JESMON_FQID, PEN20_JESMON_FQID_LEN, PEN20_JESMON_FQNAME, PEN20_JESMON_FQNAME_LEN },
-        { PEN20_JESMON_NAME, PEN20_JESMON_NAME_LEN, PEN20_JESMON_ID, PEN20_JESMON_ID_LEN, ALT_PEN20_JESMON_FQID, ALT_PEN20_JESMON_FQID_LEN, ALT_PEN20_JESMON_FQNAME, ALT_PEN20_JESMON_FQNAME_LEN },
-        { PEN20_JESMON_X_NAME, PEN20_JESMON_X_NAME_LEN, PEN20_JESMON_X_ID, PEN20_JESMON_X_ID_LEN, PEN20_JESMON_X_FQID, PEN20_JESMON_X_FQID_LEN, PEN20_JESMON_X_FQNAME, PEN20_JESMON_X_FQNAME_LEN },
-        { PEN20_JESMON_X_NAME, PEN20_JESMON_X_NAME_LEN, PEN20_JESMON_X_ID, PEN20_JESMON_X_ID_LEN, ALT_PEN20_JESMON_X_FQID, ALT_PEN20_JESMON_X_FQID_LEN, ALT_PEN20_JESMON_X_FQNAME, ALT_PEN20_JESMON_X_FQNAME_LEN },
-        { PEN20_JYAGAMON_NAME, PEN20_JYAGAMON_NAME_LEN, PEN20_JYAGAMON_ID, PEN20_JYAGAMON_ID_LEN, PEN20_JYAGAMON_FQID, PEN20_JYAGAMON_FQID_LEN, PEN20_JYAGAMON_FQNAME, PEN20_JYAGAMON_FQNAME_LEN },
-        { PEN20_JYAGAMON_NAME, PEN20_JYAGAMON_NAME_LEN, PEN20_JYAGAMON_ID, PEN20_JYAGAMON_ID_LEN, ALT_PEN20_JYAGAMON_FQID, ALT_PEN20_JYAGAMON_FQID_LEN, ALT_PEN20_JYAGAMON_FQNAME, ALT_PEN20_JYAGAMON_FQNAME_LEN },
-        { PEN20_JYUREIMON_NAME, PEN20_JYUREIMON_NAME_LEN, PEN20_JYUREIMON_ID, PEN20_JYUREIMON_ID_LEN, PEN20_JYUREIMON_FQID, PEN20_JYUREIMON_FQID_LEN, PEN20_JYUREIMON_FQNAME, PEN20_JYUREIMON_FQNAME_LEN },
-        { PEN20_JYUREIMON_NAME, PEN20_JYUREIMON_NAME_LEN, PEN20_JYUREIMON_ID, PEN20_JYUREIMON_ID_LEN, ALT_PEN20_JYUREIMON_FQID, ALT_PEN20_JYUREIMON_FQID_LEN, ALT_PEN20_JYUREIMON_FQNAME, ALT_PEN20_JYUREIMON_FQNAME_LEN },
-        { PEN20_KABUTERIMON_NAME, PEN20_KABUTERIMON_NAME_LEN, PEN20_KABUTERIMON_ID, PEN20_KABUTERIMON_ID_LEN, PEN20_KABUTERIMON_FQID, PEN20_KABUTERIMON_FQID_LEN, PEN20_KABUTERIMON_FQNAME, PEN20_KABUTERIMON_FQNAME_LEN },
-        { PEN20_KABUTERIMON_NAME, PEN20_KABUTERIMON_NAME_LEN, PEN20_KABUTERIMON_ID, PEN20_KABUTERIMON_ID_LEN, ALT_PEN20_KABUTERIMON_FQID, ALT_PEN20_KABUTERIMON_FQID_LEN, ALT_PEN20_KABUTERIMON_FQNAME, ALT_PEN20_KABUTERIMON_FQNAME_LEN },
-        { PEN20_KAKKINMON_NAME, PEN20_KAKKINMON_NAME_LEN, PEN20_KAKKINMON_ID, PEN20_KAKKINMON_ID_LEN, PEN20_KAKKINMON_FQID, PEN20_KAKKINMON_FQID_LEN, PEN20_KAKKINMON_FQNAME, PEN20_KAKKINMON_FQNAME_LEN },
-        { PEN20_KAKKINMON_NAME, PEN20_KAKKINMON_NAME_LEN, PEN20_KAKKINMON_ID, PEN20_KAKKINMON_ID_LEN, ALT_PEN20_KAKKINMON_FQID, ALT_PEN20_KAKKINMON_FQID_LEN, ALT_PEN20_KAKKINMON_FQNAME, ALT_PEN20_KAKKINMON_FQNAME_LEN },
-        { PEN20_KIWIMON_NAME, PEN20_KIWIMON_NAME_LEN, PEN20_KIWIMON_ID, PEN20_KIWIMON_ID_LEN, PEN20_KIWIMON_FQID, PEN20_KIWIMON_FQID_LEN, PEN20_KIWIMON_FQNAME, PEN20_KIWIMON_FQNAME_LEN },
-        { PEN20_KIWIMON_NAME, PEN20_KIWIMON_NAME_LEN, PEN20_KIWIMON_ID, PEN20_KIWIMON_ID_LEN, ALT_PEN20_KIWIMON_FQID, ALT_PEN20_KIWIMON_FQID_LEN, ALT_PEN20_KIWIMON_FQNAME, ALT_PEN20_KIWIMON_FQNAME_LEN },
-        { PEN20_KNIGHTMON_NAME, PEN20_KNIGHTMON_NAME_LEN, PEN20_KNIGHTMON_ID, PEN20_KNIGHTMON_ID_LEN, PEN20_KNIGHTMON_FQID, PEN20_KNIGHTMON_FQID_LEN, PEN20_KNIGHTMON_FQNAME, PEN20_KNIGHTMON_FQNAME_LEN },
-        { PEN20_KNIGHTMON_NAME, PEN20_KNIGHTMON_NAME_LEN, PEN20_KNIGHTMON_ID, PEN20_KNIGHTMON_ID_LEN, ALT_PEN20_KNIGHTMON_FQID, ALT_PEN20_KNIGHTMON_FQID_LEN, ALT_PEN20_KNIGHTMON_FQNAME, ALT_PEN20_KNIGHTMON_FQNAME_LEN },
-        { PEN20_KOKUWAMON_NAME, PEN20_KOKUWAMON_NAME_LEN, PEN20_KOKUWAMON_ID, PEN20_KOKUWAMON_ID_LEN, PEN20_KOKUWAMON_FQID, PEN20_KOKUWAMON_FQID_LEN, PEN20_KOKUWAMON_FQNAME, PEN20_KOKUWAMON_FQNAME_LEN },
-        { PEN20_KOKUWAMON_NAME, PEN20_KOKUWAMON_NAME_LEN, PEN20_KOKUWAMON_ID, PEN20_KOKUWAMON_ID_LEN, ALT_PEN20_KOKUWAMON_FQID, ALT_PEN20_KOKUWAMON_FQID_LEN, ALT_PEN20_KOKUWAMON_FQNAME, ALT_PEN20_KOKUWAMON_FQNAME_LEN },
-        { PEN20_KOROMON_NAME, PEN20_KOROMON_NAME_LEN, PEN20_KOROMON_ID, PEN20_KOROMON_ID_LEN, PEN20_KOROMON_FQID, PEN20_KOROMON_FQID_LEN, PEN20_KOROMON_FQNAME, PEN20_KOROMON_FQNAME_LEN },
-        { PEN20_KOROMON_NAME, PEN20_KOROMON_NAME_LEN, PEN20_KOROMON_ID, PEN20_KOROMON_ID_LEN, ALT_PEN20_KOROMON_FQID, ALT_PEN20_KOROMON_FQID_LEN, ALT_PEN20_KOROMON_FQNAME, ALT_PEN20_KOROMON_FQNAME_LEN },
-        { PEN20_KUWAGAMON_NAME, PEN20_KUWAGAMON_NAME_LEN, PEN20_KUWAGAMON_ID, PEN20_KUWAGAMON_ID_LEN, PEN20_KUWAGAMON_FQID, PEN20_KUWAGAMON_FQID_LEN, PEN20_KUWAGAMON_FQNAME, PEN20_KUWAGAMON_FQNAME_LEN },
-        { PEN20_KUWAGAMON_NAME, PEN20_KUWAGAMON_NAME_LEN, PEN20_KUWAGAMON_ID, PEN20_KUWAGAMON_ID_LEN, ALT_PEN20_KUWAGAMON_FQID, ALT_PEN20_KUWAGAMON_FQID_LEN, ALT_PEN20_KUWAGAMON_FQNAME, ALT_PEN20_KUWAGAMON_FQNAME_LEN },
-        { PEN20_KYOKYOMON_NAME, PEN20_KYOKYOMON_NAME_LEN, PEN20_KYOKYOMON_ID, PEN20_KYOKYOMON_ID_LEN, PEN20_KYOKYOMON_FQID, PEN20_KYOKYOMON_FQID_LEN, PEN20_KYOKYOMON_FQNAME, PEN20_KYOKYOMON_FQNAME_LEN },
-        { PEN20_KYOKYOMON_NAME, PEN20_KYOKYOMON_NAME_LEN, PEN20_KYOKYOMON_ID, PEN20_KYOKYOMON_ID_LEN, ALT_PEN20_KYOKYOMON_FQID, ALT_PEN20_KYOKYOMON_FQID_LEN, ALT_PEN20_KYOKYOMON_FQNAME, ALT_PEN20_KYOKYOMON_FQNAME_LEN },
-        { PEN20_LADY_DEVIMON_NAME, PEN20_LADY_DEVIMON_NAME_LEN, PEN20_LADY_DEVIMON_ID, PEN20_LADY_DEVIMON_ID_LEN, PEN20_LADY_DEVIMON_FQID, PEN20_LADY_DEVIMON_FQID_LEN, PEN20_LADY_DEVIMON_FQNAME, PEN20_LADY_DEVIMON_FQNAME_LEN },
-        { PEN20_LADY_DEVIMON_NAME, PEN20_LADY_DEVIMON_NAME_LEN, PEN20_LADY_DEVIMON_ID, PEN20_LADY_DEVIMON_ID_LEN, ALT_PEN20_LADY_DEVIMON_FQID, ALT_PEN20_LADY_DEVIMON_FQID_LEN, ALT_PEN20_LADY_DEVIMON_FQNAME, ALT_PEN20_LADY_DEVIMON_FQNAME_LEN },
-        { PEN20_LALAMON_NAME, PEN20_LALAMON_NAME_LEN, PEN20_LALAMON_ID, PEN20_LALAMON_ID_LEN, PEN20_LALAMON_FQID, PEN20_LALAMON_FQID_LEN, PEN20_LALAMON_FQNAME, PEN20_LALAMON_FQNAME_LEN },
-        { PEN20_LALAMON_NAME, PEN20_LALAMON_NAME_LEN, PEN20_LALAMON_ID, PEN20_LALAMON_ID_LEN, ALT_PEN20_LALAMON_FQID, ALT_PEN20_LALAMON_FQID_LEN, ALT_PEN20_LALAMON_FQNAME, ALT_PEN20_LALAMON_FQNAME_LEN },
-        { PEN20_LAVOGARITAMON_NAME, PEN20_LAVOGARITAMON_NAME_LEN, PEN20_LAVOGARITAMON_ID, PEN20_LAVOGARITAMON_ID_LEN, PEN20_LAVOGARITAMON_FQID, PEN20_LAVOGARITAMON_FQID_LEN, PEN20_LAVOGARITAMON_FQNAME, PEN20_LAVOGARITAMON_FQNAME_LEN },
-        { PEN20_LAVOGARITAMON_NAME, PEN20_LAVOGARITAMON_NAME_LEN, PEN20_LAVOGARITAMON_ID, PEN20_LAVOGARITAMON_ID_LEN, ALT_PEN20_LAVOGARITAMON_FQID, ALT_PEN20_LAVOGARITAMON_FQID_LEN, ALT_PEN20_LAVOGARITAMON_FQNAME, ALT_PEN20_LAVOGARITAMON_FQNAME_LEN },
-        { PEN20_LAVORVOMON_NAME, PEN20_LAVORVOMON_NAME_LEN, PEN20_LAVORVOMON_ID, PEN20_LAVORVOMON_ID_LEN, PEN20_LAVORVOMON_FQID, PEN20_LAVORVOMON_FQID_LEN, PEN20_LAVORVOMON_FQNAME, PEN20_LAVORVOMON_FQNAME_LEN },
-        { PEN20_LAVORVOMON_NAME, PEN20_LAVORVOMON_NAME_LEN, PEN20_LAVORVOMON_ID, PEN20_LAVORVOMON_ID_LEN, ALT_PEN20_LAVORVOMON_FQID, ALT_PEN20_LAVORVOMON_FQID_LEN, ALT_PEN20_LAVORVOMON_FQNAME, ALT_PEN20_LAVORVOMON_FQNAME_LEN },
-        { PEN20_LEOMON_NAME, PEN20_LEOMON_NAME_LEN, PEN20_LEOMON_ID, PEN20_LEOMON_ID_LEN, PEN20_LEOMON_FQID, PEN20_LEOMON_FQID_LEN, PEN20_LEOMON_FQNAME, PEN20_LEOMON_FQNAME_LEN },
-        { PEN20_LEOMON_NAME, PEN20_LEOMON_NAME_LEN, PEN20_LEOMON_ID, PEN20_LEOMON_ID_LEN, ALT_PEN20_LEOMON_FQID, ALT_PEN20_LEOMON_FQID_LEN, ALT_PEN20_LEOMON_FQNAME, ALT_PEN20_LEOMON_FQNAME_LEN },
-        { PEN20_LILAMON_NAME, PEN20_LILAMON_NAME_LEN, PEN20_LILAMON_ID, PEN20_LILAMON_ID_LEN, PEN20_LILAMON_FQID, PEN20_LILAMON_FQID_LEN, PEN20_LILAMON_FQNAME, PEN20_LILAMON_FQNAME_LEN },
-        { PEN20_LILAMON_NAME, PEN20_LILAMON_NAME_LEN, PEN20_LILAMON_ID, PEN20_LILAMON_ID_LEN, ALT_PEN20_LILAMON_FQID, ALT_PEN20_LILAMON_FQID_LEN, ALT_PEN20_LILAMON_FQNAME, ALT_PEN20_LILAMON_FQNAME_LEN },
-        { PEN20_LILIMON_NAME, PEN20_LILIMON_NAME_LEN, PEN20_LILIMON_ID, PEN20_LILIMON_ID_LEN, PEN20_LILIMON_FQID, PEN20_LILIMON_FQID_LEN, PEN20_LILIMON_FQNAME, PEN20_LILIMON_FQNAME_LEN },
-        { PEN20_LILIMON_NAME, PEN20_LILIMON_NAME_LEN, PEN20_LILIMON_ID, PEN20_LILIMON_ID_LEN, ALT_PEN20_LILIMON_FQID, ALT_PEN20_LILIMON_FQID_LEN, ALT_PEN20_LILIMON_FQNAME, ALT_PEN20_LILIMON_FQNAME_LEN },
-        { PEN20_LOPMON_NAME, PEN20_LOPMON_NAME_LEN, PEN20_LOPMON_ID, PEN20_LOPMON_ID_LEN, PEN20_LOPMON_FQID, PEN20_LOPMON_FQID_LEN, PEN20_LOPMON_FQNAME, PEN20_LOPMON_FQNAME_LEN },
-        { PEN20_LOPMON_NAME, PEN20_LOPMON_NAME_LEN, PEN20_LOPMON_ID, PEN20_LOPMON_ID_LEN, ALT_PEN20_LOPMON_FQID, ALT_PEN20_LOPMON_FQID_LEN, ALT_PEN20_LOPMON_FQNAME, ALT_PEN20_LOPMON_FQNAME_LEN },
-        { PEN20_LOTUSMON_NAME, PEN20_LOTUSMON_NAME_LEN, PEN20_LOTUSMON_ID, PEN20_LOTUSMON_ID_LEN, PEN20_LOTUSMON_FQID, PEN20_LOTUSMON_FQID_LEN, PEN20_LOTUSMON_FQNAME, PEN20_LOTUSMON_FQNAME_LEN },
-        { PEN20_LOTUSMON_NAME, PEN20_LOTUSMON_NAME_LEN, PEN20_LOTUSMON_ID, PEN20_LOTUSMON_ID_LEN, ALT_PEN20_LOTUSMON_FQID, ALT_PEN20_LOTUSMON_FQID_LEN, ALT_PEN20_LOTUSMON_FQNAME, ALT_PEN20_LOTUSMON_FQNAME_LEN },
-        { PEN20_LUDOMON_NAME, PEN20_LUDOMON_NAME_LEN, PEN20_LUDOMON_ID, PEN20_LUDOMON_ID_LEN, PEN20_LUDOMON_FQID, PEN20_LUDOMON_FQID_LEN, PEN20_LUDOMON_FQNAME, PEN20_LUDOMON_FQNAME_LEN },
-        { PEN20_LUDOMON_NAME, PEN20_LUDOMON_NAME_LEN, PEN20_LUDOMON_ID, PEN20_LUDOMON_ID_LEN, ALT_PEN20_LUDOMON_FQID, ALT_PEN20_LUDOMON_FQID_LEN, ALT_PEN20_LUDOMON_FQNAME, ALT_PEN20_LUDOMON_FQNAME_LEN },
-        { PEN20_MAD_LEOMON_NAME, PEN20_MAD_LEOMON_NAME_LEN, PEN20_MAD_LEOMON_ID, PEN20_MAD_LEOMON_ID_LEN, PEN20_MAD_LEOMON_FQID, PEN20_MAD_LEOMON_FQID_LEN, PEN20_MAD_LEOMON_FQNAME, PEN20_MAD_LEOMON_FQNAME_LEN },
-        { PEN20_MAD_LEOMON_NAME, PEN20_MAD_LEOMON_NAME_LEN, PEN20_MAD_LEOMON_ID, PEN20_MAD_LEOMON_ID_LEN, ALT_PEN20_MAD_LEOMON_FQID, ALT_PEN20_MAD_LEOMON_FQID_LEN, ALT_PEN20_MAD_LEOMON_FQNAME, ALT_PEN20_MAD_LEOMON_FQNAME_LEN },
-        { PEN20_MAMMON_NAME, PEN20_MAMMON_NAME_LEN, PEN20_MAMMON_ID, PEN20_MAMMON_ID_LEN, PEN20_MAMMON_FQID, PEN20_MAMMON_FQID_LEN, PEN20_MAMMON_FQNAME, PEN20_MAMMON_FQNAME_LEN },
-        { PEN20_MAMMON_NAME, PEN20_MAMMON_NAME_LEN, PEN20_MAMMON_ID, PEN20_MAMMON_ID_LEN, ALT_PEN20_MAMMON_FQID, ALT_PEN20_MAMMON_FQID_LEN, ALT_PEN20_MAMMON_FQNAME, ALT_PEN20_MAMMON_FQNAME_LEN },
-        { PEN20_MANBOMON_NAME, PEN20_MANBOMON_NAME_LEN, PEN20_MANBOMON_ID, PEN20_MANBOMON_ID_LEN, PEN20_MANBOMON_FQID, PEN20_MANBOMON_FQID_LEN, PEN20_MANBOMON_FQNAME, PEN20_MANBOMON_FQNAME_LEN },
-        { PEN20_MANBOMON_NAME, PEN20_MANBOMON_NAME_LEN, PEN20_MANBOMON_ID, PEN20_MANBOMON_ID_LEN, ALT_PEN20_MANBOMON_FQID, ALT_PEN20_MANBOMON_FQID_LEN, ALT_PEN20_MANBOMON_FQNAME, ALT_PEN20_MANBOMON_FQNAME_LEN },
-        { PEN20_MARIN_ANGEMON_NAME, PEN20_MARIN_ANGEMON_NAME_LEN, PEN20_MARIN_ANGEMON_ID, PEN20_MARIN_ANGEMON_ID_LEN, PEN20_MARIN_ANGEMON_FQID, PEN20_MARIN_ANGEMON_FQID_LEN, PEN20_MARIN_ANGEMON_FQNAME, PEN20_MARIN_ANGEMON_FQNAME_LEN },
-        { PEN20_MARIN_ANGEMON_NAME, PEN20_MARIN_ANGEMON_NAME_LEN, PEN20_MARIN_ANGEMON_ID, PEN20_MARIN_ANGEMON_ID_LEN, ALT_PEN20_MARIN_ANGEMON_FQID, ALT_PEN20_MARIN_ANGEMON_FQID_LEN, ALT_PEN20_MARIN_ANGEMON_FQNAME, ALT_PEN20_MARIN_ANGEMON_FQNAME_LEN },
-        { PEN20_MARIN_DEVIMON_NAME, PEN20_MARIN_DEVIMON_NAME_LEN, PEN20_MARIN_DEVIMON_ID, PEN20_MARIN_DEVIMON_ID_LEN, PEN20_MARIN_DEVIMON_FQID, PEN20_MARIN_DEVIMON_FQID_LEN, PEN20_MARIN_DEVIMON_FQNAME, PEN20_MARIN_DEVIMON_FQNAME_LEN },
-        { PEN20_MARIN_DEVIMON_NAME, PEN20_MARIN_DEVIMON_NAME_LEN, PEN20_MARIN_DEVIMON_ID, PEN20_MARIN_DEVIMON_ID_LEN, ALT_PEN20_MARIN_DEVIMON_FQID, ALT_PEN20_MARIN_DEVIMON_FQID_LEN, ALT_PEN20_MARIN_DEVIMON_FQNAME, ALT_PEN20_MARIN_DEVIMON_FQNAME_LEN },
-        { PEN20_MASTEMON_NAME, PEN20_MASTEMON_NAME_LEN, PEN20_MASTEMON_ID, PEN20_MASTEMON_ID_LEN, PEN20_MASTEMON_FQID, PEN20_MASTEMON_FQID_LEN, PEN20_MASTEMON_FQNAME, PEN20_MASTEMON_FQNAME_LEN },
-        { PEN20_MASTEMON_NAME, PEN20_MASTEMON_NAME_LEN, PEN20_MASTEMON_ID, PEN20_MASTEMON_ID_LEN, ALT_PEN20_MASTEMON_FQID, ALT_PEN20_MASTEMON_FQID_LEN, ALT_PEN20_MASTEMON_FQNAME, ALT_PEN20_MASTEMON_FQNAME_LEN },
-        { PEN20_MECHANORIMON_NAME, PEN20_MECHANORIMON_NAME_LEN, PEN20_MECHANORIMON_ID, PEN20_MECHANORIMON_ID_LEN, PEN20_MECHANORIMON_FQID, PEN20_MECHANORIMON_FQID_LEN, PEN20_MECHANORIMON_FQNAME, PEN20_MECHANORIMON_FQNAME_LEN },
-        { PEN20_MECHANORIMON_NAME, PEN20_MECHANORIMON_NAME_LEN, PEN20_MECHANORIMON_ID, PEN20_MECHANORIMON_ID_LEN, ALT_PEN20_MECHANORIMON_FQID, ALT_PEN20_MECHANORIMON_FQID_LEN, ALT_PEN20_MECHANORIMON_FQNAME, ALT_PEN20_MECHANORIMON_FQNAME_LEN },
-        { PEN20_MEGADRAMON_NAME, PEN20_MEGADRAMON_NAME_LEN, PEN20_MEGADRAMON_ID, PEN20_MEGADRAMON_ID_LEN, PEN20_MEGADRAMON_FQID, PEN20_MEGADRAMON_FQID_LEN, PEN20_MEGADRAMON_FQNAME, PEN20_MEGADRAMON_FQNAME_LEN },
-        { PEN20_MEGADRAMON_NAME, PEN20_MEGADRAMON_NAME_LEN, PEN20_MEGADRAMON_ID, PEN20_MEGADRAMON_ID_LEN, ALT_PEN20_MEGADRAMON_FQID, ALT_PEN20_MEGADRAMON_FQID_LEN, ALT_PEN20_MEGADRAMON_FQNAME, ALT_PEN20_MEGADRAMON_FQNAME_LEN },
-        { PEN20_MEGALO_GROWMON_NAME, PEN20_MEGALO_GROWMON_NAME_LEN, PEN20_MEGALO_GROWMON_ID, PEN20_MEGALO_GROWMON_ID_LEN, PEN20_MEGALO_GROWMON_FQID, PEN20_MEGALO_GROWMON_FQID_LEN, PEN20_MEGALO_GROWMON_FQNAME, PEN20_MEGALO_GROWMON_FQNAME_LEN },
-        { PEN20_MEGALO_GROWMON_NAME, PEN20_MEGALO_GROWMON_NAME_LEN, PEN20_MEGALO_GROWMON_ID, PEN20_MEGALO_GROWMON_ID_LEN, ALT_PEN20_MEGALO_GROWMON_FQID, ALT_PEN20_MEGALO_GROWMON_FQID_LEN, ALT_PEN20_MEGALO_GROWMON_FQNAME, ALT_PEN20_MEGALO_GROWMON_FQNAME_LEN },
-        { PEN20_MEGA_SEADRAMON_NAME, PEN20_MEGA_SEADRAMON_NAME_LEN, PEN20_MEGA_SEADRAMON_ID, PEN20_MEGA_SEADRAMON_ID_LEN, PEN20_MEGA_SEADRAMON_FQID, PEN20_MEGA_SEADRAMON_FQID_LEN, PEN20_MEGA_SEADRAMON_FQNAME, PEN20_MEGA_SEADRAMON_FQNAME_LEN },
-        { PEN20_MEGA_SEADRAMON_NAME, PEN20_MEGA_SEADRAMON_NAME_LEN, PEN20_MEGA_SEADRAMON_ID, PEN20_MEGA_SEADRAMON_ID_LEN, ALT_PEN20_MEGA_SEADRAMON_FQID, ALT_PEN20_MEGA_SEADRAMON_FQID_LEN, ALT_PEN20_MEGA_SEADRAMON_FQNAME, ALT_PEN20_MEGA_SEADRAMON_FQNAME_LEN },
-        { PEN20_MEICOOMON_NAME, PEN20_MEICOOMON_NAME_LEN, PEN20_MEICOOMON_ID, PEN20_MEICOOMON_ID_LEN, PEN20_MEICOOMON_FQID, PEN20_MEICOOMON_FQID_LEN, PEN20_MEICOOMON_FQNAME, PEN20_MEICOOMON_FQNAME_LEN },
-        { PEN20_MEICOOMON_NAME, PEN20_MEICOOMON_NAME_LEN, PEN20_MEICOOMON_ID, PEN20_MEICOOMON_ID_LEN, ALT_PEN20_MEICOOMON_FQID, ALT_PEN20_MEICOOMON_FQID_LEN, ALT_PEN20_MEICOOMON_FQNAME, ALT_PEN20_MEICOOMON_FQNAME_LEN },
-        { PEN20_MEICRACKMON_VICIOUS_MODE_NAME, PEN20_MEICRACKMON_VICIOUS_MODE_NAME_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_ID, PEN20_MEICRACKMON_VICIOUS_MODE_ID_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_FQID, PEN20_MEICRACKMON_VICIOUS_MODE_FQID_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME, PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_LEN },
-        { PEN20_MEICRACKMON_VICIOUS_MODE_NAME, PEN20_MEICRACKMON_VICIOUS_MODE_NAME_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_ID, PEN20_MEICRACKMON_VICIOUS_MODE_ID_LEN, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_LEN, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_LEN },
-        { PEN20_MERAMON_NAME, PEN20_MERAMON_NAME_LEN, PEN20_MERAMON_ID, PEN20_MERAMON_ID_LEN, PEN20_MERAMON_FQID, PEN20_MERAMON_FQID_LEN, PEN20_MERAMON_FQNAME, PEN20_MERAMON_FQNAME_LEN },
-        { PEN20_MERAMON_NAME, PEN20_MERAMON_NAME_LEN, PEN20_MERAMON_ID, PEN20_MERAMON_ID_LEN, ALT_PEN20_MERAMON_FQID, ALT_PEN20_MERAMON_FQID_LEN, ALT_PEN20_MERAMON_FQNAME, ALT_PEN20_MERAMON_FQNAME_LEN },
-        { PEN20_METAL_ETEMON_NAME, PEN20_METAL_ETEMON_NAME_LEN, PEN20_METAL_ETEMON_ID, PEN20_METAL_ETEMON_ID_LEN, PEN20_METAL_ETEMON_FQID, PEN20_METAL_ETEMON_FQID_LEN, PEN20_METAL_ETEMON_FQNAME, PEN20_METAL_ETEMON_FQNAME_LEN },
-        { PEN20_METAL_ETEMON_NAME, PEN20_METAL_ETEMON_NAME_LEN, PEN20_METAL_ETEMON_ID, PEN20_METAL_ETEMON_ID_LEN, ALT_PEN20_METAL_ETEMON_FQID, ALT_PEN20_METAL_ETEMON_FQID_LEN, ALT_PEN20_METAL_ETEMON_FQNAME, ALT_PEN20_METAL_ETEMON_FQNAME_LEN },
-        { PEN20_METAL_GARURUMON_NAME, PEN20_METAL_GARURUMON_NAME_LEN, PEN20_METAL_GARURUMON_ID, PEN20_METAL_GARURUMON_ID_LEN, PEN20_METAL_GARURUMON_FQID, PEN20_METAL_GARURUMON_FQID_LEN, PEN20_METAL_GARURUMON_FQNAME, PEN20_METAL_GARURUMON_FQNAME_LEN },
-        { PEN20_METAL_GARURUMON_NAME, PEN20_METAL_GARURUMON_NAME_LEN, PEN20_METAL_GARURUMON_ID, PEN20_METAL_GARURUMON_ID_LEN, ALT_PEN20_METAL_GARURUMON_FQID, ALT_PEN20_METAL_GARURUMON_FQID_LEN, ALT_PEN20_METAL_GARURUMON_FQNAME, ALT_PEN20_METAL_GARURUMON_FQNAME_LEN },
-        { PEN20_METAL_GREYMON_NAME, PEN20_METAL_GREYMON_NAME_LEN, PEN20_METAL_GREYMON_ID, PEN20_METAL_GREYMON_ID_LEN, PEN20_METAL_GREYMON_FQID, PEN20_METAL_GREYMON_FQID_LEN, PEN20_METAL_GREYMON_FQNAME, PEN20_METAL_GREYMON_FQNAME_LEN },
-        { PEN20_METAL_GREYMON_NAME, PEN20_METAL_GREYMON_NAME_LEN, PEN20_METAL_GREYMON_ID, PEN20_METAL_GREYMON_ID_LEN, ALT_PEN20_METAL_GREYMON_FQID, ALT_PEN20_METAL_GREYMON_FQID_LEN, ALT_PEN20_METAL_GREYMON_FQNAME, ALT_PEN20_METAL_GREYMON_FQNAME_LEN },
-        { PEN20_METAL_MAMEMON_NAME, PEN20_METAL_MAMEMON_NAME_LEN, PEN20_METAL_MAMEMON_ID, PEN20_METAL_MAMEMON_ID_LEN, PEN20_METAL_MAMEMON_FQID, PEN20_METAL_MAMEMON_FQID_LEN, PEN20_METAL_MAMEMON_FQNAME, PEN20_METAL_MAMEMON_FQNAME_LEN },
-        { PEN20_METAL_MAMEMON_NAME, PEN20_METAL_MAMEMON_NAME_LEN, PEN20_METAL_MAMEMON_ID, PEN20_METAL_MAMEMON_ID_LEN, ALT_PEN20_METAL_MAMEMON_FQID, ALT_PEN20_METAL_MAMEMON_FQID_LEN, ALT_PEN20_METAL_MAMEMON_FQNAME, ALT_PEN20_METAL_MAMEMON_FQNAME_LEN },
-        { PEN20_METAL_SEADRAMON_NAME, PEN20_METAL_SEADRAMON_NAME_LEN, PEN20_METAL_SEADRAMON_ID, PEN20_METAL_SEADRAMON_ID_LEN, PEN20_METAL_SEADRAMON_FQID, PEN20_METAL_SEADRAMON_FQID_LEN, PEN20_METAL_SEADRAMON_FQNAME, PEN20_METAL_SEADRAMON_FQNAME_LEN },
-        { PEN20_METAL_SEADRAMON_NAME, PEN20_METAL_SEADRAMON_NAME_LEN, PEN20_METAL_SEADRAMON_ID, PEN20_METAL_SEADRAMON_ID_LEN, ALT_PEN20_METAL_SEADRAMON_FQID, ALT_PEN20_METAL_SEADRAMON_FQID_LEN, ALT_PEN20_METAL_SEADRAMON_FQNAME, ALT_PEN20_METAL_SEADRAMON_FQNAME_LEN },
-        { PEN20_MOCHIMON_NAME, PEN20_MOCHIMON_NAME_LEN, PEN20_MOCHIMON_ID, PEN20_MOCHIMON_ID_LEN, PEN20_MOCHIMON_FQID, PEN20_MOCHIMON_FQID_LEN, PEN20_MOCHIMON_FQNAME, PEN20_MOCHIMON_FQNAME_LEN },
-        { PEN20_MOCHIMON_NAME, PEN20_MOCHIMON_NAME_LEN, PEN20_MOCHIMON_ID, PEN20_MOCHIMON_ID_LEN, ALT_PEN20_MOCHIMON_FQID, ALT_PEN20_MOCHIMON_FQID_LEN, ALT_PEN20_MOCHIMON_FQNAME, ALT_PEN20_MOCHIMON_FQNAME_LEN },
-        { PEN20_MOKUMON_NAME, PEN20_MOKUMON_NAME_LEN, PEN20_MOKUMON_ID, PEN20_MOKUMON_ID_LEN, PEN20_MOKUMON_FQID, PEN20_MOKUMON_FQID_LEN, PEN20_MOKUMON_FQNAME, PEN20_MOKUMON_FQNAME_LEN },
-        { PEN20_MOKUMON_NAME, PEN20_MOKUMON_NAME_LEN, PEN20_MOKUMON_ID, PEN20_MOKUMON_ID_LEN, ALT_PEN20_MOKUMON_FQID, ALT_PEN20_MOKUMON_FQID_LEN, ALT_PEN20_MOKUMON_FQNAME, ALT_PEN20_MOKUMON_FQNAME_LEN },
-        { PEN20_MONOCHROMON_NAME, PEN20_MONOCHROMON_NAME_LEN, PEN20_MONOCHROMON_ID, PEN20_MONOCHROMON_ID_LEN, PEN20_MONOCHROMON_FQID, PEN20_MONOCHROMON_FQID_LEN, PEN20_MONOCHROMON_FQNAME, PEN20_MONOCHROMON_FQNAME_LEN },
-        { PEN20_MONOCHROMON_NAME, PEN20_MONOCHROMON_NAME_LEN, PEN20_MONOCHROMON_ID, PEN20_MONOCHROMON_ID_LEN, ALT_PEN20_MONOCHROMON_FQID, ALT_PEN20_MONOCHROMON_FQID_LEN, ALT_PEN20_MONOCHROMON_FQNAME, ALT_PEN20_MONOCHROMON_FQNAME_LEN },
-        { PEN20_MUGENDRAMON_NAME, PEN20_MUGENDRAMON_NAME_LEN, PEN20_MUGENDRAMON_ID, PEN20_MUGENDRAMON_ID_LEN, PEN20_MUGENDRAMON_FQID, PEN20_MUGENDRAMON_FQID_LEN, PEN20_MUGENDRAMON_FQNAME, PEN20_MUGENDRAMON_FQNAME_LEN },
-        { PEN20_MUGENDRAMON_NAME, PEN20_MUGENDRAMON_NAME_LEN, PEN20_MUGENDRAMON_ID, PEN20_MUGENDRAMON_ID_LEN, ALT_PEN20_MUGENDRAMON_FQID, ALT_PEN20_MUGENDRAMON_FQID_LEN, ALT_PEN20_MUGENDRAMON_FQNAME, ALT_PEN20_MUGENDRAMON_FQNAME_LEN },
-        { PEN20_MUSHMON_NAME, PEN20_MUSHMON_NAME_LEN, PEN20_MUSHMON_ID, PEN20_MUSHMON_ID_LEN, PEN20_MUSHMON_FQID, PEN20_MUSHMON_FQID_LEN, PEN20_MUSHMON_FQNAME, PEN20_MUSHMON_FQNAME_LEN },
-        { PEN20_MUSHMON_NAME, PEN20_MUSHMON_NAME_LEN, PEN20_MUSHMON_ID, PEN20_MUSHMON_ID_LEN, ALT_PEN20_MUSHMON_FQID, ALT_PEN20_MUSHMON_FQID_LEN, ALT_PEN20_MUSHMON_FQNAME, ALT_PEN20_MUSHMON_FQNAME_LEN },
-        { PEN20_NYAROMON_NAME, PEN20_NYAROMON_NAME_LEN, PEN20_NYAROMON_ID, PEN20_NYAROMON_ID_LEN, PEN20_NYAROMON_FQID, PEN20_NYAROMON_FQID_LEN, PEN20_NYAROMON_FQNAME, PEN20_NYAROMON_FQNAME_LEN },
-        { PEN20_NYAROMON_NAME, PEN20_NYAROMON_NAME_LEN, PEN20_NYAROMON_ID, PEN20_NYAROMON_ID_LEN, ALT_PEN20_NYAROMON_FQID, ALT_PEN20_NYAROMON_FQID_LEN, ALT_PEN20_NYAROMON_FQNAME, ALT_PEN20_NYAROMON_FQNAME_LEN },
-        { PEN20_NYOKIMON_NAME, PEN20_NYOKIMON_NAME_LEN, PEN20_NYOKIMON_ID, PEN20_NYOKIMON_ID_LEN, PEN20_NYOKIMON_FQID, PEN20_NYOKIMON_FQID_LEN, PEN20_NYOKIMON_FQNAME, PEN20_NYOKIMON_FQNAME_LEN },
-        { PEN20_NYOKIMON_NAME, PEN20_NYOKIMON_NAME_LEN, PEN20_NYOKIMON_ID, PEN20_NYOKIMON_ID_LEN, ALT_PEN20_NYOKIMON_FQID, ALT_PEN20_NYOKIMON_FQID_LEN, ALT_PEN20_NYOKIMON_FQNAME, ALT_PEN20_NYOKIMON_FQNAME_LEN },
-        { PEN20_OCTMON_NAME, PEN20_OCTMON_NAME_LEN, PEN20_OCTMON_ID, PEN20_OCTMON_ID_LEN, PEN20_OCTMON_FQID, PEN20_OCTMON_FQID_LEN, PEN20_OCTMON_FQNAME, PEN20_OCTMON_FQNAME_LEN },
-        { PEN20_OCTMON_NAME, PEN20_OCTMON_NAME_LEN, PEN20_OCTMON_ID, PEN20_OCTMON_ID_LEN, ALT_PEN20_OCTMON_FQID, ALT_PEN20_OCTMON_FQID_LEN, ALT_PEN20_OCTMON_FQNAME, ALT_PEN20_OCTMON_FQNAME_LEN },
-        { PEN20_OFANIMON_NAME, PEN20_OFANIMON_NAME_LEN, PEN20_OFANIMON_ID, PEN20_OFANIMON_ID_LEN, PEN20_OFANIMON_FQID, PEN20_OFANIMON_FQID_LEN, PEN20_OFANIMON_FQNAME, PEN20_OFANIMON_FQNAME_LEN },
-        { PEN20_OFANIMON_NAME, PEN20_OFANIMON_NAME_LEN, PEN20_OFANIMON_ID, PEN20_OFANIMON_ID_LEN, ALT_PEN20_OFANIMON_FQID, ALT_PEN20_OFANIMON_FQID_LEN, ALT_PEN20_OFANIMON_FQNAME, ALT_PEN20_OFANIMON_FQNAME_LEN },
-        { PEN20_OGUDOMON_NAME, PEN20_OGUDOMON_NAME_LEN, PEN20_OGUDOMON_ID, PEN20_OGUDOMON_ID_LEN, PEN20_OGUDOMON_FQID, PEN20_OGUDOMON_FQID_LEN, PEN20_OGUDOMON_FQNAME, PEN20_OGUDOMON_FQNAME_LEN },
-        { PEN20_OGUDOMON_NAME, PEN20_OGUDOMON_NAME_LEN, PEN20_OGUDOMON_ID, PEN20_OGUDOMON_ID_LEN, ALT_PEN20_OGUDOMON_FQID, ALT_PEN20_OGUDOMON_FQID_LEN, ALT_PEN20_OGUDOMON_FQNAME, ALT_PEN20_OGUDOMON_FQNAME_LEN },
-        { PEN20_OKUWAMON_NAME, PEN20_OKUWAMON_NAME_LEN, PEN20_OKUWAMON_ID, PEN20_OKUWAMON_ID_LEN, PEN20_OKUWAMON_FQID, PEN20_OKUWAMON_FQID_LEN, PEN20_OKUWAMON_FQNAME, PEN20_OKUWAMON_FQNAME_LEN },
-        { PEN20_OKUWAMON_NAME, PEN20_OKUWAMON_NAME_LEN, PEN20_OKUWAMON_ID, PEN20_OKUWAMON_ID_LEN, ALT_PEN20_OKUWAMON_FQID, ALT_PEN20_OKUWAMON_FQID_LEN, ALT_PEN20_OKUWAMON_FQNAME, ALT_PEN20_OKUWAMON_FQNAME_LEN },
-        { PEN20_OMEGAMON_NAME, PEN20_OMEGAMON_NAME_LEN, PEN20_OMEGAMON_ID, PEN20_OMEGAMON_ID_LEN, PEN20_OMEGAMON_FQID, PEN20_OMEGAMON_FQID_LEN, PEN20_OMEGAMON_FQNAME, PEN20_OMEGAMON_FQNAME_LEN },
-        { PEN20_OMEGAMON_NAME, PEN20_OMEGAMON_NAME_LEN, PEN20_OMEGAMON_ID, PEN20_OMEGAMON_ID_LEN, ALT_PEN20_OMEGAMON_FQID, ALT_PEN20_OMEGAMON_FQID_LEN, ALT_PEN20_OMEGAMON_FQNAME, ALT_PEN20_OMEGAMON_FQNAME_LEN },
-        { PEN20_ORDINEMON_NAME, PEN20_ORDINEMON_NAME_LEN, PEN20_ORDINEMON_ID, PEN20_ORDINEMON_ID_LEN, PEN20_ORDINEMON_FQID, PEN20_ORDINEMON_FQID_LEN, PEN20_ORDINEMON_FQNAME, PEN20_ORDINEMON_FQNAME_LEN },
-        { PEN20_ORDINEMON_NAME, PEN20_ORDINEMON_NAME_LEN, PEN20_ORDINEMON_ID, PEN20_ORDINEMON_ID_LEN, ALT_PEN20_ORDINEMON_FQID, ALT_PEN20_ORDINEMON_FQID_LEN, ALT_PEN20_ORDINEMON_FQNAME, ALT_PEN20_ORDINEMON_FQNAME_LEN },
-        { PEN20_OTAMAMON_NAME, PEN20_OTAMAMON_NAME_LEN, PEN20_OTAMAMON_ID, PEN20_OTAMAMON_ID_LEN, PEN20_OTAMAMON_FQID, PEN20_OTAMAMON_FQID_LEN, PEN20_OTAMAMON_FQNAME, PEN20_OTAMAMON_FQNAME_LEN },
-        { PEN20_OTAMAMON_NAME, PEN20_OTAMAMON_NAME_LEN, PEN20_OTAMAMON_ID, PEN20_OTAMAMON_ID_LEN, ALT_PEN20_OTAMAMON_FQID, ALT_PEN20_OTAMAMON_FQID_LEN, ALT_PEN20_OTAMAMON_FQNAME, ALT_PEN20_OTAMAMON_FQNAME_LEN },
-        { PEN20_OURYUMON_NAME, PEN20_OURYUMON_NAME_LEN, PEN20_OURYUMON_ID, PEN20_OURYUMON_ID_LEN, PEN20_OURYUMON_FQID, PEN20_OURYUMON_FQID_LEN, PEN20_OURYUMON_FQNAME, PEN20_OURYUMON_FQNAME_LEN },
-        { PEN20_OURYUMON_NAME, PEN20_OURYUMON_NAME_LEN, PEN20_OURYUMON_ID, PEN20_OURYUMON_ID_LEN, ALT_PEN20_OURYUMON_FQID, ALT_PEN20_OURYUMON_FQID_LEN, ALT_PEN20_OURYUMON_FQNAME, ALT_PEN20_OURYUMON_FQNAME_LEN },
-        { PEN20_PAILDRAMON_NAME, PEN20_PAILDRAMON_NAME_LEN, PEN20_PAILDRAMON_ID, PEN20_PAILDRAMON_ID_LEN, PEN20_PAILDRAMON_FQID, PEN20_PAILDRAMON_FQID_LEN, PEN20_PAILDRAMON_FQNAME, PEN20_PAILDRAMON_FQNAME_LEN },
-        { PEN20_PAILDRAMON_NAME, PEN20_PAILDRAMON_NAME_LEN, PEN20_PAILDRAMON_ID, PEN20_PAILDRAMON_ID_LEN, ALT_PEN20_PAILDRAMON_FQID, ALT_PEN20_PAILDRAMON_FQID_LEN, ALT_PEN20_PAILDRAMON_FQNAME, ALT_PEN20_PAILDRAMON_FQNAME_LEN },
-        { PEN20_PALMON_NAME, PEN20_PALMON_NAME_LEN, PEN20_PALMON_ID, PEN20_PALMON_ID_LEN, PEN20_PALMON_FQID, PEN20_PALMON_FQID_LEN, PEN20_PALMON_FQNAME, PEN20_PALMON_FQNAME_LEN },
-        { PEN20_PALMON_NAME, PEN20_PALMON_NAME_LEN, PEN20_PALMON_ID, PEN20_PALMON_ID_LEN, ALT_PEN20_PALMON_FQID, ALT_PEN20_PALMON_FQID_LEN, ALT_PEN20_PALMON_FQNAME, ALT_PEN20_PALMON_FQNAME_LEN },
-        { PEN20_PETI_MERAMON_NAME, PEN20_PETI_MERAMON_NAME_LEN, PEN20_PETI_MERAMON_ID, PEN20_PETI_MERAMON_ID_LEN, PEN20_PETI_MERAMON_FQID, PEN20_PETI_MERAMON_FQID_LEN, PEN20_PETI_MERAMON_FQNAME, PEN20_PETI_MERAMON_FQNAME_LEN },
-        { PEN20_PETI_MERAMON_NAME, PEN20_PETI_MERAMON_NAME_LEN, PEN20_PETI_MERAMON_ID, PEN20_PETI_MERAMON_ID_LEN, ALT_PEN20_PETI_MERAMON_FQID, ALT_PEN20_PETI_MERAMON_FQID_LEN, ALT_PEN20_PETI_MERAMON_FQNAME, ALT_PEN20_PETI_MERAMON_FQNAME_LEN },
-        { PEN20_PETITMON_NAME, PEN20_PETITMON_NAME_LEN, PEN20_PETITMON_ID, PEN20_PETITMON_ID_LEN, PEN20_PETITMON_FQID, PEN20_PETITMON_FQID_LEN, PEN20_PETITMON_FQNAME, PEN20_PETITMON_FQNAME_LEN },
-        { PEN20_PETITMON_NAME, PEN20_PETITMON_NAME_LEN, PEN20_PETITMON_ID, PEN20_PETITMON_ID_LEN, ALT_PEN20_PETITMON_FQID, ALT_PEN20_PETITMON_FQID_LEN, ALT_PEN20_PETITMON_FQNAME, ALT_PEN20_PETITMON_FQNAME_LEN },
-        { PEN20_PHASCOMON_NAME, PEN20_PHASCOMON_NAME_LEN, PEN20_PHASCOMON_ID, PEN20_PHASCOMON_ID_LEN, PEN20_PHASCOMON_FQID, PEN20_PHASCOMON_FQID_LEN, PEN20_PHASCOMON_FQNAME, PEN20_PHASCOMON_FQNAME_LEN },
-        { PEN20_PHASCOMON_NAME, PEN20_PHASCOMON_NAME_LEN, PEN20_PHASCOMON_ID, PEN20_PHASCOMON_ID_LEN, ALT_PEN20_PHASCOMON_FQID, ALT_PEN20_PHASCOMON_FQID_LEN, ALT_PEN20_PHASCOMON_FQNAME, ALT_PEN20_PHASCOMON_FQNAME_LEN },
-        { PEN20_PICCOLOMON_NAME, PEN20_PICCOLOMON_NAME_LEN, PEN20_PICCOLOMON_ID, PEN20_PICCOLOMON_ID_LEN, PEN20_PICCOLOMON_FQID, PEN20_PICCOLOMON_FQID_LEN, PEN20_PICCOLOMON_FQNAME, PEN20_PICCOLOMON_FQNAME_LEN },
-        { PEN20_PICCOLOMON_NAME, PEN20_PICCOLOMON_NAME_LEN, PEN20_PICCOLOMON_ID, PEN20_PICCOLOMON_ID_LEN, ALT_PEN20_PICCOLOMON_FQID, ALT_PEN20_PICCOLOMON_FQID_LEN, ALT_PEN20_PICCOLOMON_FQNAME, ALT_PEN20_PICCOLOMON_FQNAME_LEN },
-        { PEN20_PICO_DEVIMON_NAME, PEN20_PICO_DEVIMON_NAME_LEN, PEN20_PICO_DEVIMON_ID, PEN20_PICO_DEVIMON_ID_LEN, PEN20_PICO_DEVIMON_FQID, PEN20_PICO_DEVIMON_FQID_LEN, PEN20_PICO_DEVIMON_FQNAME, PEN20_PICO_DEVIMON_FQNAME_LEN },
-        { PEN20_PICO_DEVIMON_NAME, PEN20_PICO_DEVIMON_NAME_LEN, PEN20_PICO_DEVIMON_ID, PEN20_PICO_DEVIMON_ID_LEN, ALT_PEN20_PICO_DEVIMON_FQID, ALT_PEN20_PICO_DEVIMON_FQID_LEN, ALT_PEN20_PICO_DEVIMON_FQNAME, ALT_PEN20_PICO_DEVIMON_FQNAME_LEN },
-        { PEN20_PIEMON_NAME, PEN20_PIEMON_NAME_LEN, PEN20_PIEMON_ID, PEN20_PIEMON_ID_LEN, PEN20_PIEMON_FQID, PEN20_PIEMON_FQID_LEN, PEN20_PIEMON_FQNAME, PEN20_PIEMON_FQNAME_LEN },
-        { PEN20_PIEMON_NAME, PEN20_PIEMON_NAME_LEN, PEN20_PIEMON_ID, PEN20_PIEMON_ID_LEN, ALT_PEN20_PIEMON_FQID, ALT_PEN20_PIEMON_FQID_LEN, ALT_PEN20_PIEMON_FQNAME, ALT_PEN20_PIEMON_FQNAME_LEN },
-        { PEN20_PINOCHIMON_NAME, PEN20_PINOCHIMON_NAME_LEN, PEN20_PINOCHIMON_ID, PEN20_PINOCHIMON_ID_LEN, PEN20_PINOCHIMON_FQID, PEN20_PINOCHIMON_FQID_LEN, PEN20_PINOCHIMON_FQNAME, PEN20_PINOCHIMON_FQNAME_LEN },
-        { PEN20_PINOCHIMON_NAME, PEN20_PINOCHIMON_NAME_LEN, PEN20_PINOCHIMON_ID, PEN20_PINOCHIMON_ID_LEN, ALT_PEN20_PINOCHIMON_FQID, ALT_PEN20_PINOCHIMON_FQID_LEN, ALT_PEN20_PINOCHIMON_FQNAME, ALT_PEN20_PINOCHIMON_FQNAME_LEN },
-        { PEN20_PITCHMON_NAME, PEN20_PITCHMON_NAME_LEN, PEN20_PITCHMON_ID, PEN20_PITCHMON_ID_LEN, PEN20_PITCHMON_FQID, PEN20_PITCHMON_FQID_LEN, PEN20_PITCHMON_FQNAME, PEN20_PITCHMON_FQNAME_LEN },
-        { PEN20_PITCHMON_NAME, PEN20_PITCHMON_NAME_LEN, PEN20_PITCHMON_ID, PEN20_PITCHMON_ID_LEN, ALT_PEN20_PITCHMON_FQID, ALT_PEN20_PITCHMON_FQID_LEN, ALT_PEN20_PITCHMON_FQNAME, ALT_PEN20_PITCHMON_FQNAME_LEN },
-        { PEN20_PIYOMON_NAME, PEN20_PIYOMON_NAME_LEN, PEN20_PIYOMON_ID, PEN20_PIYOMON_ID_LEN, PEN20_PIYOMON_FQID, PEN20_PIYOMON_FQID_LEN, PEN20_PIYOMON_FQNAME, PEN20_PIYOMON_FQNAME_LEN },
-        { PEN20_PIYOMON_NAME, PEN20_PIYOMON_NAME_LEN, PEN20_PIYOMON_ID, PEN20_PIYOMON_ID_LEN, ALT_PEN20_PIYOMON_FQID, ALT_PEN20_PIYOMON_FQID_LEN, ALT_PEN20_PIYOMON_FQNAME, ALT_PEN20_PIYOMON_FQNAME_LEN },
-        { PEN20_PLESIOMON_NAME, PEN20_PLESIOMON_NAME_LEN, PEN20_PLESIOMON_ID, PEN20_PLESIOMON_ID_LEN, PEN20_PLESIOMON_FQID, PEN20_PLESIOMON_FQID_LEN, PEN20_PLESIOMON_FQNAME, PEN20_PLESIOMON_FQNAME_LEN },
-        { PEN20_PLESIOMON_NAME, PEN20_PLESIOMON_NAME_LEN, PEN20_PLESIOMON_ID, PEN20_PLESIOMON_ID_LEN, ALT_PEN20_PLESIOMON_FQID, ALT_PEN20_PLESIOMON_FQID_LEN, ALT_PEN20_PLESIOMON_FQNAME, ALT_PEN20_PLESIOMON_FQNAME_LEN },
-        { PEN20_PLOTMON_NAME, PEN20_PLOTMON_NAME_LEN, PEN20_PLOTMON_ID, PEN20_PLOTMON_ID_LEN, PEN20_PLOTMON_FQID, PEN20_PLOTMON_FQID_LEN, PEN20_PLOTMON_FQNAME, PEN20_PLOTMON_FQNAME_LEN },
-        { PEN20_PLOTMON_NAME, PEN20_PLOTMON_NAME_LEN, PEN20_PLOTMON_ID, PEN20_PLOTMON_ID_LEN, ALT_PEN20_PLOTMON_FQID, ALT_PEN20_PLOTMON_FQID_LEN, ALT_PEN20_PLOTMON_FQNAME, ALT_PEN20_PLOTMON_FQNAME_LEN },
-        { PEN20_PORCUPAMON_NAME, PEN20_PORCUPAMON_NAME_LEN, PEN20_PORCUPAMON_ID, PEN20_PORCUPAMON_ID_LEN, PEN20_PORCUPAMON_FQID, PEN20_PORCUPAMON_FQID_LEN, PEN20_PORCUPAMON_FQNAME, PEN20_PORCUPAMON_FQNAME_LEN },
-        { PEN20_PORCUPAMON_NAME, PEN20_PORCUPAMON_NAME_LEN, PEN20_PORCUPAMON_ID, PEN20_PORCUPAMON_ID_LEN, ALT_PEN20_PORCUPAMON_FQID, ALT_PEN20_PORCUPAMON_FQID_LEN, ALT_PEN20_PORCUPAMON_FQNAME, ALT_PEN20_PORCUPAMON_FQNAME_LEN },
-        { PEN20_PUKAMON_NAME, PEN20_PUKAMON_NAME_LEN, PEN20_PUKAMON_ID, PEN20_PUKAMON_ID_LEN, PEN20_PUKAMON_FQID, PEN20_PUKAMON_FQID_LEN, PEN20_PUKAMON_FQNAME, PEN20_PUKAMON_FQNAME_LEN },
-        { PEN20_PUKAMON_NAME, PEN20_PUKAMON_NAME_LEN, PEN20_PUKAMON_ID, PEN20_PUKAMON_ID_LEN, ALT_PEN20_PUKAMON_FQID, ALT_PEN20_PUKAMON_FQID_LEN, ALT_PEN20_PUKAMON_FQNAME, ALT_PEN20_PUKAMON_FQNAME_LEN },
-        { PEN20_PUKUMON_NAME, PEN20_PUKUMON_NAME_LEN, PEN20_PUKUMON_ID, PEN20_PUKUMON_ID_LEN, PEN20_PUKUMON_FQID, PEN20_PUKUMON_FQID_LEN, PEN20_PUKUMON_FQNAME, PEN20_PUKUMON_FQNAME_LEN },
-        { PEN20_PUKUMON_NAME, PEN20_PUKUMON_NAME_LEN, PEN20_PUKUMON_ID, PEN20_PUKUMON_ID_LEN, ALT_PEN20_PUKUMON_FQID, ALT_PEN20_PUKUMON_FQID_LEN, ALT_PEN20_PUKUMON_FQNAME, ALT_PEN20_PUKUMON_FQNAME_LEN },
-        { PEN20_PUMPMON_NAME, PEN20_PUMPMON_NAME_LEN, PEN20_PUMPMON_ID, PEN20_PUMPMON_ID_LEN, PEN20_PUMPMON_FQID, PEN20_PUMPMON_FQID_LEN, PEN20_PUMPMON_FQNAME, PEN20_PUMPMON_FQNAME_LEN },
-        { PEN20_PUMPMON_NAME, PEN20_PUMPMON_NAME_LEN, PEN20_PUMPMON_ID, PEN20_PUMPMON_ID_LEN, ALT_PEN20_PUMPMON_FQID, ALT_PEN20_PUMPMON_FQID_LEN, ALT_PEN20_PUMPMON_FQNAME, ALT_PEN20_PUMPMON_FQNAME_LEN },
-        { PEN20_PYOCOMON_NAME, PEN20_PYOCOMON_NAME_LEN, PEN20_PYOCOMON_ID, PEN20_PYOCOMON_ID_LEN, PEN20_PYOCOMON_FQID, PEN20_PYOCOMON_FQID_LEN, PEN20_PYOCOMON_FQNAME, PEN20_PYOCOMON_FQNAME_LEN },
-        { PEN20_PYOCOMON_NAME, PEN20_PYOCOMON_NAME_LEN, PEN20_PYOCOMON_ID, PEN20_PYOCOMON_ID_LEN, ALT_PEN20_PYOCOMON_FQID, ALT_PEN20_PYOCOMON_FQID_LEN, ALT_PEN20_PYOCOMON_FQNAME, ALT_PEN20_PYOCOMON_FQNAME_LEN },
-        { PEN20_RAFFLESIMON_NAME, PEN20_RAFFLESIMON_NAME_LEN, PEN20_RAFFLESIMON_ID, PEN20_RAFFLESIMON_ID_LEN, PEN20_RAFFLESIMON_FQID, PEN20_RAFFLESIMON_FQID_LEN, PEN20_RAFFLESIMON_FQNAME, PEN20_RAFFLESIMON_FQNAME_LEN },
-        { PEN20_RAFFLESIMON_NAME, PEN20_RAFFLESIMON_NAME_LEN, PEN20_RAFFLESIMON_ID, PEN20_RAFFLESIMON_ID_LEN, ALT_PEN20_RAFFLESIMON_FQID, ALT_PEN20_RAFFLESIMON_FQID_LEN, ALT_PEN20_RAFFLESIMON_FQNAME, ALT_PEN20_RAFFLESIMON_FQNAME_LEN },
-        { PEN20_RAGNA_LORDMON_NAME, PEN20_RAGNA_LORDMON_NAME_LEN, PEN20_RAGNA_LORDMON_ID, PEN20_RAGNA_LORDMON_ID_LEN, PEN20_RAGNA_LORDMON_FQID, PEN20_RAGNA_LORDMON_FQID_LEN, PEN20_RAGNA_LORDMON_FQNAME, PEN20_RAGNA_LORDMON_FQNAME_LEN },
-        { PEN20_RAGNA_LORDMON_NAME, PEN20_RAGNA_LORDMON_NAME_LEN, PEN20_RAGNA_LORDMON_ID, PEN20_RAGNA_LORDMON_ID_LEN, ALT_PEN20_RAGNA_LORDMON_FQID, ALT_PEN20_RAGNA_LORDMON_FQID_LEN, ALT_PEN20_RAGNA_LORDMON_FQNAME, ALT_PEN20_RAGNA_LORDMON_FQNAME_LEN },
-        { PEN20_RAGUELMON_NAME, PEN20_RAGUELMON_NAME_LEN, PEN20_RAGUELMON_ID, PEN20_RAGUELMON_ID_LEN, PEN20_RAGUELMON_FQID, PEN20_RAGUELMON_FQID_LEN, PEN20_RAGUELMON_FQNAME, PEN20_RAGUELMON_FQNAME_LEN },
-        { PEN20_RAGUELMON_NAME, PEN20_RAGUELMON_NAME_LEN, PEN20_RAGUELMON_ID, PEN20_RAGUELMON_ID_LEN, ALT_PEN20_RAGUELMON_FQID, ALT_PEN20_RAGUELMON_FQID_LEN, ALT_PEN20_RAGUELMON_FQNAME, ALT_PEN20_RAGUELMON_FQNAME_LEN },
-        { PEN20_RAIJI_LUDOMON_NAME, PEN20_RAIJI_LUDOMON_NAME_LEN, PEN20_RAIJI_LUDOMON_ID, PEN20_RAIJI_LUDOMON_ID_LEN, PEN20_RAIJI_LUDOMON_FQID, PEN20_RAIJI_LUDOMON_FQID_LEN, PEN20_RAIJI_LUDOMON_FQNAME, PEN20_RAIJI_LUDOMON_FQNAME_LEN },
-        { PEN20_RAIJI_LUDOMON_NAME, PEN20_RAIJI_LUDOMON_NAME_LEN, PEN20_RAIJI_LUDOMON_ID, PEN20_RAIJI_LUDOMON_ID_LEN, ALT_PEN20_RAIJI_LUDOMON_FQID, ALT_PEN20_RAIJI_LUDOMON_FQID_LEN, ALT_PEN20_RAIJI_LUDOMON_FQNAME, ALT_PEN20_RAIJI_LUDOMON_FQNAME_LEN },
-        { PEN20_RAPIDMON_NAME, PEN20_RAPIDMON_NAME_LEN, PEN20_RAPIDMON_ID, PEN20_RAPIDMON_ID_LEN, PEN20_RAPIDMON_FQID, PEN20_RAPIDMON_FQID_LEN, PEN20_RAPIDMON_FQNAME, PEN20_RAPIDMON_FQNAME_LEN },
-        { PEN20_RAPIDMON_NAME, PEN20_RAPIDMON_NAME_LEN, PEN20_RAPIDMON_ID, PEN20_RAPIDMON_ID_LEN, ALT_PEN20_RAPIDMON_FQID, ALT_PEN20_RAPIDMON_FQID_LEN, ALT_PEN20_RAPIDMON_FQNAME, ALT_PEN20_RAPIDMON_FQNAME_LEN },
-        { PEN20_RED_VEGIMON_NAME, PEN20_RED_VEGIMON_NAME_LEN, PEN20_RED_VEGIMON_ID, PEN20_RED_VEGIMON_ID_LEN, PEN20_RED_VEGIMON_FQID, PEN20_RED_VEGIMON_FQID_LEN, PEN20_RED_VEGIMON_FQNAME, PEN20_RED_VEGIMON_FQNAME_LEN },
-        { PEN20_RED_VEGIMON_NAME, PEN20_RED_VEGIMON_NAME_LEN, PEN20_RED_VEGIMON_ID, PEN20_RED_VEGIMON_ID_LEN, ALT_PEN20_RED_VEGIMON_FQID, ALT_PEN20_RED_VEGIMON_FQID_LEN, ALT_PEN20_RED_VEGIMON_FQNAME, ALT_PEN20_RED_VEGIMON_FQNAME_LEN },
-        { PEN20_REPPAMON_NAME, PEN20_REPPAMON_NAME_LEN, PEN20_REPPAMON_ID, PEN20_REPPAMON_ID_LEN, PEN20_REPPAMON_FQID, PEN20_REPPAMON_FQID_LEN, PEN20_REPPAMON_FQNAME, PEN20_REPPAMON_FQNAME_LEN },
-        { PEN20_REPPAMON_NAME, PEN20_REPPAMON_NAME_LEN, PEN20_REPPAMON_ID, PEN20_REPPAMON_ID_LEN, ALT_PEN20_REPPAMON_FQID, ALT_PEN20_REPPAMON_FQID_LEN, ALT_PEN20_REPPAMON_FQNAME, ALT_PEN20_REPPAMON_FQNAME_LEN },
-        { PEN20_REVOLMON_NAME, PEN20_REVOLMON_NAME_LEN, PEN20_REVOLMON_ID, PEN20_REVOLMON_ID_LEN, PEN20_REVOLMON_FQID, PEN20_REVOLMON_FQID_LEN, PEN20_REVOLMON_FQNAME, PEN20_REVOLMON_FQNAME_LEN },
-        { PEN20_REVOLMON_NAME, PEN20_REVOLMON_NAME_LEN, PEN20_REVOLMON_ID, PEN20_REVOLMON_ID_LEN, ALT_PEN20_REVOLMON_FQID, ALT_PEN20_REVOLMON_FQID_LEN, ALT_PEN20_REVOLMON_FQNAME, ALT_PEN20_REVOLMON_FQNAME_LEN },
-        { PEN20_RIZE_GREYMON_NAME, PEN20_RIZE_GREYMON_NAME_LEN, PEN20_RIZE_GREYMON_ID, PEN20_RIZE_GREYMON_ID_LEN, PEN20_RIZE_GREYMON_FQID, PEN20_RIZE_GREYMON_FQID_LEN, PEN20_RIZE_GREYMON_FQNAME, PEN20_RIZE_GREYMON_FQNAME_LEN },
-        { PEN20_RIZE_GREYMON_NAME, PEN20_RIZE_GREYMON_NAME_LEN, PEN20_RIZE_GREYMON_ID, PEN20_RIZE_GREYMON_ID_LEN, ALT_PEN20_RIZE_GREYMON_FQID, ALT_PEN20_RIZE_GREYMON_FQID_LEN, ALT_PEN20_RIZE_GREYMON_FQNAME, ALT_PEN20_RIZE_GREYMON_FQNAME_LEN },
-        { PEN20_ROSEMON_NAME, PEN20_ROSEMON_NAME_LEN, PEN20_ROSEMON_ID, PEN20_ROSEMON_ID_LEN, PEN20_ROSEMON_FQID, PEN20_ROSEMON_FQID_LEN, PEN20_ROSEMON_FQNAME, PEN20_ROSEMON_FQNAME_LEN },
-        { PEN20_ROSEMON_NAME, PEN20_ROSEMON_NAME_LEN, PEN20_ROSEMON_ID, PEN20_ROSEMON_ID_LEN, ALT_PEN20_ROSEMON_FQID, ALT_PEN20_ROSEMON_FQID_LEN, ALT_PEN20_ROSEMON_FQNAME, ALT_PEN20_ROSEMON_FQNAME_LEN },
-        { PEN20_RUKAMON_NAME, PEN20_RUKAMON_NAME_LEN, PEN20_RUKAMON_ID, PEN20_RUKAMON_ID_LEN, PEN20_RUKAMON_FQID, PEN20_RUKAMON_FQID_LEN, PEN20_RUKAMON_FQNAME, PEN20_RUKAMON_FQNAME_LEN },
-        { PEN20_RUKAMON_NAME, PEN20_RUKAMON_NAME_LEN, PEN20_RUKAMON_ID, PEN20_RUKAMON_ID_LEN, ALT_PEN20_RUKAMON_FQID, ALT_PEN20_RUKAMON_FQID_LEN, ALT_PEN20_RUKAMON_FQNAME, ALT_PEN20_RUKAMON_FQNAME_LEN },
-        { PEN20_RYUDAMON_NAME, PEN20_RYUDAMON_NAME_LEN, PEN20_RYUDAMON_ID, PEN20_RYUDAMON_ID_LEN, PEN20_RYUDAMON_FQID, PEN20_RYUDAMON_FQID_LEN, PEN20_RYUDAMON_FQNAME, PEN20_RYUDAMON_FQNAME_LEN },
-        { PEN20_RYUDAMON_NAME, PEN20_RYUDAMON_NAME_LEN, PEN20_RYUDAMON_ID, PEN20_RYUDAMON_ID_LEN, ALT_PEN20_RYUDAMON_FQID, ALT_PEN20_RYUDAMON_FQID_LEN, ALT_PEN20_RYUDAMON_FQNAME, ALT_PEN20_RYUDAMON_FQNAME_LEN },
-        { PEN20_SABER_LEOMON_NAME, PEN20_SABER_LEOMON_NAME_LEN, PEN20_SABER_LEOMON_ID, PEN20_SABER_LEOMON_ID_LEN, PEN20_SABER_LEOMON_FQID, PEN20_SABER_LEOMON_FQID_LEN, PEN20_SABER_LEOMON_FQNAME, PEN20_SABER_LEOMON_FQNAME_LEN },
-        { PEN20_SABER_LEOMON_NAME, PEN20_SABER_LEOMON_NAME_LEN, PEN20_SABER_LEOMON_ID, PEN20_SABER_LEOMON_ID_LEN, ALT_PEN20_SABER_LEOMON_FQID, ALT_PEN20_SABER_LEOMON_FQID_LEN, ALT_PEN20_SABER_LEOMON_FQNAME, ALT_PEN20_SABER_LEOMON_FQNAME_LEN },
-        { PEN20_SAINT_GALGOMON_NAME, PEN20_SAINT_GALGOMON_NAME_LEN, PEN20_SAINT_GALGOMON_ID, PEN20_SAINT_GALGOMON_ID_LEN, PEN20_SAINT_GALGOMON_FQID, PEN20_SAINT_GALGOMON_FQID_LEN, PEN20_SAINT_GALGOMON_FQNAME, PEN20_SAINT_GALGOMON_FQNAME_LEN },
-        { PEN20_SAINT_GALGOMON_NAME, PEN20_SAINT_GALGOMON_NAME_LEN, PEN20_SAINT_GALGOMON_ID, PEN20_SAINT_GALGOMON_ID_LEN, ALT_PEN20_SAINT_GALGOMON_FQID, ALT_PEN20_SAINT_GALGOMON_FQID_LEN, ALT_PEN20_SAINT_GALGOMON_FQNAME, ALT_PEN20_SAINT_GALGOMON_FQNAME_LEN },
-        { PEN20_SAKUMON_NAME, PEN20_SAKUMON_NAME_LEN, PEN20_SAKUMON_ID, PEN20_SAKUMON_ID_LEN, PEN20_SAKUMON_FQID, PEN20_SAKUMON_FQID_LEN, PEN20_SAKUMON_FQNAME, PEN20_SAKUMON_FQNAME_LEN },
-        { PEN20_SAKUMON_NAME, PEN20_SAKUMON_NAME_LEN, PEN20_SAKUMON_ID, PEN20_SAKUMON_ID_LEN, ALT_PEN20_SAKUMON_FQID, ALT_PEN20_SAKUMON_FQID_LEN, ALT_PEN20_SAKUMON_FQNAME, ALT_PEN20_SAKUMON_FQNAME_LEN },
-        { PEN20_SAKUTTOMON_NAME, PEN20_SAKUTTOMON_NAME_LEN, PEN20_SAKUTTOMON_ID, PEN20_SAKUTTOMON_ID_LEN, PEN20_SAKUTTOMON_FQID, PEN20_SAKUTTOMON_FQID_LEN, PEN20_SAKUTTOMON_FQNAME, PEN20_SAKUTTOMON_FQNAME_LEN },
-        { PEN20_SAKUTTOMON_NAME, PEN20_SAKUTTOMON_NAME_LEN, PEN20_SAKUTTOMON_ID, PEN20_SAKUTTOMON_ID_LEN, ALT_PEN20_SAKUTTOMON_FQID, ALT_PEN20_SAKUTTOMON_FQID_LEN, ALT_PEN20_SAKUTTOMON_FQNAME, ALT_PEN20_SAKUTTOMON_FQNAME_LEN },
-        { PEN20_SAVIOR_HACKMON_NAME, PEN20_SAVIOR_HACKMON_NAME_LEN, PEN20_SAVIOR_HACKMON_ID, PEN20_SAVIOR_HACKMON_ID_LEN, PEN20_SAVIOR_HACKMON_FQID, PEN20_SAVIOR_HACKMON_FQID_LEN, PEN20_SAVIOR_HACKMON_FQNAME, PEN20_SAVIOR_HACKMON_FQNAME_LEN },
-        { PEN20_SAVIOR_HACKMON_NAME, PEN20_SAVIOR_HACKMON_NAME_LEN, PEN20_SAVIOR_HACKMON_ID, PEN20_SAVIOR_HACKMON_ID_LEN, ALT_PEN20_SAVIOR_HACKMON_FQID, ALT_PEN20_SAVIOR_HACKMON_FQID_LEN, ALT_PEN20_SAVIOR_HACKMON_FQNAME, ALT_PEN20_SAVIOR_HACKMON_FQNAME_LEN },
-        { PEN20_SEADRAMON_NAME, PEN20_SEADRAMON_NAME_LEN, PEN20_SEADRAMON_ID, PEN20_SEADRAMON_ID_LEN, PEN20_SEADRAMON_FQID, PEN20_SEADRAMON_FQID_LEN, PEN20_SEADRAMON_FQNAME, PEN20_SEADRAMON_FQNAME_LEN },
-        { PEN20_SEADRAMON_NAME, PEN20_SEADRAMON_NAME_LEN, PEN20_SEADRAMON_ID, PEN20_SEADRAMON_ID_LEN, ALT_PEN20_SEADRAMON_FQID, ALT_PEN20_SEADRAMON_FQID_LEN, ALT_PEN20_SEADRAMON_FQNAME, ALT_PEN20_SEADRAMON_FQNAME_LEN },
-        { PEN20_SERAPHIMON_NAME, PEN20_SERAPHIMON_NAME_LEN, PEN20_SERAPHIMON_ID, PEN20_SERAPHIMON_ID_LEN, PEN20_SERAPHIMON_FQID, PEN20_SERAPHIMON_FQID_LEN, PEN20_SERAPHIMON_FQNAME, PEN20_SERAPHIMON_FQNAME_LEN },
-        { PEN20_SERAPHIMON_NAME, PEN20_SERAPHIMON_NAME_LEN, PEN20_SERAPHIMON_ID, PEN20_SERAPHIMON_ID_LEN, ALT_PEN20_SERAPHIMON_FQID, ALT_PEN20_SERAPHIMON_FQID_LEN, ALT_PEN20_SERAPHIMON_FQNAME, ALT_PEN20_SERAPHIMON_FQNAME_LEN },
-        { PEN20_SHADRAMON_NAME, PEN20_SHADRAMON_NAME_LEN, PEN20_SHADRAMON_ID, PEN20_SHADRAMON_ID_LEN, PEN20_SHADRAMON_FQID, PEN20_SHADRAMON_FQID_LEN, PEN20_SHADRAMON_FQNAME, PEN20_SHADRAMON_FQNAME_LEN },
-        { PEN20_SHADRAMON_NAME, PEN20_SHADRAMON_NAME_LEN, PEN20_SHADRAMON_ID, PEN20_SHADRAMON_ID_LEN, ALT_PEN20_SHADRAMON_FQID, ALT_PEN20_SHADRAMON_FQID_LEN, ALT_PEN20_SHADRAMON_FQNAME, ALT_PEN20_SHADRAMON_FQNAME_LEN },
-        { PEN20_SHAKOMON_NAME, PEN20_SHAKOMON_NAME_LEN, PEN20_SHAKOMON_ID, PEN20_SHAKOMON_ID_LEN, PEN20_SHAKOMON_FQID, PEN20_SHAKOMON_FQID_LEN, PEN20_SHAKOMON_FQNAME, PEN20_SHAKOMON_FQNAME_LEN },
-        { PEN20_SHAKOMON_NAME, PEN20_SHAKOMON_NAME_LEN, PEN20_SHAKOMON_ID, PEN20_SHAKOMON_ID_LEN, ALT_PEN20_SHAKOMON_FQID, ALT_PEN20_SHAKOMON_FQID_LEN, ALT_PEN20_SHAKOMON_FQNAME, ALT_PEN20_SHAKOMON_FQNAME_LEN },
-        { PEN20_SKULL_MAMMON_NAME, PEN20_SKULL_MAMMON_NAME_LEN, PEN20_SKULL_MAMMON_ID, PEN20_SKULL_MAMMON_ID_LEN, PEN20_SKULL_MAMMON_FQID, PEN20_SKULL_MAMMON_FQID_LEN, PEN20_SKULL_MAMMON_FQNAME, PEN20_SKULL_MAMMON_FQNAME_LEN },
-        { PEN20_SKULL_MAMMON_NAME, PEN20_SKULL_MAMMON_NAME_LEN, PEN20_SKULL_MAMMON_ID, PEN20_SKULL_MAMMON_ID_LEN, ALT_PEN20_SKULL_MAMMON_FQID, ALT_PEN20_SKULL_MAMMON_FQID_LEN, ALT_PEN20_SKULL_MAMMON_FQNAME, ALT_PEN20_SKULL_MAMMON_FQNAME_LEN },
-        { PEN20_SLAYERDRAMON_NAME, PEN20_SLAYERDRAMON_NAME_LEN, PEN20_SLAYERDRAMON_ID, PEN20_SLAYERDRAMON_ID_LEN, PEN20_SLAYERDRAMON_FQID, PEN20_SLAYERDRAMON_FQID_LEN, PEN20_SLAYERDRAMON_FQNAME, PEN20_SLAYERDRAMON_FQNAME_LEN },
-        { PEN20_SLAYERDRAMON_NAME, PEN20_SLAYERDRAMON_NAME_LEN, PEN20_SLAYERDRAMON_ID, PEN20_SLAYERDRAMON_ID_LEN, ALT_PEN20_SLAYERDRAMON_FQID, ALT_PEN20_SLAYERDRAMON_FQID_LEN, ALT_PEN20_SLAYERDRAMON_FQNAME, ALT_PEN20_SLAYERDRAMON_FQNAME_LEN },
-        { PEN20_STARMON_NAME, PEN20_STARMON_NAME_LEN, PEN20_STARMON_ID, PEN20_STARMON_ID_LEN, PEN20_STARMON_FQID, PEN20_STARMON_FQID_LEN, PEN20_STARMON_FQNAME, PEN20_STARMON_FQNAME_LEN },
-        { PEN20_STARMON_NAME, PEN20_STARMON_NAME_LEN, PEN20_STARMON_ID, PEN20_STARMON_ID_LEN, ALT_PEN20_STARMON_FQID, ALT_PEN20_STARMON_FQID_LEN, ALT_PEN20_STARMON_FQNAME, ALT_PEN20_STARMON_FQNAME_LEN },
-        { PEN20_SUNFLOWMON_NAME, PEN20_SUNFLOWMON_NAME_LEN, PEN20_SUNFLOWMON_ID, PEN20_SUNFLOWMON_ID_LEN, PEN20_SUNFLOWMON_FQID, PEN20_SUNFLOWMON_FQID_LEN, PEN20_SUNFLOWMON_FQNAME, PEN20_SUNFLOWMON_FQNAME_LEN },
-        { PEN20_SUNFLOWMON_NAME, PEN20_SUNFLOWMON_NAME_LEN, PEN20_SUNFLOWMON_ID, PEN20_SUNFLOWMON_ID_LEN, ALT_PEN20_SUNFLOWMON_FQID, ALT_PEN20_SUNFLOWMON_FQID_LEN, ALT_PEN20_SUNFLOWMON_FQNAME, ALT_PEN20_SUNFLOWMON_FQNAME_LEN },
-        { PEN20_TAILMON_NAME, PEN20_TAILMON_NAME_LEN, PEN20_TAILMON_ID, PEN20_TAILMON_ID_LEN, PEN20_TAILMON_FQID, PEN20_TAILMON_FQID_LEN, PEN20_TAILMON_FQNAME, PEN20_TAILMON_FQNAME_LEN },
-        { PEN20_TAILMON_NAME, PEN20_TAILMON_NAME_LEN, PEN20_TAILMON_ID, PEN20_TAILMON_ID_LEN, ALT_PEN20_TAILMON_FQID, ALT_PEN20_TAILMON_FQID_LEN, ALT_PEN20_TAILMON_FQNAME, ALT_PEN20_TAILMON_FQNAME_LEN },
-        { PEN20_TANKMON_NAME, PEN20_TANKMON_NAME_LEN, PEN20_TANKMON_ID, PEN20_TANKMON_ID_LEN, PEN20_TANKMON_FQID, PEN20_TANKMON_FQID_LEN, PEN20_TANKMON_FQNAME, PEN20_TANKMON_FQNAME_LEN },
-        { PEN20_TANKMON_NAME, PEN20_TANKMON_NAME_LEN, PEN20_TANKMON_ID, PEN20_TANKMON_ID_LEN, ALT_PEN20_TANKMON_FQID, ALT_PEN20_TANKMON_FQID_LEN, ALT_PEN20_TANKMON_FQNAME, ALT_PEN20_TANKMON_FQNAME_LEN },
-        { PEN20_TARGETMON_NAME, PEN20_TARGETMON_NAME_LEN, PEN20_TARGETMON_ID, PEN20_TARGETMON_ID_LEN, PEN20_TARGETMON_FQID, PEN20_TARGETMON_FQID_LEN, PEN20_TARGETMON_FQNAME, PEN20_TARGETMON_FQNAME_LEN },
-        { PEN20_TARGETMON_NAME, PEN20_TARGETMON_NAME_LEN, PEN20_TARGETMON_ID, PEN20_TARGETMON_ID_LEN, ALT_PEN20_TARGETMON_FQID, ALT_PEN20_TARGETMON_FQID_LEN, ALT_PEN20_TARGETMON_FQNAME, ALT_PEN20_TARGETMON_FQNAME_LEN },
-        { PEN20_TENTOMON_NAME, PEN20_TENTOMON_NAME_LEN, PEN20_TENTOMON_ID, PEN20_TENTOMON_ID_LEN, PEN20_TENTOMON_FQID, PEN20_TENTOMON_FQID_LEN, PEN20_TENTOMON_FQNAME, PEN20_TENTOMON_FQNAME_LEN },
-        { PEN20_TENTOMON_NAME, PEN20_TENTOMON_NAME_LEN, PEN20_TENTOMON_ID, PEN20_TENTOMON_ID_LEN, ALT_PEN20_TENTOMON_FQID, ALT_PEN20_TENTOMON_FQID_LEN, ALT_PEN20_TENTOMON_FQNAME, ALT_PEN20_TENTOMON_FQNAME_LEN },
-        { PEN20_TERRIERMON_NAME, PEN20_TERRIERMON_NAME_LEN, PEN20_TERRIERMON_ID, PEN20_TERRIERMON_ID_LEN, PEN20_TERRIERMON_FQID, PEN20_TERRIERMON_FQID_LEN, PEN20_TERRIERMON_FQNAME, PEN20_TERRIERMON_FQNAME_LEN },
-        { PEN20_TERRIERMON_NAME, PEN20_TERRIERMON_NAME_LEN, PEN20_TERRIERMON_ID, PEN20_TERRIERMON_ID_LEN, ALT_PEN20_TERRIERMON_FQID, ALT_PEN20_TERRIERMON_FQID_LEN, ALT_PEN20_TERRIERMON_FQNAME, ALT_PEN20_TERRIERMON_FQNAME_LEN },
-        { PEN20_THUNDERBALLMON_NAME, PEN20_THUNDERBALLMON_NAME_LEN, PEN20_THUNDERBALLMON_ID, PEN20_THUNDERBALLMON_ID_LEN, PEN20_THUNDERBALLMON_FQID, PEN20_THUNDERBALLMON_FQID_LEN, PEN20_THUNDERBALLMON_FQNAME, PEN20_THUNDERBALLMON_FQNAME_LEN },
-        { PEN20_THUNDERBALLMON_NAME, PEN20_THUNDERBALLMON_NAME_LEN, PEN20_THUNDERBALLMON_ID, PEN20_THUNDERBALLMON_ID_LEN, ALT_PEN20_THUNDERBALLMON_FQID, ALT_PEN20_THUNDERBALLMON_FQID_LEN, ALT_PEN20_THUNDERBALLMON_FQNAME, ALT_PEN20_THUNDERBALLMON_FQNAME_LEN },
-        { PEN20_TIA_LUDOMON_NAME, PEN20_TIA_LUDOMON_NAME_LEN, PEN20_TIA_LUDOMON_ID, PEN20_TIA_LUDOMON_ID_LEN, PEN20_TIA_LUDOMON_FQID, PEN20_TIA_LUDOMON_FQID_LEN, PEN20_TIA_LUDOMON_FQNAME, PEN20_TIA_LUDOMON_FQNAME_LEN },
-        { PEN20_TIA_LUDOMON_NAME, PEN20_TIA_LUDOMON_NAME_LEN, PEN20_TIA_LUDOMON_ID, PEN20_TIA_LUDOMON_ID_LEN, ALT_PEN20_TIA_LUDOMON_FQID, ALT_PEN20_TIA_LUDOMON_FQID_LEN, ALT_PEN20_TIA_LUDOMON_FQNAME, ALT_PEN20_TIA_LUDOMON_FQNAME_LEN },
-        { PEN20_TOGEMON_NAME, PEN20_TOGEMON_NAME_LEN, PEN20_TOGEMON_ID, PEN20_TOGEMON_ID_LEN, PEN20_TOGEMON_FQID, PEN20_TOGEMON_FQID_LEN, PEN20_TOGEMON_FQNAME, PEN20_TOGEMON_FQNAME_LEN },
-        { PEN20_TOGEMON_NAME, PEN20_TOGEMON_NAME_LEN, PEN20_TOGEMON_ID, PEN20_TOGEMON_ID_LEN, ALT_PEN20_TOGEMON_FQID, ALT_PEN20_TOGEMON_FQID_LEN, ALT_PEN20_TOGEMON_FQNAME, ALT_PEN20_TOGEMON_FQNAME_LEN },
-        { PEN20_TONOSAMA_GEKOMON_NAME, PEN20_TONOSAMA_GEKOMON_NAME_LEN, PEN20_TONOSAMA_GEKOMON_ID, PEN20_TONOSAMA_GEKOMON_ID_LEN, PEN20_TONOSAMA_GEKOMON_FQID, PEN20_TONOSAMA_GEKOMON_FQID_LEN, PEN20_TONOSAMA_GEKOMON_FQNAME, PEN20_TONOSAMA_GEKOMON_FQNAME_LEN },
-        { PEN20_TONOSAMA_GEKOMON_NAME, PEN20_TONOSAMA_GEKOMON_NAME_LEN, PEN20_TONOSAMA_GEKOMON_ID, PEN20_TONOSAMA_GEKOMON_ID_LEN, ALT_PEN20_TONOSAMA_GEKOMON_FQID, ALT_PEN20_TONOSAMA_GEKOMON_FQID_LEN, ALT_PEN20_TONOSAMA_GEKOMON_FQNAME, ALT_PEN20_TONOSAMA_GEKOMON_FQNAME_LEN },
-        { PEN20_TORTAMON_NAME, PEN20_TORTAMON_NAME_LEN, PEN20_TORTAMON_ID, PEN20_TORTAMON_ID_LEN, PEN20_TORTAMON_FQID, PEN20_TORTAMON_FQID_LEN, PEN20_TORTAMON_FQNAME, PEN20_TORTAMON_FQNAME_LEN },
-        { PEN20_TORTAMON_NAME, PEN20_TORTAMON_NAME_LEN, PEN20_TORTAMON_ID, PEN20_TORTAMON_ID_LEN, ALT_PEN20_TORTAMON_FQID, ALT_PEN20_TORTAMON_FQID_LEN, ALT_PEN20_TORTAMON_FQNAME, ALT_PEN20_TORTAMON_FQNAME_LEN },
-        { PEN20_TOY_AGUMON_NAME, PEN20_TOY_AGUMON_NAME_LEN, PEN20_TOY_AGUMON_ID, PEN20_TOY_AGUMON_ID_LEN, PEN20_TOY_AGUMON_FQID, PEN20_TOY_AGUMON_FQID_LEN, PEN20_TOY_AGUMON_FQNAME, PEN20_TOY_AGUMON_FQNAME_LEN },
-        { PEN20_TOY_AGUMON_NAME, PEN20_TOY_AGUMON_NAME_LEN, PEN20_TOY_AGUMON_ID, PEN20_TOY_AGUMON_ID_LEN, ALT_PEN20_TOY_AGUMON_FQID, ALT_PEN20_TOY_AGUMON_FQID_LEN, ALT_PEN20_TOY_AGUMON_FQNAME, ALT_PEN20_TOY_AGUMON_FQNAME_LEN },
-        { PEN20_TRICERAMON_NAME, PEN20_TRICERAMON_NAME_LEN, PEN20_TRICERAMON_ID, PEN20_TRICERAMON_ID_LEN, PEN20_TRICERAMON_FQID, PEN20_TRICERAMON_FQID_LEN, PEN20_TRICERAMON_FQNAME, PEN20_TRICERAMON_FQNAME_LEN },
-        { PEN20_TRICERAMON_NAME, PEN20_TRICERAMON_NAME_LEN, PEN20_TRICERAMON_ID, PEN20_TRICERAMON_ID_LEN, ALT_PEN20_TRICERAMON_FQID, ALT_PEN20_TRICERAMON_FQID_LEN, ALT_PEN20_TRICERAMON_FQNAME, ALT_PEN20_TRICERAMON_FQNAME_LEN },
-        { PEN20_TROOPMON_NAME, PEN20_TROOPMON_NAME_LEN, PEN20_TROOPMON_ID, PEN20_TROOPMON_ID_LEN, PEN20_TROOPMON_FQID, PEN20_TROOPMON_FQID_LEN, PEN20_TROOPMON_FQNAME, PEN20_TROOPMON_FQNAME_LEN },
-        { PEN20_TROOPMON_NAME, PEN20_TROOPMON_NAME_LEN, PEN20_TROOPMON_ID, PEN20_TROOPMON_ID_LEN, ALT_PEN20_TROOPMON_FQID, ALT_PEN20_TROOPMON_FQID_LEN, ALT_PEN20_TROOPMON_FQNAME, ALT_PEN20_TROOPMON_FQNAME_LEN },
-        { PEN20_TURUIEMON_NAME, PEN20_TURUIEMON_NAME_LEN, PEN20_TURUIEMON_ID, PEN20_TURUIEMON_ID_LEN, PEN20_TURUIEMON_FQID, PEN20_TURUIEMON_FQID_LEN, PEN20_TURUIEMON_FQNAME, PEN20_TURUIEMON_FQNAME_LEN },
-        { PEN20_TURUIEMON_NAME, PEN20_TURUIEMON_NAME_LEN, PEN20_TURUIEMON_ID, PEN20_TURUIEMON_ID_LEN, ALT_PEN20_TURUIEMON_FQID, ALT_PEN20_TURUIEMON_FQID_LEN, ALT_PEN20_TURUIEMON_FQNAME, ALT_PEN20_TURUIEMON_FQNAME_LEN },
-        { PEN20_VAMDEMON_NAME, PEN20_VAMDEMON_NAME_LEN, PEN20_VAMDEMON_ID, PEN20_VAMDEMON_ID_LEN, PEN20_VAMDEMON_FQID, PEN20_VAMDEMON_FQID_LEN, PEN20_VAMDEMON_FQNAME, PEN20_VAMDEMON_FQNAME_LEN },
-        { PEN20_VAMDEMON_NAME, PEN20_VAMDEMON_NAME_LEN, PEN20_VAMDEMON_ID, PEN20_VAMDEMON_ID_LEN, ALT_PEN20_VAMDEMON_FQID, ALT_PEN20_VAMDEMON_FQID_LEN, ALT_PEN20_VAMDEMON_FQNAME, ALT_PEN20_VAMDEMON_FQNAME_LEN },
-        { PEN20_V_DRAMON_NAME, PEN20_V_DRAMON_NAME_LEN, PEN20_V_DRAMON_ID, PEN20_V_DRAMON_ID_LEN, PEN20_V_DRAMON_FQID, PEN20_V_DRAMON_FQID_LEN, PEN20_V_DRAMON_FQNAME, PEN20_V_DRAMON_FQNAME_LEN },
-        { PEN20_V_DRAMON_NAME, PEN20_V_DRAMON_NAME_LEN, PEN20_V_DRAMON_ID, PEN20_V_DRAMON_ID_LEN, ALT_PEN20_V_DRAMON_FQID, ALT_PEN20_V_DRAMON_FQID_LEN, ALT_PEN20_V_DRAMON_FQNAME, ALT_PEN20_V_DRAMON_FQNAME_LEN },
-        { PEN20_VENOM_VAMDEMON_NAME, PEN20_VENOM_VAMDEMON_NAME_LEN, PEN20_VENOM_VAMDEMON_ID, PEN20_VENOM_VAMDEMON_ID_LEN, PEN20_VENOM_VAMDEMON_FQID, PEN20_VENOM_VAMDEMON_FQID_LEN, PEN20_VENOM_VAMDEMON_FQNAME, PEN20_VENOM_VAMDEMON_FQNAME_LEN },
-        { PEN20_VENOM_VAMDEMON_NAME, PEN20_VENOM_VAMDEMON_NAME_LEN, PEN20_VENOM_VAMDEMON_ID, PEN20_VENOM_VAMDEMON_ID_LEN, ALT_PEN20_VENOM_VAMDEMON_FQID, ALT_PEN20_VENOM_VAMDEMON_FQID_LEN, ALT_PEN20_VENOM_VAMDEMON_FQNAME, ALT_PEN20_VENOM_VAMDEMON_FQNAME_LEN },
-        { PEN20_V_MON_NAME, PEN20_V_MON_NAME_LEN, PEN20_V_MON_ID, PEN20_V_MON_ID_LEN, PEN20_V_MON_FQID, PEN20_V_MON_FQID_LEN, PEN20_V_MON_FQNAME, PEN20_V_MON_FQNAME_LEN },
-        { PEN20_V_MON_NAME, PEN20_V_MON_NAME_LEN, PEN20_V_MON_ID, PEN20_V_MON_ID_LEN, ALT_PEN20_V_MON_FQID, ALT_PEN20_V_MON_FQID_LEN, ALT_PEN20_V_MON_FQNAME, ALT_PEN20_V_MON_FQNAME_LEN },
-        { PEN20_VOLCANICDRAMON_NAME, PEN20_VOLCANICDRAMON_NAME_LEN, PEN20_VOLCANICDRAMON_ID, PEN20_VOLCANICDRAMON_ID_LEN, PEN20_VOLCANICDRAMON_FQID, PEN20_VOLCANICDRAMON_FQID_LEN, PEN20_VOLCANICDRAMON_FQNAME, PEN20_VOLCANICDRAMON_FQNAME_LEN },
-        { PEN20_VOLCANICDRAMON_NAME, PEN20_VOLCANICDRAMON_NAME_LEN, PEN20_VOLCANICDRAMON_ID, PEN20_VOLCANICDRAMON_ID_LEN, ALT_PEN20_VOLCANICDRAMON_FQID, ALT_PEN20_VOLCANICDRAMON_FQID_LEN, ALT_PEN20_VOLCANICDRAMON_FQNAME, ALT_PEN20_VOLCANICDRAMON_FQNAME_LEN },
-        { PEN20_VOLTOBAUTAMON_NAME, PEN20_VOLTOBAUTAMON_NAME_LEN, PEN20_VOLTOBAUTAMON_ID, PEN20_VOLTOBAUTAMON_ID_LEN, PEN20_VOLTOBAUTAMON_FQID, PEN20_VOLTOBAUTAMON_FQID_LEN, PEN20_VOLTOBAUTAMON_FQNAME, PEN20_VOLTOBAUTAMON_FQNAME_LEN },
-        { PEN20_VOLTOBAUTAMON_NAME, PEN20_VOLTOBAUTAMON_NAME_LEN, PEN20_VOLTOBAUTAMON_ID, PEN20_VOLTOBAUTAMON_ID_LEN, ALT_PEN20_VOLTOBAUTAMON_FQID, ALT_PEN20_VOLTOBAUTAMON_FQID_LEN, ALT_PEN20_VOLTOBAUTAMON_FQNAME, ALT_PEN20_VOLTOBAUTAMON_FQNAME_LEN },
-        { PEN20_VORVOMON_NAME, PEN20_VORVOMON_NAME_LEN, PEN20_VORVOMON_ID, PEN20_VORVOMON_ID_LEN, PEN20_VORVOMON_FQID, PEN20_VORVOMON_FQID_LEN, PEN20_VORVOMON_FQNAME, PEN20_VORVOMON_FQNAME_LEN },
-        { PEN20_VORVOMON_NAME, PEN20_VORVOMON_NAME_LEN, PEN20_VORVOMON_ID, PEN20_VORVOMON_ID_LEN, ALT_PEN20_VORVOMON_FQID, ALT_PEN20_VORVOMON_FQID_LEN, ALT_PEN20_VORVOMON_FQNAME, ALT_PEN20_VORVOMON_FQNAME_LEN },
-        { PEN20_WAR_GREYMON_NAME, PEN20_WAR_GREYMON_NAME_LEN, PEN20_WAR_GREYMON_ID, PEN20_WAR_GREYMON_ID_LEN, PEN20_WAR_GREYMON_FQID, PEN20_WAR_GREYMON_FQID_LEN, PEN20_WAR_GREYMON_FQNAME, PEN20_WAR_GREYMON_FQNAME_LEN },
-        { PEN20_WAR_GREYMON_NAME, PEN20_WAR_GREYMON_NAME_LEN, PEN20_WAR_GREYMON_ID, PEN20_WAR_GREYMON_ID_LEN, ALT_PEN20_WAR_GREYMON_FQID, ALT_PEN20_WAR_GREYMON_FQID_LEN, ALT_PEN20_WAR_GREYMON_FQNAME, ALT_PEN20_WAR_GREYMON_FQNAME_LEN },
-        { PEN20_WARU_MONZAEMON_NAME, PEN20_WARU_MONZAEMON_NAME_LEN, PEN20_WARU_MONZAEMON_ID, PEN20_WARU_MONZAEMON_ID_LEN, PEN20_WARU_MONZAEMON_FQID, PEN20_WARU_MONZAEMON_FQID_LEN, PEN20_WARU_MONZAEMON_FQNAME, PEN20_WARU_MONZAEMON_FQNAME_LEN },
-        { PEN20_WARU_MONZAEMON_NAME, PEN20_WARU_MONZAEMON_NAME_LEN, PEN20_WARU_MONZAEMON_ID, PEN20_WARU_MONZAEMON_ID_LEN, ALT_PEN20_WARU_MONZAEMON_FQID, ALT_PEN20_WARU_MONZAEMON_FQID_LEN, ALT_PEN20_WARU_MONZAEMON_FQNAME, ALT_PEN20_WARU_MONZAEMON_FQNAME_LEN },
-        { PEN20_WERE_GARURUMON_NAME, PEN20_WERE_GARURUMON_NAME_LEN, PEN20_WERE_GARURUMON_ID, PEN20_WERE_GARURUMON_ID_LEN, PEN20_WERE_GARURUMON_FQID, PEN20_WERE_GARURUMON_FQID_LEN, PEN20_WERE_GARURUMON_FQNAME, PEN20_WERE_GARURUMON_FQNAME_LEN },
-        { PEN20_WERE_GARURUMON_NAME, PEN20_WERE_GARURUMON_NAME_LEN, PEN20_WERE_GARURUMON_ID, PEN20_WERE_GARURUMON_ID_LEN, ALT_PEN20_WERE_GARURUMON_FQID, ALT_PEN20_WERE_GARURUMON_FQID_LEN, ALT_PEN20_WERE_GARURUMON_FQNAME, ALT_PEN20_WERE_GARURUMON_FQNAME_LEN },
-        { PEN20_WHAMON_NAME, PEN20_WHAMON_NAME_LEN, PEN20_WHAMON_ID, PEN20_WHAMON_ID_LEN, PEN20_WHAMON_FQID, PEN20_WHAMON_FQID_LEN, PEN20_WHAMON_FQNAME, PEN20_WHAMON_FQNAME_LEN },
-        { PEN20_WHAMON_NAME, PEN20_WHAMON_NAME_LEN, PEN20_WHAMON_ID, PEN20_WHAMON_ID_LEN, ALT_PEN20_WHAMON_FQID, ALT_PEN20_WHAMON_FQID_LEN, ALT_PEN20_WHAMON_FQNAME, ALT_PEN20_WHAMON_FQNAME_LEN },
-        { PEN20_WINGDRAMON_NAME, PEN20_WINGDRAMON_NAME_LEN, PEN20_WINGDRAMON_ID, PEN20_WINGDRAMON_ID_LEN, PEN20_WINGDRAMON_FQID, PEN20_WINGDRAMON_FQID_LEN, PEN20_WINGDRAMON_FQNAME, PEN20_WINGDRAMON_FQNAME_LEN },
-        { PEN20_WINGDRAMON_NAME, PEN20_WINGDRAMON_NAME_LEN, PEN20_WINGDRAMON_ID, PEN20_WINGDRAMON_ID_LEN, ALT_PEN20_WINGDRAMON_FQID, ALT_PEN20_WINGDRAMON_FQID_LEN, ALT_PEN20_WINGDRAMON_FQNAME, ALT_PEN20_WINGDRAMON_FQNAME_LEN },
-        { PEN20_WIZARMON_NAME, PEN20_WIZARMON_NAME_LEN, PEN20_WIZARMON_ID, PEN20_WIZARMON_ID_LEN, PEN20_WIZARMON_FQID, PEN20_WIZARMON_FQID_LEN, PEN20_WIZARMON_FQNAME, PEN20_WIZARMON_FQNAME_LEN },
-        { PEN20_WIZARMON_NAME, PEN20_WIZARMON_NAME_LEN, PEN20_WIZARMON_ID, PEN20_WIZARMON_ID_LEN, ALT_PEN20_WIZARMON_FQID, ALT_PEN20_WIZARMON_FQID_LEN, ALT_PEN20_WIZARMON_FQNAME, ALT_PEN20_WIZARMON_FQNAME_LEN },
-        { PEN20_WOODMON_NAME, PEN20_WOODMON_NAME_LEN, PEN20_WOODMON_ID, PEN20_WOODMON_ID_LEN, PEN20_WOODMON_FQID, PEN20_WOODMON_FQID_LEN, PEN20_WOODMON_FQNAME, PEN20_WOODMON_FQNAME_LEN },
-        { PEN20_WOODMON_NAME, PEN20_WOODMON_NAME_LEN, PEN20_WOODMON_ID, PEN20_WOODMON_ID_LEN, ALT_PEN20_WOODMON_FQID, ALT_PEN20_WOODMON_FQID_LEN, ALT_PEN20_WOODMON_FQNAME, ALT_PEN20_WOODMON_FQNAME_LEN },
-        { PEN20_XV_MON_NAME, PEN20_XV_MON_NAME_LEN, PEN20_XV_MON_ID, PEN20_XV_MON_ID_LEN, PEN20_XV_MON_FQID, PEN20_XV_MON_FQID_LEN, PEN20_XV_MON_FQNAME, PEN20_XV_MON_FQNAME_LEN },
-        { PEN20_XV_MON_NAME, PEN20_XV_MON_NAME_LEN, PEN20_XV_MON_ID, PEN20_XV_MON_ID_LEN, ALT_PEN20_XV_MON_FQID, ALT_PEN20_XV_MON_FQID_LEN, ALT_PEN20_XV_MON_FQNAME, ALT_PEN20_XV_MON_FQNAME_LEN },
-        { PEN20_YUKIMI_BOTAMON_NAME, PEN20_YUKIMI_BOTAMON_NAME_LEN, PEN20_YUKIMI_BOTAMON_ID, PEN20_YUKIMI_BOTAMON_ID_LEN, PEN20_YUKIMI_BOTAMON_FQID, PEN20_YUKIMI_BOTAMON_FQID_LEN, PEN20_YUKIMI_BOTAMON_FQNAME, PEN20_YUKIMI_BOTAMON_FQNAME_LEN },
-        { PEN20_YUKIMI_BOTAMON_NAME, PEN20_YUKIMI_BOTAMON_NAME_LEN, PEN20_YUKIMI_BOTAMON_ID, PEN20_YUKIMI_BOTAMON_ID_LEN, ALT_PEN20_YUKIMI_BOTAMON_FQID, ALT_PEN20_YUKIMI_BOTAMON_FQID_LEN, ALT_PEN20_YUKIMI_BOTAMON_FQNAME, ALT_PEN20_YUKIMI_BOTAMON_FQNAME_LEN },
-        { PEN20_ZERIMON_NAME, PEN20_ZERIMON_NAME_LEN, PEN20_ZERIMON_ID, PEN20_ZERIMON_ID_LEN, PEN20_ZERIMON_FQID, PEN20_ZERIMON_FQID_LEN, PEN20_ZERIMON_FQNAME, PEN20_ZERIMON_FQNAME_LEN },
-        { PEN20_ZERIMON_NAME, PEN20_ZERIMON_NAME_LEN, PEN20_ZERIMON_ID, PEN20_ZERIMON_ID_LEN, ALT_PEN20_ZERIMON_FQID, ALT_PEN20_ZERIMON_FQID_LEN, ALT_PEN20_ZERIMON_FQNAME, ALT_PEN20_ZERIMON_FQNAME_LEN },
-        { PEN20_ZUBAEAGERMON_NAME, PEN20_ZUBAEAGERMON_NAME_LEN, PEN20_ZUBAEAGERMON_ID, PEN20_ZUBAEAGERMON_ID_LEN, PEN20_ZUBAEAGERMON_FQID, PEN20_ZUBAEAGERMON_FQID_LEN, PEN20_ZUBAEAGERMON_FQNAME, PEN20_ZUBAEAGERMON_FQNAME_LEN },
-        { PEN20_ZUBAEAGERMON_NAME, PEN20_ZUBAEAGERMON_NAME_LEN, PEN20_ZUBAEAGERMON_ID, PEN20_ZUBAEAGERMON_ID_LEN, ALT_PEN20_ZUBAEAGERMON_FQID, ALT_PEN20_ZUBAEAGERMON_FQID_LEN, ALT_PEN20_ZUBAEAGERMON_FQNAME, ALT_PEN20_ZUBAEAGERMON_FQNAME_LEN },
-        { PEN20_ZUBAMON_NAME, PEN20_ZUBAMON_NAME_LEN, PEN20_ZUBAMON_ID, PEN20_ZUBAMON_ID_LEN, PEN20_ZUBAMON_FQID, PEN20_ZUBAMON_FQID_LEN, PEN20_ZUBAMON_FQNAME, PEN20_ZUBAMON_FQNAME_LEN },
-        { PEN20_ZUBAMON_NAME, PEN20_ZUBAMON_NAME_LEN, PEN20_ZUBAMON_ID, PEN20_ZUBAMON_ID_LEN, ALT_PEN20_ZUBAMON_FQID, ALT_PEN20_ZUBAMON_FQID_LEN, ALT_PEN20_ZUBAMON_FQNAME, ALT_PEN20_ZUBAMON_FQNAME_LEN },
-        { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_NAME_LEN, PEN20_ZUDOMON_ID, PEN20_ZUDOMON_ID_LEN, PEN20_ZUDOMON_FQID, PEN20_ZUDOMON_FQID_LEN, PEN20_ZUDOMON_FQNAME, PEN20_ZUDOMON_FQNAME_LEN },
-        { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_NAME_LEN, PEN20_ZUDOMON_ID, PEN20_ZUDOMON_ID_LEN, ALT_PEN20_ZUDOMON_FQID, ALT_PEN20_ZUDOMON_FQID_LEN, ALT_PEN20_ZUDOMON_FQNAME, ALT_PEN20_ZUDOMON_FQNAME_LEN },
-        
-    };
-    static const size_t pen20_animation_names_table_size = LEN_ARRAY(pen20_animation_names_table);
+    static_assert(LEN_ARRAY(pen20_animation_table) == PEN20_ANIM_COUNT);
 
     config_animation_entry_t get_config_animation_name_pen20(size_t index) {
-        assert(LEN_ARRAY(pen20_animation_table) == PEN20_ANIM_COUNT);
         assert(index < PEN20_ANIM_COUNT);
-        return pen20_animation_table[index].normal;
+        const auto& entry = pen20_animation_table[index];
+        return { PEN20_STRINGS + entry.name, PEN20_STRINGS + entry.id, PEN20_STRINGS + entry.fqid, PEN20_STRINGS + entry.fqname, entry.anim_index, entry.set, entry.layout };
     }
 
     int config_parse_animation_name_pen20(config::config_t& config, const char *value) {
-        assert(LEN_ARRAY(pen20_animation_table) == PEN20_ANIM_COUNT);
         int ret = -1;
         for (size_t i = 0;ret < 0 && i < PEN20_ANIM_COUNT;++i) {
-            const auto& entry = pen20_animation_table[i].normal;
-            const auto& alt = pen20_animation_table[i].alt;
-            if (strcmp(value, entry.name) == 0 ||
-                strcmp(value, entry.id) == 0 ||
-                strcmp(value, entry.fqid) == 0 ||
-                strcmp(value, entry.fqname) == 0 ||
-                strcmp(value, alt.fqid) == 0 ||
-                strcmp(value, alt.fqname) == 0) {
+            const auto& entry = pen20_animation_table[i];
+            if (strcmp(value, PEN20_STRINGS + entry.name) == 0 ||
+                strcmp(value, PEN20_STRINGS + entry.id) == 0 ||
+                strcmp(value, PEN20_STRINGS + entry.fqid) == 0 ||
+                strcmp(value, PEN20_STRINGS + entry.fqname) == 0 ||
+                strcmp(value, ALT_PEN20_STRINGS + entry.alt_fqid) == 0 ||
+                strcmp(value, ALT_PEN20_STRINGS + entry.alt_fqname) == 0) {
                 config.animation_index = entry.anim_index;
                 config.animation_dm_set = entry.set;
                 config.animation_sprite_sheet_layout = entry.layout;
@@ -2146,4 +1684,3 @@ namespace bongocat::assets {
         return ret;
     }
 }
-

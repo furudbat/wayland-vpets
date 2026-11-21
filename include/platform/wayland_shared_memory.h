@@ -9,7 +9,7 @@
 namespace bongocat::platform::wayland {
 // single-, double- or triple-buffer
 // @FIXME: fix for double buffer on (KWin)
-inline static constexpr size_t WAYLAND_NUM_BUFFERS = 1;
+inline constexpr size_t WAYLAND_NUM_BUFFERS = 1;
 
 struct wayland_shm_buffer_t;
 void cleanup_shm_buffer(wayland_shm_buffer_t& buffer);

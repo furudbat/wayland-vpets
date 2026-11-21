@@ -7,21 +7,21 @@
 // feature flags
 namespace bongocat::features {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-inline static constexpr bool EnableDmEmbeddedAssets = true;
+static constexpr bool EnableDmEmbeddedAssets = true;
 #  ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 #    if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && \
         !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && \
         !defined(FEATURE_PEN20_EMBEDDED_ASSETS) && !defined(FEATURE_DMALL_EMBEDDED_ASSETS)
-inline static constexpr bool EnableMinDmEmbeddedAssets = true;
+static constexpr bool EnableMinDmEmbeddedAssets = true;
 #    else
-inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+static constexpr bool EnableMinDmEmbeddedAssets = false;
 #    endif
 #  else
-inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+static constexpr bool EnableMinDmEmbeddedAssets = false;
 #  endif
 #else
-inline static constexpr bool EnableDmEmbeddedAssets = false;
-inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+static constexpr bool EnableDmEmbeddedAssets = false;
+static constexpr bool EnableMinDmEmbeddedAssets = false;
 #endif
 }  // namespace bongocat::features
 
@@ -39,27 +39,27 @@ inline static constexpr bool EnableMinDmEmbeddedAssets = false;
 #      include "embedded_assets/min_dm/min_dm_evol.h"
 #    endif
 namespace bongocat::assets {
-inline static constexpr size_t DM_ANIM_COUNT = MIN_DM_ANIM_COUNT;
+static constexpr size_t DM_ANIM_COUNT = MIN_DM_ANIM_COUNT;
 }
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t MIN_DM_ANIM_COUNT = 0;
-inline static constexpr size_t DM_ANIM_COUNT = 0;
+static constexpr size_t MIN_DM_ANIM_COUNT = 0;
+static constexpr size_t DM_ANIM_COUNT = 0;
 }  // namespace bongocat::assets
 #  endif
 namespace bongocat::assets {
-inline static constexpr size_t DM20_ANIM_COUNT = 0;
-inline static constexpr size_t PEN_ANIM_COUNT = 0;
-inline static constexpr size_t PEN20_ANIM_COUNT = 0;
-inline static constexpr size_t DMX_ANIM_COUNT = 0;
-inline static constexpr size_t DMC_ANIM_COUNT = 0;
-inline static constexpr size_t DMALL_ANIM_COUNT = 0;
+static constexpr size_t DM20_ANIM_COUNT = 0;
+static constexpr size_t PEN_ANIM_COUNT = 0;
+static constexpr size_t PEN20_ANIM_COUNT = 0;
+static constexpr size_t DMX_ANIM_COUNT = 0;
+static constexpr size_t DMC_ANIM_COUNT = 0;
+static constexpr size_t DMALL_ANIM_COUNT = 0;
 }  // namespace bongocat::assets
 
 // feature full assets
 #else
 namespace bongocat::assets {
-inline static constexpr size_t MIN_DM_ANIM_COUNT = 0;
+static constexpr size_t MIN_DM_ANIM_COUNT = 0;
 }
 
 /// dm
@@ -70,7 +70,7 @@ inline static constexpr size_t MIN_DM_ANIM_COUNT = 0;
 #    endif
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t DM_ANIM_COUNT = 0;
+static constexpr size_t DM_ANIM_COUNT = 0;
 }
 #  endif
 
@@ -82,7 +82,7 @@ inline static constexpr size_t DM_ANIM_COUNT = 0;
 #    endif
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t DM20_ANIM_COUNT = 0;
+static constexpr size_t DM20_ANIM_COUNT = 0;
 }
 #  endif
 
@@ -94,7 +94,7 @@ inline static constexpr size_t DM20_ANIM_COUNT = 0;
 #    endif
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t PEN_ANIM_COUNT = 0;
+static constexpr size_t PEN_ANIM_COUNT = 0;
 }
 #  endif
 
@@ -106,7 +106,7 @@ inline static constexpr size_t PEN_ANIM_COUNT = 0;
 #    endif
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t PEN20_ANIM_COUNT = 0;
+static constexpr size_t PEN20_ANIM_COUNT = 0;
 }
 #  endif
 
@@ -118,7 +118,7 @@ inline static constexpr size_t PEN20_ANIM_COUNT = 0;
 #    endif
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t DMX_ANIM_COUNT = 0;
+static constexpr size_t DMX_ANIM_COUNT = 0;
 }
 #  endif
 
@@ -130,7 +130,7 @@ inline static constexpr size_t DMX_ANIM_COUNT = 0;
 #    endif
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t DMC_ANIM_COUNT = 0;
+static constexpr size_t DMC_ANIM_COUNT = 0;
 }
 #  endif
 
@@ -142,45 +142,44 @@ inline static constexpr size_t DMC_ANIM_COUNT = 0;
 #    endif
 #  else
 namespace bongocat::assets {
-inline static constexpr size_t DMALL_ANIM_COUNT = 0;
+static constexpr size_t DMALL_ANIM_COUNT = 0;
 }
 #  endif
 
 #endif
 
 namespace bongocat::assets {
-inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT + DM20_ANIM_COUNT + PEN_ANIM_COUNT +
-                                                     PEN20_ANIM_COUNT + DMX_ANIM_COUNT + DMC_ANIM_COUNT +
-                                                     DMALL_ANIM_COUNT;
+inline constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT + DM20_ANIM_COUNT + PEN_ANIM_COUNT + PEN20_ANIM_COUNT +
+                                              DMX_ANIM_COUNT + DMC_ANIM_COUNT + DMALL_ANIM_COUNT;
 }
 
 namespace bongocat::assets {
-static inline constexpr int DM_FRAME_IDLE1 = 0;
-static inline constexpr int DM_FRAME_IDLE2 = 1;
-static inline constexpr int DM_FRAME_ANGRY = 2;  // Angry/Refuse- or Hurt-Fallback, Eat Frame Fallback
-static inline constexpr int DM_FRAME_DOWN = 3;   // Sleep/Discipline Fallback
-static inline constexpr int DM_FRAME_HAPPY = 4;
-static inline constexpr int DM_FRAME_EAT1 = 5;
-static inline constexpr int DM_FRAME_SLEEP = 6;
-static inline constexpr int DM_FRAME_REFUSE = 7;
-static inline constexpr int DM_FRAME_SAD = 8;
+inline constexpr int DM_FRAME_IDLE1 = 0;
+inline constexpr int DM_FRAME_IDLE2 = 1;
+inline constexpr int DM_FRAME_ANGRY = 2;  // Angry/Refuse- or Hurt-Fallback, Eat Frame Fallback
+inline constexpr int DM_FRAME_DOWN = 3;   // Sleep/Discipline Fallback
+inline constexpr int DM_FRAME_HAPPY = 4;
+inline constexpr int DM_FRAME_EAT1 = 5;
+inline constexpr int DM_FRAME_SLEEP = 6;
+inline constexpr int DM_FRAME_REFUSE = 7;
+inline constexpr int DM_FRAME_SAD = 8;
 
 // Optional frames
-static inline constexpr int DM_FRAME_LOSE1 = 9;
-static inline constexpr int DM_FRAME_EAT2 = 10;
-static inline constexpr int DM_FRAME_LOSE2 = 11;
-static inline constexpr int DM_FRAME_ATTACK = 12;
+inline constexpr int DM_FRAME_LOSE1 = 9;
+inline constexpr int DM_FRAME_EAT2 = 10;
+inline constexpr int DM_FRAME_LOSE2 = 11;
+inline constexpr int DM_FRAME_ATTACK = 12;
 
-static inline constexpr int DM_FRAME_MOVEMENT1 = 13;
-static inline constexpr int DM_FRAME_MOVEMENT2 = 14;
+inline constexpr int DM_FRAME_MOVEMENT1 = 13;
+inline constexpr int DM_FRAME_MOVEMENT2 = 14;
 
-static inline constexpr int DM_FRAME_ATTACK_2 = 15;
+inline constexpr int DM_FRAME_ATTACK_2 = 15;
 
-inline static constexpr size_t DM_SPRITE_SHEET_MAX_COLS = 16;
-inline static constexpr size_t DM_SPRITE_SHEET_ROWS = 1;
-inline static constexpr size_t DM_SPRITE_SHEET_ROW = 0;
+inline constexpr size_t DM_SPRITE_SHEET_MAX_COLS = 16;
+inline constexpr size_t DM_SPRITE_SHEET_ROWS = 1;
+inline constexpr size_t DM_SPRITE_SHEET_ROW = 0;
 
-static inline constexpr int DM_HAPPY_CHANCE_PERCENT = 60;
+inline constexpr int DM_HAPPY_CHANCE_PERCENT = 60;
 }  // namespace bongocat::assets
 
 #endif

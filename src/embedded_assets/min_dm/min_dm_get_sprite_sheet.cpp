@@ -18,7 +18,7 @@ namespace bongocat::assets {
     {min_dm_numemon_png, min_dm_numemon_png_size, "numemon"},
     {min_dm_metal_greymon_png, min_dm_metal_greymon_png_size, "metal_greymon"},
     {min_dm_mamemon_png, min_dm_mamemon_png_size, "mamemon"},
-{min_dm_monzaemon_png, min_dm_monzaemon_png_size, "monzaemon"},
+    {min_dm_monzaemon_png, min_dm_monzaemon_png_size, "monzaemon"},
 };
 embedded_image_t get_min_dm_sprite_sheet(size_t index) {
   assert(LEN_ARRAY(min_dm_images_table) == MIN_DM_ANIM_COUNT);
@@ -26,4 +26,3 @@ embedded_image_t get_min_dm_sprite_sheet(size_t index) {
   return min_dm_images_table[index];
 }
 }
-

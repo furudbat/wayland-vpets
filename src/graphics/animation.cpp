@@ -42,39 +42,39 @@ namespace bongocat::animation {
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
-inline static constexpr platform::time_ms_t POOL_MIN_TIMEOUT_MS = 5;
-inline static constexpr platform::time_ms_t POOL_MAX_TIMEOUT_MS = 1000;
-inline static constexpr int MAX_ATTEMPTS = 2048;
+static constexpr platform::time_ms_t POOL_MIN_TIMEOUT_MS = 5;
+static constexpr platform::time_ms_t POOL_MAX_TIMEOUT_MS = 1000;
+static constexpr int MAX_ATTEMPTS = 2048;
 static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
 
-inline static constexpr platform::time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
+static constexpr platform::time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
-inline static constexpr int CHANCE_FOR_SKIPPING_MOVEMENT_PERCENT = 30;  // in percent
+static constexpr int CHANCE_FOR_SKIPPING_MOVEMENT_PERCENT = 30;  // in percent
 struct max_distance_per_movement_part_t {
   int max_distance;
   float part;
 };
-inline static constexpr max_distance_per_movement_part_t SMALL_MAX_DISTANCE_PER_MOVEMENT_PART = {
+static constexpr max_distance_per_movement_part_t SMALL_MAX_DISTANCE_PER_MOVEMENT_PART = {
     // 1/2 of movement_radius (for very small areas)
     .max_distance = 100,
     .part = 2,
 };
-inline static constexpr max_distance_per_movement_part_t SMALL_MAX_DISTANCE_PER_MOVEMENT_PARTS[] = {
+static constexpr max_distance_per_movement_part_t SMALL_MAX_DISTANCE_PER_MOVEMENT_PARTS[] = {
     /// @NOTE: keep in order, keep the longest distance at the top
     {.max_distance = 300, .part = 4  }, // 1/4 of movement_radius
     {.max_distance = 200, .part = 3  }, // 1/3 of movement_radius (for small areas)
     {.max_distance = 128, .part = 2.5}, // 1/2 of movement_radius (for very small areas)
 };
-inline static constexpr int DEFAULT_MAX_DISTANCE_PER_MOVEMENT_PART = 5;
-inline static constexpr int MAX_DISTANCE_PER_MOVEMENT_PART = 5;
+static constexpr int DEFAULT_MAX_DISTANCE_PER_MOVEMENT_PART = 5;
+static constexpr int MAX_DISTANCE_PER_MOVEMENT_PART = 5;
 static_assert(SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.part > 0);
 static_assert(DEFAULT_MAX_DISTANCE_PER_MOVEMENT_PART > 0);
-inline static constexpr int FLIP_DIRECTION_NEAR_WALL_PERCENT = 70;
-inline static constexpr int SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT = 40;
+static constexpr int FLIP_DIRECTION_NEAR_WALL_PERCENT = 70;
+static constexpr int SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT = 40;
 
-inline static constexpr int SLEEP_BORING_PART = 2;  // 1/2 of sleep time for triggering boring animation
+static constexpr int SLEEP_BORING_PART = 2;  // 1/2 of sleep time for triggering boring animation
 
-inline static constexpr double EVOLUTION_LEVEL_PER_SEC = (60 * 60) / 2.0;  // 2 levels per hour
+static constexpr double EVOLUTION_LEVEL_PER_SEC = (60 * 60) / 2.0;  // 2 levels per hour
 
 // =============================================================================
 // ANIMATION STATE MANAGEMENT MODULE
@@ -118,8 +118,8 @@ struct anim_handle_key_press_result_t {
 /// on a beat (AudioUpdate) the frame advances (the audio beat clock guarantees >= 75% beat interval between beats,
 /// so half an interval is safe against double steps and tolerates trigger jitter/render lag at fast tempos);
 /// without a beat the frame only advances when a beat is missing -> dance frames are locked to the beat
-inline static constexpr double AUDIO_BEAT_SYNC_ON_BEAT = 0.5;
-inline static constexpr double AUDIO_BEAT_SYNC_NO_BEAT = 1.25;
+static constexpr double AUDIO_BEAT_SYNC_ON_BEAT = 0.5;
+static constexpr double AUDIO_BEAT_SYNC_NO_BEAT = 1.25;
 
 enum class process_idle_animation_t : int8_t {
   None,

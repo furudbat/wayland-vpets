@@ -5,16 +5,16 @@
 namespace bongocat::features {
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-  inline static constexpr bool EnableDmEmbeddedAssets = true;
+  static constexpr bool EnableDmEmbeddedAssets = true;
 #  if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && \
       !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && \
       !defined(FEATURE_PEN20_EMBEDDED_ASSETS) && !defined(FEATURE_DMALL_EMBEDDED_ASSETS)
-  inline static constexpr bool EnableMinDmEmbeddedAssets = true;
+  static constexpr bool EnableMinDmEmbeddedAssets = true;
 #  else
-  inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+  static constexpr bool EnableMinDmEmbeddedAssets = false;
 #  endif
 #else
-  inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+  static constexpr bool EnableMinDmEmbeddedAssets = false;
 #endif
 }  // namespace features
 

@@ -36,15 +36,15 @@ namespace bongocat::platform::wayland {
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
-static inline constexpr time_ms_t CHECK_INTERVAL_MS = 100;
-static inline constexpr time_ms_t POOL_MIN_TIMEOUT_MS = 5;
-static inline constexpr time_ms_t POOL_MAX_TIMEOUT_MS = 1000;
+static constexpr time_ms_t CHECK_INTERVAL_MS = 100;
+static constexpr time_ms_t POOL_MIN_TIMEOUT_MS = 5;
+static constexpr time_ms_t POOL_MAX_TIMEOUT_MS = 1000;
 static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
 
-inline static constexpr time_ms_t COND_INIT_TIMEOUT_MS = 5000;
+static constexpr time_ms_t COND_INIT_TIMEOUT_MS = 5000;
 
-static inline constexpr auto WAYLAND_LAYER_NAME_OVERLAY = "OVERLAY";
-static inline constexpr auto WAYLAND_LAYER_NAME_TOP = "TOP";
+static constexpr auto WAYLAND_LAYER_NAME_OVERLAY = "OVERLAY";
+static constexpr auto WAYLAND_LAYER_NAME_TOP = "TOP";
 
 // =============================================================================
 // MAIN WAYLAND INTERFACE IMPLEMENTATION

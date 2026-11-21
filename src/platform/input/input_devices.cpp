@@ -20,10 +20,10 @@
 
 namespace bongocat::platform::input {
 
-inline static constexpr auto BITS_PER_LONG{(8 * sizeof(unsigned long))};
+static constexpr auto BITS_PER_LONG{(8 * sizeof(unsigned long))};
 
-inline static constexpr size_t NUMBERS_SIZE = 1024;
-inline static constexpr size_t DEVICE_NAME_SIZE = PATH_MAX;
+static constexpr size_t NUMBERS_SIZE = 1024;
+static constexpr size_t DEVICE_NAME_SIZE = PATH_MAX;
 
 static bool is_keyboard(int fd) {
   static_assert(BITS_PER_LONG != 0);

@@ -27,10 +27,10 @@ namespace bongocat::platform::audio {
 #if BONGOCAT_AUDIO_MODULE_ON
 
 /// ~~stereo~~ -> mono -- @TODO: more testing, do I really need 2 channels ?
-inline static constexpr size_t MAX_CHANNELS = 1;
+inline constexpr size_t MAX_CHANNELS = 1;
 
-inline static constexpr int CAVA_BARS = 12;
-inline static constexpr int CAVA_OUT_SIZE = static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS;
+inline constexpr int CAVA_BARS = 12;
+inline constexpr int CAVA_OUT_SIZE = static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS;
 static_assert(CAVA_BARS > 0);
 static_assert(MAX_CHANNELS > 0);
 

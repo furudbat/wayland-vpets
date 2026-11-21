@@ -5,6 +5,65 @@
 
 namespace bongocat::animation {
 
+// BLANK_TARGET see scripts/optimize_dm_sprite_sheet.sh: idle1 idle2 angry down1 happy eat1 sleep1 refuse sad down2 eat2 sleep2 attack movement1 movement2
+static constexpr int32_t DM_BLANK_FALLBACK[] = {-1, -1, 0, 1, 2, 2, 3, 2, 3, 3, 5, 6, 2, 0, 1};
+static_assert(LEN_ARRAY(DM_BLANK_FALLBACK) <= INT32_MAX);
+static constexpr int32_t DM_BLANK_FALLBACK_COUNT = LEN_ARRAY(DM_BLANK_FALLBACK);
+
+static bool is_blank_frame(const generic_sprite_sheet_image_t& image, int32_t frame_width, int32_t frame_height,
+                    const sprite_sheet_animation_frame_t& frame) {
+  constexpr size_t RGBA_CHANNELS = 4;
+  if (image.channels != static_cast<int32_t>(RGBA_CHANNELS) || image.pixels.data == nullptr) {
+    return false;
+  }
+
+  assert(image.sprite_sheet_width >= 0);
+  assert(frame.col >= 0);
+  assert(frame.row >= 0);
+  assert(frame_width >= 0);
+  assert(frame_height >= 0);
+  assert(image.sprite_sheet_width >= 0);
+  assert(image.sprite_sheet_height >= 0);
+
+  const auto stride = static_cast<size_t>(image.sprite_sheet_width) * RGBA_CHANNELS;
+  const auto x0 = static_cast<size_t>(frame.col) * static_cast<size_t>(frame_width);
+  const auto y0 = static_cast<size_t>(frame.row) * static_cast<size_t>(frame_height);
+  if (x0 + static_cast<size_t>(frame_width) > static_cast<size_t>(image.sprite_sheet_width) ||
+      y0 + static_cast<size_t>(frame_height) > static_cast<size_t>(image.sprite_sheet_height)) {
+    return false;
+  }
+
+  // check for empty frame, @TODO: optimize scan line
+  for (size_t y = y0; y < y0 + static_cast<size_t>(frame_height); y++) {
+    const uint8_t *row = image.pixels.data + (y * stride) + (x0 * RGBA_CHANNELS);
+    for (size_t x = 0; x < static_cast<size_t>(frame_width); x++) {
+      if (row[(x * RGBA_CHANNELS) + 3] != 0) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+static void resolve_blank_dm_frames(dm_sprite_sheet_t& ret, sprite_sheet_animation_frame_t *frames, int32_t count) {
+  const int32_t n = count < DM_BLANK_FALLBACK_COUNT ? count : DM_BLANK_FALLBACK_COUNT;
+  for (int32_t i = 0; i < n; i++) {
+    const int32_t fallback = DM_BLANK_FALLBACK[i];
+
+    if (fallback < 0 || !frames[i].valid) {
+      continue;
+    }
+
+    // sanety check: fallbacks always point to a lower index, resolve in order
+    assert(fallback < i);
+
+    if (is_blank_frame(ret.image, ret.frame_width, ret.frame_height, frames[i])) {
+      frames[i] = frames[fallback];
+    }
+  }
+}
+
 void patch_dm_anim(dm_sprite_sheet_t& ret, load_dm_anim_options_t options) {
   if (options.sleep_in_bed) {
     if (ret.frames.down.valid) {
@@ -60,6 +119,9 @@ created_result_t<dm_sprite_sheet_t> load_base_dm_anim(const animation_thread_con
   ret.frame_width = bongocat::move(result.result.frame_width);
   ret.frame_height = bongocat::move(result.result.frame_height);
   ret.total_frames = bongocat::move(result.result.total_frames);
+
+  // optimized sprite sheets: blank (duplicated) frames use their fallback frame
+  resolve_blank_dm_frames(ret, result.result.frames, ret.total_frames);
 
   ret.frames.idle_1 = bongocat::move(result.result.frames[0]);
   ret.frames.idle_2 = bongocat::move(result.result.frames[1]);

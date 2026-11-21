@@ -10,8 +10,8 @@
 #  include "embedded_assets/ms_agent/ms_agent.hpp"
 #else
 namespace bongocat::assets {
-inline static constexpr std::size_t MS_AGENTS_ANIM_COUNT = 0;
-inline static constexpr std::size_t MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES = 0;
+static constexpr std::size_t MS_AGENTS_ANIM_COUNT = 0;
+static constexpr std::size_t MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES = 0;
 }  // namespace bongocat::assets
 #endif
 

@@ -5,9 +5,9 @@
 namespace bongocat::features {
 
 #ifdef FEATURE_PMD_EMBEDDED_ASSETS
-inline static constexpr bool EnablePmdEmbeddedAssets = true;
+static constexpr bool EnablePmdEmbeddedAssets = true;
 #else
-inline static constexpr bool EnablePmdEmbeddedAssets = false;
+static constexpr bool EnablePmdEmbeddedAssets = false;
 #endif
 
 }  // namespace features
