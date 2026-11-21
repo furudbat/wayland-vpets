@@ -1261,6 +1261,8 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  bongocat::error_set(args.debug >= 1);
+  bongocat::silence_logs(false);
   // Load configuration
   ctx.overwrite_config_parameters = {
       .output_name = args.output_name,
@@ -1315,6 +1317,7 @@ int main(int argc, char *argv[]) {
     }
     ctx.config = bongocat::move(config_result.config);
     bongocat::error_set(ctx.config.enable_debug);
+    bongocat::silence_logs(false);
   }
 
   // validate args
