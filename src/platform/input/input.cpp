@@ -455,16 +455,16 @@ static void *input_thread(void *arg) {
 
   // from thread context
   // animation_context_t& anim = trigger_ctx.anim;
-  // wait for input context (in animation start)
-  animation_ctx.init_cond.timedwait([&] { return atomic_load(&animation_ctx.ready); },
-                                    COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
   input_context_t& input = *animation_ctx._input;
+  // wait for input context (in animation start)
+  animation_ctx.init_cond.timedwait(
+      [&] { return atomic_load(&animation_ctx.ready) || !atomic_load(&input._capture_input_running); },
+      COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
 
   // sanity checks
   assert(input._config != BONGOCAT_NULLPTR);
   assert(input._configs_reloaded_cond != BONGOCAT_NULLPTR);
-  assert(!input._capture_input_running);
   assert(input.shm);
   assert(input._local_copy_config);
   assert(input.update_config_efd._fd >= 0);
@@ -1121,7 +1121,10 @@ static void *input_thread(void *arg) {
 
       // wait for reload config to be done (all configs)
       const int rc = input._configs_reloaded_cond->timedwait(
-          [&] { return atomic_load(input._config_generation) >= new_gen; }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+          [&] {
+            return atomic_load(input._config_generation) >= new_gen || !atomic_load(&input._capture_input_running);
+          },
+          COND_RELOAD_CONFIGS_TIMEOUT_MS);
       if (rc == ETIMEDOUT) {
         BONGOCAT_LOG_WARNING("input: Timed out waiting for reload eventfd: %s", strerror(errno));
       }
@@ -1258,8 +1261,10 @@ bongocat_error_t start(input_context_t& input, animation::animation_context_t& a
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring thread
+  atomic_store(&input._capture_input_running, true);
   const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&input._capture_input_running, false);
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
@@ -1275,7 +1280,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
   // Stop current monitoring
   if (input._input_thread) {
     BONGOCAT_LOG_DEBUG("Input monitoring thread");
-    atomic_store(&input._capture_input_running, false);
+    request_stop(input);
     // pthread_cancel(ctx->_input_thread);
     if (stop_thread_graceful_or_cancel(input._input_thread, input._capture_input_running) != 0) {
       BONGOCAT_LOG_ERROR("Failed to join input thread: %s", strerror(errno));
@@ -1350,8 +1355,10 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring
+  atomic_store(&input._capture_input_running, true);
   const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&input._capture_input_running, false);
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
@@ -1360,8 +1367,18 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-void stop(input_context_t& ctx) {
+void request_stop(input_context_t& ctx) {
   atomic_store(&ctx._capture_input_running, false);
+  wake_eventfd(ctx.update_config_efd._fd);
+  ctx.init_cond.notify_all();
+  ctx.config_updated.notify_all();
+  if (ctx._configs_reloaded_cond != BONGOCAT_NULLPTR) {
+    ctx._configs_reloaded_cond->notify_all();
+  }
+}
+
+void stop(input_context_t& ctx) {
+  request_stop(ctx);
   if (ctx._input_thread) {
     BONGOCAT_LOG_DEBUG("Stopping input thread");
     // pthread_cancel(ctx->_input_thread);

@@ -15,6 +15,8 @@ BONGOCAT_STUBS_BEGIN
 
 struct update_context_t;
 BONGOCAT_UPDATE_STUB_INLINE void stop(update_context_t& ctx) BONGOCAT_UPDATE_STUB;
+/// non-blocking: set stop flag and wake up the thread (join with stop())
+BONGOCAT_UPDATE_STUB_INLINE void request_stop(update_context_t& ctx) BONGOCAT_UPDATE_STUB;
 void cleanup(update_context_t& ctx);
 
 struct update_context_t {

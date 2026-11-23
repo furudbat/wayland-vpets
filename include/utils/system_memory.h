@@ -21,6 +21,10 @@ namespace bongocat::platform {
 int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms);
 int stop_thread_graceful_or_cancel(pthread_t& thread, atomic_bool& running_flag);
 
+void wake_eventfd(int efd) noexcept;
+bool sleep_or_wake(int wake_fd, time_ms_t timeout_ms) noexcept;
+bool sleep_until_or_wake(int wake_fd, const struct timespec& abs_time) noexcept;
+
 /// Drop the resident pages of a read-only, file-backed region (madvise MADV_DONTNEED).
 /// The pages are faulted back in from the page cache on the next access.
 /// [start, stop) must be page-aligned (see "Page alignment" linker script in CMakeLists.txt) and must NOT contain

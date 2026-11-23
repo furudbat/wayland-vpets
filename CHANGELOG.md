@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - **fix silence logs**
 - fix some sprite sheets
 - setgid install (experimental): the input group was dropped before the devices were opened
+- shutdown race condition
 
 ### Improved
 

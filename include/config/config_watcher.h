@@ -20,6 +20,7 @@ inline constexpr size_t INOTIFY_BUF_LEN = 16 * (INOTIFY_EVENT_SIZE + 16);
 struct config_watcher_t;
 // Stop watching for config changes
 void stop_watcher(config_watcher_t& watcher);
+void request_stop_watcher(config_watcher_t& watcher);
 
 // Cleanup config watcher resources
 void cleanup_watcher(config_watcher_t& watcher);
@@ -27,11 +28,13 @@ void cleanup_watcher(config_watcher_t& watcher);
 // Config watcher structure
 struct config_watcher_t {
   platform::FileDescriptor inotify_fd;
-  platform::FileDescriptor wd_file;
-  platform::FileDescriptor wd_dir;
+  // @NOTE: inotify watch descriptors are NOT file descriptors (never close() them, use inotify_rm_watch)
+  int wd_file{-1};
+  int wd_dir{-1};
   AllocatedString config_path{BONGOCAT_NULLPTR};
 
   platform::FileDescriptor reload_efd;
+  platform::FileDescriptor wake_efd;
 
   pthread_t _watcher_thread{0};
   atomic_bool _running{false};
@@ -50,17 +53,18 @@ inline void cleanup_watcher(config_watcher_t& watcher) {
   stop_watcher(watcher);
 
   // remove watches first (requires inotify fd still open)
-  if (watcher.inotify_fd._fd >= 0 && watcher.wd_file._fd >= 0) {
-    inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_file._fd);
-    watcher.wd_file._fd = -1;
+  if (watcher.inotify_fd._fd >= 0 && watcher.wd_file >= 0) {
+    inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_file);
+    watcher.wd_file = -1;
   }
-  if (watcher.inotify_fd._fd >= 0 && watcher.wd_dir._fd >= 0) {
-    inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_dir._fd);
-    watcher.wd_dir._fd = -1;
+  if (watcher.inotify_fd._fd >= 0 && watcher.wd_dir >= 0) {
+    inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_dir);
+    watcher.wd_dir = -1;
   }
 
   close_fd(watcher.inotify_fd);
   close_fd(watcher.reload_efd);
+  close_fd(watcher.wake_efd);
 
   release_allocated_string(watcher.config_path);
 }

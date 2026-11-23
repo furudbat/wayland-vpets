@@ -72,6 +72,7 @@ BONGOCAT_STUBS_BEGIN
 
 struct audio_context_t;
 BONGOCAT_AUDIO_STUB_INLINE void stop(audio_context_t& ctx) BONGOCAT_AUDIO_STUB;
+BONGOCAT_AUDIO_STUB_INLINE void request_stop(audio_context_t& ctx) BONGOCAT_AUDIO_STUB;
 void cleanup(audio_context_t& ctx);
 
 struct audio_context_t {

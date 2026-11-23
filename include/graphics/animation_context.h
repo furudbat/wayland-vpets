@@ -40,6 +40,14 @@ struct animation_context_t {
   animation_context_t(animation_context_t&& other) noexcept = delete;
   animation_context_t& operator=(animation_context_t&& other) noexcept = delete;
 };
+
+inline void request_stop(animation_context_t& anim_ctx) {
+  request_stop(anim_ctx.thread_context);
+  anim_ctx.init_cond.notify_all();
+  if (anim_ctx._configs_reloaded_cond != BONGOCAT_NULLPTR) {
+    anim_ctx._configs_reloaded_cond->notify_all();
+  }
+}
 inline void stop(animation_context_t& anim_ctx) {
   stop(anim_ctx.thread_context);
 

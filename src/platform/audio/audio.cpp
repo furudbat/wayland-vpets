@@ -572,16 +572,16 @@ static void *audio_thread(void *arg) {
   assert(arg != BONGOCAT_NULLPTR);
   animation::animation_context_t& animation_ctx = *static_cast<animation::animation_context_t *>(arg);
 
-  // wait for input context (in animation start)
-  animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
-                                    COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   assert(animation_ctx._audio != BONGOCAT_NULLPTR);
   audio_context_t& audio = *animation_ctx._audio;
+  // wait for input context (in animation start)
+  animation_ctx.init_cond.timedwait(
+      [&]() { return atomic_load(&animation_ctx.ready) || !atomic_load(&audio._running); },
+      COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
 
   // sanity checks
   assert(audio._config != BONGOCAT_NULLPTR);
   assert(audio._configs_reloaded_cond != BONGOCAT_NULLPTR);
-  assert(!audio._running);
   assert(audio.shm);
   assert(audio._local_copy_config);
 
@@ -997,7 +997,8 @@ static void *audio_thread(void *arg) {
 
       // wait for reload config to be done (all configs)
       const int rc = audio._configs_reloaded_cond->timedwait(
-          [&] { return atomic_load(audio._config_generation) >= new_gen; }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+          [&] { return atomic_load(audio._config_generation) >= new_gen || !atomic_load(&audio._running); },
+          COND_RELOAD_CONFIGS_TIMEOUT_MS);
       if (rc == ETIMEDOUT) {
         BONGOCAT_LOG_WARNING("audio: Timed out waiting for reload eventfd: %s", strerror(errno));
       }
@@ -1109,14 +1110,27 @@ bongocat_error_t start(audio_context_t& audio, animation::animation_context_t& a
   details::setup_stream(audio);
 
   // start audio thread
+  atomic_store(&audio._running, true);
   const int result = pthread_create(&audio._audio_thread, BONGOCAT_NULLPTR, audio_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&audio._running, false);
     BONGOCAT_LOG_ERROR("Failed to start audio thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
 
   BONGOCAT_LOG_INFO("Update monitoring started");
   return bongocat_error_t::BONGOCAT_SUCCESS;
+}
+
+void request_stop(audio_context_t& ctx) {
+  atomic_store(&ctx._running, false);
+  wake_eventfd(ctx.audio_config_efd._fd);
+  ctx.audio_cond.notify_all();
+  ctx.init_cond.notify_all();
+  ctx.config_updated.notify_all();
+  if (ctx._configs_reloaded_cond != BONGOCAT_NULLPTR) {
+    ctx._configs_reloaded_cond->notify_all();
+  }
 }
 
 bongocat_error_t restart(audio_context_t& audio, animation::animation_context_t& animation_ctx,
@@ -1126,7 +1140,7 @@ bongocat_error_t restart(audio_context_t& audio, animation::animation_context_t&
   // Stop current monitoring
   if (audio._audio_thread) {
     BONGOCAT_LOG_DEBUG("Audio thread");
-    atomic_store(&audio._running, false);
+    request_stop(audio);
     // pthread_cancel(ctx->_audio_thread);
     if (stop_thread_graceful_or_cancel(audio._audio_thread, audio._running) != 0) {
       BONGOCAT_LOG_ERROR("Failed to join audio thread: %s", strerror(errno));
@@ -1195,8 +1209,10 @@ bongocat_error_t restart(audio_context_t& audio, animation::animation_context_t&
   audio._configs_reloaded_cond->notify_all();
 
   // start audio monitoring
+  atomic_store(&audio._running, true);
   const int result = pthread_create(&audio._audio_thread, BONGOCAT_NULLPTR, audio_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&audio._running, false);
     BONGOCAT_LOG_ERROR("Failed to start audio thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
@@ -1206,7 +1222,7 @@ bongocat_error_t restart(audio_context_t& audio, animation::animation_context_t&
 }
 
 void stop(audio_context_t& ctx) {
-  atomic_store(&ctx._running, false);
+  request_stop(ctx);
   if (ctx._audio_thread) {
     BONGOCAT_LOG_DEBUG("Stopping audio thread");
     // pthread_cancel(ctx->_update_thread);

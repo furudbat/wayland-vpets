@@ -53,6 +53,16 @@ echo "--- Test 23 ---"
 ./scripts/tests/test_bongocat_23.sh
 echo "--- Test 24 ---"
 ./scripts/tests/test_bongocat_24.sh
+echo "--- Test 25 ---"
+./scripts/tests/test_bongocat_25.sh
+echo "--- Test 26 ---"
+./scripts/tests/test_bongocat_26.sh
+echo "--- Test 27 ---"
+./scripts/tests/test_bongocat_27.sh
+echo "--- Test 28 ---"
+./scripts/tests/test_bongocat_28.sh
+echo "--- Test 29 ---"
+./scripts/tests/test_bongocat_29.sh
 echo "--- Test 30 ---"
 ./scripts/tests/test_bongocat_30.sh
 

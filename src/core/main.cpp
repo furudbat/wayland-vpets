@@ -77,6 +77,7 @@ struct main_context_t {
   platform::Mutex sync_configs;
 
   AllocatedString pid_filename{BONGOCAT_NULLPTR};
+  platform::FileDescriptor pid_fd;
 
   struct timespec program_start_time;
 
@@ -91,22 +92,29 @@ struct main_context_t {
 };
 inline void stop_threads(main_context_t& context) {
   context.running = 0;
-  // stop threads
+  // request stop for all threads first (non-blocking): set flags and wake up every blocking wait,
+  // so the threads shut down in parallel and don't depend on any timeout
   if (context.animation != BONGOCAT_NULLPTR) {
-    atomic_store(&context.animation->thread_context._animation_running, false);
+    assert(context.animation);
+    animation::request_stop(*context.animation);
   }
   if (context.input != BONGOCAT_NULLPTR) {
-    atomic_store(&context.input->_capture_input_running, false);
+    assert(context.input);
+    platform::input::request_stop(*context.input);
   }
   if (context.update != BONGOCAT_NULLPTR) {
-    atomic_store(&context.update->_running, false);
+    assert(context.update);
+    platform::update::request_stop(*context.update);
   }
   if (context.audio != BONGOCAT_NULLPTR) {
-    atomic_store(&context.audio->_running, false);
+    assert(context.audio);
+    platform::audio::request_stop(*context.audio);
   }
   if (context.config_watcher != BONGOCAT_NULLPTR) {
-    atomic_store(&context.config_watcher->_running, false);
+    assert(context.config_watcher);
+    config::request_stop_watcher(*context.config_watcher);
   }
+  context.configs_reloaded_cond.notify_all();
 
   // wait for threads
   if (context.animation != BONGOCAT_NULLPTR) {
@@ -238,6 +246,8 @@ struct cli_args_t {
 // =============================================================================
 
 static constexpr size_t PID_STR_BUF = 64;
+static constexpr long PID_LOCK_RETRY_MS = 100;
+static constexpr int PID_LOCK_MAX_ATTEMPTS = 30;
 
 /*
 inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
@@ -251,33 +261,69 @@ static constexpr auto PID_FILE_WITH_SUFFIX_PATH_TEMPLATE = "%s/bongocat-%s.pid";
 static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_PATH_TEMPLATE = "%s/bongocat-%s.%" PRIu32 ".pid";
 static constexpr auto PID_FILE_WITH_SUFFIX_NR_PATH_TEMPLATE = "%s/bongocat-%" PRId64 ".pid";
 
-static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
+// static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
 
-static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
-  platform::FileDescriptor fd =
-      platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC | O_NOFOLLOW, 0600));
-  if (fd._fd < 0) {
-    BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
-    return platform::FileDescriptor(-1);
-  }
-
-  if (flock(fd._fd, LOCK_EX | LOCK_NB) < 0) {
-    if (errno == EWOULDBLOCK) {
-      BONGOCAT_LOG_INFO("Another instance is already running");
-      return platform::FileDescriptor(-2);  // Already running
+static created_result_t<platform::FileDescriptor> process_create_pid_file(const char *pid_filename) {
+  platform::FileDescriptor fd;
+  // the previous instance might still be shutting down (restart)
+  bool waiting_logged = false;
+  bool already_running = false;
+  for (int attempt = 0; attempt <= PID_LOCK_MAX_ATTEMPTS; attempt++) {
+    if (fd._fd < 0) {
+      fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_NOFOLLOW | O_CLOEXEC, 0600));
+      if (fd._fd < 0) {
+        BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
+        return bongocat_error_t::BONGOCAT_ERROR_PID;
+      }
     }
-    BONGOCAT_LOG_ERROR("Failed to lock PID file: %s", strerror(errno));
-    return platform::FileDescriptor(-1);
+
+    if (flock(fd._fd, LOCK_EX | LOCK_NB) == 0) {
+      // make sure we locked the file that is (still) at the path
+      struct stat fd_st{};
+      struct stat path_st{};
+      if (fstat(fd._fd, &fd_st) == 0 && stat(pid_filename, &path_st) == 0 && fd_st.st_dev == path_st.st_dev &&
+          fd_st.st_ino == path_st.st_ino) {
+        break;
+      }
+      platform::close_fd(fd);
+      continue;
+    }
+    if (errno == EINTR) {
+      continue;
+    }
+    if (errno != EWOULDBLOCK) {
+      BONGOCAT_LOG_ERROR("Failed to lock PID file: %s", strerror(errno));
+      return bongocat_error_t::BONGOCAT_ERROR_PID;
+    }
+    if (attempt >= PID_LOCK_MAX_ATTEMPTS) {
+      already_running = true;
+      break;
+    }
+    if (!waiting_logged) {
+      BONGOCAT_LOG_INFO("PID file is locked, waiting for previous instance to exit...");
+      waiting_logged = true;
+    }
+    timespec ts = {.tv_sec = 0, .tv_nsec = 1000000L * PID_LOCK_RETRY_MS};
+    nanosleep(&ts, BONGOCAT_NULLPTR);
+  }
+  if (already_running) {
+    BONGOCAT_LOG_INFO("Another instance is already running");
+    return bongocat_error_t::BONGOCAT_ERROR_PID_ALREADY_RUNNING;
+  }
+  // truncate only after acquiring the lock, otherwise a second instance would wipe the PID of the running one
+  if (ftruncate(fd._fd, 0) < 0) {
+    BONGOCAT_LOG_ERROR("Failed to truncate PID file: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_PID;
   }
 
   char pid_str[PID_STR_BUF] = {};
   snprintf(pid_str, sizeof(pid_str), "%d\n", getpid());
   if (write(fd._fd, pid_str, strlen(pid_str)) < 0) {
     BONGOCAT_LOG_ERROR("Failed to write PID to file: %s", strerror(errno));
-    return platform::FileDescriptor(-1);
+    return bongocat_error_t::BONGOCAT_ERROR_PID;
   }
 
-  return fd;  // Keep file descriptor open to maintain lock
+  return fd;
 }
 
 static void process_remove_pid_file(const char *pid_filename) {
@@ -997,6 +1043,7 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   stop_threads(ctx);
 
   BONGOCAT_LOG_INFO("Performing cleanup...");
+  platform::close_fd(ctx.pid_fd);
   process_remove_pid_file(ctx.pid_filename.c_str());
   // clean up context before global cleanup (log mutex, etc.)
   cleanup(ctx);
@@ -1350,17 +1397,17 @@ int main(int argc, char *argv[]) {
   BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
 
   // Create PID file to track this instance
-  const platform::FileDescriptor pid_fd = process_create_pid_file(ctx.pid_filename.c_str());
-  if (pid_fd._fd < 0) {
+  auto result_pid_fd = process_create_pid_file(ctx.pid_filename.c_str());
+  if (result_pid_fd.error == bongocat_error_t::BONGOCAT_ERROR_PID_ALREADY_RUNNING) {
+    BONGOCAT_LOG_ERROR("Another instance of bongocat is already running: %s", ctx.pid_filename.c_str());
+    return EXIT_FAILURE;
+  }
+  if (result_pid_fd.error != bongocat_error_t::BONGOCAT_SUCCESS) {
     BONGOCAT_LOG_ERROR("Failed to create PID file: %s", ctx.pid_filename.c_str());
     return EXIT_FAILURE;
   }
-  if (!args.ignore_running) {
-    if (pid_fd._fd == -2) {
-      BONGOCAT_LOG_ERROR("Another instance of bongocat is already running: %s", ctx.pid_filename.c_str());
-      return EXIT_FAILURE;
-    }
-  }
+  ctx.pid_fd = bongocat::move(result_pid_fd.result);
+  result_pid_fd.result._fd = -1;
   BONGOCAT_LOG_INFO("PID file created: %s", ctx.pid_filename.c_str());
   BONGOCAT_LOG_INFO("bongocat PID: %d", getpid());
 

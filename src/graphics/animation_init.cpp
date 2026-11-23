@@ -1023,8 +1023,14 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
   return ret;
 }
 
-void stop(animation_thread_context_t& ctx) {
+void request_stop(animation_thread_context_t& ctx) {
   atomic_store(&ctx._animation_running, false);
+  platform::wake_eventfd(ctx.update_config_efd._fd);
+  ctx.config_updated.notify_all();
+}
+
+void stop(animation_thread_context_t& ctx) {
+  request_stop(ctx);
   if (ctx._anim_thread) {
     BONGOCAT_LOG_DEBUG("Stopping animation thread");
     // Wait for thread to finish gracefully

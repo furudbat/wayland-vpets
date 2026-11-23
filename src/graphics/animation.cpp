@@ -6921,9 +6921,7 @@ static void *anim_thread(void *arg) {
         ctx._state.time_until_next_frame_ms =
             static_cast<platform::time_ms_t>((sec_diff * 1000L) + ((nsec_diff + 999999LL) / 1000000LL));
 
-        if (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_frame_time, BONGOCAT_NULLPTR) != 0) {
-          // Interrupted, just continue
-        }
+        platform::sleep_until_or_wake(ctx.update_config_efd._fd, next_frame_time);
       }
 
       // Update variables from config in case FPS changed
@@ -6942,7 +6940,11 @@ static void *anim_thread(void *arg) {
 
       // wait for reload config to be done (all configs)
       const int rc = trigger_ctx._configs_reloaded_cond->timedwait(
-          [&] { return atomic_load(trigger_ctx._config_generation) >= new_gen; }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+          [&] {
+            return atomic_load(trigger_ctx._config_generation) >= new_gen ||
+                   !atomic_load(&trigger_ctx.thread_context._animation_running);
+          },
+          COND_RELOAD_CONFIGS_TIMEOUT_MS);
       if (rc == ETIMEDOUT) {
         BONGOCAT_LOG_WARNING("animation: Timed out waiting for reload eventfd: %s", strerror(errno));
       }
@@ -7028,9 +7030,11 @@ bongocat_error_t start(animation_context_t& animation_ctx, platform::input::inpu
 
   BONGOCAT_LOG_INFO("Starting animation thread");
   // start animation thread
+  atomic_store(&animation_ctx.thread_context._animation_running, true);
   const int result =
       pthread_create(&animation_ctx.thread_context._anim_thread, BONGOCAT_NULLPTR, anim_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&animation_ctx.thread_context._animation_running, false);
     BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
