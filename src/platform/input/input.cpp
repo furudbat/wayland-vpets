@@ -416,6 +416,18 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
   };
 }
 
+// number of configured device paths that currently exist (symlinks are followed, broken symlinks don't count)
+// noinline: called inside the input thread loop (pthread_cleanup_push uses setjmp, -Wclobbered)
+[[gnu::noinline]] static size_t count_existing_device_paths(const input_context_t& input) {
+  size_t existing = 0;
+  for (size_t i = 0; i < input._device_paths.count; i++) {
+    if (input._device_paths[i] && access(input._device_paths[i].c_str(), F_OK) == 0) {
+      existing++;
+    }
+  }
+  return existing;
+}
+
 static bongocat_error_t setup_udev_monitor(input_context_t& input) {
   if (input._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(input._udev_mon);
@@ -521,6 +533,8 @@ static void *input_thread(void *arg) {
                       static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
     track_valid_devices = sync_devices_result.valid_devices;
   }
+  // configured paths that existed at the last sync (detect devices that appear later, without udev)
+  size_t track_existing_paths = count_existing_device_paths(input);
 
   // udev monitoring
   {
@@ -818,8 +832,12 @@ static void *input_thread(void *arg) {
           }
         }
 
-        // fallback for missed udev events (or no udev monitor): configured devices that are (still) missing
-        if (track_valid_devices < input._device_paths.count) {
+        // fallback for missed udev events (or no udev monitor): sync only when a missing configured path appeared
+        // (several paths can point to the same device, so valid devices < configured paths is normal)
+        const size_t existing_paths = count_existing_device_paths(input);
+        const bool path_appeared = existing_paths > track_existing_paths;
+        track_existing_paths = existing_paths;
+        if (path_appeared) {
           platform::LockGuard guard(input.input_lock);
           auto [sync_devices_result, sync_result] = sync_devices(input, {.reload_devices_needed = true});
           if (sync_result == bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE) {
@@ -1109,6 +1127,7 @@ static void *input_thread(void *arg) {
         }
       }
       track_valid_devices = sync_devices_result.valid_devices;
+      track_existing_paths = count_existing_device_paths(input);
     }
 
     // handle update config
