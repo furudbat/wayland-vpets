@@ -247,6 +247,7 @@ static double compute_max_cpu_usage(const cpu_snapshot_t& prev, const cpu_snapsh
 }
 
 static void *update_thread(void *arg) {
+  pthread_setname_np(pthread_self(), THREAD_NAME_UPDATE);
   assert(arg);
   animation::animation_context_t& animation_ctx = *static_cast<animation::animation_context_t *>(arg);
 
@@ -298,7 +299,7 @@ static void *update_thread(void *arg) {
         current_config.evolution != config::evolution_time_mode_t::NONE && current_config.evolution_speed_factor > 0.0;
   }
 
-  atomic_store(&upd._running, true);
+  assert(atomic_load(&upd._running));  // thread started, so it should be running
   while (atomic_load(&upd._running)) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
@@ -544,6 +545,13 @@ static void *update_thread(void *arg) {
       BONGOCAT_LOG_INFO("update: Update config reloaded (gen=%u)", new_gen);
     }
 
+    // not needed (anymore): no evolution and no cpu monitoring; restarted by main when re-enabled (reload)
+    if (!feature_evolution && (cpu_update_rate_ms <= 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT)) {
+      atomic_store(&upd._running, false);
+      BONGOCAT_LOG_INFO("update: Stop update thread, not needed");
+      break;
+    }
+
     if (cpu_update_rate_ms > 0) {
       // sleep
       timespec ts;
@@ -570,11 +578,6 @@ static void *update_thread(void *arg) {
         update_shm.cpu_active = false;
       }
     } else {
-      if (!feature_evolution && (cpu_update_rate_ms == 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT)) {
-        atomic_store(&upd._running, false);
-        BONGOCAT_LOG_WARNING("update: Stop update thread, not needed");
-      }
-
       // fallback sleep
       timespec ts;
       ts.tv_sec = 0;

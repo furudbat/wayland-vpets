@@ -53,6 +53,7 @@ static bongocat_error_t config_watcher_add_watch(config_watcher_t& watcher) {
 }
 
 static void *config_watcher_thread(void *arg) {
+  pthread_setname_np(pthread_self(), platform::THREAD_NAME_CONFIG_WATCHER);
   assert(arg);
   auto& watcher = *static_cast<config_watcher_t *>(arg);
 
@@ -66,15 +67,22 @@ static void *config_watcher_thread(void *arg) {
       {.fd = watcher.inotify_fd._fd, .events = POLLIN, .revents = 0},
       {.fd = watcher.wake_efd._fd,   .events = POLLIN, .revents = 0},
   };
-  constexpr int timeout_ms = TIMEOUT_MS;
+  bool reload_pending = false;
 
   BONGOCAT_LOG_INFO("config_watcher: Config watcher started for: %s", watcher.config_path.c_str());
 
-  atomic_store(&watcher._running, true);
+  assert(atomic_load(&watcher._running));  // thread started, so it should be running
   while (atomic_load(&watcher._running)) {
     // inotify fd can be re-created (config_watcher_add_watch)
     fds[fds_inotify_index].fd = watcher.inotify_fd._fd;
     fds[fds_wake_index].fd = watcher.wake_efd._fd;
+    int timeout_ms = -1;
+    if (reload_pending) {
+      const platform::timestamp_ms_t since_reload = platform::get_current_time_ms() - last_reload_timestamp;
+      assert(RELOAD_DEBOUNCE_MS <= INT_MAX);
+      assert(since_reload <= INT_MAX);
+      timeout_ms = since_reload >= RELOAD_DEBOUNCE_MS ? 0 : static_cast<int>(RELOAD_DEBOUNCE_MS - since_reload);
+    }
     const int ret = poll(fds, fds_count, timeout_ms);
     if (ret < 0) {
       if (errno == EINTR) {
@@ -219,22 +227,24 @@ static void *config_watcher_thread(void *arg) {
         }
       }
 
-      // Debounce reloads
-      if (should_reload && atomic_load(&watcher._running)) {
-        // Debounce: only reload if at least some time have passed since last reload
-        const platform::timestamp_ms_t now = platform::get_current_time_ms();
-        if (now - last_reload_timestamp >= RELOAD_DEBOUNCE_MS) {
-          // Small delay to ensure file write is complete
-          platform::sleep_or_wake(watcher.wake_efd._fd, RELOAD_DELAY_MS);
-          last_reload_timestamp = now;
+      reload_pending |= should_reload;
+    }
 
-          BONGOCAT_LOG_INFO("config_watcher: Config file changed, trigger reload");
-          uint64_t u = 1;
-          if (write(watcher.reload_efd._fd, &u, sizeof(uint64_t)) >= 0) {
-            BONGOCAT_LOG_DEBUG("config_watcher: Write reload event in watcher");
-          } else {
-            BONGOCAT_LOG_ERROR("config_watcher: Failed to write to notify pipe in watcher: %s", strerror(errno));
-          }
+    // Debounce reloads
+    if (reload_pending && atomic_load(&watcher._running)) {
+      const platform::timestamp_ms_t now = platform::get_current_time_ms();
+      if (now - last_reload_timestamp >= RELOAD_DEBOUNCE_MS) {
+        // Small delay to ensure file write is complete
+        platform::sleep_or_wake(watcher.wake_efd._fd, RELOAD_DELAY_MS);
+        last_reload_timestamp = now;
+        reload_pending = false;
+
+        BONGOCAT_LOG_INFO("config_watcher: Config file changed, trigger reload");
+        uint64_t u = 1;
+        if (write(watcher.reload_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+          BONGOCAT_LOG_DEBUG("config_watcher: Write reload event in watcher");
+        } else {
+          BONGOCAT_LOG_ERROR("config_watcher: Failed to write to notify pipe in watcher: %s", strerror(errno));
         }
       }
     }

@@ -13,8 +13,8 @@ MAX_SHUTDOWN_MS=1000
 WRITES=30
 
 WORKDIR=$(mktemp -d)
-CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
-OG_CONFIG=./examples/test/test.bongocat.conf
+CONFIG="$WORKDIR/test6.bongocat.conf"  # config file to modify
+OG_CONFIG=./examples/test/test6.bongocat.conf
 cp $OG_CONFIG $CONFIG
 sed -i -E 's/^update_rate=.*/update_rate=5000/' "$CONFIG"
 sed -i -E 's/^cpu_threshold=.*/cpu_threshold=50/' "$CONFIG"
@@ -63,6 +63,7 @@ stop_and_check() {
     fi
     ((END - START <= MAX_SHUTDOWN_MS)) || fail "$1: shutdown too slow ($((END - START))ms)"
     ! grep -q "Thread did not exit in time" "$WORKDIR/$1.log" || fail "$1: thread had to be cancelled"
+    ! grep -q "did not acknowledge config gen\|Timed out waiting for reload" "$WORKDIR/$1.log" || fail "$1: reload not acknowledged in time"
     [[ ! -e "$PID_FILE" ]] || fail "$1: PID file not removed"
 }
 

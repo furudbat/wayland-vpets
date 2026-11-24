@@ -10,8 +10,11 @@
 
 #include <cassert>
 #include <cerrno>
+#include <csignal>
 #include <cstdlib>
+#include <fcntl.h>
 #include <pthread.h>
+#include <spawn.h>
 #include <sys/mman.h>
 #include <sys/signalfd.h>
 #include <sys/time.h>
@@ -634,7 +637,8 @@ spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, con
   int pipefd[2] = {-1, -1};
   spawn_pipe_t result;
 
-  if (pipe(pipefd) != 0) {
+  // CLOEXEC: don't leak the pipe into other children (dup2 in the child clears the flag on stdout)
+  if (pipe2(pipefd, O_CLOEXEC) != 0) {
     return result;
   }
 
@@ -645,25 +649,39 @@ spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, con
   posix_spawn_file_actions_adddup2(&actions, pipefd[1], STDOUT_FILENO);
 
   // Redirect stderr -> /dev/null
-  int devnull_fd = open("/dev/null", O_WRONLY);
+  int devnull_fd = open("/dev/null", O_WRONLY | O_CLOEXEC);
   if (devnull_fd >= 0) {
     posix_spawn_file_actions_adddup2(&actions, devnull_fd, STDERR_FILENO);
   }
 
   posix_spawn_file_actions_addclose(&actions, pipefd[0]);
 
+  // child must not inherit our blocked signals (signalfd) or ignored SIGPIPE: reset mask and dispositions
+  posix_spawnattr_t attr;
+  posix_spawnattr_init(&attr);
+  sigset_t empty_mask;
+  sigemptyset(&empty_mask);
+  posix_spawnattr_setsigmask(&attr, &empty_mask);
+  sigset_t default_signals;
+  sigfillset(&default_signals);
+  posix_spawnattr_setsigdefault(&attr, &default_signals);
+  posix_spawnattr_setflags(&attr, POSIX_SPAWN_SETSIGMASK | POSIX_SPAWN_SETSIGDEF);
+
   pid_t pid{-1};
   // @NOTE: safe-const cast for argv
-  if (posix_spawn(&pid, path, &actions, BONGOCAT_NULLPTR, const_cast<char *const *>(argv), ctx._environ) != 0) {
+  const int spawn_result = posix_spawn(&pid, path, &actions, &attr, const_cast<char *const *>(argv), ctx._environ);
+  posix_spawnattr_destroy(&attr);
+  posix_spawn_file_actions_destroy(&actions);
+  if (devnull_fd >= 0) {
+    close(devnull_fd);
+    devnull_fd = -1;
+  }
+  if (spawn_result != 0) {
     close(pipefd[0]);
     close(pipefd[1]);
-    // pipefd[0] = -1;
-    // pipefd[1] = -1;
-    posix_spawn_file_actions_destroy(&actions);
     return result;
   }
 
-  posix_spawn_file_actions_destroy(&actions);
   close(pipefd[1]);
   // pipefd[1] = -1;
 

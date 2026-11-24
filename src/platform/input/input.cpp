@@ -450,6 +450,7 @@ static bongocat_error_t setup_udev_monitor(input_context_t& input) {
 }
 
 static void *input_thread(void *arg) {
+  pthread_setname_np(pthread_self(), THREAD_NAME_INPUT);
   assert(arg);
   animation::animation_context_t& animation_ctx = *static_cast<animation::animation_context_t *>(arg);
 
@@ -537,7 +538,8 @@ static void *input_thread(void *arg) {
   pthread_cleanup_push(cleanup_input_thread, arg);
 
   // local thread context
-  int check_counter = 0;  // check is done periodically
+  // device (re-)check is done periodically (fallback for hotplug), poll sleeps until then (no busy idle)
+  timestamp_ms_t next_device_check_timestamp_ms = get_current_time_ms() + adaptive_check_interval_ms;
   /// event poll
   // 0:       reload config event
   // 1:       udev monitor fd
@@ -554,12 +556,11 @@ static void *input_thread(void *arg) {
     BONGOCAT_LOG_INFO("input: Open stdin for testing (fd=%d)", tty_fd._fd);
   }
 
-  atomic_store(&input._capture_input_running, true);
+  assert(atomic_load(&input._capture_input_running));  // thread started, so it should be running
   while (atomic_load(&input._capture_input_running)) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
     // read from config
-    int timeout_ms = INPUT_POOL_TIMEOUT_MS;
     bool enable_debug = false;
     {
       // read-only config
@@ -567,11 +568,14 @@ static void *input_thread(void *arg) {
       const config::config_t& current_config = *input._local_copy_config;
 
       enable_debug = current_config.enable_debug >= 1;
-
-      if (current_config.input_fps > 0) {
-        timeout_ms = 1000 / current_config.input_fps;
-      } else if (current_config.fps > 0) {
-        timeout_ms = 1000 / current_config.fps / 3;
+    }
+    // wake up on events (input, udev, config) or for the next device check
+    int timeout_ms = 0;
+    {
+      const timestamp_ms_t now = get_current_time_ms();
+      if (next_device_check_timestamp_ms > now) {
+        const time_ms_t remaining_ms = next_device_check_timestamp_ms - now;
+        timeout_ms = remaining_ms < INT_MAX ? static_cast<int>(remaining_ms) : INT_MAX;
       }
     }
 
@@ -611,8 +615,8 @@ static void *input_thread(void *arg) {
         fds_stdin_index = 1;
       }
     }
-    if (device_nfds == 0 && !include_stdin) {
-      BONGOCAT_LOG_WARNING("input: No Input devices ");
+    if (device_nfds == 0 && !include_stdin && input._device_paths.count == 0) {
+      BONGOCAT_LOG_WARNING("input: No Input devices configured");
       break;
     } else if (device_nfds > MAX_DEVICE_FDS) {
       device_nfds = MAX_DEVICE_FDS;
@@ -762,9 +766,7 @@ static void *input_thread(void *arg) {
     details::privilege_result_t input_privilege_result{details::privilege_result_t::Noop};
     if (poll_result == 0) {
       // @TODO: device checking with scan_interval
-      check_counter++;
-      if (timeout_ms == 0 || check_counter >= (adaptive_check_interval_ms / timeout_ms)) {
-        check_counter = 0;
+      if (get_current_time_ms() >= next_device_check_timestamp_ms) {
         bool found_new_device = false;
         for (size_t i = 0; i < input._unique_devices.count; i++) {
           const auto& device_path = input._unique_devices[i].canonical_path;
@@ -837,6 +839,7 @@ static void *input_thread(void *arg) {
             BONGOCAT_LOG_DEBUG("input: Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
           }
         }
+        next_device_check_timestamp_ms = get_current_time_ms() + adaptive_check_interval_ms;
       }
       continue;
     }

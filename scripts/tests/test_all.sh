@@ -63,8 +63,31 @@ echo "--- Test 28 ---"
 ./scripts/tests/test_bongocat_28.sh
 echo "--- Test 29 ---"
 ./scripts/tests/test_bongocat_29.sh
-echo "--- Test 30 ---"
-./scripts/tests/test_bongocat_30.sh
+echo "--- Test 31 ---"
+./scripts/tests/test_bongocat_31.sh
+echo "--- Test 32 ---"
+./scripts/tests/test_bongocat_32.sh
+echo "--- Test 33 ---"
+./scripts/tests/test_bongocat_33.sh
+echo "--- Test 34 ---"
+./scripts/tests/test_bongocat_34.sh
+echo "--- Test 35 ---"
+./scripts/tests/test_bongocat_35.sh
+echo "--- Test 36 ---"
+./scripts/tests/test_bongocat_36.sh
+echo "--- Test 37 ---"
+./scripts/tests/test_bongocat_37.sh
+echo "--- Test 38 ---"
+./scripts/tests/test_bongocat_38.sh
+echo "--- Test 41 ---"
+./scripts/tests/test_bongocat_41.sh
+echo "--- Test 42 ---"
+./scripts/tests/test_bongocat_42.sh
+echo "--- Test 46 ---"
+./scripts/tests/test_bongocat_46.sh
+
+echo "--- Test 99 ---"
+./scripts/tests/test_bongocat_99.sh
 
 echo "--- Integration Test done ---"
 

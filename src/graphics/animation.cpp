@@ -6548,6 +6548,7 @@ static void cleanup_anim_thread(void *arg) {
 }
 
 static void *anim_thread(void *arg) {
+  pthread_setname_np(pthread_self(), platform::THREAD_NAME_ANIMATION);
   using namespace assets;
 
   assert(arg);
@@ -6716,7 +6717,6 @@ static void *anim_thread(void *arg) {
   timespec next_frame_time{};
   clock_gettime(CLOCK_MONOTONIC, &next_frame_time);
 
-  atomic_store(&trigger_ctx.thread_context._animation_running, true);
   while (atomic_load(&trigger_ctx.thread_context._animation_running)) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
@@ -6739,7 +6739,7 @@ static void *anim_thread(void *arg) {
     int any_key_press_counter = 0;
 
     bool reload_config = false;
-    uint64_t new_gen{atomic_load(trigger_ctx._config_generation)};
+    uint64_t new_gen{0};
     bool reload_animation = false;
 
     /// event poll
@@ -6776,6 +6776,7 @@ static void *anim_thread(void *arg) {
       if (fds[fds_update_config_index].revents & POLLIN) {
         BONGOCAT_LOG_DEBUG("animation: Receive update config event");
         platform::drain_event(fds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
+        new_gen = atomic_load(trigger_ctx._config_generation);
         reload_config = new_gen > 0;
       }
 
@@ -6959,6 +6960,7 @@ static void *anim_thread(void *arg) {
       }
       // assert(atomic_load(&trigger_ctx.anim.config_seen_generation) >= atomic_load(trigger_ctx._config_generation));
       atomic_store(&trigger_ctx.thread_context.config_seen_generation, atomic_load(trigger_ctx._config_generation));
+      trigger_ctx.thread_context.config_updated.notify_all();
       BONGOCAT_LOG_INFO("animation: Animation config reloaded (gen=%u)", new_gen);
       reload_config = false;
     }
