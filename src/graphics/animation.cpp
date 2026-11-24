@@ -1400,7 +1400,8 @@ anim_bongocat_key_pressed_next_frame(animation_thread_context_t& ctx, animation_
                                       current_state, current_frames);
       ctx.shm->last_wakeup_timestamp = platform::get_current_time_ms();
       new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
-    } else if (state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
+    } else if (state.row_state == animation_state_row_t::Idle || state.row_state == animation_state_row_t::Boring ||
+               conditions.is_moving) {
       // start writing
       anim_bongocat_restart_animation(ctx, input, animation_state_row_t::StartWriting, new_animation_result, new_state,
                                       current_state, current_frames);
@@ -2408,11 +2409,13 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx,
 
   /// @TODO: use state machine for animation (states)
 
-  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle)) {
+  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle ||
+                     current_state.row_state == animation_state_row_t::Boring)) {
     // show happy animation (KPM)
     anim_dm_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
                               current_frames, current_config);
-  } else if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle) {
+  } else if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle ||
+             current_state.row_state == animation_state_row_t::Boring) {
     const bool end_writing = !conditions.release_frame_after_press && conditions.is_writing;
     // in Writing mode/start writing
     if (!conditions.is_writing || conditions.is_moving) {
@@ -3431,14 +3434,16 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
     }
   }
 
-  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle)) {
+  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle ||
+                     current_state.row_state == animation_state_row_t::Boring)) {
     // show happy animation (KPM)
     anim_pkmn_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
                               current_frames, current_config);
   } else
   */
 
-  if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle) {
+  if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle ||
+      current_state.row_state == animation_state_row_t::Boring) {
     const bool end_writing = !conditions.release_frame_after_press && conditions.is_writing;
     // in Writing mode/start writing
     if (!conditions.is_writing || conditions.is_moving) {
@@ -5453,6 +5458,7 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
     // end happy animation in idle
     break;
   case animation_state_row_t::Test:
+  case animation_state_row_t::Boring:
   case animation_state_row_t::Idle:
     if (current_frames.feature_writing_happy && show_happy) {
       // show happy animation (KPM)
@@ -5532,9 +5538,6 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
     }
     break;
   case animation_state_row_t::WakeUp:
-    // process animation in anim_custom_idle_next_frame
-    break;
-  case animation_state_row_t::Boring:
     // process animation in anim_custom_idle_next_frame
     break;
   case animation_state_row_t::StartWorking:

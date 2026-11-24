@@ -578,7 +578,8 @@ inline static int merge_wait_result(int a, int b) {
 
 /// wait for thread to acknowledge config generation; log when a (running) thread doesn't
 template <typename Predicate>
-static int wait_config_ack([[maybe_unused]] const char *name, platform::CondVariable& cond, Predicate&& pred, [[maybe_unused]] uint64_t new_gen) {
+static int wait_config_ack([[maybe_unused]] const char *name, platform::CondVariable& cond, Predicate&& pred,
+                           [[maybe_unused]] uint64_t new_gen) {
   const int rc = timedwait_or_shutdown(cond, pred, COND_RELOAD_CONFIG_TIMEOUT_MS);
   if (rc == ETIMEDOUT) {
     BONGOCAT_LOG_WARNING("Reload: %s thread did not acknowledge config gen %lu in time (%dms)", name,

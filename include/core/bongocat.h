@@ -116,7 +116,7 @@ namespace platform {
   inline constexpr const char THREAD_NAME_INPUT[] = "bc-input";
   inline constexpr const char THREAD_NAME_UPDATE[] = "bc-update";
   inline constexpr const char THREAD_NAME_CONFIG_WATCHER[] = "bc-watch";
-  //inline constexpr const char THREAD_NAME_WAYLAND[] = "bc-wayland";
+  // inline constexpr const char THREAD_NAME_WAYLAND[] = "bc-wayland";
 
   // max. 15 chars, see /proc/PID/task/*/comm
   static_assert(LEN_ARRAY(THREAD_NAME_ANIMATION) < 15);
@@ -124,7 +124,7 @@ namespace platform {
   static_assert(LEN_ARRAY(THREAD_NAME_INPUT) < 15);
   static_assert(LEN_ARRAY(THREAD_NAME_UPDATE) < 15);
   static_assert(LEN_ARRAY(THREAD_NAME_CONFIG_WATCHER) < 15);
-  //static_assert(LEN_ARRAY(THREAD_NAME_WAYLAND) < 15);
+  // static_assert(LEN_ARRAY(THREAD_NAME_WAYLAND) < 15);
 }  // namespace platform
 
 template <typename Enum>
