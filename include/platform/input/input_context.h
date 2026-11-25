@@ -74,6 +74,7 @@ inline void cleanup(input_unique_file_t& file) {
 
 struct input_context_t;
 BONGOCAT_INPUT_STUB_INLINE void stop(input_context_t& ctx) BONGOCAT_INPUT_STUB;
+BONGOCAT_INPUT_STUB_INLINE void request_stop(input_context_t& ctx) BONGOCAT_INPUT_STUB;
 // Cleanup input monitoring resources
 void cleanup(input_context_t& ctx);
 

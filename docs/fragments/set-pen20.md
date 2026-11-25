@@ -39,6 +39,7 @@ Digimon Pendulum Ver.20th
 - Cherubimon
 - Chibimon
 - Chicomon
+- Chocomon
 - Choromon
 - Clockmon
 - Cocomon

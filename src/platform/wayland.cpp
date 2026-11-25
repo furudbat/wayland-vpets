@@ -37,6 +37,8 @@ namespace bongocat::platform::wayland {
 // =============================================================================
 
 static constexpr time_ms_t CHECK_INTERVAL_MS = 100;
+// fullscreen state comes via toplevel protocol events, periodic check is only a safety net
+static constexpr time_ms_t PROTOCOL_CHECK_INTERVAL_MS = 1000;
 static constexpr time_ms_t POOL_MIN_TIMEOUT_MS = 5;
 static constexpr time_ms_t POOL_MAX_TIMEOUT_MS = 1000;
 static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
@@ -174,9 +176,14 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
     if (fullscreen_check_interval_ms < CHECK_INTERVAL_MS) {
       fullscreen_check_interval_ms = CHECK_INTERVAL_MS;
     }
+    if (ctx.fs_detector.manager != BONGOCAT_NULLPTR) {
+      fullscreen_check_interval_ms = PROTOCOL_CHECK_INTERVAL_MS;
+    }
+    time_ms_t next_fullscreen_check_ms = fullscreen_check_interval_ms - elapsed_ms;
     if (elapsed_ms >= fullscreen_check_interval_ms) {
       details::fs_update_state_fallback(ctx);
       ctx.fs_detector.last_check = now;
+      next_fullscreen_check_ms = fullscreen_check_interval_ms;
     }
 
     const int config_reload_watcher_fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1;
@@ -196,8 +203,9 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
     };
     static_assert(fds_count == LEN_ARRAY(fds));
 
-    // compute desired timeout
-    time_ms_t timeout_ms = frame_based_timeout;
+    // compute desired timeout: everything else is event driven (signals, render, reload, wayland),
+    // only wake up for the next (fallback) fullscreen check
+    time_ms_t timeout_ms = next_fullscreen_check_ms;
     if (timeout_ms < POOL_MIN_TIMEOUT_MS) {
       timeout_ms = POOL_MIN_TIMEOUT_MS;
     }

@@ -516,6 +516,10 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
       // compact array to keep contiguous
       for (size_t j = i; j + 1 < ctx.num_toplevels; ++j) {
         ctx.tracked_toplevels[j] = ctx.tracked_toplevels[j + 1];
+        if (ctx.tracked_toplevels[j].handle != BONGOCAT_NULLPTR) {
+          zwlr_foreign_toplevel_handle_v1_set_user_data(ctx.tracked_toplevels[j].handle,
+                                                        &ctx.tracked_toplevels[j].data);
+        }
       }
       ctx.tracked_toplevels[ctx.num_toplevels - 1] = {};
       ctx.num_toplevels--;
@@ -562,7 +566,10 @@ void fs_handle_output_enter(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     return;
   }
   toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
-  assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  if (toplevel_data.ctx == BONGOCAT_NULLPTR) {
+    BONGOCAT_LOG_VERBOSE("toplevel data not ready, skipping handling");
+    return;
+  }
   wayland_context_t& ctx = *toplevel_data.ctx;
 
   atomic_store(&ctx._compositor_sends_output_events, true);
@@ -594,7 +601,10 @@ void fs_handle_output_leave(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     return;
   }
   toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
-  assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  if (toplevel_data.ctx == BONGOCAT_NULLPTR) {
+    BONGOCAT_LOG_VERBOSE("toplevel data not ready, skipping handling");
+    return;
+  }
   wayland_context_t& ctx = *toplevel_data.ctx;
 
   for (size_t i = 0; i < ctx.num_toplevels; i++) {

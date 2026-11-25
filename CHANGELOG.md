@@ -2,20 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
-### [6.2.1] - 2026-11-21
+## [6.2.1] - 2026-11-24
 
 ### Fixed
 
 - **fix silence logs**
+- fix shutdown hang up
+- optimize threads start and stop when needed
 - fix some sprite sheets
 - setgid install (experimental): the input group was dropped before the devices were opened
 
 ### Improved
 
-- optimize all dms sprite sheets
+- fewer idle CPU wake-ups
+- optimize all dm sprite sheets
 - reduce binary size
 
-### [6.2.0] - 2026-11-19
+## [6.2.0] - 2026-11-19
 
 ### Added
 
@@ -30,7 +33,7 @@ All notable changes to this project will be documented in this file.
 
 - shrink binaries
 
-### [6.1.0] - 2026-11-14
+## [6.1.0] - 2026-11-14
 
 ### Added
 
@@ -38,7 +41,7 @@ All notable changes to this project will be documented in this file.
     - react to BPM, stop in silence
     - show Happy animation at loud sounds
 
-### [6.0.0] - 2026-11-06
+## [6.0.0] - 2026-11-06
 
 ### Fixed
 
@@ -49,7 +52,7 @@ All notable changes to this project will be documented in this file.
 - smaller binaries: win 0.8 MB overall
 - RAM usage: win some MBs (in some cases -15% or 7MB)
 
-### [5.1.0] - 2026-11-04
+## [5.1.0] - 2026-11-04
 
 ### Added
 
@@ -60,15 +63,15 @@ All notable changes to this project will be documented in this file.
   - drop setgid privilege after opening devices (experimental)
 - add `--default-devices` argument - load default keyboards
 
-### [5.0.4] - 2026-10-11
+## [5.0.4] - 2026-10-11
 
-## Fixed
+### Fixed
 
 - small bug fixes
 
-### [5.0.3] - 2026-07-29
+## [5.0.3] - 2026-07-29
 
-## Fixed
+### Fixed
 
 - pull from [upstream](https://github.com/saatvik333/wayland-bongocat/releases/tag/v2.0.2) for parity
   - Fullscreen focus tracking
@@ -76,15 +79,15 @@ All notable changes to this project will be documented in this file.
   - Concurrent bongocat paw animation
 
 
-### [5.0.2] - 2026-07-05
+## [5.0.2] - 2026-07-05
 
-## Fixed
+### Fixed
 
 - fix pmd evolution animation
 
-### [5.0.1] - 2026-07-03
+## [5.0.1] - 2026-07-03
 
-## Fixed
+### Fixed
 
 - fix pkmn animation
 - fix negative offset_y
@@ -94,9 +97,9 @@ All notable changes to this project will be documented in this file.
 
 - reduce RAM usage footprint
 
-### [5.0.0] - 2026-06-23
+## [5.0.0] - 2026-06-23
 
-**BREAKING CHANGE:** renaming- and cleanup sprites. **Check your `animation_name` in config.**
+**BREAKING CHANGE:** renamed and cleaned up sprites. **Check your `animation_name` in config.**
 
 ### Added
 
@@ -115,9 +118,9 @@ All notable changes to this project will be documented in this file.
 
 - **update `animation_name`s! - clean up sprites and renaming assets**
 
-### [4.0.3] - 2026-05-21
+## [4.0.3] - 2026-05-21
 
-### Fixed 
+### Fixed
 
 - adapt from upstream
   - fractional scaling support
@@ -126,30 +129,30 @@ All notable changes to this project will be documented in this file.
 
 - config reading
 
-### [4.0.2] - 2026-04-27
+## [4.0.2] - 2026-04-27
 
 ### Improved
 
 - find_input_devices script keyboard_device vs. keyboard_name
 
-### [4.0.1] - 2026-04-27
+## [4.0.1] - 2026-04-27
 
 ### Fixed
 
 - read keyboard_names/keyboard_device in config
 
-### [4.0.0] - 2026-04-18
+## [4.0.0] - 2026-04-18
 
 - pull from upstream [2.0.0](https://github.com/saatvik333/wayland-bongocat/releases/tag/v2.0.0)
   - replace png bongocat with svg bongocat
-    -  5 animation frames including a dedicated sleeping frame
+    - 5 animation frames including a dedicated sleeping frame
   - fix KWin input and fullscreen handling
   - Generated Wayland protocol files are now committed to git. Building from source no longer requires `wayland-scanner` or `wayland-protocols`.
   - Uses wlr-layer-shell double-buffered properties instead of destroying/recreating surfaces.
 
 BREAKING CHANGE: New bongocat replacement has different height and position needs to be reconfigured!
 
-### [3.6.2] - 2026-03-30
+## [3.6.2] - 2026-03-30
 
 - pull from upstream [1.4.0](https://github.com/saatvik333/wayland-bongocat/releases/tag/v1.4.0)
   - ~~**Multi-monitor CSV**~~
@@ -157,7 +160,7 @@ BREAKING CHANGE: New bongocat replacement has different height and position need
   - adapt `--monitor` argument
   - Input hotplug robustness
 
-### [3.6.1] - 2025-12-13
+## [3.6.1] - 2025-12-13
 
 ### Improved
 
@@ -279,7 +282,7 @@ BREAKING CHANGE: New bongocat replacement has different height and position need
 - use urandom device for RNG seeding
 - fix auto-detect resolution with multi-monitor setup
 
-## [3.1.2] - 2025-09-05
+## [3.1.2] - 2025-10-05
 
 ### Fixed
 
@@ -288,17 +291,17 @@ BREAKING CHANGE: New bongocat replacement has different height and position need
 - improve config watcher
 - improve animation update poll
 
-## [3.1.1] - 2025-08-30
+## [3.1.1] - 2025-09-30
 
 ### Fixed
 
 - improve CPU usage animation
 
-## [3.1.0] - 2025-08-28
+## [3.1.0] - 2025-09-28
 
 ### Added
 
-- **CPU usage** - digimon react to CPU usage
+- **CPU usage** - Digimon react to CPU usage
 - stdin config - pipe config via `stdin` with `--config -`
 - Extend `find-devices` functionality
   - add `--by-id` option
@@ -314,7 +317,7 @@ BREAKING CHANGE: New bongocat replacement has different height and position need
 - **add pngle** - alternative image loader; less RAM usage
 
 
-## [3.0.1] - 2025-19-18
+## [3.0.1] - 2025-09-18
 
 ### Fixed
 
@@ -324,7 +327,7 @@ BREAKING CHANGE: New bongocat replacement has different height and position need
 
 ### Added
 
-- **more Sprite** - add pkmn sprites
+- **More Sprites** - add pkmn sprites
   - [menu sprites](https://archives.bulbagarden.net/wiki/Category:Animated_menu_sprites)
 
 
@@ -334,7 +337,7 @@ _include changes from upstream_
 
 ### Added
 
-- **more Sprite** - add custom colored dm sprites (optional)
+- **More Sprites** - add custom colored dm sprites (optional)
 - toggle bar visibility via signal (SIGUSR1)
 - strict mode - only start up when valid config
 
@@ -354,7 +357,7 @@ _include changes from upstream_
 
 ### Added
 
-- **more Sprite** - add more MS agents (optional)
+- **More Sprites** - add more MS agents (optional)
   - [Links](https://www.spriters-resource.com/pc_computer/microsoftofficexp/asset/104490/)
 
 ### Improved
@@ -394,7 +397,7 @@ _include changes from 1.2.5 (upstream)_
 
 ### Added
 
-- **More Sprite** - add Clippy (MS Agent)
+- **More Sprites** - add Clippy (MS Agent)
 
 ## [2.0.0] - 2025-08-22
 
@@ -407,7 +410,7 @@ _Moving towards C++_
 * use `nullptr` instead of `NULL`
 * **Memory Management** - Simple Wrapper for malloc/free calls
   * move semantics
-  * reduce manually clean up
+  * reduce manual cleanup
 * use of `enum class`
 * brace initialization
 * [add more asserts](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md?trk=public_post_comment-text#safety)
@@ -421,9 +424,9 @@ _include changes from 1.2.4 (upstream)_
 
 ### Added
 
-- **Overwrite config parameter** - Overwrite config setting with CLI Parameters
+- **Override config parameters** - Override config settings with CLI parameters
 - BREAKING CHANGE: **Multiple processes** - Processes per screen possible (pid file per screen (`output_name`))
-- **Reload Config with Signal** - Reload current config with `SIGURS2` signal
+- **Reload Config with Signal** - Reload current config with `SIGUSR2` signal
 
 ### Improved
 
@@ -441,7 +444,7 @@ _include changes from 1.2.4 (upstream)_
 
 ### Added
 
-- **More Sprite** - add Digimon sprite
+- **More Sprites** - add Digimon sprite
   - New `animation_name` option 
   - Add minimal [dm - Version 1](https://humulos.com/digimon/dm/) Digimons
 - **More buildsystem options** - add CMake
@@ -461,7 +464,7 @@ _include changes from 1.2.4 (upstream)_
 - fix config reload crashes
 - fix potential memory leaks
 - code cleanup
-- reduce globals variables, use context variables and structs
+- reduce global variables, use context variables and structs
 
 ## [1.2.5] - 2025-08-26 (upstream)
 

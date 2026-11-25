@@ -16,6 +16,7 @@ namespace bongocat::animation {
 
 struct animation_thread_context_t;
 void stop(animation_thread_context_t& ctx);
+void request_stop(animation_thread_context_t& ctx);
 // Cleanup animation resources
 void cleanup(animation_thread_context_t& ctx);
 

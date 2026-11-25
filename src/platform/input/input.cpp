@@ -416,6 +416,18 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
   };
 }
 
+// number of configured device paths that currently exist (symlinks are followed, broken symlinks don't count)
+// noinline: called inside the input thread loop (pthread_cleanup_push uses setjmp, -Wclobbered)
+[[gnu::noinline]] static size_t count_existing_device_paths(const input_context_t& input) {
+  size_t existing = 0;
+  for (size_t i = 0; i < input._device_paths.count; i++) {
+    if (input._device_paths[i] && access(input._device_paths[i].c_str(), F_OK) == 0) {
+      existing++;
+    }
+  }
+  return existing;
+}
+
 static bongocat_error_t setup_udev_monitor(input_context_t& input) {
   if (input._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(input._udev_mon);
@@ -450,21 +462,22 @@ static bongocat_error_t setup_udev_monitor(input_context_t& input) {
 }
 
 static void *input_thread(void *arg) {
+  pthread_setname_np(pthread_self(), THREAD_NAME_INPUT);
   assert(arg);
   animation::animation_context_t& animation_ctx = *static_cast<animation::animation_context_t *>(arg);
 
   // from thread context
   // animation_context_t& anim = trigger_ctx.anim;
-  // wait for input context (in animation start)
-  animation_ctx.init_cond.timedwait([&] { return atomic_load(&animation_ctx.ready); },
-                                    COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
   input_context_t& input = *animation_ctx._input;
+  // wait for input context (in animation start)
+  animation_ctx.init_cond.timedwait(
+      [&] { return atomic_load(&animation_ctx.ready) || !atomic_load(&input._capture_input_running); },
+      COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
 
   // sanity checks
   assert(input._config != BONGOCAT_NULLPTR);
   assert(input._configs_reloaded_cond != BONGOCAT_NULLPTR);
-  assert(!input._capture_input_running);
   assert(input.shm);
   assert(input._local_copy_config);
   assert(input.update_config_efd._fd >= 0);
@@ -520,6 +533,8 @@ static void *input_thread(void *arg) {
                       static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
     track_valid_devices = sync_devices_result.valid_devices;
   }
+  // configured paths that existed at the last sync (detect devices that appear later, without udev)
+  size_t track_existing_paths = count_existing_device_paths(input);
 
   // udev monitoring
   {
@@ -537,7 +552,8 @@ static void *input_thread(void *arg) {
   pthread_cleanup_push(cleanup_input_thread, arg);
 
   // local thread context
-  int check_counter = 0;  // check is done periodically
+  // device (re-)check is done periodically (fallback for hotplug), poll sleeps until then (no busy idle)
+  timestamp_ms_t next_device_check_timestamp_ms = get_current_time_ms() + adaptive_check_interval_ms;
   /// event poll
   // 0:       reload config event
   // 1:       udev monitor fd
@@ -554,12 +570,11 @@ static void *input_thread(void *arg) {
     BONGOCAT_LOG_INFO("input: Open stdin for testing (fd=%d)", tty_fd._fd);
   }
 
-  atomic_store(&input._capture_input_running, true);
+  assert(atomic_load(&input._capture_input_running));  // thread started, so it should be running
   while (atomic_load(&input._capture_input_running)) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
     // read from config
-    int timeout_ms = INPUT_POOL_TIMEOUT_MS;
     bool enable_debug = false;
     {
       // read-only config
@@ -567,79 +582,72 @@ static void *input_thread(void *arg) {
       const config::config_t& current_config = *input._local_copy_config;
 
       enable_debug = current_config.enable_debug >= 1;
-
-      if (current_config.input_fps > 0) {
-        timeout_ms = 1000 / current_config.input_fps;
-      } else if (current_config.fps > 0) {
-        timeout_ms = 1000 / current_config.fps / 3;
+    }
+    // wake up on events (input, udev, config) or for the next device check
+    int timeout_ms = 0;
+    {
+      const timestamp_ms_t now = get_current_time_ms();
+      if (next_device_check_timestamp_ms > now) {
+        const time_ms_t remaining_ms = next_device_check_timestamp_ms - now;
+        timeout_ms = remaining_ms < INT_MAX ? static_cast<int>(remaining_ms) : INT_MAX;
       }
     }
 
     // only map valid fds into pfds
+    // 0: update config eventfd
+    // 1: udev monitor
+    // 2...n-1: devices
+    // last: stdin (optional)
     constexpr size_t fds_update_config_index = 0;
     constexpr size_t fds_udev_monitor_index = 1;
-    constexpr size_t fds_device_potential_start_index = 2;
+    constexpr size_t fds_device_start_index = 2;
     pfds[fds_update_config_index] = {.fd = input.update_config_efd._fd, .events = POLLIN, .revents = 0};
     pfds[fds_udev_monitor_index] = {.fd = input._udev_fd, .events = POLLIN, .revents = 0};
 
-    static_assert(fds_device_potential_start_index < SSIZE_MAX);
-    const ssize_t fds_device_start_index =
-        input._unique_devices.count > 0 ? static_cast<ssize_t>(fds_device_potential_start_index) : -1;
-    ssize_t fds_device_end_index = input._unique_devices.count > 0 ? fds_device_start_index : -1;
-    nfds_t nfds = fds_device_potential_start_index;
-    nfds_t device_nfds = 0;
-    for (size_t i = 0; i < input._unique_devices.count && i < MAX_DEVICE_FDS; i++) {
+    nfds_t nfds = fds_device_start_index;
+    for (size_t i = 0; i < input._unique_devices.count && nfds < fds_device_start_index + MAX_DEVICE_FDS; i++) {
       if (input._unique_devices[i].fd._fd >= 0) {
-        pfds[nfds].fd = input._unique_devices[i].fd._fd;
-        pfds[nfds].events = POLLIN;
-        pfds[nfds].revents = 0;
+        pfds[nfds] = {.fd = input._unique_devices[i].fd._fd, .events = POLLIN, .revents = 0};
         nfds++;
-        device_nfds++;
       }
     }
+    // exclusive end of the device fds
+    const size_t fds_device_end_index = nfds;
+    const nfds_t device_nfds = nfds - fds_device_start_index;
     assert(device_nfds <= input._unique_devices.count);
-    assert(input._unique_devices.count <= SSIZE_MAX);
-    fds_device_end_index = (fds_device_start_index >= 0 && device_nfds > 0)
-                               ? fds_device_start_index + static_cast<ssize_t>(device_nfds)
-                               : fds_device_start_index;
+    assert(device_nfds <= MAX_DEVICE_FDS);
 
     ssize_t fds_stdin_index = -1;
     if constexpr (include_stdin) {
-      if (fds_device_end_index >= 0) {
-        fds_stdin_index = fds_device_end_index + 1;
-      } else {
-        fds_stdin_index = 1;
+      if (tty_fd._fd >= 0) {
+        nfds++;
+        assert(nfds <= SSIZE_MAX);
+        fds_stdin_index = static_cast<ssize_t>(nfds);
+        pfds[nfds] = {.fd = tty_fd._fd, .events = POLLIN, .revents = 0};
       }
     }
-    if (device_nfds == 0 && !include_stdin) {
-      BONGOCAT_LOG_WARNING("input: No Input devices ");
+    assert(nfds <= MAX_PFDS);
+
+    if (device_nfds == 0 && fds_stdin_index < 0 && input._device_paths.count == 0) {
+      BONGOCAT_LOG_WARNING("input: No Input devices configured");
       break;
-    } else if (device_nfds > MAX_DEVICE_FDS) {
-      device_nfds = MAX_DEVICE_FDS;
-      fds_stdin_index = -1;
     }
-    if (nfds > MAX_PFDS) {
-      nfds = MAX_PFDS - (include_stdin ? 2 : 1);
-    }
-    if (fds_stdin_index >= 0) {
-      pfds[fds_stdin_index] = {.fd = tty_fd._fd, .events = POLLIN, .revents = 0};
-      nfds++;
-    }
-    {
+    if (input._unique_devices.count > MAX_DEVICE_FDS) {
       // read-only config
       assert(input._local_copy_config);
       const config::config_t& current_config = *input._local_copy_config;
-      if (device_nfds > MAX_DEVICE_FDS) {
-        if (current_config._strict) {
-          BONGOCAT_LOG_ERROR("input: Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS,
-                             input._unique_devices.count);
-          break;
-        } else {
-          BONGOCAT_LOG_WARNING("input: Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS,
-                               input._unique_devices.count);
-        }
+      if (current_config._strict) {
+        BONGOCAT_LOG_ERROR("input: Max input devices fds: %d/%d", input._unique_devices.count, MAX_DEVICE_FDS);
+        break;
       }
+      BONGOCAT_LOG_WARNING("input: Max input devices fds: %d/%d", input._unique_devices.count, MAX_DEVICE_FDS);
     }
+
+    // check indices: fixed fds first, devices in between, stdin last (never overlaps udev or a device)
+    assert(pfds[fds_udev_monitor_index].fd == input._udev_fd);
+    assert(fds_device_end_index >= fds_device_start_index);
+    assert(fds_stdin_index < 0 || static_cast<size_t>(fds_stdin_index) > fds_device_end_index);
+    assert(nfds == fds_device_end_index + (fds_stdin_index >= 0 ? 1 : 0));
 
     /// @TODO: move to tests
     // check indices
@@ -654,32 +662,33 @@ static void *input_thread(void *arg) {
         assert(fds_update_config_index == 0);
         assert(fds_udev_monitor_index == 1);
         assert(fds_device_start_index >= 0);
-        assert(fds_device_end_index >= 0);
+        // assert(fds_device_end_index >= 0);
         assert(fds_stdin_index >= 0);
 
         assert(fds_update_config_index == 0);
         assert(static_cast<size_t>(fds_device_start_index) > fds_update_config_index);
         assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
         assert(fds_device_end_index >= fds_device_start_index);
-        assert(fds_stdin_index > fds_device_end_index);
+        assert(fds_stdin_index >= 0 && static_cast<size_t>(fds_stdin_index) <= SIZE_MAX &&
+               static_cast<size_t>(fds_stdin_index) > fds_device_end_index);
 
         // assert(device_nfds >= 0);
         // assert(nfds >= 0);
         assert(device_nfds <= SSIZE_MAX);
         assert(nfds <= SSIZE_MAX);
-        assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index - fds_device_start_index);
-        assert(static_cast<ssize_t>(nfds) == fds_device_end_index - fds_device_start_index + 3);
+        assert(static_cast<size_t>(device_nfds) == fds_device_end_index - fds_device_start_index);
+        assert(static_cast<size_t>(nfds) == fds_device_end_index - fds_device_start_index + 3);
       }
       // only update + devices
       if (has_devices && !has_std_in) {
         assert(fds_update_config_index == 0);
         assert(fds_udev_monitor_index == 1);
         assert(fds_device_start_index >= 0);
-        assert(fds_device_end_index >= 0);
+        // assert(fds_device_end_index >= 0);
         assert(fds_stdin_index == -1);
 
         assert(fds_update_config_index == 0);
-        assert(fds_device_end_index >= 0);
+        // assert(fds_device_end_index >= 0);
         assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
         assert(fds_device_end_index >= fds_device_start_index);
 
@@ -687,18 +696,18 @@ static void *input_thread(void *arg) {
         // assert(nfds >= 0);
         assert(device_nfds <= SSIZE_MAX);
         assert(nfds <= SSIZE_MAX);
-        assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index - fds_device_start_index);
-        assert(static_cast<ssize_t>(nfds) == fds_device_end_index - fds_device_start_index + 3);
+        assert(static_cast<size_t>(device_nfds) == fds_device_end_index - fds_device_start_index);
+        assert(static_cast<size_t>(nfds) == fds_device_end_index - fds_device_start_index + 3);
       }
       // only devices
       if (has_devices && !has_std_in) {
         assert(fds_update_config_index == 0);
         assert(fds_udev_monitor_index == 1);
         assert(fds_device_start_index >= 0);
-        assert(fds_device_end_index >= 0);
+        // assert(fds_device_end_index >= 0);
         assert(fds_stdin_index == -1);
 
-        assert(fds_device_end_index >= 0 && static_cast<size_t>(fds_device_end_index) <= SIZE_MAX);
+        assert(fds_device_end_index <= SIZE_MAX);
         assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
         assert(fds_device_end_index >= fds_device_start_index);
 
@@ -706,18 +715,18 @@ static void *input_thread(void *arg) {
         // assert(nfds >= 0);
         assert(device_nfds <= SSIZE_MAX);
         assert(nfds <= SSIZE_MAX);
-        assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index - fds_device_start_index);
-        assert(static_cast<ssize_t>(nfds) == fds_device_end_index - fds_device_start_index);
+        assert(static_cast<size_t>(device_nfds) == fds_device_end_index - fds_device_start_index);
+        assert(static_cast<size_t>(nfds) == fds_device_end_index - fds_device_start_index);
       }
       // nothing (empty)
       if (!has_devices && !has_std_in) {
         assert(fds_update_config_index == 0);
         assert(fds_udev_monitor_index == 1);
         assert(fds_device_start_index == -1);
-        assert(fds_device_end_index == -1);
+        // assert(fds_device_end_index == -1);
         assert(fds_stdin_index == -1);
 
-        assert(fds_device_end_index >= 0 && static_cast<size_t>(fds_device_end_index) <= SIZE_MAX);
+        assert(fds_device_end_index <= SIZE_MAX);
         assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
         assert(fds_device_end_index >= fds_device_start_index);
 
@@ -730,7 +739,7 @@ static void *input_thread(void *arg) {
         assert(fds_udev_monitor_index == 1);
         assert(fds_udev_monitor_index == 1);
         assert(fds_device_start_index == -1);
-        assert(fds_device_end_index == -1);
+        // assert(fds_device_end_index == -1);
         assert(fds_stdin_index == -1);
 
         assert(device_nfds == 0);
@@ -740,9 +749,9 @@ static void *input_thread(void *arg) {
       if (!has_devices && has_std_in) {
         assert(fds_update_config_index == 0);
         assert(fds_udev_monitor_index == 1);
-        assert(fds_device_start_index == -1);
-        assert(fds_device_end_index == -1);
-        assert(fds_stdin_index == 1);
+        // assert(fds_device_end_index == -1);
+        assert(fds_stdin_index > 0 &&
+               /*fds_stdin_index <= SIZE_MAX &&*/ static_cast<size_t>(fds_stdin_index) >= fds_device_end_index);
 
         assert(device_nfds == 0);
         assert(nfds == 3);
@@ -762,9 +771,7 @@ static void *input_thread(void *arg) {
     details::privilege_result_t input_privilege_result{details::privilege_result_t::Noop};
     if (poll_result == 0) {
       // @TODO: device checking with scan_interval
-      check_counter++;
-      if (timeout_ms == 0 || check_counter >= (adaptive_check_interval_ms / timeout_ms)) {
-        check_counter = 0;
+      if (get_current_time_ms() >= next_device_check_timestamp_ms) {
         bool found_new_device = false;
         for (size_t i = 0; i < input._unique_devices.count; i++) {
           const auto& device_path = input._unique_devices[i].canonical_path;
@@ -825,6 +832,29 @@ static void *input_thread(void *arg) {
           }
         }
 
+        // fallback for missed udev events (or no udev monitor): sync only when a missing configured path appeared
+        // (several paths can point to the same device, so valid devices < configured paths is normal)
+        const size_t existing_paths = count_existing_device_paths(input);
+        const bool path_appeared = existing_paths > track_existing_paths;
+        track_existing_paths = existing_paths;
+        if (path_appeared) {
+          platform::LockGuard guard(input.input_lock);
+          auto [sync_devices_result, sync_result] = sync_devices(input, {.reload_devices_needed = true});
+          if (sync_result == bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE) {
+            BONGOCAT_LOG_ERROR("input: Failed to sync devices; failed input privilege");
+            atomic_store(&input._capture_input_running, false);
+            break;
+          }
+          if (sync_result == bongocat_error_t::BONGOCAT_SUCCESS) {
+            if (sync_devices_result.valid_devices > track_valid_devices) {
+              found_new_device = true;
+              BONGOCAT_LOG_INFO("input: Device check found %d/%d input devices", sync_devices_result.valid_devices,
+                                input._device_paths.count);
+            }
+            track_valid_devices = sync_devices_result.valid_devices;
+          }
+        }
+
         if (!disable_adaptive_check_interval) {
           if (!found_new_device && adaptive_check_interval_ms < MAX_ADAPTIVE_CHECK_INTERVAL_SEC * 1000) {
             adaptive_check_interval_ms = (adaptive_check_interval_ms < MID_ADAPTIVE_CHECK_INTERVAL_SEC * 1000)
@@ -837,6 +867,7 @@ static void *input_thread(void *arg) {
             BONGOCAT_LOG_DEBUG("input: Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
           }
         }
+        next_device_check_timestamp_ms = get_current_time_ms() + adaptive_check_interval_ms;
       }
       continue;
     }
@@ -853,18 +884,13 @@ static void *input_thread(void *arg) {
       if (pfds[fds_udev_monitor_index].revents & POLLIN) {
         drain_event(pfds[fds_udev_monitor_index], MAX_ATTEMPTS);
       }
-      if (fds_device_start_index >= 0) {
-        assert(fds_device_start_index >= 0);
-        assert(fds_device_end_index >= 0);
-        for (nfds_t p = static_cast<nfds_t>(fds_device_start_index); p <= static_cast<nfds_t>(fds_device_end_index);
-             p++) {
-          // Handle ready devices
-          if (pfds[p].revents & POLLIN) {
-            input_event ev[INPUT_EVENT_BUF];
-            // discard evdev input
-            [[maybe_unused]] auto discard_result = read(pfds[p].fd, ev, sizeof(ev));
-            ((void)discard_result);
-          }
+      for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
+        // Handle ready devices
+        if (pfds[p].revents & POLLIN) {
+          input_event ev[INPUT_EVENT_BUF];
+          // discard evdev input
+          [[maybe_unused]] auto discard_result = read(pfds[p].fd, ev, sizeof(ev));
+          ((void)discard_result);
         }
       }
       if (fds_stdin_index >= 0) {
@@ -936,116 +962,108 @@ static void *input_thread(void *arg) {
       assert(input.shm);
       // auto& input_shm = *input.shm;
 
-      if (fds_device_start_index >= 0) {
-        assert(fds_device_start_index >= 0);
-        assert(fds_device_end_index >= 0);
-        for (nfds_t p = static_cast<nfds_t>(fds_device_start_index); p <= static_cast<nfds_t>(fds_device_end_index);
-             p++) {
-          // Handle ready devices
-          if (pfds[p].revents & POLLIN) {
-            input_event ev[INPUT_EVENT_BUF];
-            // handle evdev input
-            const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
-            if (rd < 0) {
-              if (errno == ENODEV) {
-                sync_devices_needed = true;
-              }
-              if (errno == EAGAIN) {
-                continue;
-              }
-              BONGOCAT_LOG_WARNING("input: Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
-              close(pfds[p].fd);
-              // pfds[p].fd is only a reference, reset also the owner (unique_fd)
-              for (size_t i = 0; i < input._unique_devices.count; i++) {
-                if (input._unique_devices[i].fd._fd == pfds[p].fd) {
-                  input._unique_devices[i].fd._fd = -1;
-                  pfds[i].fd = -1;
-                  break;
-                }
-              }
-              pfds[p].fd = -1;
+      for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
+        // Handle ready devices
+        if (pfds[p].revents & POLLIN) {
+          input_event ev[INPUT_EVENT_BUF];
+          // handle evdev input
+          const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
+          if (rd < 0) {
+            if (errno == ENODEV) {
               sync_devices_needed = true;
+            }
+            if (errno == EAGAIN) {
               continue;
             }
-            assert(rd >= 0);
-            if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
-              BONGOCAT_LOG_WARNING("input: EOF or partial read on fd=%d", pfds[p].fd);
-              close(pfds[p].fd);
-              // pfds[p].fd is only a reference, reset also the owner (unique_fd)
-              for (size_t i = 0; i < input._unique_devices.count; i++) {
-                if (input._unique_devices[i].fd._fd == pfds[p].fd) {
-                  input._unique_devices[i].fd._fd = -1;
-                  pfds[i].fd = -1;
-                  break;
-                }
-              }
-              pfds[p].fd = -1;
-              sync_devices_needed = true;
-              continue;
-            }
-
-            // keep captured keycode short-lived
-            {
-              bool key_pressed = false;
-              constexpr size_t captured_keycode_ring_buffer_size = 10;
-              int captured_keycodes[captured_keycode_ring_buffer_size] = {0};
-              size_t captured_keycode_index = 0;
-              assert(rd >= 0);
-              static_assert(sizeof(input_event) > 0);
-              const auto num_events = static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
-              BONGOCAT_LOG_VERBOSE("input: Key events: %i", num_events);
-              for (ssize_t j = 0; j < num_events; j++) {
-                if (ev[j].type == EV_KEY && ev[j].value == 1) {
-                  key_pressed = true;
-                  if (captured_keycode_index == 0 ||
-                      (captured_keycode_index > 0 && captured_keycodes[captured_keycode_index - 1] != ev[j].code)) {
-                    captured_keycodes[captured_keycode_index] = ev[j].code;  // Store for hand mapping
-                    captured_keycode_index = (captured_keycode_index + 1) % captured_keycode_ring_buffer_size;
-                  }
-                  if (enable_debug) {
-                    // BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd,
-                    // ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
-                    for (size_t i = 0; i < input._unique_devices.count; i++) {
-                      if (input._unique_devices[i].fd._fd == pfds[p].fd) {
-                        BONGOCAT_LOG_DEBUG("input: Key press from %s", input._unique_devices[i]._device_path);
-                        break;
-                      }
-                    }
-                  }
-                }
-              }
-
-              const timestamp_ms_t now = get_current_time_ms();
-              if (key_pressed) {
-                trigger_key_press(animation_ctx, captured_keycodes, captured_keycode_ring_buffer_size);
-                if (enable_debug && input.shm) {
-                  BONGOCAT_LOG_VERBOSE("input: press count: %ll", atomic_load(&input.shm->input_counter));
-                }
-              } else {
-                input.shm->any_key_pressed = 0;
-                input.shm->pending_hand_mapping = input_hand_mapping_t::None;
-                if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
-                  input.shm->kpm = 0;
-                  atomic_store(&input._input_kpm_counter, 0);
-                  input._latest_kpm_update_ms = now;
-                }
-              }
-            }
-          }
-
-          if (pfds[p].revents & (POLLERR | POLLHUP | POLLNVAL)) {
+            BONGOCAT_LOG_WARNING("input: Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
             close(pfds[p].fd);
             // pfds[p].fd is only a reference, reset also the owner (unique_fd)
             for (size_t i = 0; i < input._unique_devices.count; i++) {
               if (input._unique_devices[i].fd._fd == pfds[p].fd) {
                 input._unique_devices[i].fd._fd = -1;
-                pfds[i].fd = -1;
                 break;
               }
             }
             pfds[p].fd = -1;
             sync_devices_needed = true;
+            continue;
           }
+          assert(rd >= 0);
+          if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
+            BONGOCAT_LOG_WARNING("input: EOF or partial read on fd=%d", pfds[p].fd);
+            close(pfds[p].fd);
+            // pfds[p].fd is only a reference, reset also the owner (unique_fd)
+            for (size_t i = 0; i < input._unique_devices.count; i++) {
+              if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+                input._unique_devices[i].fd._fd = -1;
+                break;
+              }
+            }
+            pfds[p].fd = -1;
+            sync_devices_needed = true;
+            continue;
+          }
+
+          // keep captured keycode short-lived
+          {
+            bool key_pressed = false;
+            constexpr size_t captured_keycode_ring_buffer_size = 10;
+            int captured_keycodes[captured_keycode_ring_buffer_size] = {0};
+            size_t captured_keycode_index = 0;
+            assert(rd >= 0);
+            static_assert(sizeof(input_event) > 0);
+            const auto num_events = static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
+            BONGOCAT_LOG_VERBOSE("input: Key events: %i", num_events);
+            for (ssize_t j = 0; j < num_events; j++) {
+              if (ev[j].type == EV_KEY && ev[j].value == 1) {
+                key_pressed = true;
+                if (captured_keycode_index == 0 ||
+                    (captured_keycode_index > 0 && captured_keycodes[captured_keycode_index - 1] != ev[j].code)) {
+                  captured_keycodes[captured_keycode_index] = ev[j].code;  // Store for hand mapping
+                  captured_keycode_index = (captured_keycode_index + 1) % captured_keycode_ring_buffer_size;
+                }
+                if (enable_debug) {
+                  // BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd,
+                  // ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
+                  for (size_t i = 0; i < input._unique_devices.count; i++) {
+                    if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+                      BONGOCAT_LOG_DEBUG("input: Key press from %s", input._unique_devices[i]._device_path);
+                      break;
+                    }
+                  }
+                }
+              }
+            }
+
+            const timestamp_ms_t now = get_current_time_ms();
+            if (key_pressed) {
+              trigger_key_press(animation_ctx, captured_keycodes, captured_keycode_ring_buffer_size);
+              if (enable_debug && input.shm) {
+                BONGOCAT_LOG_VERBOSE("input: press count: %ll", atomic_load(&input.shm->input_counter));
+              }
+            } else {
+              input.shm->any_key_pressed = 0;
+              input.shm->pending_hand_mapping = input_hand_mapping_t::None;
+              if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
+                input.shm->kpm = 0;
+                atomic_store(&input._input_kpm_counter, 0);
+                input._latest_kpm_update_ms = now;
+              }
+            }
+          }
+        }
+
+        if (pfds[p].revents & (POLLERR | POLLHUP | POLLNVAL)) {
+          close(pfds[p].fd);
+          // pfds[p].fd is only a reference, reset also the owner (unique_fd)
+          for (size_t i = 0; i < input._unique_devices.count; i++) {
+            if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+              input._unique_devices[i].fd._fd = -1;
+              break;
+            }
+          }
+          pfds[p].fd = -1;
+          sync_devices_needed = true;
         }
       }
 
@@ -1109,6 +1127,7 @@ static void *input_thread(void *arg) {
         }
       }
       track_valid_devices = sync_devices_result.valid_devices;
+      track_existing_paths = count_existing_device_paths(input);
     }
 
     // handle update config
@@ -1121,7 +1140,10 @@ static void *input_thread(void *arg) {
 
       // wait for reload config to be done (all configs)
       const int rc = input._configs_reloaded_cond->timedwait(
-          [&] { return atomic_load(input._config_generation) >= new_gen; }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+          [&] {
+            return atomic_load(input._config_generation) >= new_gen || !atomic_load(&input._capture_input_running);
+          },
+          COND_RELOAD_CONFIGS_TIMEOUT_MS);
       if (rc == ETIMEDOUT) {
         BONGOCAT_LOG_WARNING("input: Timed out waiting for reload eventfd: %s", strerror(errno));
       }
@@ -1258,8 +1280,10 @@ bongocat_error_t start(input_context_t& input, animation::animation_context_t& a
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring thread
+  atomic_store(&input._capture_input_running, true);
   const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&input._capture_input_running, false);
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
@@ -1275,7 +1299,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
   // Stop current monitoring
   if (input._input_thread) {
     BONGOCAT_LOG_DEBUG("Input monitoring thread");
-    atomic_store(&input._capture_input_running, false);
+    request_stop(input);
     // pthread_cancel(ctx->_input_thread);
     if (stop_thread_graceful_or_cancel(input._input_thread, input._capture_input_running) != 0) {
       BONGOCAT_LOG_ERROR("Failed to join input thread: %s", strerror(errno));
@@ -1350,8 +1374,10 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring
+  atomic_store(&input._capture_input_running, true);
   const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&input._capture_input_running, false);
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
@@ -1360,8 +1386,18 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-void stop(input_context_t& ctx) {
+void request_stop(input_context_t& ctx) {
   atomic_store(&ctx._capture_input_running, false);
+  wake_eventfd(ctx.update_config_efd._fd);
+  ctx.init_cond.notify_all();
+  ctx.config_updated.notify_all();
+  if (ctx._configs_reloaded_cond != BONGOCAT_NULLPTR) {
+    ctx._configs_reloaded_cond->notify_all();
+  }
+}
+
+void stop(input_context_t& ctx) {
+  request_stop(ctx);
   if (ctx._input_thread) {
     BONGOCAT_LOG_DEBUG("Stopping input thread");
     // pthread_cancel(ctx->_input_thread);

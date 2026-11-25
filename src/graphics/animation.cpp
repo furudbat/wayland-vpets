@@ -1400,7 +1400,8 @@ anim_bongocat_key_pressed_next_frame(animation_thread_context_t& ctx, animation_
                                       current_state, current_frames);
       ctx.shm->last_wakeup_timestamp = platform::get_current_time_ms();
       new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
-    } else if (state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
+    } else if (state.row_state == animation_state_row_t::Idle || state.row_state == animation_state_row_t::Boring ||
+               conditions.is_moving) {
       // start writing
       anim_bongocat_restart_animation(ctx, input, animation_state_row_t::StartWriting, new_animation_result, new_state,
                                       current_state, current_frames);
@@ -2408,11 +2409,13 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx,
 
   /// @TODO: use state machine for animation (states)
 
-  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle)) {
+  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle ||
+                     current_state.row_state == animation_state_row_t::Boring)) {
     // show happy animation (KPM)
     anim_dm_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
                               current_frames, current_config);
-  } else if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle) {
+  } else if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle ||
+             current_state.row_state == animation_state_row_t::Boring) {
     const bool end_writing = !conditions.release_frame_after_press && conditions.is_writing;
     // in Writing mode/start writing
     if (!conditions.is_writing || conditions.is_moving) {
@@ -3431,14 +3434,16 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
     }
   }
 
-  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle)) {
+  if (show_happy && (conditions.is_writing || current_state.row_state == animation_state_row_t::Idle ||
+                     current_state.row_state == animation_state_row_t::Boring)) {
     // show happy animation (KPM)
     anim_pkmn_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
                               current_frames, current_config);
   } else
   */
 
-  if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle) {
+  if (conditions.is_writing || conditions.is_moving || current_state.row_state == animation_state_row_t::Idle ||
+      current_state.row_state == animation_state_row_t::Boring) {
     const bool end_writing = !conditions.release_frame_after_press && conditions.is_writing;
     // in Writing mode/start writing
     if (!conditions.is_writing || conditions.is_moving) {
@@ -5453,6 +5458,7 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
     // end happy animation in idle
     break;
   case animation_state_row_t::Test:
+  case animation_state_row_t::Boring:
   case animation_state_row_t::Idle:
     if (current_frames.feature_writing_happy && show_happy) {
       // show happy animation (KPM)
@@ -5532,9 +5538,6 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
     }
     break;
   case animation_state_row_t::WakeUp:
-    // process animation in anim_custom_idle_next_frame
-    break;
-  case animation_state_row_t::Boring:
     // process animation in anim_custom_idle_next_frame
     break;
   case animation_state_row_t::StartWorking:
@@ -6548,6 +6551,7 @@ static void cleanup_anim_thread(void *arg) {
 }
 
 static void *anim_thread(void *arg) {
+  pthread_setname_np(pthread_self(), platform::THREAD_NAME_ANIMATION);
   using namespace assets;
 
   assert(arg);
@@ -6716,7 +6720,6 @@ static void *anim_thread(void *arg) {
   timespec next_frame_time{};
   clock_gettime(CLOCK_MONOTONIC, &next_frame_time);
 
-  atomic_store(&trigger_ctx.thread_context._animation_running, true);
   while (atomic_load(&trigger_ctx.thread_context._animation_running)) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
@@ -6739,7 +6742,7 @@ static void *anim_thread(void *arg) {
     int any_key_press_counter = 0;
 
     bool reload_config = false;
-    uint64_t new_gen{atomic_load(trigger_ctx._config_generation)};
+    uint64_t new_gen{0};
     bool reload_animation = false;
 
     /// event poll
@@ -6776,6 +6779,7 @@ static void *anim_thread(void *arg) {
       if (fds[fds_update_config_index].revents & POLLIN) {
         BONGOCAT_LOG_DEBUG("animation: Receive update config event");
         platform::drain_event(fds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
+        new_gen = atomic_load(trigger_ctx._config_generation);
         reload_config = new_gen > 0;
       }
 
@@ -6921,9 +6925,7 @@ static void *anim_thread(void *arg) {
         ctx._state.time_until_next_frame_ms =
             static_cast<platform::time_ms_t>((sec_diff * 1000L) + ((nsec_diff + 999999LL) / 1000000LL));
 
-        if (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_frame_time, BONGOCAT_NULLPTR) != 0) {
-          // Interrupted, just continue
-        }
+        platform::sleep_until_or_wake(ctx.update_config_efd._fd, next_frame_time);
       }
 
       // Update variables from config in case FPS changed
@@ -6942,7 +6944,11 @@ static void *anim_thread(void *arg) {
 
       // wait for reload config to be done (all configs)
       const int rc = trigger_ctx._configs_reloaded_cond->timedwait(
-          [&] { return atomic_load(trigger_ctx._config_generation) >= new_gen; }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+          [&] {
+            return atomic_load(trigger_ctx._config_generation) >= new_gen ||
+                   !atomic_load(&trigger_ctx.thread_context._animation_running);
+          },
+          COND_RELOAD_CONFIGS_TIMEOUT_MS);
       if (rc == ETIMEDOUT) {
         BONGOCAT_LOG_WARNING("animation: Timed out waiting for reload eventfd: %s", strerror(errno));
       }
@@ -6957,6 +6963,7 @@ static void *anim_thread(void *arg) {
       }
       // assert(atomic_load(&trigger_ctx.anim.config_seen_generation) >= atomic_load(trigger_ctx._config_generation));
       atomic_store(&trigger_ctx.thread_context.config_seen_generation, atomic_load(trigger_ctx._config_generation));
+      trigger_ctx.thread_context.config_updated.notify_all();
       BONGOCAT_LOG_INFO("animation: Animation config reloaded (gen=%u)", new_gen);
       reload_config = false;
     }
@@ -7028,9 +7035,11 @@ bongocat_error_t start(animation_context_t& animation_ctx, platform::input::inpu
 
   BONGOCAT_LOG_INFO("Starting animation thread");
   // start animation thread
+  atomic_store(&animation_ctx.thread_context._animation_running, true);
   const int result =
       pthread_create(&animation_ctx.thread_context._anim_thread, BONGOCAT_NULLPTR, anim_thread, &animation_ctx);
   if (result != 0) {
+    atomic_store(&animation_ctx.thread_context._animation_running, false);
     BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }

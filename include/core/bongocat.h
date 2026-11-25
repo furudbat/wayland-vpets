@@ -109,6 +109,22 @@ namespace input {
 namespace platform {
   inline constexpr double ENABLED_MIN_CPU_PERCENT = 1.0;             // in percent
   inline constexpr double TRIGGER_ANIMATION_CPU_DIFF_PERCENT = 1.0;  // in percent
+
+  // thread infos
+  inline constexpr const char THREAD_NAME_ANIMATION[] = "bc-anim";
+  inline constexpr const char THREAD_NAME_AUDIO[] = "bc-audio";
+  inline constexpr const char THREAD_NAME_INPUT[] = "bc-input";
+  inline constexpr const char THREAD_NAME_UPDATE[] = "bc-update";
+  inline constexpr const char THREAD_NAME_CONFIG_WATCHER[] = "bc-watch";
+  // inline constexpr const char THREAD_NAME_WAYLAND[] = "bc-wayland";
+
+  // max. 15 chars, see /proc/PID/task/*/comm
+  static_assert(LEN_ARRAY(THREAD_NAME_ANIMATION) < 15);
+  static_assert(LEN_ARRAY(THREAD_NAME_AUDIO) < 15);
+  static_assert(LEN_ARRAY(THREAD_NAME_INPUT) < 15);
+  static_assert(LEN_ARRAY(THREAD_NAME_UPDATE) < 15);
+  static_assert(LEN_ARRAY(THREAD_NAME_CONFIG_WATCHER) < 15);
+  // static_assert(LEN_ARRAY(THREAD_NAME_WAYLAND) < 15);
 }  // namespace platform
 
 template <typename Enum>

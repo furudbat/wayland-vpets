@@ -5,47 +5,88 @@
 
 #include <cerrno>
 #include <cstring>
+#include <ctime>
+#include <poll.h>
 #include <pthread.h>
 
 namespace bongocat::platform {
 static constexpr time_ms_t THREAD_JOIN_TIMEOUT_MS = 5000;  // maximum wait for graceful exit
 static constexpr time_ms_t THREAD_SlEEP_WHEN_WAITING_FOR_THREAD_MS = 100;
-static constexpr int THREAD_SLEEP_MAX_ATTEMPTS = 2048;
+static constexpr int THREAD_JOIN_MAX_ATTEMPTS = 2048;
+static constexpr int MAX_PPOOL_WAKE_ATTEMPTS = 4096;
 
 int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms) {
   if (thread == 0) {
     return 0;
   }
 
-  timespec start{};
-  timespec now{};
-  clock_gettime(CLOCK_MONOTONIC, &start);
-
-  int attempts = 0;
-  while (attempts < THREAD_SLEEP_MAX_ATTEMPTS) {
-    const int ret = pthread_tryjoin_np(thread, BONGOCAT_NULLPTR);
-    if (ret == 0) {
-      thread = 0;
-      return 0;
-    }
-    if (ret != EBUSY) {
-      return ret;  // error other than "still running"
-    }
-
-    // Check elapsed time
-    clock_gettime(CLOCK_MONOTONIC, &now);
-    const time_ms_t elapsed_ms = ((now.tv_sec - start.tv_sec) * 1000L) + ((now.tv_nsec - start.tv_nsec) / 1000000L);
-    if (elapsed_ms >= timeout_ms) {
-      return ETIMEDOUT;
-    }
-
-    // small sleep to avoid busy waiting
-    timespec ts = {.tv_sec = 0, .tv_nsec = 1000000L * THREAD_SlEEP_WHEN_WAITING_FOR_THREAD_MS};
-    nanosleep(&ts, BONGOCAT_NULLPTR);
-    attempts++;
+  // block until the thread exits (or deadline), no polling granularity
+  timespec deadline{};
+  clock_gettime(CLOCK_REALTIME, &deadline);
+  deadline.tv_sec += timeout_ms / 1000;
+  deadline.tv_nsec += (timeout_ms % 1000) * 1000000L;
+  if (deadline.tv_nsec >= 1000000000L) {
+    deadline.tv_sec += 1;
+    deadline.tv_nsec -= 1000000000L;
   }
 
-  return EBUSY;
+  int ret = 0;
+  int attempts = 0;
+  do {
+    ret = pthread_timedjoin_np(thread, BONGOCAT_NULLPTR, &deadline);
+    attempts++;
+  } while (ret == EINTR && attempts < THREAD_JOIN_MAX_ATTEMPTS);
+  if (ret == 0) {
+    thread = 0;
+  }
+  return ret;
+}
+
+void wake_eventfd(int efd) noexcept {
+  if (efd < 0) {
+    return;
+  }
+  const uint64_t u = 1;
+  [[maybe_unused]] const ssize_t ret = write(efd, &u, sizeof(u));
+}
+
+static bool ppoll_wake_fd(int wake_fd, const struct timespec *rel_timeout) noexcept {
+  pollfd pfd = {.fd = wake_fd, .events = POLLIN, .revents = 0};
+  int attempts = 0;
+  while (attempts < MAX_PPOOL_WAKE_ATTEMPTS) {
+    const int ret = ppoll(&pfd, wake_fd >= 0 ? 1 : 0, rel_timeout, BONGOCAT_NULLPTR);
+    attempts++;
+    if (ret < 0 && errno == EINTR) {
+      // @NOTE: rel_timeout is not updated, interrupted sleep can be a bit longer
+      continue;
+    }
+    return ret != 0;
+  }
+  return false;
+}
+
+bool sleep_or_wake(int wake_fd, time_ms_t timeout_ms) noexcept {
+  if (timeout_ms <= 0) {
+    return false;
+  }
+  struct timespec ts{};
+  ts.tv_sec = timeout_ms / 1000;
+  ts.tv_nsec = (timeout_ms % 1000) * 1000000L;
+  return ppoll_wake_fd(wake_fd, &ts);
+}
+
+bool sleep_until_or_wake(int wake_fd, const struct timespec& abs_time) noexcept {
+  struct timespec now{};
+  clock_gettime(CLOCK_MONOTONIC, &now);
+  struct timespec rel = {.tv_sec = abs_time.tv_sec - now.tv_sec, .tv_nsec = abs_time.tv_nsec - now.tv_nsec};
+  if (rel.tv_nsec < 0) {
+    rel.tv_nsec += 1000000000L;
+    rel.tv_sec -= 1;
+  }
+  if (rel.tv_sec < 0) {
+    return false;
+  }
+  return ppoll_wake_fd(wake_fd, &rel);
 }
 
 int stop_thread_graceful_or_cancel(pthread_t& thread, atomic_bool& running_flag) {
