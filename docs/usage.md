@@ -14,9 +14,9 @@ Options:
                                ~/.config/bongocat/bongocat.conf, ./bongocat.conf)
   -w, --watch-config          Watch config file for changes and reload automatically
   -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)
-  -o, --output-name NAME      Specify output name (overwrite monitor from config)
+  -o, --output-name NAME      Specify output name (overrides monitor from config)
   -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)
-      --random                Enable random animation_index, at start (overwrite random from config)
+      --random                Enable random animation_index at start (overrides random from config)
       --strict                Enable strict mode, only start up with a valid config and valid parameter
       --nr NR                 Specify Nr. for PID file to avoid conflicting with running instances
       --ignore-running        Ignore current running instance
@@ -26,7 +26,7 @@ Options:
       --list-monitors         List Wayland outputs, sizes and scales
       --doctor                Check config, devices and protocols
       --list-devices-config   List input devices and keyboard settings in config format
-      --default-devices       Load every keyboard by default, when no keyboard were found in config
+      --default-devices       Load every keyboard by default, when no keyboard was found in config
 ```
 
 ### Reloading

@@ -16,11 +16,13 @@ Digital Monster X
 - Belial Vamdemon
 - Belphemon X
 - Black War Greymon X
+- Blucomon
 - Cannonbeemon
 - Cerberumon X
 - Chaosdramon X
 - Cherubimon (Vice) X
 - Cherubimon (Virtue) X
+- Chocomon
 - Cho-Hakkaimon
 - Cocomon
 - Craniummon X
@@ -73,6 +75,7 @@ Digital Monster X
 - Keramon X
 - Kiimon
 - Kokuwamon X
+- Kuramon
 - Kuwagamon X
 - Lady Devimon X
 - Leomon X
@@ -81,6 +84,7 @@ Digital Monster X
 - Lilithmon X
 - Lopmon X
 - Lord Knightmon X
+- Lucemon Falldown Mode
 - Lucemon X
 - Magnamon X
 - Mamemon X
@@ -151,6 +155,7 @@ Digital Monster X
 - Togemon X
 - Tokomon X
 - Triceramon X
+- Tsumemon
 - Tylomon X
 - Tyranomon X
 - Ulforce V-dramon X

@@ -1162,9 +1162,9 @@ static void cli_show_help(const char *program_name) {
   printf("                               ~/.config/bongocat/bongocat.conf, ./bongocat.conf)\n");
   printf("  -w, --watch-config          Watch config file for changes and reload automatically\n");
   printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
-  printf("  -o, --output-name NAME      Specify output name (overwrite monitor from config)\n");
+  printf("  -o, --output-name NAME      Specify output name (overrides monitor from config)\n");
   printf("  -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)\n");
-  printf("      --random                Enable random animation_index, at start (overwrite random from config)\n");
+  printf("      --random                Enable random animation_index at start (overrides random from config)\n");
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
   printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting with running instances\n");
   printf("      --ignore-running        Ignore current running instance\n");
@@ -1174,7 +1174,7 @@ static void cli_show_help(const char *program_name) {
   printf("      --list-monitors         List Wayland outputs, sizes and scales\n");
   printf("      --doctor                Check config, devices and protocols\n");
   printf("      --list-devices-config   List input devices and keyboard settings in config format\n");
-  printf("      --default-devices       Load every keyboard by default, when no keyboard were found in config\n");
+  printf("      --default-devices       Load every keyboard by default, when no keyboard was found in config\n");
   printf("\n");
   printf("Included sets:\n");
   // clang-format: on

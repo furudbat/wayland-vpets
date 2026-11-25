@@ -195,7 +195,7 @@ Instead of adding your user to the `input` group, give only the binary read acce
    sudo udevadm control --reload-rules
    sudo udevadm trigger --subsystem-match=input
    ```
-4. Set the group on the binary you use (e.g. installed path `/usr/bin/bongocat-all`):
+4. Set the group on the binary you use (AUR: `/usr/bin/wpets-all`, source install: `/usr/local/bin/bongocat-all`):
    ```bash
    sudo chgrp bongocat /usr/bin/wpets-all
    sudo chmod 2755 /usr/bin/wpets-all
